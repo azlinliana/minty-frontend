@@ -45,7 +45,7 @@ function SignIn() {
 
         {/* FORGOT PASSWORD CTA */}
         <div className="forgotPasswordCta">
-          Terlupa kata laluan? Klik {<Link to="">di sini.</Link>}
+          Terlupa kata laluan? Klik {<Link to="/forgotpassword">di sini.</Link>}
         </div>
       </div>
     </div>
