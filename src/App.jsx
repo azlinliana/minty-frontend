@@ -10,6 +10,7 @@ import SignIn from "./views/auth/SignIn";
 import NoPage from "./views/auth/NoPage";
 
 //IMPORT FROM LAPORAN FOLDER
+import IndexLaporan from "./views/laporan/Index";
 import SearchTf01 from "./views/laporan/jadual-tf01/Search";
 import ResultTf01 from "./views/laporan/jadual-tf01/SearchResult";
 import SearchTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/Search";
@@ -22,6 +23,9 @@ import ShowSahabat from "./views/laporan/profil-sahabat/Show";
 
 // IMPORT FROM PROFIL SAHABAT TERPERINCI FOLDER
 import ShowSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Show";
+import SearchInflowOutflow from "./views/sahabat/inflow-outflow/Search";
+import ShowInflowOutflow from "./views/sahabat/inflow-outflow/Show";
+import SearchIsiRumah from "./views/sahabat/isi-rumah/Search";
 
 function App() {
   return (
@@ -37,6 +41,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
 
           {/* lAPORAN PATH */}
+          <Route path="/laporan" element={<IndexLaporan />} />
           {/* SEARCH JADUAL TF01 */}
           <Route path="/searchtf01" element={<SearchTf01 />} />
           <Route path="/resulttf01" element={<ResultTf01 />} />
@@ -55,12 +60,23 @@ function App() {
           <Route path="/searchtf02" element={<SearchTf02 />} />
           <Route path="/resulttf02" element={<ResultTf02 />} />
 
+          {/* SAHABAT PATH */}
           {/* PROFIL SAHABAT PATH */}
           <Route path="/showsahabat" element={<ShowSahabat />} />
           <Route
             path="/showsahabatterperinci"
             element={<ShowSahabatTerperinci />}
           />
+
+          {/* INFLOW/OUTFLOW SAHABAT PATH */}
+          <Route
+            path="/searchinflow-outflow"
+            element={<SearchInflowOutflow />}
+          />
+          <Route path="/showinflow-outflow" element={<ShowInflowOutflow />} />
+
+          {/* ISI RUMAH SAHABAT PATH */}
+          <Route path="/searchisirumah" element={<SearchIsiRumah />} />
 
           {/* 404 ERROR PAGE */}
           <Route path="*" element={<NoPage />} />
