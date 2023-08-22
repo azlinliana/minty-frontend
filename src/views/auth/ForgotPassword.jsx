@@ -1,8 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function ForgotPassword() {
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   return (
     <div className="signInFormContainer">
       <div className="leftContainer">
@@ -11,10 +24,10 @@ function ForgotPassword() {
           <h2>Mengeset Semula Kata Laluan</h2>
         </div>
 
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="signInStaffId">
             <Form.Label>Emel Kakitangan</Form.Label>
-            <Form.Control required type="text" placeholder="123456" />
+            <Form.Control required type="email" placeholder="nama@aim.gov.my" />
             <Form.Control.Feedback type="invalid">
               Sila masukkan emel kakitangan anda
             </Form.Control.Feedback>

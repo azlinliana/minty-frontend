@@ -1,8 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function SignIn() {
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   return (
     <div className="signInFormContainer">
       <div className="leftContainer">
@@ -17,7 +30,7 @@ function SignIn() {
           <h2>Selamat Datang</h2>
         </div>
 
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="signInStaffId">
             <Form.Label>Id Kakitangan</Form.Label>
             <Form.Control required type="text" placeholder="123456" />
