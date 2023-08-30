@@ -1,10 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 // IMPORT FROM ACCOUNT FOLDER
 import Dashboard from "./views/account/Dashboard";
 import Profile from "./views/account/Profile";
 
 // IMPORT FROM AUTH FOLDER
+import "./assets/Fonts.css";
+import "./App.css";
+
 import ForgotPassword from "./views/auth/ForgotPassword";
 import SignIn from "./views/auth/SignIn";
 import NoPage from "./views/auth/NoPage";
@@ -12,6 +16,7 @@ import NoPage from "./views/auth/NoPage";
 //IMPORT FROM LAPORAN FOLDER
 import SearchTf01 from "./views/laporan/jadual-tf01/Search";
 import ResultTf01 from "./views/laporan/jadual-tf01/SearchResult";
+
 import SearchTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/Search";
 import ResultTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/SearchResult";
 import SearchTf02 from "./views/laporan/jadual-tf02/Search";

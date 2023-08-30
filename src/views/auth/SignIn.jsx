@@ -1,7 +1,20 @@
-import { useState } from "react";
+import React from "react";
+import styled from "styled-components";
+
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import "./SignIn.css";
+
+const PageContainer = styled.div`
+  background-color: #134074;
+  width: 100%;
+  min-height: 100vh;
+`;
 
 function SignIn() {
   const [validated, setValidated] = useState(false);
@@ -17,51 +30,59 @@ function SignIn() {
   };
 
   return (
-    <div className="signInFormContainer">
-      <div className="leftContainer">
-        {/* SIGN IN FORM HEADER */}
-        <img src="" alt="aim-logo" />
-        <h1>Program Berikhtiar Mencari Rezeki</h1>
-      </div>
+    <PageContainer>
+      <Container fluid="md" className="container">
+        <Row className="signInContainer">
+          <Col md={12} lg={6} className="signInHeader formHeader">
+            {/* SIGN IN FORM HEADER */}
+            <img src="" alt="aim-logo" />
+            <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
+          </Col>
 
-      <div className="rightContainer">
-        <div className="card">
-          <h3>PBMR</h3>
-          <h2>Selamat Datang</h2>
-        </div>
+          {/* SIGN IN FORM CONTENT */}
+          <Col md={12} lg={6} className="formContent">
+            {/* FORM CONTENT HEADER */}
+            <div className="formContentHeader">
+              <h3>PBMR</h3>
+              <h2>Selamat Datang</h2>
+            </div>
 
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="signInStaffId">
-            <Form.Label>Id Kakitangan</Form.Label>
-            <Form.Control required type="text" placeholder="123456" />
-            <Form.Control.Feedback type="invalid">
-              Sila masukkan Id kakitangan anda
-            </Form.Control.Feedback>
-          </Form.Group>
+            {/* FORM CONTENT */}
+            <Form>
+              <Form.Group className="mb-3" controlId="staffId">
+                <Form.Label className="formLabel">Id Kakitangan</Form.Label>
+                <Form.Control required type="text" placeholder="123456" />
+                <Form.Control.Feedback type="invalid">
+                  Sila masukkan Id kakitangan anda
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="signInStaffPassword">
-            <Form.Label>Kata Laluan</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-            />
-            <Form.Control.Feedback type="invalid">
-              Sila masukkan kata laluan anda
-            </Form.Control.Feedback>
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="signInStaffPassword">
+                <Form.Label className="formLabel">Kata Laluan</Form.Label>
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Sila masukkan kata laluan anda
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Log Masuk
-          </Button>
-        </Form>
+              <Button className="submitButton" variant="primary" type="submit">
+                Log Masuk
+              </Button>
+            </Form>
 
-        {/* FORGOT PASSWORD CTA */}
-        <div className="forgotPasswordCta">
-          Terlupa kata laluan? Klik {<Link to="/forgotpassword">di sini.</Link>}
-        </div>
-      </div>
-    </div>
+            <div className="callToAction">
+              {/* FORGOT PASSWORD CTA */}
+              Terlupa kata laluan? Klik{" "}
+              {<Link to="/forgotpassword">di sini.</Link>}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </PageContainer>
   );
 }
 
