@@ -1,3 +1,4 @@
+import { useState } from "react";
 import React from "react";
 import styled from "styled-components";
 
@@ -8,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import "./SignIn.css";
+import "./Auth.css";
 
 const PageContainer = styled.div`
   background-color: #134074;
