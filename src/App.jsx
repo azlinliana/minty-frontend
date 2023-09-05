@@ -1,84 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// IMPORT FROM ACCOUNT FOLDER
-import Dashboard from "./views/account/Dashboard";
-import Profile from "./views/account/Profile";
+import MainLayout from "./views/layouts/MainLayout"
 
-// IMPORT FROM AUTH FOLDER
-import ForgotPassword from "./views/auth/ForgotPassword";
-import SignIn from "./views/auth/SignIn";
-import NoPage from "./views/auth/NoPage";
+// SAHABAT
+import IndexSahabat from "./views/sahabat/Index";
 
-//IMPORT FROM LAPORAN FOLDER
+// LAPORAN
 import IndexLaporan from "./views/laporan/Index";
-import SearchTf01 from "./views/laporan/jadual-tf01/Search";
-import ResultTf01 from "./views/laporan/jadual-tf01/SearchResult";
-import SearchTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/Search";
-import ResultTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/SearchResult";
-import SearchTf02 from "./views/laporan/jadual-tf02/Search";
-import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
 
-// IMPORT FROM PROFIL SAHABAT FOLDER
-import ShowSahabat from "./views/laporan/profil-sahabat/Show";
-
-// IMPORT FROM PROFIL SAHABAT TERPERINCI FOLDER
-import ShowSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Show";
-import SearchInflowOutflow from "./views/sahabat/inflow-outflow/Search";
-import ShowInflowOutflow from "./views/sahabat/inflow-outflow/Show";
-import SearchIsiRumah from "./views/sahabat/isi-rumah/Search";
+// SELENGGARA
+import IndexSelenggara from "./views/selenggara/Index";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {/* AUTH PATH */}
-          <Route index element={<SignIn />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-
-          {/* ACCOUNT PATH */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-
-          {/* lAPORAN PATH */}
-          <Route path="/laporan" element={<IndexLaporan />} />
-          {/* SEARCH JADUAL TF01 */}
-          <Route path="/searchtf01" element={<SearchTf01 />} />
-          <Route path="/resulttf01" element={<ResultTf01 />} />
-
-          {/* SEARCH JADUAL TF01 BY CAWANGAN PATH */}
-          <Route
-            path="/searchtf01cawangan"
-            element={<SearchTf01ByCawangan />}
-          />
-          <Route
-            path="/resulttf01cawangan"
-            element={<ResultTf01ByCawangan />}
-          />
-
-          {/* SEARCH JADUAL BY TF02 PATH */}
-          <Route path="/searchtf02" element={<SearchTf02 />} />
-          <Route path="/resulttf02" element={<ResultTf02 />} />
-
-          {/* SAHABAT PATH */}
-          {/* PROFIL SAHABAT PATH */}
-          <Route path="/showsahabat" element={<ShowSahabat />} />
-          <Route
-            path="/showsahabatterperinci"
-            element={<ShowSahabatTerperinci />}
-          />
-
-          {/* INFLOW/OUTFLOW SAHABAT PATH */}
-          <Route
-            path="/searchinflow-outflow"
-            element={<SearchInflowOutflow />}
-          />
-          <Route path="/showinflow-outflow" element={<ShowInflowOutflow />} />
-
-          {/* ISI RUMAH SAHABAT PATH */}
-          <Route path="/searchisirumah" element={<SearchIsiRumah />} />
-
-          {/* 404 ERROR PAGE */}
+          <Route path="/" element={<MainLayout />}>
+            <Route path="inflow-outflow" element={<IndexSahabat />} />
+            <Route path="laporan" element={<IndexLaporan />} />
+            <Route path="selenggara" element={<IndexSelenggara />} />
+          </Route>
+          
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>

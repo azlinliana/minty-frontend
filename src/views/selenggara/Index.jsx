@@ -1,16 +1,10 @@
-import SearchTf01 from "./jadual-tf01/Search";
-import ResultTf01 from "./jadual-tf01/SearchResult";
-import SearchTf01ByCawangan from "./jadual-tf01-cawangan/Search";
-import ResultTf01ByCawangan from "./jadual-tf01-cawangan/SearchResult";
-import SearchTf02 from "./jadual-tf02/Search";
-import ResultTf02 from "./jadual-tf02/SearchResult";
-
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-function IndexLaporan() {
-  return(
+
+function IndexSelenggara() {
+  return (
     <>
-      <h1>Senarai Laporan</h1>
+      <h1>Senarai Selenggara</h1>
       <div>
         <Table responsive>
           <thead>
@@ -23,27 +17,22 @@ function IndexLaporan() {
           <tbody>
             <tr>
               <td>1</td>
-              <td>Laporan Profil Sahabat</td>
+              <td>Kod Inflow/Kod Outflow</td>
               <td><Button variant="primary">Lihat</Button>{' '}</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Laporan Profil Sahabat Terperinci</td>
+              <td>Dimensi</td>
               <td><Button variant="primary">Lihat</Button>{' '}</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Jadual TF01</td>
+              <td>Hubungan</td>
               <td><Button variant="primary">Lihat</Button>{' '}</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Jadual TF01 Mengikut Cawangan</td>
-              <td><Button variant="primary">Lihat</Button>{' '}</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Jadual TF02</td>
+              <td>Pinjaman Aktiviti</td>
               <td><Button variant="primary">Lihat</Button>{' '}</td>
             </tr>
           </tbody>
@@ -53,4 +42,4 @@ function IndexLaporan() {
   )
 }
 
-export default IndexLaporan;
+export default IndexSelenggara
