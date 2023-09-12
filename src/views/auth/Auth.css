@@ -65,16 +65,16 @@
 /* *********************** */
 /* BUTTONS */
 /* *********************** */
-.btn {
+.submitButton {
   width: 100%;
   font-size: 1.15em;
   font-weight: 700;
-  color: var(--darkcyanblue);
-  background-color: var(--white);
+  color: var(--white);
+  background-color: var(--darkcyanblue);
 }
 
-.btn:hover {
-  background-color: var(--darkcyanblue);
+.submitButton:hover {
+  background-color: var(--white);
 }
 
 /* *********************** */
@@ -113,7 +113,7 @@
   text-align: right;
 }
 
-.callToAction {
+.callToAction p {
   margin-top: 12px;
   color: var(--white);
   text-align: center;
