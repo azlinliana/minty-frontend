@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import MainLayout from "./views/layouts/MainLayout"
 import NoPage from "./views/auth/NoPage"
 
+// AUTH
+import SignIn from "./views/auth/SignIn"
+
 // SAHABAT
 import SearchSahabat from "./views/sahabat/Search"
 import ResultSahabat from "./views/sahabat/SearchResult"
@@ -30,7 +33,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          {/* AUTH PATH */}
+          <Route path="/" element={<SignIn />} index />
+
+          <Route element={<MainLayout />}>            
             {/* SAHABAT PATH */}
             <Route path="inflow-outflow" element={<SearchSahabat />} />
             <Route path="result-sahabat" element={<ResultSahabat />} />
