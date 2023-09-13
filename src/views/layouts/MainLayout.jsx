@@ -1,5 +1,9 @@
+import './MainLayout.css'
+
 import Sidebar from "../components/sidebar/Sidebar"
 import FirstNavbar from "../components/navbar/FirstNavbar"
+import SecondNavbar from "../components/navbar/SecondNavbar"
+
 import { Outlet } from 'react-router-dom'
 
 function MainLayout() {
@@ -8,10 +12,14 @@ function MainLayout() {
       <div>
         <FirstNavbar />
 
-        <Sidebar />
+        <div className="main">
+          <Sidebar />
 
-        <div className="content">
-          <Outlet />
+          <div className="content">
+            <SecondNavbar />
+            
+            <Outlet />
+          </div>
         </div>
       </div>
     </>
