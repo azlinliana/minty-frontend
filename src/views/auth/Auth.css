@@ -53,7 +53,6 @@
 /* FORM COMPONENT */
 /* *********************** */
 .formContent {
-  margin: 10px auto;
   color: var(--white);
   background-color: rgba(255, 255, 255, 0.25);
 }
