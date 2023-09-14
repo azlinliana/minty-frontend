@@ -1,0 +1,120 @@
+/* *********************** */
+/* RESETS */
+/* *********************** */
+/* RESPONSIVE SCREEN SIZE */
+/* Styles for screens up to 820px (tablets and smaller) */
+@media (max-width: 820px) {
+    body {
+      width: 100%;
+    }
+  
+    .formHeader h1 {
+      text-align: center;
+      font-size: 24px; /* Further decrease font size for small screens */
+    }
+  
+    .formHeader img {
+      display: block;
+      margin: 0 auto 30px;
+      width: 50%;
+    }
+  
+    .formContent {
+      font-size: 14px; /* Further increase font size for small screens */
+      width: 85%;
+      padding: 20px 20px;
+    }
+
+    .rowReverse {
+      flex-direction: column-reverse;
+    }
+  }
+
+  /* Styles for screens up to 1280px (wide screen laptops) */
+  @media (max-width: 1280px) {
+    .formContent {
+      font-size: 12px; /* Further decrease font size for small screens */
+      padding: 20px 20px;
+    }
+  }
+
+  /* ANCHOR LINK FOR SIGN IN PAGE */
+  a {
+    font-weight: 500;
+    color: var(--white);
+    text-decoration:underline;
+  }
+  a:hover {
+    color: var(--darkcyanblue);
+  }
+
+
+/* *********************** */
+/* FORM COMPONENT */
+/* *********************** */
+.formContent {
+  margin: 10px auto;
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.formLabel {
+  color: var(--white);
+}
+
+/* *********************** */
+/* BUTTONS */
+/* *********************** */
+.submitButton {
+  width: 100%;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--darkcyanblue);
+}
+
+.submitButton:hover {
+  background-color: var(--white);
+}
+
+/* *********************** */
+/* CLASSES */
+/* *********************** */
+.PageContainer {
+  max-width: 1280px;
+  padding: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: 130vh;
+  padding: 10px;
+}
+
+.formHeader {
+  color: var(--white);
+  font-size: 4rem;
+}
+
+.formContentHeader {
+  color: var(--white);
+  text-align: center;
+}
+
+.signInHeader {
+  text-align: left;
+}
+
+.forgotPasswordHeader {
+  text-align: right;
+}
+
+.callToAction p {
+  margin-top: 12px;
+  color: var(--white);
+  text-align: center;
+}
