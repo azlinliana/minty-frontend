@@ -1,6 +1,8 @@
 import React from "react";
 import "./Auth.css";
 import styled from "styled-components";
+import backgroundImage from "../../assets/background-img.jpg";
+import aimLogo from "../../assets/aim-logo.svg";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,7 +18,7 @@ import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 
 // BACKGROUND STYLING FOR THIS PAGE ROUTE
 const PageContainer = styled.div`
-  background-image: url("https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80");
+  background-image: url(${backgroundImage});
   background-size: cover;
   background-position: center center;
   width: 100%;
@@ -65,7 +67,7 @@ function SignIn() {
         <Row className="signInContainer">
           <Col md={12} lg={6} className="signInHeader formHeader">
             {/* SIGN IN FORM HEADER */}
-            <img src="" alt="aim-logo" />
+            <img src={aimLogo} alt="aim-logo" />
             <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
           </Col>
 
