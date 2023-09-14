@@ -15,11 +15,11 @@ function SearchSahabat() {
       <Form>
         <Form.Control
           type="text"
-          placeholder="Search..."
+          placeholder="Carian No. Kad Pengenalan Sahabat"
           className="mr-sm-2"
         />
         <Button variant="primary" onClick={clickCariKadPengenalan}>
-          Search
+          Cari
         </Button>
       </Form>
     </>

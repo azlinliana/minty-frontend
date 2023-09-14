@@ -83,7 +83,7 @@ function IndexLaporan() {
                   modalFooter={
                     <>
                       <Button variant="secondary" onClick={closeModal1}>Batal</Button>
-                      <Button variant="primary" type="submit" onClick={clickCarianLaporanProfilSahabat}>Tambah</Button>
+                      <Button variant="primary" type="submit" onClick={clickCarianLaporanProfilSahabat}>Cari</Button>
                     </>
                   }
                   isModalOpen={isModal1Open}
@@ -118,7 +118,7 @@ function IndexLaporan() {
                   modalFooter={
                     <>
                       <Button variant="secondary" onClick={closeModal2}>Batal</Button>
-                      <Button variant="primary" type="submit" onClick={clickCarianLaporanProfilSahabatTerperinci}>Tambah</Button>
+                      <Button variant="primary" type="submit" onClick={clickCarianLaporanProfilSahabatTerperinci}>Cari</Button>
                     </>
                   }
                   isModalOpen={isModal2Open}
