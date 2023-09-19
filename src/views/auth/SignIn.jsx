@@ -1,7 +1,7 @@
 import React from "react";
 import "./Auth.css";
 import styled from "styled-components";
-import backgroundImage from "../../assets/background-img.jpg";
+import backgroundImage from "../../assets/background-img.png";
 import aimLogo from "../../assets/aim-logo.svg";
 
 import { useState } from "react";
