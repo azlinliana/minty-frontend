@@ -1,13 +1,18 @@
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import React from 'react'
+import { useLocation } from 'react-router-dom';
+
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function ResultSahabat() {
+  // Displaying sahabat search result
+  const location = useLocation();
+  const results = location.state.results || [];
+
   return(
     <>
       <div>
@@ -17,78 +22,83 @@ function ResultSahabat() {
           <Breadcrumb.Item href="#">Inflow/Outflow</Breadcrumb.Item>
           <Breadcrumb.Item active>Maklumat Inflow/Outflow Sahabat</Breadcrumb.Item>
         </Breadcrumb>
-
-        <p>Hasil Carian: 660828125772</p>
       </div>
 
-      <div>
-        <h2>Maklumat Sahabat</h2>
+      {results.map((data) => (
+        <div key={data.id}>
+          <>
+            <p>Hasil Carian: {data.noKadPengenalan}</p>
+          
+            <h2>Maklumat Sahabat</h2>
 
-        <Container>
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>Nama</Form.Label>
-                <Form.Control type="text" value="Rusiah binti Reduansa" />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Nama</Form.Label>
+                    <Form.Control type="text" defaultValue={data.nama} />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>No. Kad Pengenalan</Form.Label>
-                <Form.Control type="text" value="660828125772" />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>No. Kad Pengenalan</Form.Label>
+                    <Form.Control type="text" defaultValue={data.noKadPengenalan} />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>No. Sahabat</Form.Label>
-                <Form.Control type="text" value="15601998" />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>No. Sahabat</Form.Label>
+                    <Form.Control type="text" defaultValue={data.noSahabat} />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>Wilayah</Form.Label>
-                <Form.Control type="text" value="Sabah" />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Wilayah</Form.Label>
+                    <Form.Control type="text" defaultValue="" />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>Cawangan</Form.Label>
-                <Form.Control type="text" value="Sabah" />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Cawangan</Form.Label>
+                    <Form.Control type="text" defaultValue="" />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>Pusat</Form.Label>
-                <Form.Control type="text" value="An-Nur 2" />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Pusat</Form.Label>
+                    <Form.Control type="text" defaultValue="" />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row>
-            <Col xs={12}>
-              <Form.Group>
-                <Form.Label>Kumpulan</Form.Label>
-                <Form.Control type="text" value="Nur Jannah" />
-              </Form.Group>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Kumpulan</Form.Label>
+                    <Form.Control type="text" defaultValue="" />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Container>
+          </>
+        </div>
+      ))}
+
 
       <div>
         <h2>Maklumat Tracking Sahabat</h2>
@@ -155,7 +165,7 @@ function ResultSahabat() {
         </Table>
       </div>
     </>
-  )
+  );
 }
 
 export default ResultSahabat
