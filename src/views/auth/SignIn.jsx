@@ -64,7 +64,7 @@ function SignIn() {
   return (
     <PageContainer>
       <Container fluid="md" className="signInContainer">
-        <Row className="signInContainer">
+        <Row>
           <Col md={12} lg={6} className="signInHeader formHeader">
             {/* SIGN IN FORM HEADER */}
             <img src={aimLogo} alt="aim-logo" />
@@ -129,7 +129,11 @@ function SignIn() {
             <div className="callToAction">
               <p>
                 Terlupa kata laluan?{" "}
-                <Link to="#" onClick={handleShowModal1}>
+                <Link
+                  to="#"
+                  className="forgotPasswordLink"
+                  onClick={handleShowModal1}
+                >
                   Klik di sini.
                 </Link>
               </p>
