@@ -45,6 +45,15 @@
     color: var(--darkcyanblue);
   }
 
+/* *********************** */
+/* VARIABLES */
+/* *********************** */
+  #root {
+      /* BG IMAGE FILL THE ENTIRE VIEWPORT */
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+  }
 
 /* *********************** */
 /* FORM COMPONENT */
@@ -81,7 +90,7 @@
   padding: 2rem;
 }
 
-.container {
+.signInContainer {
   display: flex;
   flex-direction: column;
   align-items: center;

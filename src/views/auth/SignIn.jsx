@@ -63,7 +63,7 @@ function SignIn() {
 
   return (
     <PageContainer>
-      <Container fluid="md" className="container">
+      <Container fluid="md" className="signInContainer">
         <Row className="signInContainer">
           <Col md={12} lg={6} className="signInHeader formHeader">
             {/* SIGN IN FORM HEADER */}
