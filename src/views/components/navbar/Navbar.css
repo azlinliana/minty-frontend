@@ -1,3 +1,8 @@
+.container {
+  /* Ensure the navbar brand item is aligned to the left  */
+  margin-left: 0;
+}
+
 .navbar-primary{
   background-color: white;
 }
