@@ -1,23 +1,9 @@
-import Form from 'react-bootstrap/Form';
-
-function createKodOutflow() {
+function CreateKodOutflow() {
   return(
     <>
-      <div>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Kod Outflow</Form.Label>
-            <Form.Control type="text" placeholder="Masukkan kod outflow" autoFocus />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Keterangan</Form.Label>
-            <Form.Control as="textarea" rows={3} />
-          </Form.Group>
-        </Form>
-      </div>
+      Create Kod Outflow
     </>
   )
 }
 
-export default createKodOutflow
+export default CreateKodOutflow;

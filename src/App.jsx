@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import "./App.css";
 
 import MainLayout from "./views/layouts/MainLayout";
@@ -29,8 +28,8 @@ import IndexSelenggara from "./views/selenggara/Index";
 import IndexKodInflowOutflow from "./views/selenggara/kod-inflow-outflow/Index";
 import IndexKodInflow from "./views/selenggara/kod-inflow-outflow/kod-inflow/Index";
 import IndexKodOutflow from "./views/selenggara/kod-inflow-outflow/kod-outflow/Index";
-import Dimensi from "./views/selenggara/Dimensi";
-import Hubungan from "./views/selenggara/Hubungan";
+import IndexDimensi from "./views/selenggara/dimensi/Index";
+import IndexHubungan from "./views/selenggara/hubungan/Index";
 import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
 
 function App() {
@@ -63,8 +62,8 @@ function App() {
             <Route path="kod-inflow-outflow" element={<IndexKodInflowOutflow />} />
             <Route path="kod-inflow" element={<IndexKodInflow />} />
             <Route path="kod-outflow" element={<IndexKodOutflow />} />
-            <Route path="dimensi" element={<Dimensi />} />
-            <Route path="hubungan" element={<Hubungan />} />
+            <Route path="dimensi" element={<IndexDimensi />} />
+            <Route path="hubungan" element={<IndexHubungan />} />
             <Route path="pinjaman-aktiviti" element={<PinjamanAktiviti />} />
           </Route>
 
