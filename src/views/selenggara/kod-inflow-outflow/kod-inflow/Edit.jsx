@@ -1,61 +1,52 @@
 import { useState } from 'react';
-
 import axios from 'axios';
-
 import SelenggaraModal from '../../../components/modal/SelenggaraModal';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function CreateKodInflow({ fetchKodInflows }) {
-  // Create kod inflow
-  const[kodInflowInput, setKodInflowInput] = useState({
-    kodInflow: '',
-    keterangan: '',
-  });
+function EditKodInflow({ kodInflow, updateKodInflow }) {
+  const [editedKodInflow, setEditedKodInflow] = useState(kodInflow);
+  const [isModalEditKodInflowOpen, setIsModalEditKodInflowOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setKodInflowInput({
-      ...kodInflowInput,
+    setEditedKodInflow({
+      ...editedKodInflow,
       [name]: value,
     });
   };
 
-  const createKodInflow = async () => {
+  const openModalEditKodInflow = () => {
+    setIsModalEditKodInflowOpen(true);
+  };
+
+  const closeModalEditKodInflow = () => {
+    setIsModalEditKodInflowOpen(false);
+  };
+
+  const handleUpdateKodInflow = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/kod-inflow', kodInflowInput);
+      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/kod-inflow/${kodInflow.id}`, editedKodInflow);
 
       if (response.status === 200) {
-        console.log('Kod Inflow created successfully');
+        updateKodInflow(editedKodInflow);
+
+        console.log('Kod Inflow updated successfully');
+
+        closeModalEditKodInflow(); // Close the modal after successful update
       }
-
-      closeModalCreateKodInflow();
-
-      fetchKodInflows();
     } 
     catch (error) {
-      console.error('Error in creating kod inflow', error);
+      console.error('Error in updating kod inflow', error);
     }
   };
 
-  // Modal
-  const [isModalCreateKodInflow, setIsModalCreateKodInflow] = useState(false);
-
-  const openModalCreateKodInflow = () => {
-    setIsModalCreateKodInflow(true);
-  };
-
-  const closeModalCreateKodInflow = () => {
-    setIsModalCreateKodInflow(false);
-  };
-
-  return(
+  return (
     <>
-      <Button variant="primary" onClick={openModalCreateKodInflow}>Tambah</Button>{' '}
+      <Button variant="warning" onClick={openModalEditKodInflow}>Kemas Kini</Button>{' '}
 
       <SelenggaraModal
-        modalTitle="Tambah Kod Inflow"
+        modalTitle="Kemas Kini Kod Inflow"
         modalContent={
           <Form>
             <Form.Group className="mb-3">
@@ -64,7 +55,7 @@ function CreateKodInflow({ fetchKodInflows }) {
                 type="text"
                 id="kod-inflow"
                 name="kodInflow"
-                value={kodInflowInput.kodInflow}
+                value={editedKodInflow.kodInflow}
                 onChange={handleInputChange}
                 placeholder="Masukkan kod inflow"
                 autoFocus
@@ -77,7 +68,7 @@ function CreateKodInflow({ fetchKodInflows }) {
                 as="textarea"
                 id="keterangan"
                 name="keterangan"
-                value={kodInflowInput.keterangan}
+                value={editedKodInflow.keterangan}
                 onChange={handleInputChange}
                 rows={3}
                 placeholder="Masukkan keterangan kod inflow"
@@ -87,16 +78,15 @@ function CreateKodInflow({ fetchKodInflows }) {
         }
         modalFooter={
           <>
-            <Button variant="secondary" onClick={closeModalCreateKodInflow}>Batal</Button>
-
-            <Button variant="primary" onClick={createKodInflow}>Tambah</Button>
+            <Button variant="secondary" onClick={closeModalEditKodInflow}>Batal</Button>
+            <Button variant="primary" onClick={handleUpdateKodInflow}>Kemas Kini</Button>
           </>
         }
-        isModalOpen={isModalCreateKodInflow}
-        closeModal={closeModalCreateKodInflow}
+        isModalOpen={isModalEditKodInflowOpen}
+        closeModal={closeModalEditKodInflow}
       />
     </>
-  )
+  );
 }
 
-export default CreateKodInflow;
+export default EditKodInflow;

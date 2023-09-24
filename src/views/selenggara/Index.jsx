@@ -5,14 +5,21 @@ import Button from 'react-bootstrap/Button';
 function IndexSelenggara() {
   // Link pages
   const navigate = useNavigate();
+  
   const clickLihatKodInflowOutflow = () => navigate('/kod-inflow-outflow');
   const clickLihatDimensi = () => navigate('/dimensi');
   const clickLihatHubungan = () => navigate('/hubungan');
   const clickLihatPinjamanAktiviti = () => navigate('/pinjaman-aktiviti');
 
+  // Back button
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <h1>Senarai Selenggara</h1>
+
       <div>
         <Table responsive>
           <thead>
@@ -38,13 +45,15 @@ function IndexSelenggara() {
               <td>Hubungan</td>
               <td><Button variant="primary" onClick={clickLihatHubungan}>Lihat</Button>{' '}</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>4</td>
               <td>Pinjaman Aktiviti</td>
               <td><Button variant="primary" onClick={clickLihatPinjamanAktiviti}>Lihat</Button>{' '}</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
+
+        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
       </div>
     </>
   )

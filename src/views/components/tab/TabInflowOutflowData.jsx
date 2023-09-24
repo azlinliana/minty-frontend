@@ -1,16 +1,16 @@
-import KodInflow from '../../selenggara/kod-inflow-outflow/kod-inflow/Index'
-import KodOutflow from '../../selenggara/kod-inflow-outflow/kod-outflow/Index'
+import IndexKodInflow from '../../selenggara/kod-inflow-outflow/kod-inflow/Index';
+import IndexKodOutflow from '../../selenggara/kod-inflow-outflow/kod-outflow/Index';
 
 const TabInflowOutflowData = [
   {
     eventKey: 'kod-inflow',
     title: 'Kod Inflow',
-    content: <KodInflow />,
+    content: <IndexKodInflow />,
   },
   {
     eventKey: 'kod-outflow',
     title: 'Kod Outflow',
-    content: <KodOutflow />,
+    content: <IndexKodOutflow />,
   },
 ];
 
