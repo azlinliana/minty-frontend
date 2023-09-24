@@ -24,7 +24,7 @@ function ResultSahabat() {
 
   // Link pages
   const navigate = useNavigate()
-  const clickKemasKini = () => navigate('/tracking-inflow-outflow')
+  const clickKemasKini = () => navigate('/tracking-inflow-outflow', { state: {results}});
 
   return(
     <>
@@ -111,7 +111,6 @@ function ResultSahabat() {
           </>
         </div>
       ))}
-
 
       <div>
         <h2>Maklumat Tracking Sahabat</h2>

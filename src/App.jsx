@@ -11,7 +11,7 @@ import NoPage from "./views/auth/NoPage";
 // IMPORT FROM SAHABAT FOLDER
 import SearchSahabat from "./views/sahabat/Search";
 import ResultSahabat from "./views/sahabat/SearchResult";
-import TrackingInflowOutflow from "./views/sahabat/Tracking";
+import Tracking from "./views/sahabat/Tracking";
 
 // IMPORT FROM LAPORAN FOLDER
 import IndexLaporan from "./views/laporan/Index";
@@ -45,7 +45,7 @@ function App() {
             {/* SAHABAT PATH */}
             <Route path="inflow-outflow" element={<SearchSahabat />} />
             <Route path="result-sahabat" element={<ResultSahabat />} />
-            <Route path="tracking-inflow-outflow" element={<TrackingInflowOutflow />} />
+            <Route path="tracking-inflow-outflow" element={<Tracking />} />
 
             {/* LAPORAN PATH */}
             <Route path="laporan" element={<IndexLaporan />} />
