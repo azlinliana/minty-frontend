@@ -1,4 +1,6 @@
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Table from 'react-bootstrap/Table';
@@ -7,11 +9,22 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Alert from 'react-bootstrap/Alert';
 
 function ResultSahabat() {
   // Displaying sahabat search result
   const location = useLocation();
   const results = location.state.results || [];
+
+  // Modal Create Minggu
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // Link pages
+  const navigate = useNavigate()
+  const clickKemasKini = () => navigate('/tracking-inflow-outflow', { state: {results}});
 
   return(
     <>
@@ -99,16 +112,37 @@ function ResultSahabat() {
         </div>
       ))}
 
-
       <div>
         <h2>Maklumat Tracking Sahabat</h2>
 
-        <Button variant="primary">Tambah Minggu</Button>{' '}
+        {/* Modal start */}
+        <Button variant="primary" onClick={handleShow}>Tambah Minggu</Button>{' '}
+
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+          <Modal.Header closeButton>
+            <Modal.Title>Tambah Minggu</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form>
+                <Form.Label>Minggu</Form.Label>
+                <Form.Control type="number" placeholder="Masukkan minggu ke berapa" autoFocus />
+            </Form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>Batal</Button>{' '}
+            
+            <Button variant="primary">Tambah</Button>{' '}
+          </Modal.Footer>
+        </Modal>
+        {/* Modal end */}
+
+        <Alert variant="danger">Sila kemas kini maklumat untuk minggu 5. Klik butang "Kemas Kini" bagi minggu berkenaan.</Alert>
 
         <Table responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
               <th>Minggu</th>
               <th>Jumlah Inflow (RM)</th>
               <th>Jumlah Outflow (RM)</th>
@@ -118,7 +152,16 @@ function ResultSahabat() {
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
+              <td style={{ color: 'red', fontWeight: 'bold' }}>5</td>
+              <td style={{ color: 'red', fontWeight: 'bold' }}>Tiada maklumat</td>
+              <td style={{ color: 'red', fontWeight: 'bold' }}>Tiada maklumat</td>
+              <td style={{ color: 'red', fontWeight: 'bold' }}>Tiada maklumat</td>
+              <td>
+                <Button variant="warning" onClick={clickKemasKini}>Kemas Kini</Button>{' '}
+                <Button variant="danger">Padam</Button>{' '}
+              </td>
+            </tr>
+            <tr>
               <td>4</td>
               <td>3412.35</td>
               <td>1243.00</td>
@@ -129,7 +172,6 @@ function ResultSahabat() {
               </td>
             </tr>
             <tr>
-              <td>2</td>
               <td>3</td>
               <td>3412.35</td>
               <td>1243.00</td>
@@ -140,7 +182,6 @@ function ResultSahabat() {
               </td>
             </tr>
             <tr>
-              <td>3</td>
               <td>2</td>
               <td>3412.35</td>
               <td>1243.00</td>
@@ -151,7 +192,6 @@ function ResultSahabat() {
               </td>
             </tr>
             <tr>
-              <td>4</td>
               <td>1</td>
               <td>3412.35</td>
               <td>1243.00</td>
