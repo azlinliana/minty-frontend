@@ -24,9 +24,8 @@ import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
 
 // IMPORT FROM SELENGGARA FOLDER
 import IndexSelenggara from "./views/selenggara/Index";
-import IndexKodInflowOutflow from "./views/selenggara/kod-inflow-outflow/Index";
-import IndexKodInflow from "./views/selenggara/kod-inflow-outflow/kod-inflow/Index";
-import IndexKodOutflow from "./views/selenggara/kod-inflow-outflow/kod-outflow/Index";
+import IndexKodInflow from "./views/selenggara/kod-inflow/Index";
+import IndexKodOutflow from "./views/selenggara/kod-outflow/Index";
 import IndexDimensi from "./views/selenggara/dimensi/Index";
 import IndexHubungan from "./views/selenggara/hubungan/Index";
 import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
@@ -57,7 +56,6 @@ function App() {
 
             {/* SELENGGARA PATH */}
             <Route path="selenggara" element={<IndexSelenggara />} />
-            <Route path="kod-inflow-outflow" element={<IndexKodInflowOutflow />} />
             <Route path="kod-inflow" element={<IndexKodInflow />} />
             <Route path="kod-outflow" element={<IndexKodOutflow />} />
             <Route path="dimensi" element={<IndexDimensi />} />

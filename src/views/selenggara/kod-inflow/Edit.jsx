@@ -1,20 +1,41 @@
 import { useState } from 'react';
+
 import axios from 'axios';
-import SelenggaraModal from '../../../components/modal/SelenggaraModal';
+
+import SelenggaraModal from '../../components/modal/SelenggaraModal';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function EditKodInflow({ kodInflow, updateKodInflow }) {
+function EditKodInflow({kodInflow, updateKodInflow}) {
+  // Update kod inflow
   const [editedKodInflow, setEditedKodInflow] = useState(kodInflow);
-  const [isModalEditKodInflowOpen, setIsModalEditKodInflowOpen] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setEditedKodInflow({
       ...editedKodInflow,
       [name]: value,
     });
   };
+
+  const handleUpdateKodInflow = async () => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/kod-inflow/${kodInflow.id}`, editedKodInflow);
+
+      if (response.status === 200) {
+        closeModalEditKodInflow();
+
+        updateKodInflow(editedKodInflow);
+      }
+    } 
+    catch (error) {
+      console.error('Error in updating kod inflow', error);
+    }
+  };
+
+  // Modal
+  const [isModalEditKodInflowOpen, setIsModalEditKodInflowOpen] = useState(false);
 
   const openModalEditKodInflow = () => {
     setIsModalEditKodInflowOpen(true);
@@ -24,24 +45,7 @@ function EditKodInflow({ kodInflow, updateKodInflow }) {
     setIsModalEditKodInflowOpen(false);
   };
 
-  const handleUpdateKodInflow = async () => {
-    try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/kod-inflow/${kodInflow.id}`, editedKodInflow);
-
-      if (response.status === 200) {
-        updateKodInflow(editedKodInflow);
-
-        console.log('Kod Inflow updated successfully');
-
-        closeModalEditKodInflow(); // Close the modal after successful update
-      }
-    } 
-    catch (error) {
-      console.error('Error in updating kod inflow', error);
-    }
-  };
-
-  return (
+  return(
     <>
       <Button variant="warning" onClick={openModalEditKodInflow}>Kemas Kini</Button>{' '}
 
@@ -55,8 +59,8 @@ function EditKodInflow({ kodInflow, updateKodInflow }) {
                 type="text"
                 id="kod-inflow"
                 name="kodInflow"
-                value={editedKodInflow.kodInflow}
-                onChange={handleInputChange}
+                value={ editedKodInflow.kodInflow }
+                onChange={ handleInputChange }
                 placeholder="Masukkan kod inflow"
                 autoFocus
               />
@@ -68,8 +72,8 @@ function EditKodInflow({ kodInflow, updateKodInflow }) {
                 as="textarea"
                 id="keterangan"
                 name="keterangan"
-                value={editedKodInflow.keterangan}
-                onChange={handleInputChange}
+                value={ editedKodInflow.keterangan }
+                onChange={ handleInputChange }
                 rows={3}
                 placeholder="Masukkan keterangan kod inflow"
               />
@@ -79,6 +83,7 @@ function EditKodInflow({ kodInflow, updateKodInflow }) {
         modalFooter={
           <>
             <Button variant="secondary" onClick={closeModalEditKodInflow}>Batal</Button>
+
             <Button variant="primary" onClick={handleUpdateKodInflow}>Kemas Kini</Button>
           </>
         }

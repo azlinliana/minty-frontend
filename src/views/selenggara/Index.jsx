@@ -6,10 +6,12 @@ function IndexSelenggara() {
   // Link pages
   const navigate = useNavigate();
   
-  const clickLihatKodInflowOutflow = () => navigate('/kod-inflow-outflow');
+  const clickLihatKodInflow = () => navigate('/kod-inflow');
+  const clickLihatKodOutflow = () => navigate('/kod-outflow');
+
   const clickLihatDimensi = () => navigate('/dimensi');
   const clickLihatHubungan = () => navigate('/hubungan');
-  const clickLihatPinjamanAktiviti = () => navigate('/pinjaman-aktiviti');
+  // const clickLihatPinjamanAktiviti = () => navigate('/pinjaman-aktiviti');
 
   // Back button
   const goBack = () => {
@@ -32,21 +34,28 @@ function IndexSelenggara() {
           <tbody>
             <tr>
               <td>1</td>
-              <td>Kod Inflow/Kod Outflow</td>
-              <td><Button variant="primary" onClick={clickLihatKodInflowOutflow}>Lihat</Button>{' '}</td>
+              <td>Kod Inflow</td>
+              <td><Button variant="primary" onClick={clickLihatKodInflow}>Lihat</Button>{' '}</td>
             </tr>
+
             <tr>
               <td>2</td>
+              <td>Kod Outflow</td>
+              <td><Button variant="primary" onClick={clickLihatKodOutflow}>Lihat</Button>{' '}</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
               <td>Dimensi</td>
               <td><Button variant="primary" onClick={clickLihatDimensi}>Lihat</Button>{' '}</td>
             </tr>
             <tr>
-              <td>3</td>
+              <td>4</td>
               <td>Hubungan</td>
               <td><Button variant="primary" onClick={clickLihatHubungan}>Lihat</Button>{' '}</td>
             </tr>
             {/* <tr>
-              <td>4</td>
+              <td>5</td>
               <td>Pinjaman Aktiviti</td>
               <td><Button variant="primary" onClick={clickLihatPinjamanAktiviti}>Lihat</Button>{' '}</td>
             </tr> */}

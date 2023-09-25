@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import CreateKodInflow from './Create';
-import EditKodInflow from './Edit';
+import CreateKodInflow from "./Create";
+import EditKodInflow from "./Edit";
 
 import axios from 'axios';
 
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 
@@ -13,16 +15,16 @@ function IndexKodInflow() {
   // List kod inflow
   const [kodInflows, setKodInflows] = useState([]);
 
-  const fetchKodInflows = async () => {
+  const fetchKodInflows = async() => {
     await axios.get('http://127.0.0.1:8000/api/selenggara/kod-inflow')
-      .then(({ data }) => {
-        setKodInflows(data);
-      });
+    .then(({ data }) => {
+      setKodInflows(data);
+    });
   };
 
   useEffect(() => {
-    fetchKodInflows();
-  }, []);
+    fetchKodInflows() 
+  },[]);
 
   // Update kod inflow
   const updateKodInflow = (editedKodInflow) => {
@@ -36,24 +38,42 @@ function IndexKodInflow() {
   const handleDeleteKodInflow = async (kodInflowId) => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/selenggara/kod-inflow/${kodInflowId}`);
+      
       setKodInflows((prevKodInflows) =>
         prevKodInflows.filter((kodInflow) => kodInflow.id !== kodInflowId)
       );
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error in deleting kod inflow', error);
     }
   };
 
-  return (
+  // Back button
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  return(
     <>
       <div>
-        <CreateKodInflow fetchKodInflows={fetchKodInflows} />
+        <h1>Kod Inflow</h1>
+
+        <Breadcrumb>
+          <Breadcrumb.Item href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
+
+      <div>
+        <CreateKodInflow fetchKodInflows={ fetchKodInflows } />
 
         <Table responsive>
           <thead>
             <tr>
               <th>Bil.</th>
-              <th>Kod</th>
+              <th>Kod Inflow</th>
               <th>Keterangan</th>
               <th>Tindakan</th>
             </tr>
@@ -66,16 +86,18 @@ function IndexKodInflow() {
                 <td>{row.keterangan}</td>
                 <td>
                   <EditKodInflow kodInflow={ row } updateKodInflow= { updateKodInflow } closeModalEditKodInflow={() => {}} />
-                  
-                  <Button variant="danger" onClick={() => handleDeleteKodInflow(row.id)}>Padam </Button>{' '}
+
+                  <Button variant="danger" onClick={ () => handleDeleteKodInflow(row.id) }>Padam</Button>{' '}
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
+
+        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
       </div>
     </>
-  );
+  )
 }
 
 export default IndexKodInflow;

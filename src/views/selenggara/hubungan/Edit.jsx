@@ -28,9 +28,9 @@ function EditHubungan({ hubungan, updateHubungan }) {
 
         updateHubungan(editedHubungan);
       }
-      } catch (error) {
-        console.error('Error in updating hubungan', error);
-      }
+    } catch (error) {
+      console.error('Error in updating hubungan', error);
+    }
   };
 
   // Modal

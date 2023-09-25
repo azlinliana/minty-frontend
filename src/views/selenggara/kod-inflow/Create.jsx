@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import axios from 'axios';
 
-import SelenggaraModal from '../../../components/modal/SelenggaraModal';
+import SelenggaraModal from '../../components/modal/SelenggaraModal';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function CreateKodInflow({ fetchKodInflows }) {
+function CreateKodInflow({fetchKodInflows}) {
   // Create kod inflow
   const[kodInflowInput, setKodInflowInput] = useState({
     kodInflow: '',
@@ -27,12 +27,10 @@ function CreateKodInflow({ fetchKodInflows }) {
       const response = await axios.post('http://127.0.0.1:8000/api/selenggara/kod-inflow', kodInflowInput);
 
       if (response.status === 200) {
-        console.log('Kod Inflow created successfully');
+        console.log('Kod inflow created successfully');
       }
 
       closeModalCreateKodInflow();
-
-      fetchKodInflows();
     } 
     catch (error) {
       console.error('Error in creating kod inflow', error);
