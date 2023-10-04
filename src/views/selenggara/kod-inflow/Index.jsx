@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -67,29 +69,38 @@ function IndexKodInflow() {
       </div>
 
       <div>
-        <CreateKodInflow fetchKodInflows={ fetchKodInflows } />
+        {/* <CreateKodInflow fetchKodInflows={ fetchKodInflows } /> */}
 
         <Table responsive>
           <thead>
             <tr>
               <th>Bil.</th>
               <th>Kod Inflow</th>
-              <th>Keterangan</th>
+              <th>Keterangan Kod Inflow</th>
+              <th>Kod Inflow Terperinci</th>
+              <th>Keterangan Kod Inflow Terperinci</th>
               <th>Tindakan</th>
             </tr>
           </thead>
           <tbody>
-            {kodInflows.length > 0 && kodInflows.map((row, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{row.kodInflow}</td>
-                <td>{row.keterangan}</td>
-                <td>
-                  <EditKodInflow kodInflow={ row } updateKodInflow= { updateKodInflow } closeModalEditKodInflow={() => {}} />
-
-                  <Button variant="danger" onClick={ () => handleDeleteKodInflow(row.id) }>Padam</Button>{' '}
-                </td>
-              </tr>
+            {kodInflows.length > 0 && kodInflows.map((kodInflowData, key) => (
+              <React.Fragment key={key}>
+                <tr>
+                  <td rowSpan={kodInflowData.kod_inflow_terperincis.length + 1}>{key + 1}</td>
+                  <td rowSpan={kodInflowData.kod_inflow_terperincis.length + 1}>{kodInflowData.kodInflow}</td>
+                  <td rowSpan={kodInflowData.kod_inflow_terperincis.length + 1}>{kodInflowData.keteranganKodInflow}</td>
+                </tr>
+                {kodInflowData.kod_inflow_terperincis.map((kodInflowTerperinciData, subKey) => (
+                  <tr key={subKey}>
+                    <td>{kodInflowTerperinciData.kodInflowTerperinci}</td>
+                    <td>{kodInflowTerperinciData.keteranganKodInflowTerperinci}</td>
+                    <td>
+                      <Button variant="warning">Kemas Kini</Button>{' '}
+                      <Button variant="danger">Padam</Button>{' '}
+                    </td>
+                  </tr>
+                ))}
+              </React.Fragment>
             ))}
           </tbody>
         </Table>
