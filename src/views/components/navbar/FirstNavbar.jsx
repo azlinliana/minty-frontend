@@ -49,7 +49,7 @@ function FirstNavbar() {
                   }}
                 />
               </span>
-              Log Keluar
+              <span className="mobile-visibility">Log Keluar</span>
             </button>
           </div>
         </Container>

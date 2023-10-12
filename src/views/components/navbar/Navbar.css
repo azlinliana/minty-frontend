@@ -30,7 +30,6 @@
 
 .navbar-primary{
   background-color: white;
-  margin-left: 10px;
 }
 
 .navbar-secondary{
@@ -38,3 +37,12 @@
   font-weight: 500;
 }
 
+/* *********************** */
+/* TOGGLE SIDEBAR */
+/* *********************** */
+@media (max-width: 767px) {
+  /* Ensure text "Log Keluar" is not displayed on mobile screen */
+  .mobile-visibility {
+    display: none;
+  }
+}
