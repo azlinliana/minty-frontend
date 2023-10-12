@@ -5,5 +5,7 @@
 
 .content {
   background-color: #F1F3F4;
-  width: 75%;
+  width: 100%;
+  max-width: 2560px;
 }
+
