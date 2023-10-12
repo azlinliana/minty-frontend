@@ -107,6 +107,10 @@
   padding: 10px;
 }
 
+.formContentHeader{
+  margin: 20px 4px;
+}
+
 .formHeader {
   color: var(--white);
   font-size: 4rem;
