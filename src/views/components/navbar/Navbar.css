@@ -4,6 +4,15 @@
   max-width: 2560px;
 }
 
+.navbar-primary{
+  background-color: white;
+}
+
+.navbar-secondary{
+  background-color: #13315C;
+  font-weight: 500;
+}
+
 .titleAim {
   margin-top: 7px;
   font-weight: 900;
@@ -28,17 +37,8 @@
   background-color: #fff;
 }
 
-.navbar-primary{
-  background-color: white;
-}
-
-.navbar-secondary{
-  background-color: #13315C;
-  font-weight: 500;
-}
-
 /* *********************** */
-/* TOGGLE SIDEBAR */
+/* MOBILE VIEW */
 /* *********************** */
 @media (max-width: 767px) {
   /* Ensure text "Log Keluar" is not displayed on mobile screen */
