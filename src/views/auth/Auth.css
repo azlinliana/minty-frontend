@@ -17,7 +17,7 @@
     .formContent {
       font-size: 14px; /* Further increase font size for small screens */
       padding: 20px 20px;
-      margin-left: 50px;
+      margin: 0 auto;
       width: 85%;
     }
 
