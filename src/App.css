@@ -3,7 +3,6 @@
 * {
   color: var(--black);
   font-family: 'Roboto', sans-serif;
-  font-size: 12px;
   line-height: 1.5;
   font-weight: 400;
   margin: 0;
@@ -19,6 +18,10 @@
   --black: #000000;
   --darkcyanblue: #13315C;
   --lightgray: #D9D9D9;
+}
+
+a {
+  text-decoration: none;
 }
 
 /* *********************** */
