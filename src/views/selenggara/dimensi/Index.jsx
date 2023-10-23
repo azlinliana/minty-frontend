@@ -1,30 +1,40 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
-
-import axios from 'axios';
-
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import axios from 'axios';
 
 function IndexDimensi() {
-  // List dimensi
+  // ----------FE----------
   const [dimensis, setDimensis] = useState([]);
 
+  // ----------BE----------
+  // List dimensi
   const fetchDimensis = async() => {
-    await axios.get('http://127.0.0.1:8000/api/selenggara/dimensi')
-    .then(({ data }) => {
-      setDimensis(data);
-    });
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/selenggara/dimensi');
+      setDimensis(response.data);
+    }
+    catch(error) {
+      console.error('Ralat dalam mengambil maklumat dimensi:', error);
+    }
   };
 
   useEffect(() => {
-    fetchDimensis() 
-  },[]);
+    fetchDimensis();
+
+    const interval = setInterval(() => { // Set up recurring fetch every 1 second
+      fetchDimensis();
+    }, 1000);
+
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   // Update dimensi
   const updateDimensi = (editedDimensi) => {
@@ -56,7 +66,7 @@ function IndexDimensi() {
   };
 
   return (
-    <>
+    <div>
       <div>
         <h1>Dimensi</h1>
 
@@ -73,21 +83,23 @@ function IndexDimensi() {
           <thead>
             <tr>
               <th>Bil.</th>
-              <th>Dimensi</th>
+              <th>Kod Dimensi</th>
               <th>Keterangan</th>
+              <th>Status</th>
               <th>Tindakan</th>
             </tr>
           </thead>
           <tbody>
-            {dimensis.length > 0 && dimensis.map((row, key) => (
+            {dimensis.length > 0 && dimensis.map((dimensisData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{row.dimensi}</td>
-                <td>{row.keterangan}</td>
+                <td>{dimensisData.kodDimensi}</td>
+                <td>{dimensisData.keteranganDimensi}</td>
+                <td>{dimensisData.statusDimensi}</td>
                 <td>
-                  <EditDimensi dimensi={ row } updateDimensi= { updateDimensi } closeModalEditDimensi={() => {}} />
+                  <EditDimensi dimensi={ dimensisData } updateDimensi= { updateDimensi } closeModalEditDimensi={() => {}} />
 
-                  <Button variant="danger" onClick={ () => handleDeleteDimensi(row.id) }>Padam</Button>{' '}
+                  <Button variant="danger" onClick={ () => handleDeleteDimensi(dimensisData.id) }>Padam</Button>{' '}
                 </td>
               </tr>
             ))}
@@ -96,7 +108,7 @@ function IndexDimensi() {
 
         <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
       </div>
-    </>
+    </div>
   );
 }
 
