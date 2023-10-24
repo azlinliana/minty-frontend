@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import "./Selenggara.css";
 
 function IndexSelenggara() {
   // Link pages

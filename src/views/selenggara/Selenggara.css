@@ -29,6 +29,8 @@
     width: 100%;
 }
 
+/* Selenggara pages */
+
 .kembaliBtnPlacement, .tambahBtnPlacement {
     display: flex;
     justify-content: flex-end;

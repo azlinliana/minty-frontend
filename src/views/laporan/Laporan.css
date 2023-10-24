@@ -1,0 +1,77 @@
+.pageTitle {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* Index Laporan */
+
+.tableSection {
+    margin: auto 20px;
+    font-size: 14px;
+}
+
+.tableSection th {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.tableBil {
+    width: 5%;
+    text-align: center;
+}
+
+.tableTindakan {
+    width: 15%;
+    text-align: center;
+}
+
+.indexLaporanBtn {
+    width: 100%;
+}
+
+.batalBtn {
+    border-color: #858181;
+    background-color: #858181;
+}
+
+/* Breadcrumb */
+.previousLink a {
+    color: #13315C;
+    text-decoration: underline;
+}
+
+.active {
+    font-weight: 700;
+}
+
+/* Page content */
+.hasilCarian {
+    background-color: #fff;
+    width: 95%;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+.hasilCarian p {
+    margin: 10px 10px;
+}
+
+/* Table section */
+.tableSection {
+    margin: auto 20px;
+    font-size: 14px;
+}
+
+.tableSection th {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.tableBhgC {
+    margin: auto 12px;
+}
+
+.sectionHeader {
+    margin: 30px auto auto;
+}
