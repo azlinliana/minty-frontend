@@ -4,6 +4,14 @@
   position: relative;
 }
 
+.sidebar a {
+  color: var(--black);
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
 .sidebar-icon {
   margin-left: 2px;
   margin-right: 5px;

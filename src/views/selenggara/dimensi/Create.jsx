@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
 import SelenggaraModal from "../../components/modal/SelenggaraModal";
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { FaPlus } from "react-icons/fa";
 
 function CreateDimensi({ fetchDimensis }) {
   // Create dimensi
-  const[dimensiInput, setDimensiInput] = useState({
-    dimensi: '',
-    keterangan: '',
+  const [dimensiInput, setDimensiInput] = useState({
+    dimensi: "",
+    keterangan: "",
   });
 
   const handleInputChange = (e) => {
@@ -24,18 +25,20 @@ function CreateDimensi({ fetchDimensis }) {
 
   const createDimensi = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/dimensi', dimensiInput);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/selenggara/dimensi",
+        dimensiInput
+      );
 
       if (response.status === 200) {
-        console.log('Dimensi created successfully');
+        console.log("Dimensi created successfully");
       }
 
       closeModalCreateDimensi();
 
       fetchDimensis();
-    } 
-    catch (error) {
-      console.error('Error in creating dimensi', error);
+    } catch (error) {
+      console.error("Error in creating dimensi", error);
     }
   };
 
@@ -52,8 +55,9 @@ function CreateDimensi({ fetchDimensis }) {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateDimensi}>Tambah</Button>{' '}
-
+      <Button variant="primary" onClick={openModalCreateDimensi}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+      </Button>{" "}
       <SelenggaraModal
         modalTitle="Tambah Dimensi"
         modalContent={
@@ -87,9 +91,13 @@ function CreateDimensi({ fetchDimensis }) {
         }
         modalFooter={
           <>
-            <Button variant="secondary" onClick={closeModalCreateDimensi}>Batal</Button>
+            <Button variant="secondary" onClick={closeModalCreateDimensi}>
+              Batal
+            </Button>
 
-            <Button variant="primary" onClick={createDimensi}>Tambah</Button>
+            <Button variant="primary" onClick={createDimensi}>
+              Tambah
+            </Button>
           </>
         }
         isModalOpen={isModalCreateDimensi}

@@ -1,30 +1,33 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
 
-import axios from 'axios';
+import axios from "axios";
 
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+
+import "../Selenggara.css";
 
 function IndexKodOutflow() {
   // List kod outflow
   const [kodOutflows, setKodOutflows] = useState([]);
 
-  const fetchKodOutflows = async() => {
-    await axios.get('http://127.0.0.1:8000/api/selenggara/kod-outflow')
-    .then(({ data }) => {
-      setKodOutflows(data);
-    });
+  const fetchKodOutflows = async () => {
+    await axios
+      .get("http://127.0.0.1:8000/api/selenggara/kod-outflow")
+      .then(({ data }) => {
+        setKodOutflows(data);
+      });
   };
 
   useEffect(() => {
-    fetchKodOutflows() 
-  },[]);
+    fetchKodOutflows();
+  }, []);
 
   // Update kod outflow
   const updateKodOutflow = (editedKodOutflow) => {
@@ -37,14 +40,15 @@ function IndexKodOutflow() {
   // Delete kod outflow
   const handleDeleteKodOutflow = async (kodOutflowId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflowId}`);
-      
+      await axios.delete(
+        `http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflowId}`
+      );
+
       setKodOutflows((prevKodOutflows) =>
         prevKodOutflows.filter((kodOutflow) => kodOutflow.id !== kodOutflowId)
       );
-    }
-    catch (error) {
-      console.error('Error in deleting kod outflow', error);
+    } catch (error) {
+      console.error("Error in deleting kod outflow", error);
     }
   };
 
@@ -55,19 +59,23 @@ function IndexKodOutflow() {
     navigate(-1);
   };
 
-  return(
+  return (
     <>
-      <div>
+      <div className="pageTitle">
         <h1>Kod Outflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Selenggara
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Outflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div>
-        <CreateKodOutflow fetchKodOutflows={ fetchKodOutflows } />
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateKodOutflow fetchKodOutflows={fetchKodOutflows} />
+        </div>
 
         <Table responsive>
           <thead>
@@ -79,25 +87,37 @@ function IndexKodOutflow() {
             </tr>
           </thead>
           <tbody>
-            {kodOutflows.length > 0 && kodOutflows.map((row, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{row.kodOutflow}</td>
-                <td>{row.keterangan}</td>
-                <td>
-                  <EditKodOutflow kodOutflow={ row } updateKodOutflow= { updateKodOutflow } closeModalEditKodOutflow={() => {}} />
-
-                  <Button variant="danger" onClick={ () => handleDeleteKodOutflow(row.id) }>Padam</Button>{' '}
-                </td>
-              </tr>
-            ))}
+            {kodOutflows.length > 0 &&
+              kodOutflows.map((row, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{row.kodOutflow}</td>
+                  <td>{row.keterangan}</td>
+                  <td>
+                    <EditKodOutflow
+                      kodOutflow={row}
+                      updateKodOutflow={updateKodOutflow}
+                      closeModalEditKodOutflow={() => {}}
+                    />
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteKodOutflow(row.id)}
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
-
-        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
+        <div className="kembaliBtnPlacement">
+          <Button className="kembaliBtn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
+        </div>
       </div>
     </>
-  )
+  );
 }
 
 export default IndexKodOutflow;

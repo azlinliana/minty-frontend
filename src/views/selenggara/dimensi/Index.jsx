@@ -1,30 +1,33 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
 
-import axios from 'axios';
+import axios from "axios";
 
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+
+import "../Selenggara.css";
 
 function IndexDimensi() {
   // List dimensi
   const [dimensis, setDimensis] = useState([]);
 
-  const fetchDimensis = async() => {
-    await axios.get('http://127.0.0.1:8000/api/selenggara/dimensi')
-    .then(({ data }) => {
-      setDimensis(data);
-    });
+  const fetchDimensis = async () => {
+    await axios
+      .get("http://127.0.0.1:8000/api/selenggara/dimensi")
+      .then(({ data }) => {
+        setDimensis(data);
+      });
   };
 
   useEffect(() => {
-    fetchDimensis() 
-  },[]);
+    fetchDimensis();
+  }, []);
 
   // Update dimensi
   const updateDimensi = (editedDimensi) => {
@@ -37,14 +40,15 @@ function IndexDimensi() {
   // Delete dimensi
   const handleDeleteDimensi = async (dimensiId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensiId}`);
-      
+      await axios.delete(
+        `http://127.0.0.1:8000/api/selenggara/dimensi/${dimensiId}`
+      );
+
       setDimensis((prevDimensis) =>
         prevDimensis.filter((dimensi) => dimensi.id !== dimensiId)
       );
-    }
-    catch (error) {
-      console.error('Error in deleting dimensi', error);
+    } catch (error) {
+      console.error("Error in deleting dimensi", error);
     }
   };
 
@@ -57,18 +61,21 @@ function IndexDimensi() {
 
   return (
     <>
-      <div>
+      <div className="pageTitle">
         <h1>Dimensi</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Selenggara
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Dimensi</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div>
-        <CreateDimensi fetchDimensis={ fetchDimensis } />
-
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateDimensi fetchDimensis={fetchDimensis} />
+        </div>
         <Table responsive>
           <thead>
             <tr>
@@ -79,22 +86,34 @@ function IndexDimensi() {
             </tr>
           </thead>
           <tbody>
-            {dimensis.length > 0 && dimensis.map((row, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{row.dimensi}</td>
-                <td>{row.keterangan}</td>
-                <td>
-                  <EditDimensi dimensi={ row } updateDimensi= { updateDimensi } closeModalEditDimensi={() => {}} />
-
-                  <Button variant="danger" onClick={ () => handleDeleteDimensi(row.id) }>Padam</Button>{' '}
-                </td>
-              </tr>
-            ))}
+            {dimensis.length > 0 &&
+              dimensis.map((row, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{row.dimensi}</td>
+                  <td>{row.keterangan}</td>
+                  <td>
+                    <EditDimensi
+                      dimensi={row}
+                      updateDimensi={updateDimensi}
+                      closeModalEditDimensi={() => {}}
+                    />
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteDimensi(row.id)}
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
-
-        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
+        <div className="kembaliBtnPlacement">
+          <Button className="kembaliBtn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
+        </div>
       </div>
     </>
   );

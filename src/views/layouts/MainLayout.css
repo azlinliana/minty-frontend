@@ -7,5 +7,6 @@
   background-color: #F1F3F4;
   width: 100%;
   max-width: 2560px;
+  min-height: 100vh;
 }
 

@@ -1,30 +1,33 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import CreateHubungan from './Create';
-import EditHubungan from './Edit';
+import CreateHubungan from "./Create";
+import EditHubungan from "./Edit";
 
-import axios from 'axios';
+import axios from "axios";
 
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+
+import "../Selenggara.css";
 
 function IndexHubungan() {
   // List hubungan
   const [hubungans, setHubungans] = useState([]);
 
-  const fetchHubungans = async() => {
-    await axios.get('http://127.0.0.1:8000/api/selenggara/hubungan')
-    .then(({ data }) => {
-      setHubungans(data);
-    });
+  const fetchHubungans = async () => {
+    await axios
+      .get("http://127.0.0.1:8000/api/selenggara/hubungan")
+      .then(({ data }) => {
+        setHubungans(data);
+      });
   };
 
   useEffect(() => {
-    fetchHubungans() 
-  },[]);
+    fetchHubungans();
+  }, []);
 
   // Update hubungan
   const updateHubungan = (editedHubungan) => {
@@ -37,14 +40,15 @@ function IndexHubungan() {
   // Delete hubungan
   const handleDeleteHubungan = async (hubunganId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/selenggara/hubungan/${hubunganId}`);
-      
+      await axios.delete(
+        `http://127.0.0.1:8000/api/selenggara/hubungan/${hubunganId}`
+      );
+
       setHubungans((prevHubungans) =>
         prevHubungans.filter((hubungan) => hubungan.id !== hubunganId)
       );
-    }
-    catch (error) {
-      console.error('Error in deleting hubungan', error);
+    } catch (error) {
+      console.error("Error in deleting hubungan", error);
     }
   };
 
@@ -57,17 +61,21 @@ function IndexHubungan() {
 
   return (
     <>
-      <div>
+      <div className="pageTitle">
         <h1>Hubungan</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Selenggara
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Hubungan</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div>
-        <CreateHubungan fetchHubungans={ fetchHubungans } />
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateHubungan fetchHubungans={fetchHubungans} />
+        </div>
 
         <Table responsive>
           <thead>
@@ -79,25 +87,37 @@ function IndexHubungan() {
             </tr>
           </thead>
           <tbody>
-            {hubungans.length > 0 && hubungans.map((row, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{row.hubungan}</td>
-                <td>{row.keterangan}</td>
-                <td>
-                  <EditHubungan hubungan={ row } updateHubungan={ updateHubungan } closeModalEditHubungan={() => {}} />
-
-                  <Button variant="danger" onClick={ () => handleDeleteHubungan(row.id) }>Padam</Button>{' '}
-                </td>
-              </tr>
-            ))}
+            {hubungans.length > 0 &&
+              hubungans.map((row, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{row.hubungan}</td>
+                  <td>{row.keterangan}</td>
+                  <td>
+                    <EditHubungan
+                      hubungan={row}
+                      updateHubungan={updateHubungan}
+                      closeModalEditHubungan={() => {}}
+                    />
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteHubungan(row.id)}
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
-
-        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
+        <div className="kembaliBtnPlacement">
+          <Button className="kembaliBtn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
+        </div>
       </div>
     </>
-  )
+  );
 }
 
 export default IndexHubungan;

@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import SelenggaraModal from '../../components/modal/SelenggaraModal';
+import SelenggaraModal from "../../components/modal/SelenggaraModal";
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { FaPlus } from "react-icons/fa";
 
-function CreateKodInflow({fetchKodInflows}) {
+function CreateKodInflow({ fetchKodInflows }) {
   // Create kod inflow
-  const[kodInflowInput, setKodInflowInput] = useState({
-    kodInflow: '',
-    keterangan: '',
+  const [kodInflowInput, setKodInflowInput] = useState({
+    kodInflow: "",
+    keterangan: "",
   });
 
   const handleInputChange = (e) => {
@@ -24,16 +25,18 @@ function CreateKodInflow({fetchKodInflows}) {
 
   const createKodInflow = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/kod-inflow', kodInflowInput);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/selenggara/kod-inflow",
+        kodInflowInput
+      );
 
       if (response.status === 200) {
-        console.log('Kod inflow created successfully');
+        console.log("Kod inflow created successfully");
       }
 
       closeModalCreateKodInflow();
-    } 
-    catch (error) {
-      console.error('Error in creating kod inflow', error);
+    } catch (error) {
+      console.error("Error in creating kod inflow", error);
     }
   };
 
@@ -48,10 +51,11 @@ function CreateKodInflow({fetchKodInflows}) {
     setIsModalCreateKodInflow(false);
   };
 
-  return(
+  return (
     <>
-      <Button variant="primary" onClick={openModalCreateKodInflow}>Tambah</Button>{' '}
-
+      <Button variant="primary" onClick={openModalCreateKodInflow}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+      </Button>{" "}
       <SelenggaraModal
         modalTitle="Tambah Kod Inflow"
         modalContent={
@@ -85,16 +89,20 @@ function CreateKodInflow({fetchKodInflows}) {
         }
         modalFooter={
           <>
-            <Button variant="secondary" onClick={closeModalCreateKodInflow}>Batal</Button>
+            <Button variant="secondary" onClick={closeModalCreateKodInflow}>
+              Batal
+            </Button>
 
-            <Button variant="primary" onClick={createKodInflow}>Tambah</Button>
+            <Button variant="primary" onClick={createKodInflow}>
+              Tambah
+            </Button>
           </>
         }
         isModalOpen={isModalCreateKodInflow}
         closeModal={closeModalCreateKodInflow}
       />
     </>
-  )
+  );
 }
 
 export default CreateKodInflow;
