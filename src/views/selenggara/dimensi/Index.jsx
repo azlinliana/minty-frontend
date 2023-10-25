@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
+import DeletionAlert from '../../components/sweet-alert/DeletionAlert';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function IndexDimensi() {
   // ----------FE----------
   const [dimensis, setDimensis] = useState([]);
+
+  // Back button
+  const navigate = useNavigate();
+  const goBack = () => { navigate(-1);};
 
   // ----------BE----------
   // List dimensi
@@ -25,46 +31,43 @@ function IndexDimensi() {
 
   useEffect(() => {
     fetchDimensis();
-
     const interval = setInterval(() => { // Set up recurring fetch every 1 second
       fetchDimensis();
     }, 1000);
-
     // Cleanup the interval when the component unmounts
     return () => {
       clearInterval(interval);
     };
   }, []);
 
-  // Update dimensi
-  const updateDimensi = (editedDimensi) => {
-    const updatedDimensis = dimensis.map((dimensi) =>
-      dimensi.id === editedDimensi.id ? editedDimensi : dimensi
-    );
-    setDimensis(updatedDimensis);
-  };
-
   // Delete dimensi
-  const handleDeleteDimensi = async (dimensiId) => {
-    try {
-      await axios.delete(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensiId}`);
-      
-      setDimensis((prevDimensis) =>
-        prevDimensis.filter((dimensi) => dimensi.id !== dimensiId)
-      );
-    }
-    catch (error) {
-      console.error('Error in deleting dimensi', error);
-    }
+  const deleteDimensi = async (dimensiId) => {
+    // Function to delete dimensi
+    const performDeletion = async () => {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensiId}`);
+        if (response.status === 200) {
+          setDimensis((prevDimensis) =>
+            prevDimensis.filter((dimensi) => dimensi.id !== dimensiId)
+          );
+          // Show success message from the server
+          Swal.fire('Dipadam!', response.data.message, 'success');
+          console.log('Dimensi berjaya dipadam');
+        }
+      } catch (error) {
+        console.error('Error in deleting dimensi', error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
   };
-
-  // Back button
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
+  
   return (
     <div>
       <div>
@@ -77,7 +80,7 @@ function IndexDimensi() {
       </div>
 
       <div>
-        <CreateDimensi fetchDimensis={ fetchDimensis } />
+        <CreateDimensi />
 
         <Table responsive>
           <thead>
@@ -90,23 +93,26 @@ function IndexDimensi() {
             </tr>
           </thead>
           <tbody>
-            {dimensis.length > 0 && dimensis.map((dimensisData, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{dimensisData.kodDimensi}</td>
-                <td>{dimensisData.keteranganDimensi}</td>
-                <td>{dimensisData.statusDimensi}</td>
-                <td>
-                  <EditDimensi dimensi={ dimensisData } updateDimensi= { updateDimensi } closeModalEditDimensi={() => {}} />
-
-                  <Button variant="danger" onClick={ () => handleDeleteDimensi(dimensisData.id) }>Padam</Button>{' '}
-                </td>
-              </tr>
-            ))}
+            {dimensis.length === 0 ? (
+              <tr><td colSpan="5"><center>Tiada maklumat</center></td></tr>
+            ) : (
+              dimensis.map((dimensisData, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{dimensisData.kodDimensi}</td>
+                  <td>{dimensisData.keteranganDimensi}</td>
+                  <td>{dimensisData.statusDimensi}</td>
+                  <td>
+                    <EditDimensi dimensi={dimensisData}/>
+                    <Button variant="danger" onClick={() => deleteDimensi(dimensisData.id)}>Padam</Button>{' '}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </Table>
 
-        <Button variant="secondary" onClick={ goBack }>Kembali</Button>{' '}
+        <Button variant="secondary" onClick={goBack}>Kembali</Button>{' '}
       </div>
     </div>
   );
