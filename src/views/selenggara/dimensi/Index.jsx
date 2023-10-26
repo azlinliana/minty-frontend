@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
 import DeletionAlert from '../../components/sweet-alert/DeletionAlert';
@@ -15,7 +15,7 @@ function IndexDimensi() {
 
   // Back button
   const navigate = useNavigate();
-  const goBack = () => { navigate(-1);};
+  const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List dimensi
@@ -23,8 +23,7 @@ function IndexDimensi() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/selenggara/dimensi');
       setDimensis(response.data);
-    }
-    catch(error) {
+    } catch(error) {
       console.error('Ralat dalam mengambil maklumat dimensi:', error);
     }
   };

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useForm, Controller } from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
@@ -73,8 +73,8 @@ function CreateDimensi() {
                 id="keteranganDimensi"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Keterangan dimensi is required' }}
-                render={({ field: { onChange, value } }) => (
+                rules={{required: 'Keterangan dimensi is required'}}
+                render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
                     onChange={onChange}

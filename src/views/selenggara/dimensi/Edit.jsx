@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useForm, Controller } from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
@@ -17,7 +17,7 @@ function EditDimensi({dimensi}) {
   };
 
   // Form validation
-  const { handleSubmit, control, reset, formState: { errors } } = useForm();
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
   const updateDimensi = async (dimensiInput) => {
@@ -52,7 +52,7 @@ function EditDimensi({dimensi}) {
                 control={control}
                 defaultValue={dimensi.kodDimensi}
                 rules={{required: 'Kod dimensi is required'}}
-                render={({field: {onChange, value}}) => (
+                render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -73,7 +73,7 @@ function EditDimensi({dimensi}) {
                 control={control}
                 defaultValue={dimensi.keteranganDimensi}
                 rules={{ required: 'Keterangan dimensi is required' }}
-                render={({ field: { onChange, value } }) => (
+                render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
                     onChange={onChange}
@@ -92,7 +92,7 @@ function EditDimensi({dimensi}) {
                 name="statusDimensi"
                 control={control}
                 defaultValue={dimensi.statusDimensi}
-                render={({ field: { onChange } }) => (
+                render={({ field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue={dimensi.statusDimensi}>
                     <option value="" disabled>--Pilih Dimensi--</option>
                     <option value="AKTIF">AKTIF</option>
