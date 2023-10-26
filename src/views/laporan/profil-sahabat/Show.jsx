@@ -27,20 +27,21 @@ function ShowProfilSahabat() {
           </p>
         </div>
       </div>
-      <div>
-        <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+      <div className="buttonContainer">
+        <DropdownButton id="dropdown-basic-button" title="Pilih Eksport">
           <Dropdown.Item href="#/action-1">Eksport Inflow</Dropdown.Item>
           <Dropdown.Item href="#/action-2">Eksport Outflow</Dropdown.Item>
         </DropdownButton>
-        <Button variant="primary">Cetak</Button>{" "}
+        <Button>Cetak</Button>{" "}
       </div>
+
       {/* Bahagian A: Maklumat Asas */}
       <div className="tableSection">
         <div className="sectionHeader">
           <h1>Bahagian A: Maklumat Asas</h1>
         </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <tbody>
             <tr>
               <th>Perkara</th>
@@ -89,13 +90,14 @@ function ShowProfilSahabat() {
           </tbody>
         </Table>
       </div>
+
       {/* Bahagian B: Maklumat Kegiatan Modal */}
       <div className="tableSection">
         <div className="sectionHeader">
           <h1>Bahagian B: Maklumat Kegiatan Modal</h1>
         </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <thead>
             <tr>
               <th>Modal Pembiayaan AIM (RM)</th>
@@ -112,6 +114,7 @@ function ShowProfilSahabat() {
           </tbody>
         </Table>
       </div>
+
       {/* Bahagian C: Maklumat Inflow/Outflow Sahabat */}
       <div className="tableSection">
         <div className="sectionHeader">
@@ -123,7 +126,7 @@ function ShowProfilSahabat() {
             {/* Left Section */}
             <Col md={6}>
               <h2>Section 1</h2>
-              <Table responsive striped bordered>
+              <Table responsive striped bordered className="laporanTable">
                 <tbody>
                   <tr>
                     <th>Minggu</th>
@@ -202,7 +205,7 @@ function ShowProfilSahabat() {
             {/* Right Section */}
             <Col md={6}>
               <h2>Section 2</h2>
-              <Table striped bordered>
+              <Table striped bordered className="laporanTable">
                 <tbody>
                   <tr>
                     <th>Bil. Minggu</th>
@@ -224,6 +227,7 @@ function ShowProfilSahabat() {
           </Row>
         </div>
       </div>
+
       {/* Bahagian D: Maklumat Inflow/Outflow Sahabat */}
       <div className="tableSection">
         <div className="sectionHeader">

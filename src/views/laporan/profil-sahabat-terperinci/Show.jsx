@@ -1,31 +1,43 @@
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Row from 'react-bootstrap/Row';
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+import Row from "react-bootstrap/Row";
+import "../Laporan.css";
 
 function ShowProfilSahabatTerperinci() {
-  return(
+  return (
     <>
-      <div>
-        UI ini perlu revised kerana tidak sama dengan doc Profail yang diberi En. Bad dalam ws group Selasa (5/9) - 8.48 a.m
+      <div className="pageTitle">
         <h1>Profil Sahabat Terperinci</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Senarai Laporan</Breadcrumb.Item>
-          <Breadcrumb.Item active>Laporan Profil Sahabat Terperinci</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Laporan
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Laporan Profil Sahabat Terperinci
+          </Breadcrumb.Item>
         </Breadcrumb>
 
-        <p>Hasil Carian: 821006086174</p>
+        <div className="hasilCarian">
+          <p>
+            <strong>Hasil Carian:</strong> 821006086174
+          </p>
+        </div>
       </div>
 
-      <div><Button variant="primary">Cetak</Button>{' '}</div>
+      <div className="buttonContainer">
+        <Button variant="primary">Cetak</Button>{" "}
+      </div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <div>
-        <h1>Bahagian A: Maklumat Asas</h1>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>Bahagian A: Maklumat Asas</h1>
+        </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <tbody>
             <tr>
               <th>1.</th>
@@ -77,10 +89,12 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       {/* Bahagian B: Maklumat Kegiatan & Modal */}
-      <div>
-        <h1>Bahagian B: Maklumat Kegiatan & Modal</h1>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>Bahagian B: Maklumat Kegiatan & Modal</h1>
+        </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <tbody>
             <tr>
               <th>1.</th>
@@ -132,18 +146,20 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
-      <div>
-        <h1>Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan</h1>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan</h1>
+        </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <thead>
             <tr>
-              <td>Bil.</td>
-              <td>Nama</td>
-              <td>Kod</td>
-              <td>Inflows</td>
-              <td>Pengusaha</td>
-              <td>Kegiatan</td>
+              <th>Bil.</th>
+              <th>Nama</th>
+              <th>Kod</th>
+              <th>Inflows</th>
+              <th>Pengusaha</th>
+              <th>Kegiatan</th>
             </tr>
           </thead>
           <tbody>
@@ -177,17 +193,21 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <div>
-        <h1>Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha</h1>
-
-        <Table responsive striped bordered>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>
+            Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan
+            Pengusaha
+          </h1>
+        </div>
+        <Table responsive striped bordered className="laporanTable">
           <thead>
             <tr>
-              <td>Sumber</td>
-              <td>Sahabat (RM)</td>
-              <td>Suami (RM)</td>
-              <td>Anak (RM)</td>
-              <td>Jumlah (RM)</td>
+              <th>Sumber</th>
+              <th>Sahabat (RM)</th>
+              <th>Suami (RM)</th>
+              <th>Anak (RM)</th>
+              <th>Jumlah (RM)</th>
             </tr>
           </thead>
           <tbody>
@@ -214,21 +234,24 @@ function ShowProfilSahabatTerperinci() {
             </tr>
           </tbody>
         </Table>
-        (Senaraikan semua yang ada amaun)
       </div>
 
       {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <div>
-        <h1>Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha</h1>
-
-        <Table responsive striped bordered>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>
+            Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan
+            Pengusaha
+          </h1>
+        </div>
+        <Table responsive striped bordered className="laporanTable">
           <thead>
             <tr>
-              <td>Kod</td>
-              <td>Sahabat</td>
-              <td>Suami</td>
-              <td>Anak</td>
-              <td>Jumlah (RM)</td>
+              <th>Kod</th>
+              <th>Sahabat</th>
+              <th>Suami</th>
+              <th>Anak</th>
+              <th>Jumlah (RM)</th>
             </tr>
           </thead>
           <tbody>
@@ -305,7 +328,7 @@ function ShowProfilSahabatTerperinci() {
             <tr>
               <td>B19 – SEDEKAH</td>
               <td>315.00</td>
-              <td>150.00	</td>
+              <td>150.00 </td>
               <td>-</td>
               <td>465.00</td>
             </tr>
@@ -332,21 +355,22 @@ function ShowProfilSahabatTerperinci() {
             </tr>
           </tbody>
         </Table>
-        (Senaraikan semua yang ada amaun)
       </div>
 
       {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
-      <div>
-        <h1>Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan</h1>
+      <div className="tableSection">
+        <div className="sectionHeader">
+          <h1>Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan</h1>
+        </div>
 
-        <Table responsive striped bordered>
+        <Table responsive striped bordered className="laporanTable">
           <thead>
             <tr>
-              <td>Kod</td>
-              <td>Sahabat</td>
-              <td>Suami</td>
-              <td>Anak</td>
-              <td>Jumlah(RM)</td>
+              <th>Kod</th>
+              <th>Sahabat</th>
+              <th>Suami</th>
+              <th>Anak</th>
+              <th>Jumlah(RM)</th>
             </tr>
           </thead>
           <tbody>
@@ -375,7 +399,7 @@ function ShowProfilSahabatTerperinci() {
         </Table>
       </div>
     </>
-  )
+  );
 }
 
-export default ShowProfilSahabatTerperinci
+export default ShowProfilSahabatTerperinci;
