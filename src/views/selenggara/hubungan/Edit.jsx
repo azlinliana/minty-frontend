@@ -1,95 +1,115 @@
-import { useState } from 'react';
-
-import axios from 'axios';
-
-import SelenggaraModal from "../../components/modal/SelenggaraModal";
-
+import React, {useState} from 'react';
+import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {useForm, Controller} from 'react-hook-form';
+import axios from 'axios';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 
-function EditHubungan({ hubungan, updateHubungan }) {
-  // Update hubungan
-  const [editedHubungan, setEditedHubungan] = useState(hubungan);
-  
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedHubungan({
-      ...editedHubungan,
-      [name]: value,
-    });
+function EditHubungan({hubungan}) {
+  // ----------FE----------
+  // Modal
+  const [isModalEditHubungan, setIsModalEditHubungan] = useState(false);
+  const openModalEditHubungan = () => setIsModalEditHubungan(true);
+  const closeModalEditHubungan = () => {
+    setIsModalEditHubungan(false);
   };
 
-  const handleUpdateHubungan = async () => {
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+
+  // ----------BE----------
+  const updateHubungan = async (hubunganInput) => {
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/hubungan/${hubungan.id}`, editedHubungan);
-
+      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/hubungan/${hubungan.id}`, hubunganInput);
+  
       if (response.status === 200) {
+        SuccessAlert(response.data.message);
         closeModalEditHubungan();
-
-        updateHubungan(editedHubungan);
+        console.log('Hubungan updated successfully');
       }
     } catch (error) {
+      ErrorAlert(error);
       console.error('Error in updating hubungan', error);
     }
   };
 
-  // Modal
-  const [isModalEditHubunganOpen, setIsModalEditHubunganOpen] = useState(false);
-
-  const openModalEditHubungan = () => {
-    setIsModalEditHubunganOpen(true);
-  };
-
-  const closeModalEditHubungan = () => {
-    setIsModalEditHubunganOpen(false);
-  };
-
   return(
-    <>
-      <Button variant="warning" onClick={ openModalEditHubungan }>Kemas Kini</Button>{' '}
+    <div>
+      <Button variant="warning" onClick={openModalEditHubungan}>Kemas Kini</Button>{' '}
 
-      <SelenggaraModal
-        modalTitle="Kemas Kini Hubungan"
-        modalContent={
-          <Form>
+      <Modal show={isModalEditHubungan} onHide={closeModalEditHubungan} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Kemas Kini Hubungan</Modal.Title></Modal.Header>
+        
+        <Modal.Body>
+          <Form onSubmit={handleSubmit(updateHubungan)} onReset={reset}>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="hubungan">Hubungan</Form.Label>
-              <Form.Control
-                type="text"
-                id="hubungan"
-                name="hubungan"
-                value={ editedHubungan.hubungan }
-                onChange={ handleInputChange }
-                placeholder="Masukkan jenis hubungan"
-                autoFocus
+              <Form.Label htmlFor="kodHubungan">Kod Hubungan</Form.Label>
+              <Controller
+                name="kodHubungan"
+                id="kodHubungan"
+                control={control}
+                defaultValue={hubungan.kodHubungan}
+                rules={{required: 'Kod hubungan is required'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    type="text"
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan kod hubungan"
+                    autoFocus
+                  />
+                )}
               />
+              {errors.kodHubungan && ( <small className="text-danger">{errors.kodHubungan.message}</small> )}            
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keterangan">Keterangan</Form.Label>
-              <Form.Control
-                as="textarea"
-                id="keterangan"
-                name="keterangan"
-                value={ editedHubungan.keterangan }
-                onChange={ handleInputChange }
-                rows={3}
-                placeholder="Masukkan keterangan hubungan"
+              <Form.Label htmlFor="keteranganHubungan">Keterangan Hubungan</Form.Label>
+              <Controller
+                name="keteranganHubungan"
+                id="keteranganHubungan"
+                control={control}
+                defaultValue={hubungan.keteranganHubungan}
+                rules={{required: 'Keterangan hubungan is required'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    as="textarea"
+                    onChange={onChange}
+                    value={value}
+                    rows={3}
+                    placeholder="Masukkan keterangan hubungan"
+                  />
+                )}
+              />
+              {errors.keteranganHubungan && ( <small className="text-danger">{errors.keteranganHubungan.message}</small> )}
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Status Hubungan</Form.Label>
+              <Controller
+                name="statusHubungan"
+                control={control}
+                defaultValue={hubungan.statusHubungan}
+                render={({field: {onChange}}) => (
+                  <Form.Select onChange={onChange} defaultValue={hubungan.statusHubungan}>
+                    <option value="" disabled>--Pilih Hubungan--</option>
+                    <option value="AKTIF">AKTIF</option>
+                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                  </Form.Select>
+                )}
               />
             </Form.Group>
           </Form>
-        }
-        modalFooter={
-          <>
-            <Button variant="secondary" onClick={ closeModalEditHubungan }>Batal</Button>
-
-            <Button variant="primary" onClick={ handleUpdateHubungan }>Kemas Kini</Button>
-          </>
-        }
-        isModalOpen={isModalEditHubunganOpen}
-        closeModal={ closeModalEditHubungan }
-      />
-    </>
+        </Modal.Body>
+        
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModalEditHubungan}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(updateHubungan)}>Kemas Kini</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }
 
