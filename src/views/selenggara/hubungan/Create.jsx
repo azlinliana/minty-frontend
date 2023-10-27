@@ -1,3 +1,11 @@
+import React, {useState} from 'react';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import {useForm, Controller} from 'react-hook-form';
+import axios from 'axios';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import { useState } from "react";
 
 import axios from "axios";
@@ -8,52 +16,45 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaPlus } from "react-icons/fa";
 
-function CreateHubungan({ fetchHubungans }) {
+function CreateHubungan() {
+  // ----------FE----------
   // Create hubungan
-  const [hubunganInput, setHubunganInput] = useState({
-    hubungan: "",
-    keterangan: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setHubunganInput({
-      ...hubunganInput,
-      [name]: value,
-    });
+  // Modal
+  const [isModalCreateHubungan, setIsModalCreateHubungan] = useState(false);
+  const openModalCreateHubungan = () => setIsModalCreateHubungan(true);
+  const closeModalCreateHubungan = () => {
+    setIsModalCreateHubungan(false);
+    reset(); // Reset previous form input
   };
 
-  const createHubungan = async () => {
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+
+  // ----------BE----------
+  // Create hubungan
+  const createHubungan = async(hubunganInput) => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/selenggara/hubungan",
-        hubunganInput
-      );
-
-      if (response.status === 200) {
-        console.log("Hubungan created successfully");
+      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/hubungan', hubunganInput);  
+      if(response.status === 200) {
+        SuccessAlert(response.data.message);
+        console.log('Hubungan berjaya ditambah');
+        closeModalCreateHubungan();
       }
-
-      closeModalCreateHubungan();
-
-      fetchHubungans();
     } catch (error) {
-      console.error("Error in creating hubungan", error);
+      ErrorAlert(error);
+      console.log('Api response is not as expected');
     }
   };
 
-  // Modal
-  const [isModalCreateHubunganOpen, setIsModalCreateHubunganOpen] =
-    useState(false);
+  return(
+    <div>
+      <Button variant="primary" onClick={openModalCreateHubungan}>Tambah</Button>{' '}
 
-  const openModalCreateHubungan = () => {
-    setIsModalCreateHubunganOpen(true);
-  };
+      <Modal show={isModalCreateHubungan} onHide={closeModalCreateHubungan} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Tambah Hubungan</Modal.Title></Modal.Header>
 
-  const closeModalCreateHubungan = () => {
-    setIsModalCreateHubunganOpen(false);
-  };
-
+        <Modal.Body>
+          <Form onSubmit={handleSubmit(createHubungan)} onReset={reset}>
   return (
     <>
       <Button variant="primary" onClick={openModalCreateHubungan}>
@@ -64,48 +65,56 @@ function CreateHubungan({ fetchHubungans }) {
         modalContent={
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="hubungan">Hubungan</Form.Label>
-              <Form.Control
-                type="text"
-                id="hubungan"
-                name="hubungan"
-                value={hubunganInput.hubungan}
-                onChange={handleInputChange}
-                placeholder="Masukkan jenis hubungan"
-                autoFocus
+              <Form.Label htmlFor="kodHubungan">Kod Hubungan</Form.Label>
+              <Controller
+                name="kodHubungan"
+                id="kodHubungan"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Kod hubungan is required'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    type="text"
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan kod hubungan"
+                    autoFocus
+                  />
+                )}
               />
+              {errors.kodHubungan && ( <small className="text-danger">{errors.kodHubungan.message}</small> )}            
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keterangan">Keterangan</Form.Label>
-              <Form.Control
-                as="textarea"
-                id="keterangan"
-                name="keterangan"
-                value={hubunganInput.keterangan}
-                onChange={handleInputChange}
-                rows={3}
-                placeholder="Masukkan keterangan hubungan"
+              <Form.Label htmlFor="keteranganHubungan">Keterangan Hubungan</Form.Label>
+              <Controller
+                name="keteranganHubungan"
+                id="keteranganHubungan"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Keterangan hubungan is required'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    as="textarea"
+                    onChange={onChange}
+                    value={value}
+                    rows={3}
+                    placeholder="Masukkan keterangan hubungan"
+                  />
+                )}
               />
+              {errors.keteranganHubungan && ( <small className="text-danger">{errors.keteranganHubungan.message}</small> )}
             </Form.Group>
           </Form>
-        }
-        modalFooter={
-          <>
-            <Button variant="secondary" onClick={closeModalCreateHubungan}>
-              Batal
-            </Button>
+        </Modal.Body>
 
-            <Button variant="primary" onClick={createHubungan}>
-              Tambah
-            </Button>
-          </>
-        }
-        isModalOpen={isModalCreateHubunganOpen}
-        closeModal={closeModalCreateHubungan}
-      />
-    </>
-  );
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModalCreateHubungan}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(createHubungan)}>Tambah</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  )
 }
 
 export default CreateHubungan;
