@@ -1,107 +1,103 @@
-import { useState } from "react";
+import React, {useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import {FaPlus} from "react-icons/fa";
+import axios from 'axios';
 
-import axios from "axios";
-
-import SelenggaraModal from "../../components/modal/SelenggaraModal";
-
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { FaPlus } from "react-icons/fa";
-
-function CreateKodOutflow({ fetchKodOutflows }) {
-  // Create kod outflow
-  const [kodOutflowInput, setKodOutflowInput] = useState({
-    kodOutflow: "",
-    keterangan: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setKodOutflowInput({
-      ...kodOutflowInput,
-      [name]: value,
-    });
+function CreateKodOutflow() {
+  // ----------FE----------
+  // Modal
+  const [isModalCreateKodOutflow, setIsModalCreateKodOutflow] = useState(false);
+  const openModalCreateKodOutflow = () => setIsModalCreateKodOutflow(true);
+  const closeModalCreateKodOutflow = () => {
+    setIsModalCreateKodOutflow(false);
+    reset(); // Reset previous form input
   };
 
-  const createKodOutflow = async () => {
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+
+  // ----------BE----------
+  // Create kod outflow
+  const createKodOutflow = async(kodOutflowInput) => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/selenggara/kod-outflow",
-        kodOutflowInput
-      );
-
-      if (response.status === 200) {
-        console.log("Kod outflow created successfully");
+      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/kod-outflow', kodOutflowInput);  
+      if(response.status === 200) {
+        SuccessAlert(response.data.message);
+        console.log('Kod outflow berjaya ditambah');
+        closeModalCreateKodOutflow();
       }
-
-      closeModalCreateKodOutflow();
     } catch (error) {
-      console.error("Error in creating kod outflow", error);
+      ErrorAlert(error);
+      console.log('Tindak balas API tidak seperti yang diharapkan');
     }
   };
 
-  // Modal
-  const [isModalCreateKodOutflow, setIsModalCreateKodOutflow] = useState(false);
-
-  const openModalCreateKodOutflow = () => {
-    setIsModalCreateKodOutflow(true);
-  };
-
-  const closeModalCreateKodOutflow = () => {
-    setIsModalCreateKodOutflow(false);
-  };
-
   return (
-    <>
-      <Button variant="primary" onClick={openModalCreateKodOutflow}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
-      </Button>{" "}
-      <SelenggaraModal
-        modalTitle="Tambah Kod Outflow"
-        modalContent={
-          <Form>
+    <div>
+      <Button variant="primary" onClick={openModalCreateKodOutflow}><FaPlus style={{ fontSize: "10px" }} /> Tambah</Button>{" "}
+      
+      <Modal show={isModalCreateKodOutflow} onHide={closeModalCreateKodOutflow} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Tambah Kod Outflow</Modal.Title></Modal.Header>
+
+        <Modal.Body>
+          <Form onSubmit={handleSubmit(createKodOutflow)} onReset={reset}>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="kod-outflow">Kod Outflow</Form.Label>
-              <Form.Control
-                type="text"
-                id="kod-outflow"
+              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+
+              <Controller
                 name="kodOutflow"
-                value={kodOutflowInput.kodOutflow}
-                onChange={handleInputChange}
-                placeholder="Masukkan kod outflow"
-                autoFocus
+                id="kodOutflow"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Kod outflow diperlukan'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    type="text"
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan kod outflow"
+                    autoFocus
+                  />
+                )}
               />
+              {errors.kodOutflow && ( <small className="text-danger">{errors.kodOutflow.message}</small> )}            
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keterangan">Keterangan</Form.Label>
-              <Form.Control
-                as="textarea"
-                id="keterangan"
-                name="keterangan"
-                value={kodOutflowInput.keterangan}
-                onChange={handleInputChange}
-                rows={3}
-                placeholder="Masukkan keterangan kod outflow"
+              <Form.Label htmlFor="keteranganKodOutflow">Keterangan Kod Outflow</Form.Label>
+
+              <Controller
+                name="keteranganKodOutflow"
+                id="keteranganKodOutflow"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Keterangan kod outflow diperlukan'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    as="textarea"
+                    onChange={onChange}
+                    value={value}
+                    rows={3}
+                    placeholder="Masukkan keterangan kod outflow"
+                  />
+                )}
               />
+              {errors.keteranganKodOutflow && ( <small className="text-danger">{errors.keteranganKodOutflow.message}</small> )}
             </Form.Group>
           </Form>
-        }
-        modalFooter={
-          <>
-            <Button variant="secondary" onClick={closeModalCreateKodOutflow}>
-              Batal
-            </Button>
+        </Modal.Body>
 
-            <Button variant="primary" onClick={createKodOutflow}>
-              Tambah
-            </Button>
-          </>
-        }
-        isModalOpen={isModalCreateKodOutflow}
-        closeModal={closeModalCreateKodOutflow}
-      />
-    </>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModalCreateKodOutflow}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>Tambah</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }
 

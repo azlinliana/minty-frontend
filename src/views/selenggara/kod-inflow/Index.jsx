@@ -1,19 +1,12 @@
-import React from 'react';
-
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import "../Selenggara.css";
 import CreateKodInflow from "./Create";
 import EditKodInflow from "./Edit";
-
 import axios from "axios";
-
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-
-import "../Selenggara.css";
 
 function IndexKodInflow() {
   // List kod inflow
@@ -50,26 +43,22 @@ function IndexKodInflow() {
         prevKodInflows.filter((kodInflow) => kodInflow.id !== kodInflowId)
       );
     } catch (error) {
-      console.error("Error in deleting kod inflow", error);
+      console.error("Ralat dalam memadam kod inflow", error);
     }
   };
 
   // Back button
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate(-1);
-  };
+  const goBack = () => {navigate(-1);};
 
-  return (
-    <>
+  return(
+    <div>
       <div className="pageTitle">
         <h1>Kod Inflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Senarai Selenggara
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -78,6 +67,7 @@ function IndexKodInflow() {
         <div className="tambahBtnPlacement">
           <CreateKodInflow fetchKodInflows={fetchKodInflows} />
         </div>
+
         <Table responsive>
           <thead>
             <tr>
@@ -111,13 +101,12 @@ function IndexKodInflow() {
             ))}
           </tbody>
         </Table>
+
         <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
-            Kembali
-          </Button>{" "}
+          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

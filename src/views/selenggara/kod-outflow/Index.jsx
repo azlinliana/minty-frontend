@@ -1,17 +1,12 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from "react-router-dom";
+import "../Selenggara.css";
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
-
 import axios from "axios";
-
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-
-import "../Selenggara.css";
 
 function IndexKodOutflow() {
   // List kod outflow
@@ -48,26 +43,21 @@ function IndexKodOutflow() {
         prevKodOutflows.filter((kodOutflow) => kodOutflow.id !== kodOutflowId)
       );
     } catch (error) {
-      console.error("Error in deleting kod outflow", error);
+      console.error("Ralat dalam memadam kod outflow", error);
     }
   };
 
   // Back button
   const navigate = useNavigate();
+  const goBack = () => {navigate(-1);};
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  return (
-    <>
+  return(
+    <div>
       <div className="pageTitle">
         <h1>Kod Outflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Senarai Selenggara
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Outflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -94,29 +84,19 @@ function IndexKodOutflow() {
                   <td>{row.kodOutflow}</td>
                   <td>{row.keterangan}</td>
                   <td>
-                    <EditKodOutflow
-                      kodOutflow={row}
-                      updateKodOutflow={updateKodOutflow}
-                      closeModalEditKodOutflow={() => {}}
-                    />
-                    <Button
-                      variant="danger"
-                      onClick={() => handleDeleteKodOutflow(row.id)}
-                    >
-                      Padam
-                    </Button>{" "}
+                    <EditKodOutflow kodOutflow={row} updateKodOutflow={updateKodOutflow} closeModalEditKodOutflow={() => {}}/>
+                    <Button variant="danger" onClick={() => handleDeleteKodOutflow(row.id)}>Padam</Button>{" "}
                   </td>
                 </tr>
               ))}
           </tbody>
         </Table>
+
         <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
-            Kembali
-          </Button>{" "}
+          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

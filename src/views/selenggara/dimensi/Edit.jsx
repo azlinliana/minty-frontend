@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 
 function EditDimensi({dimensi}) {
   // ----------FE----------
@@ -27,11 +27,11 @@ function EditDimensi({dimensi}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditDimensi();
-        console.log('Dimensi updated successfully');
+        console.log('Dimensi berjaya dikemas kini');
       }
     } catch (error) {
       ErrorAlert(error);
-      console.error('Error in updating dimensi', error);
+      console.error('Ralat dalam mengemas kini dimensi', error);
     }
   };
 
@@ -46,12 +46,13 @@ function EditDimensi({dimensi}) {
           <Form onSubmit={handleSubmit(updateDimensi)} onReset={reset}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="kodDimensi">Kod Dimensi</Form.Label>
+
               <Controller
                 name="kodDimensi"
                 id="kodDimensi"
                 control={control}
                 defaultValue={dimensi.kodDimensi}
-                rules={{required: 'Kod dimensi is required'}}
+                rules={{required: 'Kod dimensi diperlukan'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -72,7 +73,7 @@ function EditDimensi({dimensi}) {
                 id="keteranganDimensi"
                 control={control}
                 defaultValue={dimensi.keteranganDimensi}
-                rules={{ required: 'Keterangan dimensi is required' }}
+                rules={{ required: 'Keterangan dimensi diperlukan' }}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
@@ -88,6 +89,7 @@ function EditDimensi({dimensi}) {
 
             <Form.Group>
               <Form.Label>Status Dimensi</Form.Label>
+
               <Controller
                 name="statusDimensi"
                 control={control}

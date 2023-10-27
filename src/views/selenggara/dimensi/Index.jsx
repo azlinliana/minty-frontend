@@ -1,13 +1,12 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import "../Selenggara.css";
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-
-import "../Selenggara.css";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -56,7 +55,7 @@ function IndexDimensi() {
           console.log('Dimensi berjaya dipadam');
         }
       } catch (error) {
-        console.error('Error in deleting dimensi', error);
+        console.error('Ralat dalam memadam dimensi', error);
       }
     };
 
@@ -69,26 +68,22 @@ function IndexDimensi() {
     DeletionAlert(performDeletion, cancelDeletion);
   };
   
-  return (
+  return(
     <div>
       <div className="pageTitle">
         <h1>Dimensi</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Senarai Selenggara
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
           <Breadcrumb.Item active>Dimensi</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div>
-        <CreateDimensi />
-
       <div className="tableSection">
         <div className="tambahBtnPlacement">
-          <CreateDimensi fetchDimensis={fetchDimensis} />
+          <CreateDimensi />
         </div>
+
         <Table responsive>
           <thead>
             <tr>
@@ -118,10 +113,9 @@ function IndexDimensi() {
             )}
           </tbody>
         </Table>
+        
         <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
-            Kembali
-          </Button>{" "}
+          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
     </div>

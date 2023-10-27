@@ -1,97 +1,119 @@
-import { useState } from 'react';
-
-import axios from 'axios';
-
-import SelenggaraModal from '../../components/modal/SelenggaraModal';
-
+import React, {useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
+import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
-function EditKodOutflow({kodOutflow, updateKodOutflow}) {
-  // Update kod outflow
-  const [editedKodOutflow, setEditedKodOutflow] = useState(kodOutflow);
-
-  const handleInputChange = (e) => {
-    const {name, value} = e.target;
-    setEditedKodOutflow({
-      ...editedKodOutflow,
-      [name]: value,
-    });
+function EditKodOutflow({kodOutflow}) {
+  // ----------FE----------
+  // Modal
+  const [isModalEditKodOutflow, setIsModalEditKodOutflow] = useState(false);
+  const openModalEditKodOutflow = () => setIsModalEditKodOutflow(true);
+  const closeModalEditKodOutflow = () => {
+    setIsModalEditKodOutflow(false);
   };
 
-  const handleUpdateKodOutflow = async () => {
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+
+  // ----------BE----------
+  const updateKodOutflow = async (kodOutflowInput) => {
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflow.id}`, editedKodOutflow);
-
+      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflow.id}`, kodOutflowInput);
+  
       if (response.status === 200) {
+        SuccessAlert(response.data.message);
         closeModalEditKodOutflow();
-
-        updateKodOutflow(editedKodOutflow);
+        console.log('Kod outflow berjaya dikemas kini');
       }
-    } 
-    catch (error) {
-      console.error('Error in updating kod outflow', error);
+    } catch (error) {
+      ErrorAlert(error);
+      console.error('Ralat dalam mengemas kini kod outflow', error);
     }
   };
 
-  // Modal
-  const [isModalEditKodOutflowOpen, setIsModalEditKodOutflowOpen] = useState(false);
-
-  const openModalEditKodOutflow = () => {
-    setIsModalEditKodOutflowOpen(true);
-  };
-
-  const closeModalEditKodOutflow = () => {
-    setIsModalEditKodOutflowOpen(false);
-  };
-
   return(
-    <>
+    <div>
       <Button variant="warning" onClick={openModalEditKodOutflow}>Kemas Kini</Button>{' '}
 
-      <SelenggaraModal
-        modalTitle="Kemas Kini Kod Outflow"
-        modalContent={
-          <Form>
+      <Modal show={isModalEditKodOutflow} onHide={closeModalEditKodOutflow} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Kemas Kini Kod Outflow</Modal.Title></Modal.Header>
+        
+        <Modal.Body>
+          <Form onSubmit={handleSubmit(updateKodOutflow)} onReset={reset}>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="kod-outflow">Kod Outflow</Form.Label>
-              <Form.Control
-                type="text"
-                id="kod-outflow"
+              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+
+              <Controller
                 name="kodOutflow"
-                value={ editedKodOutflow.kodOutflow }
-                onChange={ handleInputChange }
-                placeholder="Masukkan kod outflow"
-                autoFocus
+                id="kodOutflow"
+                control={control}
+                defaultValue={kodOutflow.kodOutflow}
+                rules={{required: 'Kod outflow diperlukan'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    type="text"
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan kod outflow"
+                    autoFocus
+                  />
+                )}
               />
+              {errors.kodOutflow && ( <small className="text-danger">{errors.kodOutflow.message}</small> )}            
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keterangan">Keterangan</Form.Label>
-              <Form.Control
-                as="textarea"
-                id="keterangan"
-                name="keterangan"
-                value={ editedKodOutflow.keterangan }
-                onChange={ handleInputChange }
-                rows={3}
-                placeholder="Masukkan keterangan kod outflow"
+              <Form.Label htmlFor="keteranganKodOutflow">Keterangan Kod Outflow</Form.Label>
+
+              <Controller
+                name="keteranganKodOutflow"
+                id="keteranganKodOutflow"
+                control={control}
+                defaultValue={kodOutflow.keteranganKodOutflow}
+                rules={{required: 'Keterangan kod outflow diperlukan'}}
+                render={({field: {onChange, value}}) => (
+                  <Form.Control
+                    as="textarea"
+                    onChange={onChange}
+                    value={value}
+                    rows={3}
+                    placeholder="Masukkan keterangan kod outflow"
+                  />
+                )}
+              />
+              {errors.keteranganKodOutflow && ( <small className="text-danger">{errors.keteranganKodOutflow.message}</small> )}
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Status Kod Outflow</Form.Label>
+
+              <Controller
+                name="statusKodOutflow"
+                control={control}
+                defaultValue={kodOutflow.statusKodOutflow}
+                render={({field: {onChange}}) => (
+                  <Form.Select onChange={onChange} defaultValue={kodOutflow.statusKodOutflow}>
+                    <option value="" disabled>--Pilih Kod Outflow--</option>
+                    <option value="AKTIF">AKTIF</option>
+                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                  </Form.Select>
+                )}
               />
             </Form.Group>
           </Form>
-        }
-        modalFooter={
-          <>
-            <Button variant="secondary" onClick={closeModalEditKodOutflow}>Batal</Button>
-
-            <Button variant="primary" onClick={handleUpdateKodOutflow}>Kemas Kini</Button>
-          </>
-        }
-        isModalOpen={isModalEditKodOutflowOpen}
-        closeModal={closeModalEditKodOutflow}
-      />
-    </>
-  )
+        </Modal.Body>
+        
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModalEditKodOutflow}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>Kemas Kini</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default EditKodOutflow;

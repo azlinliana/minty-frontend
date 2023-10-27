@@ -1,24 +1,15 @@
 import React, {useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useForm, Controller} from 'react-hook-form';
+import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import { useState } from "react";
-
-import axios from "axios";
-
-import SelenggaraModal from "../../components/modal/SelenggaraModal";
-
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { FaPlus } from "react-icons/fa";
 
 function CreateHubungan() {
   // ----------FE----------
-  // Create hubungan
   // Modal
   const [isModalCreateHubungan, setIsModalCreateHubungan] = useState(false);
   const openModalCreateHubungan = () => setIsModalCreateHubungan(true);
@@ -42,30 +33,22 @@ function CreateHubungan() {
       }
     } catch (error) {
       ErrorAlert(error);
-      console.log('Api response is not as expected');
+      console.log('Tindak balas API tidak seperti yang diharapkan');
     }
   };
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateHubungan}>Tambah</Button>{' '}
-
+      <Button variant="primary" onClick={openModalCreateHubungan}><FaPlus style={{ fontSize: "10px" }} /> Tambah</Button>{" "}
+      
       <Modal show={isModalCreateHubungan} onHide={closeModalCreateHubungan} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Hubungan</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createHubungan)} onReset={reset}>
-  return (
-    <>
-      <Button variant="primary" onClick={openModalCreateHubungan}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
-      </Button>{" "}
-      <SelenggaraModal
-        modalTitle="Tambah Hubungan"
-        modalContent={
-          <Form>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="kodHubungan">Kod Hubungan</Form.Label>
+
               <Controller
                 name="kodHubungan"
                 id="kodHubungan"
@@ -87,6 +70,7 @@ function CreateHubungan() {
 
             <Form.Group className="mb-3">
               <Form.Label htmlFor="keteranganHubungan">Keterangan Hubungan</Form.Label>
+
               <Controller
                 name="keteranganHubungan"
                 id="keteranganHubungan"
@@ -114,7 +98,7 @@ function CreateHubungan() {
         </Modal.Footer>
       </Modal>
     </div>
-  )
+  );
 }
 
 export default CreateHubungan;

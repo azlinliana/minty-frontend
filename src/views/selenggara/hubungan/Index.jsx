@@ -1,5 +1,6 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import "../Selenggara.css";
 import CreateHubungan from './Create';
 import EditHubungan from './Edit';
 import DeletionAlert from '../../components/sweet-alert/DeletionAlert';
@@ -53,7 +54,7 @@ function IndexHubungan() {
           console.log('Hubungan berjaya dipadam');
         }
       } catch (error) {
-        console.error('Error in deleting hubungan', error);
+        console.error('Ralat dalam memadam hubungan', error);
       }
     };
 
@@ -66,21 +67,21 @@ function IndexHubungan() {
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
-  return (
+  return(
     <div>
-      <div>
+      <div className="pageTitle">
         <h1>Hubungan</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Senarai Selenggara
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
           <Breadcrumb.Item active>Hubungan</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div>
-        <CreateHubungan />
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateHubungan />
+        </div>
 
         <Table responsive>
           <thead>
@@ -111,14 +112,13 @@ function IndexHubungan() {
             )}
           </tbody>
         </Table>
+
         <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
-            Kembali
-          </Button>{" "}
+          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default IndexHubungan;

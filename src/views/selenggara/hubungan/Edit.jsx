@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 
 function EditHubungan({hubungan}) {
   // ----------FE----------
@@ -27,11 +27,11 @@ function EditHubungan({hubungan}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditHubungan();
-        console.log('Hubungan updated successfully');
+        console.log('Hubungan berjaya dikemas kini');
       }
     } catch (error) {
       ErrorAlert(error);
-      console.error('Error in updating hubungan', error);
+      console.error('Ralat dalam mengemas kini hubungan', error);
     }
   };
 
@@ -51,7 +51,7 @@ function EditHubungan({hubungan}) {
                 id="kodHubungan"
                 control={control}
                 defaultValue={hubungan.kodHubungan}
-                rules={{required: 'Kod hubungan is required'}}
+                rules={{required: 'Kod hubungan diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -72,7 +72,7 @@ function EditHubungan({hubungan}) {
                 id="keteranganHubungan"
                 control={control}
                 defaultValue={hubungan.keteranganHubungan}
-                rules={{required: 'Keterangan hubungan is required'}}
+                rules={{required: 'Keterangan hubungan diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
