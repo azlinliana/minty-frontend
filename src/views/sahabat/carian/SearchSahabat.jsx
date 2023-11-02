@@ -1,25 +1,28 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import "./Sahabat.css";
+import "../Sahabat.css";
 
 function SearchSahabat() {
-  // Search Sahabat's No. Kad Pengenalan
   const [noKadPengenalan, setNoKadPengenalan] = useState("");
   const navigate = useNavigate();
+  const [resultSahabat, setResultSahabat] = useState([]);
+
+  useEffect(() => {
+    if (resultSahabat.length > 0) {
+      navigate("/search-result-sahabat", { state: { resultSahabat } });
+    }
+  }, [resultSahabat, navigate]);
 
   const handleSearch = () => {
     axios
       .get(`http://127.0.0.1:8000/api/sahabat/search/${noKadPengenalan}`)
       .then((response) => {
         const data = response.data;
-
-        navigate("/result-sahabat", { state: { results: data } });
+        setResultSahabat(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -27,10 +30,8 @@ function SearchSahabat() {
   };
 
   return (
-    <>
-      <div className="pageTitle">
-        <h1>Inflow/Outflow</h1>
-      </div>
+    <div>
+      <div className="pageTitle"><h1>Carian Sahabat</h1></div>
 
       <div className="container-fluid searchSection">
         <Form className="searchBar">
@@ -39,22 +40,19 @@ function SearchSahabat() {
               <Form.Control
                 type="text"
                 placeholder="Carian No. Kad Pengenalan Sahabat"
-                // className="mr-sm-2"
                 value={noKadPengenalan}
                 onChange={(e) => setNoKadPengenalan(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="col-md-2">
               <div className="buttonContainer">
-                <Button className="searchBarBtn" onClick={handleSearch}>
-                  Cari
-                </Button>
+                <Button className="searchBarBtn" onClick={handleSearch}>Cari</Button>
               </div>
             </Form.Group>
           </Row>
         </Form>
       </div>
-    </>
+    </div>
   );
 }
 

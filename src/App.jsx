@@ -8,9 +8,9 @@ import SignIn from "./views/auth/SignIn";
 import NoPage from "./views/auth/NoPage";
 
 // IMPORT FROM SAHABAT FOLDER
-import SearchSahabat from "./views/sahabat/Search";
-import ResultSahabat from "./views/sahabat/SearchResult";
-import Tracking from "./views/sahabat/Tracking";
+import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
+import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
+import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
 
 // IMPORT FROM LAPORAN FOLDER
 import IndexLaporan from "./views/laporan/Index";
@@ -32,7 +32,7 @@ import IndexHubungan from "./views/selenggara/hubungan/Index";
 import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
 
 function App() {
-  return (
+  return(
     <>
       <BrowserRouter>
         <Routes>
@@ -41,9 +41,9 @@ function App() {
 
           <Route element={<MainLayout />}>
             {/* SAHABAT PATH */}
-            <Route path="inflow-outflow" element={<SearchSahabat />} />
-            <Route path="result-sahabat" element={<ResultSahabat />} />
-            <Route path="tracking-inflow-outflow" element={<Tracking />} />
+            <Route path="search-sahabat" element={<SearchSahabat />} />
+            <Route path="search-result-sahabat" element={<SearchResultSahabat /> } />
+            <Route path="tracking-inflow-outflow" element={<TrackingInflowOutflow />} />
 
             {/* LAPORAN PATH */}
             <Route path="laporan" element={<IndexLaporan />} />

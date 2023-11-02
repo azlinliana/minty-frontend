@@ -1,7 +1,6 @@
-import { useState } from 'react'
-
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
+import {useState} from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 function Tabbed({ tabs, defaultActiveTabKey, onTabChange }) {
   const [activeTabKey, setActiveTabKey] = useState(defaultActiveTabKey);

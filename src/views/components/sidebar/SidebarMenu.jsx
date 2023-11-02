@@ -5,7 +5,7 @@ import { FaTools } from 'react-icons/fa';
 const SidebarMenu = [
   {
     title: 'Sahabat',
-    path: '/inflow-outflow',
+    path: '/search-sahabat',
     icon: <FaUsers />,
   },
 
@@ -21,4 +21,4 @@ const SidebarMenu = [
   }
 ];
 
-export default SidebarMenu
+export default SidebarMenu;
