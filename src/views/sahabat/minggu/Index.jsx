@@ -10,31 +10,13 @@ import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function IndexMinggu(props) {
+function IndexMinggu() {
   // ----------FE----------
-  // Access resultSahabat
-  const {sahabatId, pembiayaanId} = props;
-  const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
-
   // Link pages
   const navigate = useNavigate();
-  const clickLihat = () => navigate('/tracking-inflow-outflow', { state: {resultSahabat: props.resultSahabat}});
+  const clickLihat = () => navigate('/tracking-inflow-outflow');
 
   // ----------BE----------
-  // List minggu pembiayaan sahabat
-  const fetchMingguPembiayaanSahabats = async() => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
-      setMingguPembiayaanSahabats(response.data);
-    }
-    catch(error) {
-      console.error('Error fetching minggu pembiayaan sahabat data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMingguPembiayaanSahabats();
-  }, [sahabatId, pembiayaanId]);
 
   return(
     <div>
@@ -54,11 +36,13 @@ function IndexMinggu(props) {
             </tr>
           </thead>
           <tbody>
-          {mingguPembiayaanSahabats.length > 0 ? (
-              // When there is data
-              mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => (
-                <tr key={key}>
-                  <td>{mingguPembiayaanSahabatsData.bilanganMinggu}</td>
+          {/* {mingguPembiayaanSahabats.length > 0 ? ( */}
+              {/* // When there is data */}
+              {/* mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => ( */}
+                <tr>
+                  <td>
+                    {/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}
+                  </td>
                   <td>Tiada maklumat</td>
                   <td>Tiada maklumat</td>
                   <td>Tiada maklumat</td>
@@ -67,13 +51,13 @@ function IndexMinggu(props) {
                     <Button variant="danger">Padam</Button>{" "}
                   </td>
                 </tr>
-              ))
-            ) : (
-              // If no minggu for pembiayaan sahabat
+              {/* )) */}
+            {/* ) : ( */}
+              {/* // If no minggu for pembiayaan sahabat */}
               <tr>
                 <td colSpan="5"><center>Tiada maklumat tracking. Sila klik butang "Tambah Minggu" untuk merekodkan minggu baharu.</center></td>
               </tr>
-            )}
+            {/* )} */}
           </tbody>
         </Table>
       </div>

@@ -28,30 +28,8 @@ function IndexIsiRumah() {
     }
   };
 
-  const [isiRumahPembiayaanSahabats, setIsiRumahPembiayaanSahabats] = useState([]);
-
   // ----------BE----------
-  // List isi rumah sahabat based on current pembiayaan and minggu
-  const fetchIsiRumahPembiayaanSahabats = async() => {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/sahabat/isi-rumah');
-      setIsiRumahPembiayaanSahabats(response.data);
-    } catch(error) {
-      console.error('Ralat dalam mengambil maklumat isi rumah pembiayaan sahabat:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchIsiRumahPembiayaanSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 1 second
-      fetchIsiRumahPembiayaanSahabats();
-    }, 1000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
+  
   return(
     <div>
       <h2>Maklumat {activeTabTitleInflowOutflowIsiRumah} Tracking Isi Rumah</h2>

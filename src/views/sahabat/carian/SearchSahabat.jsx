@@ -1,53 +1,52 @@
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useForm, Controller} from 'react-hook-form';
+import "../Sahabat.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import "../Sahabat.css";
+import axios from "axios";
 
 function SearchSahabat() {
-  const [noKadPengenalan, setNoKadPengenalan] = useState("");
+  // ----------FE----------
+  // Link pages
   const navigate = useNavigate();
-  const [resultSahabat, setResultSahabat] = useState([]);
+  const clickCarian = () => navigate('/search-result-sahabat');
 
-  useEffect(() => {
-    if (resultSahabat.length > 0) {
-      navigate("/search-result-sahabat", { state: { resultSahabat } });
-    }
-  }, [resultSahabat, navigate]);
-
-  const handleSearch = () => {
-    axios
-      .get(`http://127.0.0.1:8000/api/sahabat/search/${noKadPengenalan}`)
-      .then((response) => {
-        const data = response.data;
-        setResultSahabat(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  
+  // ----------BE----------
 
   return (
     <div>
       <div className="pageTitle"><h1>Carian Sahabat</h1></div>
 
       <div className="container-fluid searchSection">
-        <Form className="searchBar">
+        <Form className="searchBar" onSubmit={handleSubmit} onReset={reset}>
           <Row>
             <Form.Group className="col-md-10">
-              <Form.Control
-                type="text"
-                placeholder="Carian No. Kad Pengenalan Sahabat"
-                value={noKadPengenalan}
-                onChange={(e) => setNoKadPengenalan(e.target.value)}
+              <Controller
+                id="noKadPengenalanSahabat"
+                name="noKadPengenalanSahabat"
+                control={control}
+                defaultValue=""
+                rules={{required: 'No. kad pengenalan sahabat is required.'}}
+                render={({field:{onChange, value}}) => (
+                  <Form.Control
+                    type="text"
+                    maxLength={12}
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan no. kad pengenalan isi rumah sahabat"
+                    autoFocus
+                  />
+                )}
               />
+              {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
             </Form.Group>
             <Form.Group className="col-md-2">
-              <div className="buttonContainer">
-                <Button className="searchBarBtn" onClick={handleSearch}>Cari</Button>
-              </div>
+              <div className="buttonContainer"><Button className="searchBarBtn" onClick={handleSubmit(clickCarian)}>Cari</Button></div>
             </Form.Group>
           </Row>
         </Form>

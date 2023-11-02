@@ -15,17 +15,9 @@ import Form from 'react-bootstrap/Form';
 
 function TrackingInflowOutflow() {
   // ----------FE----------
-  // Display sahabat search result
-  const location = useLocation();
-  const resultSahabat = location.state.resultSahabat || [];
-
-  // Back button
-  const navigate = useNavigate();
-  const goBack = () => {navigate(-1);};
-
   // Tab sahabat inflow/outflow
   const [activeTabTitleInflowOutflowSahabat, setActiveTabTitleInflowOutflowSahabat] = useState('Inflow'); // Initialize sahabat tab title
-    
+  
   // Function to handle tab change sahabat inflow/outflow
   const handleTabInflowOutflowSahabatChange = (key) => {
     const selectedTabInflowOutflowSahabat = TabTrackingInflowOutflowSahabat.find((tab) => tab.eventKey === key);
@@ -34,6 +26,12 @@ function TrackingInflowOutflow() {
       setActiveTabTitleInflowOutflowSahabat(selectedTabInflowOutflowSahabat.title);
     }
   };
+
+  // Back button
+  const navigate = useNavigate();
+  const goBack = () => {navigate(-1);};
+
+  // ----------BE----------
 
   return(
     <div>

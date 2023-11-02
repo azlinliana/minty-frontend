@@ -9,17 +9,14 @@ import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 
 function SearchResultSahabat() {
-  // Display sahabat search result
-  const location = useLocation();
-  const resultSahabat = location.state.resultSahabat || [];
-
-  // Link pages
-  // const navigate = useNavigate();
-  // const clickKemasKini = () => navigate('/tracking-inflow-outflow', { state: {results}});
-  
-  // Back button
+  // ----------FE----------
   const navigate = useNavigate();
-  const goBack = () => {navigate(-1);};
+
+  const clickKemasKini = () => navigate('/tracking-inflow-outflow'); // Link pages
+  
+  const goBack = () => {navigate(-1);}; // Back button
+
+  // ----------BE----------
 
   return(
     <div>
@@ -32,10 +29,11 @@ function SearchResultSahabat() {
         </Breadcrumb>
       </div>
 
-      {resultSahabat.map((dataSahabat) => (
-        <div key={dataSahabat.id}>
+      {/* {resultSahabat.map((dataSahabat) => ( */}
+        {/* <div key={dataSahabat.id}> */}
+        <div>
           <div>
-            <p>Hasil Carian: {dataSahabat.noKadPengenalanSahabat}</p>
+            <p>Hasil Carian: {/*{dataSahabat.noKadPengenalanSahabat}*/}</p>
 
             <h2>Maklumat Sahabat</h2>
 
@@ -44,7 +42,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>Nama</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.namaSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -53,7 +51,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>No. Kad Pengenalan</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.noKadPengenalanSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -62,7 +60,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>No. Sahabat</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.noSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -71,7 +69,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>Wilayah</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.wilayahSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -80,7 +78,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>Cawangan</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.cawanganSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -89,7 +87,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>Pusat</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.pusatSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -98,7 +96,7 @@ function SearchResultSahabat() {
                 <Col xs={12}>
                   <Form.Group>
                     <Form.Label>Kumpulan</Form.Label>
-                    <Form.Control type="text" defaultValue={dataSahabat.kumpulanSahabat} disabled />
+                    <Form.Control type="text" defaultValue="" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -108,10 +106,11 @@ function SearchResultSahabat() {
           <div>
             <h2>Maklumat Pembiayaan Sahabat</h2>
 
-            <IndexPembiayaan resultSahabat={resultSahabat} sahabatId={dataSahabat.id} />
+            <IndexPembiayaan />
           </div>
         </div>
-      ))}
+        {/* </div> */}
+      {/* ))} */}
 
       <div className="kembaliBtnPlacement">
         <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}

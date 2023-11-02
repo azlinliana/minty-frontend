@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditPembiayaan({pembiayaanSahabats}) {
+function EditPembiayaan() {
   // ----------FE----------
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
@@ -20,20 +20,6 @@ function EditPembiayaan({pembiayaanSahabats}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
-  const updatePembiayaanSahabat = async (pembiayaanSahabatInput) => {
-    try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensi.id}`, pembiayaanSahabatInput);
-  
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditPembiayaanSahabat();
-        console.log('Pembiayaan sahabat berjaya dikemas kini');
-      }
-    } catch (error) {
-      ErrorAlert(error);
-      console.error('Ralat dalam mengemas kini pembiayaan sahabat', error);
-    }
-  };
 
   return(
     <div>
@@ -43,7 +29,7 @@ function EditPembiayaan({pembiayaanSahabats}) {
         <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
         
         <Modal.Body>
-          <Form onSubmit={handleSubmit(updatePembiayaanSahabat)} onReset={reset}>
+          <Form onSubmit={handleSubmit()} onReset={reset}>
             <Form.Group>
               <Form.Label>Skim Pembiayaan</Form.Label>
               <Controller
@@ -81,13 +67,14 @@ function EditPembiayaan({pembiayaanSahabats}) {
                   </Form.Select>
                 )}
               />
+              {errors.statusPembiayaan && (<small className="text-danger">{errors.statusPembiayaan.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

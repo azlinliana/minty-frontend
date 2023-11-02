@@ -22,20 +22,6 @@ function CreatePembiayaan() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
   
   // ----------BE----------
-  // Create pembiayaan sahabat
-  const createPembiayaanSahabat = async(pembiayaanSahabatInput) => {
-    try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/pembiayaan/${sahabatId}`, pembiayaanSahabatInput);  
-      if(response.status === 200) {
-        SuccessAlert(response.data.message);
-        console.log('Pembiayaan sahabat berjaya ditambah');
-        closeModalCreatePembiayaanSahabat();
-      }
-    } catch (error) {
-      ErrorAlert(error);
-      console.log('Tindak balas API tidak seperti yang diharapkan');
-    }
-  };
 
   return(
     <div>
@@ -45,7 +31,7 @@ function CreatePembiayaan() {
         <Modal.Header closeButton><Modal.Title>Tambah Pembiayaan Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={handleSubmit(createPembiayaanSahabat)} onReset={reset}>
+          <Form onSubmit={handleSubmit()} onReset={reset}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="skimPembiayaan">Skim Pembiayaan</Form.Label>
               <Controller
@@ -70,7 +56,7 @@ function CreatePembiayaan() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreatePembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createPembiayaanSahabat)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>
