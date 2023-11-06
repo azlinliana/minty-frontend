@@ -2,24 +2,17 @@ import Swal from 'sweetalert2';
 
 function ErrorAlert(message) {
   if (message.response) {
-    if (message.response.status === 400) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Ralat',
-        text: message.response.data.message,
-      });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Ralat',
-        text: 'Ralat tidak dijangka', // Generic error message for other errors
-      });
-    }
-  } else {
-    Swal.fire({
+    Swal.fire({ // Message from the backend
       icon: 'error',
       title: 'Ralat',
-      text: 'Ralat tidak dijangka',
+      text: message.response.data.error,
+    });
+  } 
+  else {
+    Swal.fire({ // Error from the API response not as expected or an unknown client-side error
+      icon: 'error',
+      title: 'Ralat',
+      text: 'Tindak balas API tidak seperti yang diharapkan',
     });
   }
 }
