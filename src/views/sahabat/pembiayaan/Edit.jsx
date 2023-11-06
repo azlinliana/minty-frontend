@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditPembiayaan() {
+function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
   // ----------FE----------
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
@@ -20,6 +20,21 @@ function EditPembiayaan() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  const updatePembiayaanSahabat = async (pembiayaanSahabatInput) => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}`, pembiayaanSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditPembiayaanSahabat();
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
 
   return(
     <div>
@@ -29,21 +44,21 @@ function EditPembiayaan() {
         <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
         
         <Modal.Body>
-          <Form onSubmit={handleSubmit()} onReset={reset}>
+          <Form onSubmit={handleSubmit(updatePembiayaanSahabat)} onReset={reset}>
             <Form.Group>
               <Form.Label>Skim Pembiayaan</Form.Label>
               <Controller
                 id="skimPembiayaan"
                 name="skimPembiayaan"
                 control={control}
-                defaultValue=""
+                defaultValue={pembiayaanSahabat.skimPembiayaan}
                 rules={{required: 'Skim pembiayaan sahabat diperlukan.'}}
                 render={({ field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                  <Form.Select onChange={onChange} defaultValue={pembiayaanSahabat.skimPembiayaan}>
                     <option value="" disabled>--Pilih Skim Pembiayaan--</option>
-                    <option value="TIADA PEMBIAYAAN">Tiada Pembiayaan</option>
-                    <option value="I-MUDA">i-Muda</option>
-                    <option value="I-MESRA">i-Mesra</option>
+                    <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
+                    <option value="I-MUDA">I-MUDA</option>
+                    <option value="I-MESRA">I-MESRA</option>
                   </Form.Select>
                 )}
               />
@@ -52,15 +67,14 @@ function EditPembiayaan() {
 
             <Form.Group>
               <Form.Label>Status Pembiayaan</Form.Label>
-
               <Controller
                 id="statusPembiayaan"
                 name="statusPembiayaan"
                 control={control}
-                defaultValue=""
+                defaultValue={pembiayaanSahabat.statusPembiayaan}
                 rules={{required: 'Status pembiayaan sahabat diperlukan.'}}
                 render={({ field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                  <Form.Select onChange={onChange} defaultValue={pembiayaanSahabat.statusPembiayaan}>
                     <option value="" disabled>--Pilih Status Pembiayaan--</option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="SELESAI">SELESAI</option>
@@ -74,7 +88,7 @@ function EditPembiayaan() {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

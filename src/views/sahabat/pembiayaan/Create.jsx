@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreatePembiayaan() {
+function CreatePembiayaan({sahabatId}) {
   // ----------FE----------
   // Modal
   const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] = useState(false);
@@ -22,6 +22,22 @@ function CreatePembiayaan() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
   
   // ----------BE----------
+  // Create pembiayaan sahabat
+  const createPembiayaanSahabat = async (pembiayaanSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/pembiayaan/${sahabatId}`, pembiayaanSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreatePembiayaanSahabat();
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
@@ -31,7 +47,7 @@ function CreatePembiayaan() {
         <Modal.Header closeButton><Modal.Title>Tambah Pembiayaan Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={handleSubmit()} onReset={reset}>
+          <Form onSubmit={handleSubmit(createPembiayaanSahabat)} onReset={reset}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="skimPembiayaan">Skim Pembiayaan</Form.Label>
               <Controller
@@ -43,9 +59,9 @@ function CreatePembiayaan() {
                 render={({ field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Skim Pembiayaan--</option>
-                    <option value="TIADA PEMBIAYAAN">Tiada Pembiayaan</option>
-                    <option value="I-MUDA">i-Muda</option>
-                    <option value="I-MESRA">i-Mesra</option>
+                    <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
+                    <option value="I-MUDA">I-MUDA</option>
+                    <option value="I-MESRA">I-MESRA</option>
                   </Form.Select>
                 )}
               />
@@ -56,7 +72,7 @@ function CreatePembiayaan() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreatePembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createPembiayaanSahabat)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>
