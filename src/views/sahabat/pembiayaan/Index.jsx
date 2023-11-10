@@ -39,9 +39,9 @@ function IndexPembiayaan({sahabatId}) {
 
   useEffect(() => {
     fetchPembiayaanSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 1 second
+    const interval = setInterval(() => { // Set up recurring fetch every 5 second
       fetchPembiayaanSahabats();
-    }, 1000);
+    }, 5000);
     // Cleanup the interval when the component unmounts
     return () => {
       clearInterval(interval);
