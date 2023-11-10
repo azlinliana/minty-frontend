@@ -41,7 +41,7 @@ function SearchSahabat() {
                 name="noKadPengenalanSahabat"
                 control={control}
                 defaultValue=""
-                rules={{required: 'No. kad pengenalan sahabat is required.'}}
+                rules={{required: 'No. kad pengenalan sahabat diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="text"
