@@ -38,9 +38,9 @@
   }
 
 
-/* *************** */
+/* *************************** */
 /* Hasil carian Sahabat Page */
-/* *************** */
+/* ************************ */
   .hasilCarianContent {
     margin: 0 15px;
     padding: 15px;
@@ -63,7 +63,7 @@
     margin: 30px auto;
   }
 
-  .carianSpacing {
+  .carianSpacing, .sahabatInfoSpacing {
     margin-top: 10px;
   }
 
@@ -140,9 +140,29 @@
     color: #FF0000;
   }
 
-  /* *************** */
+  /* ******************************** */
   /* Kemaskini Tracking Sahabat Page */
-  /* *************** */
+  /* ****************************** */
+  .sahabatTrackingContent {
+    margin: 0 15px;
+    padding: 15px;
+  }
+
+  .sahabatInfoCard {
+    padding-bottom: 20px;
+  }
+
+  .editMingguBtnPlacement {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  .trackWeek {
+    font-weight: 500;
+  }
+
 
   /* *************** */
   /* Responsiveness */

@@ -1,20 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import CreateAktiviti from './Create';
-import EditAktiviti from './Edit';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import CreateAktiviti from "./Create";
+import EditAktiviti from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function IndexAktiviti() {
-  return(
+  return (
     <div>
       <h2>Maklumat Aktiviti Sahabat</h2>
-      
+
       <div className="tableSection">
-        <div className="tambahBtnPlacement"><CreateAktiviti /></div>
+        <div className="tambahBtnPlacement">
+          <CreateAktiviti />
+        </div>
 
         <Table responsive>
           <thead>
@@ -42,7 +44,7 @@ function IndexAktiviti() {
               <td></td>
               <td>
                 <EditAktiviti />
-                <Button variant="danger">Padam</Button>{' '}
+                <Button variant="danger">Padam</Button>{" "}
               </td>
             </tr>
           </tbody>
