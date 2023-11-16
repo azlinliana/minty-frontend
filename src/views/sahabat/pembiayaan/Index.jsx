@@ -7,8 +7,11 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { TfiArrowCircleDown } from "react-icons/tfi";
-import { TfiArrowCircleUp } from "react-icons/tfi";
+import {
+  TfiArrowCircleDown,
+  TfiArrowCircleUp,
+  TfiMoreAlt,
+} from "react-icons/tfi";
 import axios from "axios";
 
 function IndexPembiayaan() {
@@ -37,7 +40,7 @@ function IndexPembiayaan() {
         <Card>
           <Card.Header as="h5" className="cardHeader">
             <div className="cardBody">
-              <div className="cardSkimData">
+              <div className="cardSkim">
                 {/* {pembiayaanSahabatsData.skimPembiayaan} */}
               </div>
               <Badge pill bg="primary">
@@ -50,8 +53,9 @@ function IndexPembiayaan() {
             <div className="cardActions">
               <DropdownButton
                 align="end"
-                title="More"
+                title="Status"
                 id="dropdown-menu-align-end"
+                className="editLoanBtn"
               >
                 <Dropdown.Item eventKey="1">
                   <EditPembiayaan />

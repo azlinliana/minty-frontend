@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { FaPlus } from "react-icons/fa";
+import axios from "axios";
 
 function CreateMinggu() {
   // ----------FE----------
@@ -19,16 +19,29 @@ function CreateMinggu() {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
 
-  return(
+  return (
     <div>
-      <Button variant="primary" onClick={openModalCreateMinggu}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
-
-      <Modal show={isModalCreateMinggu} onHide={closeModalCreateMinggu} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Minggu</Modal.Title></Modal.Header>
+      <Button variant="primary" onClick={openModalCreateMinggu}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
+      </Button>{" "}
+      <Modal
+        show={isModalCreateMinggu}
+        onHide={closeModalCreateMinggu}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Minggu</Modal.Title>
+        </Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
@@ -40,8 +53,8 @@ function CreateMinggu() {
                 name="bilanganMinggu"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Bilangan minggu diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Bilangan minggu diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="number"
                     onChange={onChange}
@@ -51,19 +64,25 @@ function CreateMinggu() {
                   />
                 )}
               />
-              {errors.bilanganMinggu && (<small className="text-danger">{errors.bilanganMinggu.message}</small>)}
+              {errors.bilanganMinggu && (
+                <small className="text-danger">
+                  {errors.bilanganMinggu.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="tarikhBorangMinggu">Tarikh Borang Minggu</Form.Label>
+              <Form.Label htmlFor="tarikhBorangMinggu">
+                Tarikh Borang Minggu
+              </Form.Label>
               <Controller
                 type="date"
                 id="tarikhBorangMinggu"
                 name="tarikhBorangMinggu"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Tarikh borang minggu diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Tarikh borang minggu diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="date"
                     onChange={onChange}
@@ -72,14 +91,22 @@ function CreateMinggu() {
                   />
                 )}
               />
-              {errors.tarikhBorangMinggu && (<small className="text-danger">{errors.tarikhBorangMinggu.message}</small>)}
+              {errors.tarikhBorangMinggu && (
+                <small className="text-danger">
+                  {errors.tarikhBorangMinggu.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateMinggu}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="secondary" onClick={closeModalCreateMinggu}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit()}>
+            Tambah
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

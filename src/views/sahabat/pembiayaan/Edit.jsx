@@ -1,33 +1,52 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 
 function EditPembiayaan() {
   // ----------FE----------
   // Modal
-  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
-  const openModalEditPembiayaanSahabat = () => setIsModalEditPembiayaanSahabat(true);
+  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
+    useState(false);
+  const openModalEditPembiayaanSahabat = () =>
+    setIsModalEditPembiayaanSahabat(true);
   const closeModalEditPembiayaanSahabat = () => {
     setIsModalEditPembiayaanSahabat(false);
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
 
-  return(
+  return (
     <div>
-      <Button variant="warning" onClick={openModalEditPembiayaanSahabat}>Kemas Kini</Button>{' '}
+      <a
+        href="#"
+        className="statusLink"
+        onClick={openModalEditPembiayaanSahabat}
+      >
+        Kemas Kini
+      </a>{" "}
+      <Modal
+        show={isModalEditPembiayaanSahabat}
+        onHide={closeModalEditPembiayaanSahabat}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title>
+        </Modal.Header>
 
-      <Modal show={isModalEditPembiayaanSahabat} onHide={closeModalEditPembiayaanSahabat} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
-        
         <Modal.Body>
           <Form onSubmit={handleSubmit()} onReset={reset}>
             <Form.Group>
@@ -37,17 +56,23 @@ function EditPembiayaan() {
                 name="skimPembiayaan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Skim pembiayaan sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                rules={{ required: "Skim pembiayaan sahabat diperlukan." }}
+                render={({ field: { onChange } }) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Skim Pembiayaan--</option>
+                    <option value="" disabled>
+                      --Pilih Skim Pembiayaan--
+                    </option>
                     <option value="TIADA PEMBIAYAAN">Tiada Pembiayaan</option>
                     <option value="I-MUDA">i-Muda</option>
                     <option value="I-MESRA">i-Mesra</option>
                   </Form.Select>
                 )}
               />
-            {errors.skimPembiayaan && (<small className="text-danger">{errors.skimPembiayaan.message}</small>)}
+              {errors.skimPembiayaan && (
+                <small className="text-danger">
+                  {errors.skimPembiayaan.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
@@ -58,23 +83,33 @@ function EditPembiayaan() {
                 name="statusPembiayaan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Status pembiayaan sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                rules={{ required: "Status pembiayaan sahabat diperlukan." }}
+                render={({ field: { onChange } }) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Status Pembiayaan--</option>
+                    <option value="" disabled>
+                      --Pilih Status Pembiayaan--
+                    </option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="SELESAI">SELESAI</option>
                   </Form.Select>
                 )}
               />
-              {errors.statusPembiayaan && (<small className="text-danger">{errors.statusPembiayaan.message}</small>)}
+              {errors.statusPembiayaan && (
+                <small className="text-danger">
+                  {errors.statusPembiayaan.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
-        
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit()}>
+            Kemas Kini
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -3,7 +3,9 @@
     margin-top: 10px;
 }
 
-/* Cari Sahabat */
+/* *************** */
+/* Cari Sahabat Page */
+/* *************** */
 .searchSection {
     width: 100%;
     border-radius: 10px;
@@ -36,9 +38,9 @@
   }
 
 
-
-
-  /* Hasil carian Sahabat */
+/* *************** */
+/* Hasil carian Sahabat Page */
+/* *************** */
   .hasilCarianContent {
     margin: 0 15px;
     padding: 15px;
@@ -66,7 +68,6 @@
   }
 
 
-
   /* Card section */
   .cardSection {
     position: relative;
@@ -83,8 +84,9 @@
     align-items: center;
   }
 
-  .cardSkimData {
-    margin-right: 8px;
+  .cardSkim {
+    margin-left: 10px;
+    font-weight: 500;
   }
 
   .cardActions {
@@ -96,9 +98,9 @@
   .arrowPositioning {
     cursor: pointer;
     position: absolute;
-    right: 3%;
+    left: -2%;
     top: 100%;
-    transform: translateY(-50%);
+    transform: translateY(-120%);
   }
 
   .arrowPositioning svg {
@@ -106,4 +108,48 @@
     border-radius: 100%;
     background-color: #13315C;
     fill: white;
+  }
+
+  .editLoanBtn {
+    font-size: 14px;
+  }
+
+  .statusLink {
+    color: #000;
+  }
+
+  /* Minggu section */
+  .editBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FFAE42;
+    background-color: #FFAE42;
+    margin-bottom: 10px;
+  }
+
+  .delBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FF0000;
+    background-color: #FF0000;
+    margin-bottom: 10px;
+  }
+
+  /* Warning row in Minggu section */
+  .warningRow td {
+    color: #FF0000;
+  }
+
+  /* *************** */
+  /* Kemaskini Tracking Sahabat Page */
+  /* *************** */
+
+  /* *************** */
+  /* Responsiveness */
+  /* *************** */
+  /* To fix the position of the arrow on the card */
+  @media (max-width: 768px) {
+    .arrowPositioning {
+      left: -5%;
+    }
   }
