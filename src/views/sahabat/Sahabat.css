@@ -34,3 +34,76 @@
     font-weight: 700;
     margin-bottom: 10px;
   }
+
+
+
+
+  /* Hasil carian Sahabat */
+  .hasilCarianContent {
+    margin: 0 15px;
+    padding: 15px;
+    background-color: var(--white);
+  }
+
+  .searchResultId {
+    margin-left: 20px;
+  }
+
+  .searchResultId p {
+    font-weight: bold;
+  }
+
+  .hasilCarianSahabatTitle {
+    margin: 10px 10px;
+  }
+
+  .hasilCarianContentDiv {
+    margin: 30px auto;
+  }
+
+  .carianSpacing {
+    margin-top: 10px;
+  }
+
+
+
+  /* Card section */
+  .cardSection {
+    position: relative;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cardBody {
+    display: flex;
+    align-items: center;
+  }
+
+  .cardSkimData {
+    margin-right: 8px;
+  }
+
+  .cardActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .arrowPositioning {
+    cursor: pointer;
+    position: absolute;
+    right: 3%;
+    top: 100%;
+    transform: translateY(-50%);
+  }
+
+  .arrowPositioning svg {
+    box-shadow: 1px 2px #cfcece;
+    border-radius: 100%;
+    background-color: #13315C;
+    fill: white;
+  }

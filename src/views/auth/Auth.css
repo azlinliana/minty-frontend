@@ -35,7 +35,7 @@
   /* Styles for screens up to 1280px (wide screen laptops) */
   @media (max-width: 1280px) {
     .formContent {
-      font-size: 12px; /* Further decrease font size for small screens */
+      font-size: 12px; 
       padding: 20px 20px;
     }
   }

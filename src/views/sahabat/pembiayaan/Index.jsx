@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import CreatePembiayaan from './Create';
-import EditPembiayaan from './Edit';
-import IndexMinggu from '../minggu/Index';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import CreatePembiayaan from "./Create";
+import EditPembiayaan from "./Edit";
+import IndexMinggu from "../minggu/Index";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import { TfiArrowCircleDown } from "react-icons/tfi";
+import { TfiArrowCircleUp } from "react-icons/tfi";
+import axios from "axios";
 
 function IndexPembiayaan() {
   // ----------FE----------
@@ -15,36 +17,60 @@ function IndexPembiayaan() {
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
   const toggleCardCollapse = () => {
     setIsCardCollapsed(!isCardCollapsed);
-  }
+  };
 
   // ----------BE----------
 
-  return(
+  return (
     <div>
       {/* {pembiayaanSahabats.length === 0 || */}
       {/* (pembiayaanSahabats.length > 0 && */}
       {/* pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan === 'selesai') */}
       {/* ? ( */}
-        <div className="tambahBtnPlacement"><CreatePembiayaan /></div>
+      <div className="tambahBtnPlacement">
+        <CreatePembiayaan />
+      </div>
       {/* ) : null} */}
 
       {/* {pembiayaanSahabats.length > 0 && pembiayaanSahabats.map((pembiayaanSahabatsData, key) => ( */}
+      <div className="cardSection">
         <Card>
-          <Card.Header as="h5" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ marginRight: '8px' }}>
+          <Card.Header as="h5" className="cardHeader">
+            <div className="cardBody">
+              <div className="cardSkimData">
                 {/* {pembiayaanSahabatsData.skimPembiayaan} */}
               </div>
               <Badge pill bg="primary">
                 {/* {pembiayaanSahabatsData.statusPembiayaan} */}
               </Badge>
             </div>
-            <Button onClick={toggleCardCollapse}>{isCardCollapsed ? 'Tunjukkan' : 'Sembunyikan'}</Button>
 
-            <DropdownButton align="end" title="More" id="dropdown-menu-align-end">
-              <Dropdown.Item eventKey="1"><EditPembiayaan /></Dropdown.Item>
-              <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
-            </DropdownButton>        
+            {/* <Button onClick={toggleCardCollapse}>{isCardCollapsed ? 'Tunjukkan' : 'Sembunyikan'}</Button> */}
+
+            <div className="cardActions">
+              <DropdownButton
+                align="end"
+                title="More"
+                id="dropdown-menu-align-end"
+              >
+                <Dropdown.Item eventKey="1">
+                  <EditPembiayaan />
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+              </DropdownButton>
+
+              <div onClick={toggleCardCollapse} className="arrowPositioning">
+                {isCardCollapsed ? (
+                  <span>
+                    <TfiArrowCircleDown size={40} />
+                  </span> // Down arrow
+                ) : (
+                  <span>
+                    <TfiArrowCircleUp size={40} />
+                  </span> // Up arrow
+                )}
+              </div>
+            </div>
           </Card.Header>
 
           {isCardCollapsed ? null : (
@@ -52,10 +78,12 @@ function IndexPembiayaan() {
             <Card.Body>
               <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
 
-              <IndexMinggu/>
+              <IndexMinggu />
             </Card.Body>
           )}
         </Card>
+      </div>
+
       {/* ))} */}
     </div>
   );
