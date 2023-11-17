@@ -3,7 +3,6 @@ import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";

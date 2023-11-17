@@ -1,21 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import CreateTrackingInflowSahabat from './Create';
-import EditTrackingInflowSahabat from './Edit';
-import DeletionAlert from '../../../../components/sweet-alert/DeletionAlert';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import CreateTrackingInflowSahabat from "./Create";
+import EditTrackingInflowSahabat from "./Edit";
+import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import Swal from "sweetalert2";
+import axios from "axios";
 
 function IndexTrackingInflowSahabat() {
   // ----------FE----------
-  
+
   // ----------BE----------
 
-  return(
+  return (
     <div className="tableSection">
-      <div className="tambahBtnPlacement"><CreateTrackingInflowSahabat /></div>
+      <div className="tambahBtnPlacement">
+        <CreateTrackingInflowSahabat />
+      </div>
 
       <Table responsive>
         <thead>
@@ -35,7 +37,9 @@ function IndexTrackingInflowSahabat() {
             <td></td>
             <td>
               <EditTrackingInflowSahabat />
-              <Button variant="danger">Padam</Button>{' '}
+              <Button className="delBtn" variant="danger">
+                Padam
+              </Button>{" "}
             </td>
           </tr>
         </tbody>

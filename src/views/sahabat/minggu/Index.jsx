@@ -26,8 +26,9 @@ function IndexMinggu() {
         </div>
 
         <Alert variant="danger">
-          Sila tambah maklumat untuk minggu 5. Klik butang "Lihat" bagi minggu
-          berkenaan.
+          Sila tambah maklumat untuk{" "}
+          <span className="trackingMinggu">minggu 5</span>. Klik butang "Kemas
+          Kini" bagi minggu berkenaan.
         </Alert>
 
         <Table responsive>

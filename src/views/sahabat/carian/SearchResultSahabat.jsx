@@ -112,7 +112,7 @@ function SearchResultSahabat() {
           </Container>
         </div>
 
-        <div className="hasilCarianContentDiv">
+        <div className="contentDiv">
           <hr />
         </div>
 

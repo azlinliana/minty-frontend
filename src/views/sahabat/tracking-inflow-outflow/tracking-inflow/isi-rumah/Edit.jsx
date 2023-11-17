@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 
-function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
-  // ----------FE----------  
+function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
+  // ----------FE----------
   // Modal
   const [isModalEditInflow, setIsModalEditInflow] = useState(false);
   const openModalEditInflow = () => setIsModalEditInflow(true);
@@ -17,17 +17,30 @@ function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
 
-  return(
+  return (
     <div>
-      <Button variant="warning" onClick={openModalEditInflow}>Kemas Kini</Button>{' '}
+      <Button className="editBtn" onClick={openModalEditInflow}>
+        Kemas Kini
+      </Button>{" "}
+      <Modal
+        show={isModalEditInflow}
+        onHide={closeModalEditInflow}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kemas Kini Inflow Isi Rumah</Modal.Title>
+        </Modal.Header>
 
-      <Modal show={isModalEditInflow} onHide={closeModalEditInflow} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Kemas Kini Inflow Isi Rumah</Modal.Title></Modal.Header>
-        
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
@@ -37,28 +50,40 @@ function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
                 name="kodInflow"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod inflow diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                rules={{ required: "Kod inflow diperlukan." }}
+                render={({ field: { onChange } }) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Kod Inflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    <option value="" disabled>
+                      --Pilih Kod Inflow--
+                    </option>
+                    <option value="A1">
+                      A1-Pendapatan (dari Pembiayaan AIM)
+                    </option>
+                    <option value="A2">
+                      A2-Pendapatan (Pembiayaan Selain AIM)
+                    </option>
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && ( <small className="text-danger">{errors.kodInflow.message}</small> )}
+              {errors.kodInflow && (
+                <small className="text-danger">
+                  {errors.kodInflow.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="keteranganKodInflow">Keterangan Kod Inflow</Form.Label>
+              <Form.Label htmlFor="keteranganKodInflow">
+                Keterangan Kod Inflow
+              </Form.Label>
               <Controller
                 type="text"
                 id="keteranganKodInflow"
                 name="keteranganKodInflow"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan kod inflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Keterangan kod inflow diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -68,7 +93,11 @@ function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
                   />
                 )}
               />
-              {errors.keteranganKodInflow && ( <small className="text-danger">{errors.keteranganKodInflow.message}</small> )}
+              {errors.keteranganKodInflow && (
+                <small className="text-danger">
+                  {errors.keteranganKodInflow.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
@@ -78,11 +107,12 @@ function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
                 name="amaunInflow"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Amaun inflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Amaun inflow diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="number"
-                    min="0.00" max="10000.00"
+                    min="0.00"
+                    max="10000.00"
                     step="0.01"
                     onChange={onChange}
                     value={value}
@@ -91,14 +121,22 @@ function EditTrackingInflowIsiRumah({trackingInflowIsiRumah}) {
                   />
                 )}
               />
-              {errors.amaunInflow && ( <small className="text-danger">{errors.amaunInflow.message}</small> )}
+              {errors.amaunInflow && (
+                <small className="text-danger">
+                  {errors.amaunInflow.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
-        
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditInflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="secondary" onClick={closeModalEditInflow}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit()}>
+            Kemas Kini
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

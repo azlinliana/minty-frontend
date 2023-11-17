@@ -1,17 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import CreateTrackingInflowIsiRumah from './Create';
-import EditTrackingInflowIsiRumah from './Edit';
-import DeletionAlert from '../../../../components/sweet-alert/DeletionAlert';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import CreateTrackingInflowIsiRumah from "./Create";
+import EditTrackingInflowIsiRumah from "./Edit";
+import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function IndexTrackingInflowIsiRumah() {
-  return(
+  return (
     <div className="tableSection">
-      <div className="tambahBtnPlacement"><CreateTrackingInflowIsiRumah /></div>
+      <div className="tambahBtnPlacement">
+        <CreateTrackingInflowIsiRumah />
+      </div>
 
       <Table responsive>
         <thead>
@@ -31,7 +33,7 @@ function IndexTrackingInflowIsiRumah() {
             <td></td>
             <td>
               <EditTrackingInflowIsiRumah />
-              <Button variant="danger">Padam</Button>{' '}
+              <Button className="delBtn">Padam</Button>{" "}
             </td>
           </tr>
         </tbody>

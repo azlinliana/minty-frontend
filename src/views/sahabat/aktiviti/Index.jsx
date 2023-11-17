@@ -7,10 +7,11 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import Swal from "sweetalert2";
+import "../sahabat.css";
 
 function IndexAktiviti() {
   return (
-    <div>
+    <div className="inputStepsContainer">
       <h2>Maklumat Aktiviti Sahabat</h2>
 
       <div className="tableSection">
@@ -44,7 +45,7 @@ function IndexAktiviti() {
               <td></td>
               <td>
                 <EditAktiviti />
-                <Button variant="danger">Padam</Button>{" "}
+                <Button className="delBtn">Padam</Button>
               </td>
             </tr>
           </tbody>

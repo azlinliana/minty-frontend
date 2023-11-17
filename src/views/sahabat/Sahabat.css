@@ -59,7 +59,7 @@
     margin: 10px 10px;
   }
 
-  .hasilCarianContentDiv {
+  .contentDiv {
     margin: 30px auto;
   }
 
@@ -119,6 +119,7 @@
   }
 
   /* Minggu section */
+  /* Tables CSS */
   .editBtn {
     font-size: 0.75em;
     font-weight: 700;
@@ -135,6 +136,11 @@
     margin-bottom: 10px;
   }
 
+  .trackingMinggu {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
   /* Warning row in Minggu section */
   .warningRow td {
     color: #FF0000;
@@ -143,6 +149,10 @@
   /* ******************************** */
   /* Kemaskini Tracking Sahabat Page */
   /* ****************************** */
+  .progressBarContainer {
+    margin-top: 50px;
+  }
+
   .sahabatTrackingContent {
     margin: 0 15px;
     padding: 15px;
@@ -163,6 +173,29 @@
     font-weight: 500;
   }
 
+  /* Index Aktiviti Page */
+  .inputStepsContainer {
+    background-color: var(--white);
+    padding: 20px;
+  }
+
+  /* Isi Rumah Tabs section */
+  .isiRumahActionsPlacement {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 5px auto;
+    font-size: 14px;
+  }
+
+  .tableInflowOutflowMargin {
+    margin-top: 15px;
+  }
+
+  /* Stepper section */
+  .MuiButton {
+    background-color: #13315C;
+  }
 
   /* *************** */
   /* Responsiveness */
