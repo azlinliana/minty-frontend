@@ -44,10 +44,10 @@ export default function VerticalLinearStepper() {
         activeStep={activeStep}
         orientation="vertical"
         sx={{
-          ".Mui-active": {
+          ".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
             color: "#13315C",
           },
-          "& .Mui-completed": {
+          "& .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {
             color: "#13315C",
           },
         }}
