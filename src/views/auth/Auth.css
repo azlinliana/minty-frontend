@@ -5,7 +5,7 @@
 @media (max-width: 820px) {
     .formHeader h1 {
       text-align: center;
-      font-size: 24px; /* Further decrease font size for small screens */
+      font-size: 24px; 
     }
   
     .formHeader img {
@@ -15,7 +15,7 @@
     }
   
     .formContent {
-      font-size: 14px; /* Further increase font size for small screens */
+      font-size: 14px; 
       padding: 20px 20px;
       margin: 0 auto;
       width: 85%;
@@ -26,10 +26,16 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .signInContainer {
+      width: 70%;
+    }
+  }
+
   /* Styles for screens up to 1280px (wide screen laptops) */
   @media (max-width: 1280px) {
     .formContent {
-      font-size: 12px; /* Further decrease font size for small screens */
+      font-size: 12px; 
       padding: 20px 20px;
     }
   }
@@ -94,7 +100,6 @@
 /* *********************** */
 .PageContainer {
   max-width: 1280px;
-  padding: 2rem;
 }
 
 .signInContainer {
@@ -102,9 +107,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  max-width: 130vh;
-  padding: 10px;
 }
 
 .formContentHeader{
@@ -113,7 +115,6 @@
 
 .formHeader {
   color: var(--white);
-  font-size: 4rem;
 }
 
 .formContentHeader {

@@ -3,17 +3,20 @@ import IndexTrackingOutflowSahabat from "../../sahabat/tracking-inflow-outflow/t
 
 const TabTrackingInflowOutflowSahabat = [
   {
-    eventKey: 'tracking-inflow',
-    title: 'Inflow',
+    eventKey: "tracking-inflow",
+    title: "Inflow",
     content: <IndexTrackingInflowSahabat />,
   },
   {
-    eventKey: 'tracking-outflow',
-    title: 'Outflow',
+    eventKey: "tracking-outflow",
+    title: "Outflow",
     content: <IndexTrackingOutflowSahabat />,
   },
 ];
 
-const defaultActiveTabKeyTrackingInflowOutflowSahabat = 'tracking-inflow';
+const defaultActiveTabKeyTrackingInflowOutflowSahabat = "tracking-inflow";
 
-export {TabTrackingInflowOutflowSahabat, defaultActiveTabKeyTrackingInflowOutflowSahabat};
+export {
+  TabTrackingInflowOutflowSahabat,
+  defaultActiveTabKeyTrackingInflowOutflowSahabat,
+};

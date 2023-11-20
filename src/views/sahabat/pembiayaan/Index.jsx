@@ -1,14 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import CreatePembiayaan from './Create';
-import EditPembiayaan from './Edit';
-import IndexMinggu from '../minggu/Index';
+import React, { useState, useEffect } from "react";
+import CreatePembiayaan from "./Create";
+import EditPembiayaan from "./Edit";
+import IndexMinggu from "../minggu/Index";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import axios from 'axios';
+import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import {
+  TfiArrowCircleDown,
+  TfiArrowCircleUp,
+  TfiMoreAlt,
+} from "react-icons/tfi";
+import axios from "axios";
 
 function IndexPembiayaan({resultSahabat, sahabatId}) {
   // ----------FE----------
@@ -16,7 +20,7 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
   const toggleCardCollapse = () => {
     setIsCardCollapsed(!isCardCollapsed);
-  }
+  };
 
   // ----------BE----------
   // List pembiayaan sahabat
@@ -83,16 +87,59 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
                 <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
               </DropdownButton>        
             </Card.Header>
+      {/* {pembiayaanSahabats.length > 0 && pembiayaanSahabats.map((pembiayaanSahabatsData, key) => ( */}
+      <div className="cardSection">
+        <Card>
+          <Card.Header as="h5" className="cardHeader">
+            <div className="cardBody">
+              <div className="cardSkim">
+                {/* {pembiayaanSahabatsData.skimPembiayaan} */}
+              </div>
+              <Badge pill bg="primary">
+                {/* {pembiayaanSahabatsData.statusPembiayaan} */}
+              </Badge>
+            </div>
+
+            {/* <Button onClick={toggleCardCollapse}>{isCardCollapsed ? 'Tunjukkan' : 'Sembunyikan'}</Button> */}
+
+            <div className="cardActions">
+              <DropdownButton
+                align="end"
+                title="Status"
+                id="dropdown-menu-align-end"
+                className="editLoanBtn"
+              >
+                <Dropdown.Item eventKey="1">
+                  <EditPembiayaan />
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+              </DropdownButton>
+
+              <div onClick={toggleCardCollapse} className="arrowPositioning">
+                {isCardCollapsed ? (
+                  <span>
+                    <TfiArrowCircleDown size={40} />
+                  </span> // Down arrow
+                ) : (
+                  <span>
+                    <TfiArrowCircleUp size={40} />
+                  </span> // Up arrow
+                )}
+              </div>
+            </div>
+          </Card.Header>
 
             {/* Display minggu list for pembiayaan sahabat */}
             {isCardCollapsed ? null : (
               <Card.Body>
                 <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
 
-                <IndexMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanSahabatsData.id} />
+                <IndexMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanSahabatsData.id}  />
               </Card.Body>
             )}
           </Card>
+      </div>
+
         ))
       )}
     </div>

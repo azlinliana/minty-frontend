@@ -3,7 +3,9 @@
     margin-top: 10px;
 }
 
-/* Cari Sahabat */
+/* *************** */
+/* Cari Sahabat Page */
+/* *************** */
 .searchSection {
     width: 100%;
     border-radius: 10px;
@@ -33,4 +35,174 @@
     font-size: 1.15em;
     font-weight: 700;
     margin-bottom: 10px;
+  }
+
+
+/* *************************** */
+/* Hasil carian Sahabat Page */
+/* ************************ */
+  .hasilCarianContent {
+    margin: 0 15px;
+    padding: 15px;
+    background-color: var(--white);
+  }
+
+  .searchResultId {
+    margin-left: 20px;
+  }
+
+  .searchResultId p {
+    font-weight: bold;
+  }
+
+  .hasilCarianSahabatTitle {
+    margin: 10px 10px;
+  }
+
+  .contentDiv {
+    margin: 30px auto;
+  }
+
+  .carianSpacing, .sahabatInfoSpacing {
+    margin-top: 10px;
+  }
+
+
+  /* Card section */
+  .cardSection {
+    position: relative;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cardBody {
+    display: flex;
+    align-items: center;
+  }
+
+  .cardSkim {
+    margin-left: 10px;
+    font-weight: 500;
+  }
+
+  .cardActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .arrowPositioning {
+    cursor: pointer;
+    position: absolute;
+    left: -2%;
+    top: 100%;
+    transform: translateY(-120%);
+  }
+
+  .arrowPositioning svg {
+    box-shadow: 1px 2px #cfcece;
+    border-radius: 100%;
+    background-color: #13315C;
+    fill: white;
+  }
+
+  .editLoanBtn {
+    font-size: 14px;
+  }
+
+  .statusLink {
+    color: #000;
+  }
+
+  /* Minggu section */
+  /* Tables CSS */
+  .editBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FFAE42;
+    background-color: #FFAE42;
+    margin-bottom: 10px;
+  }
+
+  .delBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FF0000;
+    background-color: #FF0000;
+    margin-bottom: 10px;
+  }
+
+  .trackingMinggu {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  /* Warning row in Minggu section */
+  .warningRow td {
+    color: #FF0000;
+  }
+
+  /* ******************************** */
+  /* Kemaskini Tracking Sahabat Page */
+  /* ****************************** */
+  .progressBarContainer {
+    margin-top: 50px;
+  }
+
+  .sahabatTrackingContent {
+    margin: 0 15px;
+    padding: 15px;
+  }
+
+  .sahabatInfoCard {
+    padding-bottom: 20px;
+  }
+
+  .editMingguBtnPlacement {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  .trackWeek {
+    font-weight: 500;
+  }
+
+  /* Index Aktiviti Page */
+  .inputStepsContainer {
+    background-color: var(--white);
+    padding: 20px;
+  }
+
+  /* Isi Rumah Tabs section */
+  .isiRumahActionsPlacement {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 5px auto;
+    font-size: 14px;
+  }
+
+  .tableInflowOutflowMargin {
+    margin-top: 15px;
+  }
+
+  /* Stepper section */
+  .MuiButton {
+    background-color: #13315C;
+  }
+
+  /* *************** */
+  /* Responsiveness */
+  /* *************** */
+  /* To fix the position of the arrow on the card */
+  @media (max-width: 768px) {
+    .arrowPositioning {
+      left: -5%;
+    }
   }

@@ -1,48 +1,52 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 
 function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
   // ----------FE----------
   // Modal
-  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
-  const openModalEditPembiayaanSahabat = () => setIsModalEditPembiayaanSahabat(true);
+  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
+    useState(false);
+  const openModalEditPembiayaanSahabat = () =>
+    setIsModalEditPembiayaanSahabat(true);
   const closeModalEditPembiayaanSahabat = () => {
     setIsModalEditPembiayaanSahabat(false);
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
-  const updatePembiayaanSahabat = async (pembiayaanSahabatInput) => {
-    try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}`, pembiayaanSahabatInput);
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditPembiayaanSahabat();
-      }
-       else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      ErrorAlert(error);
-    }
-  };
 
   return(
     <div>
-      <Button variant="warning" onClick={openModalEditPembiayaanSahabat}>Kemas Kini</Button>{' '}
+      <a
+        href="#"
+        className="statusLink"
+        onClick={openModalEditPembiayaanSahabat}
+      >
+        Kemas Kini
+      </a>{" "}
+      <Modal
+        show={isModalEditPembiayaanSahabat}
+        onHide={closeModalEditPembiayaanSahabat}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title>
+        </Modal.Header>
 
-      <Modal show={isModalEditPembiayaanSahabat} onHide={closeModalEditPembiayaanSahabat} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
-        
         <Modal.Body>
           <Form onSubmit={handleSubmit(updatePembiayaanSahabat)} onReset={reset}>
             <Form.Group>
@@ -62,7 +66,11 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
                   </Form.Select>
                 )}
               />
-            {errors.skimPembiayaan && (<small className="text-danger">{errors.skimPembiayaan.message}</small>)}
+              {errors.skimPembiayaan && (
+                <small className="text-danger">
+                  {errors.skimPembiayaan.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
@@ -81,11 +89,15 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
                   </Form.Select>
                 )}
               />
-              {errors.statusPembiayaan && (<small className="text-danger">{errors.statusPembiayaan.message}</small>)}
+              {errors.statusPembiayaan && (
+                <small className="text-danger">
+                  {errors.statusPembiayaan.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
-        
+
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>Batal</Button>
           <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>Kemas Kini</Button>

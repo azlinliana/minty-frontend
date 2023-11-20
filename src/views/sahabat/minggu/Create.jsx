@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { FaPlus } from "react-icons/fa";
+import axios from "axios";
 
 function CreateMinggu({sahabatId, pembiayaanId}) {
   // ----------FE----------
@@ -19,32 +19,29 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
-  // Create minggu pembiayaan sahabat
-  const createMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
-    try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`, mingguPembiayaanSahabatInput);
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateMinggu();
-      }
-       else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      ErrorAlert(error);
-    }
-  }
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateMinggu}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
-
-      <Modal show={isModalCreateMinggu} onHide={closeModalCreateMinggu} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Minggu</Modal.Title></Modal.Header>
+      <Button variant="primary" onClick={openModalCreateMinggu}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
+      </Button>{" "}
+      <Modal
+        show={isModalCreateMinggu}
+        onHide={closeModalCreateMinggu}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Minggu</Modal.Title>
+        </Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createMingguPembiayaanSahabat)} onReset={reset}>
@@ -56,8 +53,8 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
                 name="bilanganMinggu"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Bilangan minggu diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Bilangan minggu diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="number"
                     onChange={onChange}
@@ -67,19 +64,25 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
                   />
                 )}
               />
-              {errors.bilanganMinggu && (<small className="text-danger">{errors.bilanganMinggu.message}</small>)}
+              {errors.bilanganMinggu && (
+                <small className="text-danger">
+                  {errors.bilanganMinggu.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="tarikhBorangMinggu">Tarikh Borang Minggu</Form.Label>
+              <Form.Label htmlFor="tarikhBorangMinggu">
+                Tarikh Borang Minggu
+              </Form.Label>
               <Controller
                 type="date"
                 id="tarikhBorangMinggu"
                 name="tarikhBorangMinggu"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Tarikh borang minggu diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Tarikh borang minggu diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="date"
                     onChange={onChange}
@@ -88,7 +91,11 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
                   />
                 )}
               />
-              {errors.tarikhBorangMinggu && (<small className="text-danger">{errors.tarikhBorangMinggu.message}</small>)}
+              {errors.tarikhBorangMinggu && (
+                <small className="text-danger">
+                  {errors.tarikhBorangMinggu.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -96,6 +103,12 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateMinggu}>Batal</Button>
           <Button variant="primary" onClick={handleSubmit(createMingguPembiayaanSahabat)}>Tambah</Button>
+          <Button variant="secondary" onClick={closeModalCreateMinggu}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit()}>
+            Tambah
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

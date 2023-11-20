@@ -1,12 +1,13 @@
-import React from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
-import IndexPembiayaan from '../pembiayaan/Index';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import IndexPembiayaan from "../pembiayaan/Index";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "../sahabat.css";
 
 function SearchResultSahabat() {
   // ----------FE----------
@@ -17,15 +18,21 @@ function SearchResultSahabat() {
   const navigate = useNavigate();
   const goBack = () => {navigate(-1);}; // Back button
 
-  return(
+  return (
     <div>
-      <div>
+      <div className="pageTitle">
         <h1>Hasil Carian Sahabat</h1>
-        
+
         <Breadcrumb>
-          <Breadcrumb.Item href="#">Carian Sahabat</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Carian Sahabat
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Hasil Carian Sahabat</Breadcrumb.Item>
         </Breadcrumb>
+      </div>
+
+      <div className="searchResultId">
+        <p>Hasil Carian: {/*{dataSahabat.noKadPengenalanSahabat}*/}</p>
       </div>
 
       {resultSahabat.map((dataSahabat) => (
@@ -33,7 +40,13 @@ function SearchResultSahabat() {
           <div>
             <p>Hasil Carian: {dataSahabat.noKadPengenalanSahabat}</p>
 
+      {/* {resultSahabat.map((dataSahabat) => ( */}
+      {/* <div key={dataSahabat.id}> */}
+      <div className="hasilCarianContent">
+        <div className="hasilCarianSahabat">
+          <div className="hasilCarianSahabatTitle">
             <h2>Maklumat Sahabat</h2>
+          </div>
 
             <Container>
               <Row>
@@ -45,69 +58,71 @@ function SearchResultSahabat() {
                 </Col>
               </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>No. Kad Pengenalan</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.noKadPengenalanSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>No. Kad Pengenalan</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.noKadPengenalanSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>No. Sahabat</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.noSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>No. Sahabat</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.noSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>Wilayah</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.wilayahSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>Wilayah</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.wilayahSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>Cawangan</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.cawanganSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>Cawangan</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.cawanganSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>Pusat</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.pusatSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>Pusat</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.pusatSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
 
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>Kumpulan</Form.Label>
-                    <Form.Control type="text" value={dataSahabat.kumpulanSahabat} disabled />
-                  </Form.Group>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+            <Row>
+              <Col xs={12}>
+                <Form.Group className="carianSpacing">
+                  <Form.Label>Kumpulan</Form.Label>
+                  <Form.Control type="text" value={dataSahabat.kumpulanSahabat} disabled />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+        </div>
 
           <IndexPembiayaan resultSahabat={resultSahabat} sahabatId={dataSahabat.id}/>
         </div>
       ))}
 
-      <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
+      <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>
+          Kembali
+        </Button>{" "}</div>
     </div>
   );
 }
 
-export default SearchResultSahabat
+export default SearchResultSahabat;

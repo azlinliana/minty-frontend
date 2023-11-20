@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateMinggu from "./Create";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
@@ -17,33 +17,6 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
   };
 
   // ----------BE----------
-  // List minggu pembiayaan sahabat
-  const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
-  const fetchMingguPembiayaanSahabats = async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
-      if (response.status === 200) {
-        setMingguPembiayaanSahabats(response.data);
-      }
-       else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      ErrorAlert(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMingguPembiayaanSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 5 second
-      fetchMingguPembiayaanSahabats();
-    }, 5000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return(
     <div>
@@ -68,6 +41,12 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
               </Alert>
             )
         } 
+
+        <Alert variant="danger">
+          Sila tambah maklumat untuk{" "}
+          <span className="trackingMinggu">minggu 5</span>. Klik butang "Kemas
+          Kini" bagi minggu berkenaan.
+        </Alert>
 
         <Table responsive>
           <thead>
@@ -96,6 +75,45 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
                 </tr>
               ))              
             )}
+            {/* {mingguPembiayaanSahabats.length > 0 ? ( */}
+            {/* // When there is data */}
+            {/* mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => ( */}
+            <tr className="warningRow">
+              <td>{/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}</td>
+              <td>Tiada maklumat</td>
+              <td>Tiada maklumat</td>
+              <td>Tiada maklumat</td>
+              <td>
+                <Button className="editBtn" onClick={clickLihat}>
+                  Kemas Kini
+                </Button>{" "}
+                <Button className="delBtn">Padam</Button>{" "}
+              </td>
+            </tr>
+            <tr className="completeRow">
+              <td>{/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}</td>
+              <td>Tiada maklumat</td>
+              <td>Tiada maklumat</td>
+              <td>Tiada maklumat</td>
+              <td>
+                <Button className="editBtn" onClick={clickLihat}>
+                  Kemas Kini
+                </Button>{" "}
+                <Button className="delBtn">Padam</Button>{" "}
+              </td>
+            </tr>
+            {/* )) */}
+            {/* ) : ( */}
+            {/* // If no minggu for pembiayaan sahabat */}
+            <tr>
+              <td colSpan="5">
+                <center>
+                  Tiada maklumat tracking. Sila klik butang "Tambah Minggu"
+                  untuk merekodkan minggu baharu.
+                </center>
+              </td>
+            </tr>
+            {/* )} */}
           </tbody>
         </Table>
       </div>
