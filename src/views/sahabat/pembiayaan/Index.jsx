@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import axios from 'axios';
 
-function IndexPembiayaan({sahabatId}) {
+function IndexPembiayaan({resultSahabat, sahabatId}) {
   // ----------FE----------
   // Collapsible pembiayaan card
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
@@ -21,7 +21,6 @@ function IndexPembiayaan({sahabatId}) {
   // ----------BE----------
   // List pembiayaan sahabat
   const [pembiayaanSahabats, setPembiayaanSahabats] = useState([]);
-
   const fetchPembiayaanSahabats = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/pembiayaan/${sahabatId}`);

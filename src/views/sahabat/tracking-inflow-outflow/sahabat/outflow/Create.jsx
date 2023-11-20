@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreateTrackingOutflowSahabat() {
+function CreateTrackingOutflowSahabat({mingguId}) {
   // ----------FE----------
   // Modal
   const [isModalCreateTrackingOutflowSahabat, setIsModalCreateTrackingOutflowSahabat] = useState(false);
@@ -22,6 +22,22 @@ function CreateTrackingOutflowSahabat() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Create inflow sahabat
+  const createOutflowSahabat = async (outflowSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/outflow-sahabat/${mingguId}`, outflowSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateTrackingOutflowSahabat();
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
@@ -100,7 +116,7 @@ function CreateTrackingOutflowSahabat() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateTrackingOutflowSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createOutflowSahabat)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>

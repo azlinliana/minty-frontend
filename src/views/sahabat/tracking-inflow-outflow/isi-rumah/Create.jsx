@@ -1,33 +1,51 @@
 import React, {useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
+import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function EditIsiRumah({editIsiRumah}) {
-  // ----------FE----------  
+function CreateTrackingIsiRumah({mingguId}) {
+  // ----------FE----------
   // Modal
-  const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
-  const openModalEditIsiRumah = () => setIsModalEditIsiRumah(true);
-  const closeModalEditIsiRumah = () => {
-    setIsModalEditIsiRumah(false);
+  const [isModalCreateIsiRumah, setIsModalCreateIsiRumah] = useState(false);
+  const openModalCreateIsiRumah = () => setIsModalCreateIsiRumah(true);
+  const closeModalCreateIsiRumah = () => {
+    setIsModalCreateIsiRumah(false);
+    reset(); // Reset previous form input
   };
 
   // Form validation
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
-
+  
   // ----------BE----------
+  // Create inflow isi rumah
+  const createInflowIsiRumah = async (inflowIsiRumahInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/isi-rumah/${mingguId}`, inflowIsiRumahInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateIsiRumah();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
-      <Button variant="warning" onClick={openModalEditIsiRumah}>Kemas Kini Isi Rumah</Button>{' '}
+      <Button variant="primary" onClick={openModalCreateIsiRumah}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
-      <Modal show={isModalEditIsiRumah} onHide={closeModalEditIsiRumah} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Kemas Kini Isi Rumah</Modal.Title></Modal.Header>
-        
+      <Modal show={isModalCreateIsiRumah} onHide={closeModalCreateIsiRumah} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Tambah Isi Rumah</Modal.Title></Modal.Header>
+
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Label htmlFor="noKadPengenalanIsiRumah">No. Kad Pengenalan</Form.Label>
@@ -75,7 +93,8 @@ function EditIsiRumah({editIsiRumah}) {
 
           <Form.Group>
             <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
-            <Controller
+
+            {/* <Controller
               id="hubunganIsiRumah"
               name="hubunganIsiRumah"
               control={control}
@@ -88,18 +107,36 @@ function EditIsiRumah({editIsiRumah}) {
                   <option value="ANAK">ANAK</option>
                 </Form.Select>
               )}
+            /> */}
+
+            <Controller
+              type="text"
+              id="hubunganId"
+              name="hubunganId"
+              control={control}
+              defaultValue=""
+              rules={{required: 'Hubungan isi rumah diperlukan.'}}
+              render={({field:{onChange, value}}) => (
+                <Form.Control
+                  type="text"
+                  onChange={onChange}
+                  value={value}
+                  placeholder="Masukkan hubungan isi rumah sahabat"
+                  autoFocus
+                />
+              )}
             />
             {errors.hubunganIsiRumah && (<small className="text-danger">{errors.hubunganIsiRumah.message}</small>)}
           </Form.Group>
         </Modal.Body>
-        
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="secondary" onClick={closeModalCreateIsiRumah}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(createInflowIsiRumah)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 }
 
-export default EditIsiRumah;
+export default CreateTrackingIsiRumah;

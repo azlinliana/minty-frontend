@@ -1,30 +1,74 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import CreateMinggu from "./Create";
-import EditMinggu from "./Edit";
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 
-function IndexMinggu() {
+function IndexMinggu({sahabatId, pembiayaanId}) {
   // ----------FE----------
-  // Link pages
+  // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
-  const clickLihat = () => navigate('/tracking-inflow-outflow');
+  const clickKemasKiniMinggu = (mingguId) => {
+    navigate('/tracking-inflow-outflow', {state: {sahabatId, pembiayaanId, mingguId}});
+  };
 
   // ----------BE----------
+  // List minggu pembiayaan sahabat
+  const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
+  const fetchMingguPembiayaanSahabats = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
+      if (response.status === 200) {
+        setMingguPembiayaanSahabats(response.data);
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMingguPembiayaanSahabats();
+    const interval = setInterval(() => { // Set up recurring fetch every 5 second
+      fetchMingguPembiayaanSahabats();
+    }, 5000);
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return(
     <div>
       <div className="tableSection">
-        <div className="tambahBtnPlacement"><CreateMinggu /></div>
+        <div className="tambahBtnPlacement"><CreateMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} /></div>
 
-        <Alert variant="danger">Sila tambah maklumat untuk minggu 5. Klik butang "Lihat" bagi minggu berkenaan.</Alert>
-        
+        {mingguPembiayaanSahabats.some(
+          (minggu) =>
+            minggu.totalInflow === 'Tiada maklumat' || minggu.totalOutflow === 'Tiada maklumat') 
+            && (
+              <Alert variant="danger">
+                Sila tambah maklumat untuk minggu{' '}
+                {mingguPembiayaanSahabats
+                  .filter(
+                    (minggu) =>
+                      minggu.totalInflow === 'Tiada maklumat' || minggu.totalOutflow === 'Tiada maklumat'
+                  )
+                  .map((minggu) => minggu.bilanganMinggu)
+                  .sort((a, b) => a - b) // Add this line for sorting in ascending order
+                  .join(', ')}
+                . Klik butang "Kemas Kini" bagi minggu berkenaan.
+              </Alert>
+            )
+        } 
+
         <Table responsive>
           <thead>
             <tr>
@@ -36,28 +80,22 @@ function IndexMinggu() {
             </tr>
           </thead>
           <tbody>
-          {/* {mingguPembiayaanSahabats.length > 0 ? ( */}
-              {/* // When there is data */}
-              {/* mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => ( */}
-                <tr>
+            {mingguPembiayaanSahabats.length === 0 ? (
+              <tr><td colSpan="5"><center>Tiada maklumat minggu tracking. Sila klik butang "Tambah Minggu" untuk merekodkan minggu baharu.</center></td></tr>
+            ) : (
+              mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => (
+                <tr key={key}>
+                  <td>{mingguPembiayaanSahabatsData.bilanganMinggu}</td>
+                  <td>{mingguPembiayaanSahabatsData.totalInflow}</td>
+                  <td>{mingguPembiayaanSahabatsData.totalOutflow}</td>
+                  <td>{new Date(mingguPembiayaanSahabatsData.tarikhBorangMinggu).toLocaleDateString('en-GB')}</td>
                   <td>
-                    {/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}
-                  </td>
-                  <td>Tiada maklumat</td>
-                  <td>Tiada maklumat</td>
-                  <td>Tiada maklumat</td>
-                  <td>
-                    <Button variant="warning" onClick={clickLihat}>Kemas Kini</Button>{" "}
+                    <Button variant="warning" onClick={() => clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)}>Kemas Kini</Button>{" "}
                     <Button variant="danger">Padam</Button>{" "}
                   </td>
                 </tr>
-              {/* )) */}
-            {/* ) : ( */}
-              {/* // If no minggu for pembiayaan sahabat */}
-              <tr>
-                <td colSpan="5"><center>Tiada maklumat tracking. Sila klik butang "Tambah Minggu" untuk merekodkan minggu baharu.</center></td>
-              </tr>
-            {/* )} */}
+              ))              
+            )}
           </tbody>
         </Table>
       </div>

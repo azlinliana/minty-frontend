@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditMinggu({editMinggu}) {
+function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}) {
   // ----------FE----------
   // Modal
   const [isModalEditMinggu, setIsModalEditMinggu] = useState(false);
@@ -21,6 +21,23 @@ function EditMinggu({editMinggu}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Update minggu pembiayaan sahabat
+  const updateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+    console.log(mingguPembiayaanSahabatInput);
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`, mingguPembiayaanSahabatInput);
+      if(response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditMinggu();
+      }
+      else {
+        ErrorAlert(response);
+      }
+    }
+    catch(error) {
+      ErrorAlert(error);
+    }
+  };
 
   return(
     <div>
@@ -30,7 +47,7 @@ function EditMinggu({editMinggu}) {
         <Modal.Header closeButton><Modal.Title>Kemas Kini Minggu</Modal.Title></Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={handleSubmit} onReset={reset}>
+          <Form onSubmit={handleSubmit(updateMingguPembiayaanSahabat)} onReset={reset}>
             <Form.Group>
               <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
               <Controller
@@ -38,7 +55,7 @@ function EditMinggu({editMinggu}) {
                 id="bilanganMinggu"
                 name="bilanganMinggu"
                 control={control}
-                defaultValue=""
+                defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
                 rules={{required: 'Bilangan minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
@@ -60,7 +77,7 @@ function EditMinggu({editMinggu}) {
                 id="tarikhBorangMinggu"
                 name="tarikhBorangMinggu"
                 control={control}
-                defaultValue=""
+                defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
                 rules={{required: 'Tarikh borang minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
@@ -78,7 +95,7 @@ function EditMinggu({editMinggu}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditMinggu}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateMingguPembiayaanSahabat)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

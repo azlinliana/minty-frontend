@@ -19,14 +19,14 @@ function SearchSahabat() {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
       if (response.status === 200) {
-        navigate('/search-result-sahabat', { state: { resultSahabat: response.data } }); // Set response data as a state
+        navigate('/search-result-sahabat', {state: { resultSahabat: response.data }}); // Set response data as a state
       } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error); // Error related to API response or client side
     }    
-  };  
+  };
   
   return (
     <div>

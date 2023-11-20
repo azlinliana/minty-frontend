@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreateMinggu() {
+function CreateMinggu({sahabatId, pembiayaanId}) {
   // ----------FE----------
   // Modal
   const [isModalCreateMinggu, setIsModalCreateMinggu] = useState(false);
@@ -22,6 +22,22 @@ function CreateMinggu() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Create minggu pembiayaan sahabat
+  const createMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`, mingguPembiayaanSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateMinggu();
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
@@ -31,8 +47,8 @@ function CreateMinggu() {
         <Modal.Header closeButton><Modal.Title>Tambah Minggu</Modal.Title></Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={handleSubmit} onReset={reset}>
-            <Form.Group>
+          <Form onSubmit={handleSubmit(createMingguPembiayaanSahabat)} onReset={reset}>
+            <Form.Group className="mb-3">
               <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
               <Controller
                 type="number"
@@ -79,7 +95,7 @@ function CreateMinggu() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateMinggu}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createMingguPembiayaanSahabat)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -1,35 +1,33 @@
 import React, {useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
+import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
+import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreateIsiRumah() {
-  // ----------FE----------
+function EditTrackingIsiRumah({editIsiRumah}) {
+  // ----------FE----------  
   // Modal
-  const [isModalCreateIsiRumah, setIsModalCreateIsiRumah] = useState(false);
-  const openModalCreateIsiRumah = () => setIsModalCreateIsiRumah(true);
-  const closeModalCreateIsiRumah = () => {
-    setIsModalCreateIsiRumah(false);
-    reset(); // Reset previous form input
+  const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
+  const openModalEditIsiRumah = () => setIsModalEditIsiRumah(true);
+  const closeModalEditIsiRumah = () => {
+    setIsModalEditIsiRumah(false);
   };
 
   // Form validation
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
-  
+
   // ----------BE----------
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateIsiRumah}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
+      <Button variant="warning" onClick={openModalEditIsiRumah}>Kemas Kini Isi Rumah</Button>{' '}
 
-      <Modal show={isModalCreateIsiRumah} onHide={closeModalCreateIsiRumah} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Isi Rumah</Modal.Title></Modal.Header>
-
+      <Modal show={isModalEditIsiRumah} onHide={closeModalEditIsiRumah} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Kemas Kini Isi Rumah</Modal.Title></Modal.Header>
+        
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Label htmlFor="noKadPengenalanIsiRumah">No. Kad Pengenalan</Form.Label>
@@ -78,30 +76,30 @@ function CreateIsiRumah() {
           <Form.Group>
             <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
             <Controller
-                id="hubunganIsiRumah"
-                name="hubunganIsiRumah"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Hubungan isi rumah diperlukan.'}}
-                render={({ field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Hubungan Isi Rumah Sahabat--</option>
-                    <option value="SUAMI">SUAMI</option>
-                    <option value="ANAK">ANAK</option>
-                  </Form.Select>
-                )}
-              />
+              id="hubunganIsiRumah"
+              name="hubunganIsiRumah"
+              control={control}
+              defaultValue=""
+              rules={{required: 'Hubungan isi rumah diperlukan.'}}
+              render={({ field: {onChange}}) => (
+                <Form.Select onChange={onChange} defaultValue="">
+                  <option value="" disabled>--Pilih Hubungan Isi Rumah Sahabat--</option>
+                  <option value="SUAMI">SUAMI</option>
+                  <option value="ANAK">ANAK</option>
+                </Form.Select>
+              )}
+            />
             {errors.hubunganIsiRumah && (<small className="text-danger">{errors.hubunganIsiRumah.message}</small>)}
           </Form.Group>
         </Modal.Body>
-
+        
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="secondary" onClick={closeModalEditIsiRumah}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 }
 
-export default CreateIsiRumah;
+export default EditTrackingIsiRumah;
