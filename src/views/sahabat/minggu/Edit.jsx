@@ -55,7 +55,7 @@ function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}
                 id="bilanganMinggu"
                 name="bilanganMinggu"
                 control={control}
-                defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
+                // defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
                 rules={{required: 'Bilangan minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
@@ -77,7 +77,7 @@ function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}
                 id="tarikhBorangMinggu"
                 name="tarikhBorangMinggu"
                 control={control}
-                defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
+                // defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
                 rules={{required: 'Tarikh borang minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control

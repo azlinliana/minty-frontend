@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import "../sahabat.css";
+import "../../sahabat.css";
 
 function EditAktiviti({ aktiviti }) {
   // ----------FE----------

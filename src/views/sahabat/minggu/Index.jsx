@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../sahabat.css";
 import CreateMinggu from "./Create";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
@@ -8,7 +9,7 @@ import Table from "react-bootstrap/Table";
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 
-function IndexMinggu({sahabatId, pembiayaanId}) {
+function IndexMinggu({resultSahabat, sahabatId, pembiayaanId}) {
   // ----------FE----------
   // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
@@ -17,6 +18,33 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
   };
 
   // ----------BE----------
+  // List minggu pembiayaan sahabat
+  const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
+  const fetchMingguPembiayaanSahabats = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
+      if (response.status === 200) {
+        setMingguPembiayaanSahabats(response.data);
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMingguPembiayaanSahabats();
+    const interval = setInterval(() => { // Set up recurring fetch every 5 second
+      fetchMingguPembiayaanSahabats();
+    }, 5000);
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return(
     <div>
@@ -27,26 +55,22 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
           (minggu) =>
             minggu.totalInflow === 'Tiada maklumat' || minggu.totalOutflow === 'Tiada maklumat') 
             && (
-              <Alert variant="danger">
-                Sila tambah maklumat untuk minggu{' '}
-                {mingguPembiayaanSahabats
-                  .filter(
-                    (minggu) =>
-                      minggu.totalInflow === 'Tiada maklumat' || minggu.totalOutflow === 'Tiada maklumat'
-                  )
-                  .map((minggu) => minggu.bilanganMinggu)
-                  .sort((a, b) => a - b) // Add this line for sorting in ascending order
-                  .join(', ')}
-                . Klik butang "Kemas Kini" bagi minggu berkenaan.
+              <Alert variant="danger">Sila tambah maklumat untuk minggu{" "}
+                <span className="trackingMinggu">
+                  {mingguPembiayaanSahabats
+                    .filter(
+                      (minggu) =>
+                        minggu.totalInflow === 'Tiada maklumat' || minggu.totalOutflow === 'Tiada maklumat'
+                    )
+                    .map((minggu) => minggu.bilanganMinggu)
+                    .sort((a, b) => a - b) // Add this line for sorting in ascending order
+                    .join(', ')
+                  }
+                </span>. 
+                Klik butang "Kemas Kini" bagi minggu berkenaan.
               </Alert>
             )
-        } 
-
-        <Alert variant="danger">
-          Sila tambah maklumat untuk{" "}
-          <span className="trackingMinggu">minggu 5</span>. Klik butang "Kemas
-          Kini" bagi minggu berkenaan.
-        </Alert>
+        }
 
         <Table responsive>
           <thead>
@@ -63,57 +87,22 @@ function IndexMinggu({sahabatId, pembiayaanId}) {
               <tr><td colSpan="5"><center>Tiada maklumat minggu tracking. Sila klik butang "Tambah Minggu" untuk merekodkan minggu baharu.</center></td></tr>
             ) : (
               mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => (
-                <tr key={key}>
+                <tr key={key} >
                   <td>{mingguPembiayaanSahabatsData.bilanganMinggu}</td>
-                  <td>{mingguPembiayaanSahabatsData.totalInflow}</td>
-                  <td>{mingguPembiayaanSahabatsData.totalOutflow}</td>
+                  <td className={mingguPembiayaanSahabatsData.totalInflow === 'Tiada maklumat' ? 'warningRow' : ''}>
+                    {mingguPembiayaanSahabatsData.totalInflow}
+                  </td>
+                  <td className={mingguPembiayaanSahabatsData.totalOutflow === 'Tiada maklumat' ? 'warningRow' : ''}>
+                    {mingguPembiayaanSahabatsData.totalOutflow}
+                  </td>
                   <td>{new Date(mingguPembiayaanSahabatsData.tarikhBorangMinggu).toLocaleDateString('en-GB')}</td>
                   <td>
-                    <Button variant="warning" onClick={() => clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)}>Kemas Kini</Button>{" "}
-                    <Button variant="danger">Padam</Button>{" "}
+                    <Button className="editBtn" onClick={() => clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)}>Kemas Kini</Button>{" "}
+                    <Button className="delBtn">Padam</Button>{" "}
                   </td>
                 </tr>
               ))              
             )}
-            {/* {mingguPembiayaanSahabats.length > 0 ? ( */}
-            {/* // When there is data */}
-            {/* mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => ( */}
-            <tr className="warningRow">
-              <td>{/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}</td>
-              <td>Tiada maklumat</td>
-              <td>Tiada maklumat</td>
-              <td>Tiada maklumat</td>
-              <td>
-                <Button className="editBtn" onClick={clickLihat}>
-                  Kemas Kini
-                </Button>{" "}
-                <Button className="delBtn">Padam</Button>{" "}
-              </td>
-            </tr>
-            <tr className="completeRow">
-              <td>{/* {mingguPembiayaanSahabatsData.bilanganMinggu} */}</td>
-              <td>Tiada maklumat</td>
-              <td>Tiada maklumat</td>
-              <td>Tiada maklumat</td>
-              <td>
-                <Button className="editBtn" onClick={clickLihat}>
-                  Kemas Kini
-                </Button>{" "}
-                <Button className="delBtn">Padam</Button>{" "}
-              </td>
-            </tr>
-            {/* )) */}
-            {/* ) : ( */}
-            {/* // If no minggu for pembiayaan sahabat */}
-            <tr>
-              <td colSpan="5">
-                <center>
-                  Tiada maklumat tracking. Sila klik butang "Tambah Minggu"
-                  untuk merekodkan minggu baharu.
-                </center>
-              </td>
-            </tr>
-            {/* )} */}
           </tbody>
         </Table>
       </div>

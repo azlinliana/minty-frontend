@@ -19,29 +19,32 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
   };
 
   // Form validation
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Create minggu pembiayaan sahabat
+  const createMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`, mingguPembiayaanSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateMinggu();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateMinggu}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
-      </Button>{" "}
-      <Modal
-        show={isModalCreateMinggu}
-        onHide={closeModalCreateMinggu}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Tambah Minggu</Modal.Title>
-        </Modal.Header>
+      <Button variant="primary" onClick={openModalCreateMinggu}><FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu</Button>{" "}
+      
+      <Modal show={isModalCreateMinggu} onHide={closeModalCreateMinggu} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Tambah Minggu</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createMingguPembiayaanSahabat)} onReset={reset}>
@@ -64,17 +67,11 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
                   />
                 )}
               />
-              {errors.bilanganMinggu && (
-                <small className="text-danger">
-                  {errors.bilanganMinggu.message}
-                </small>
-              )}
+              {errors.bilanganMinggu && (<small className="text-danger">{errors.bilanganMinggu.message}</small>)}
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="tarikhBorangMinggu">
-                Tarikh Borang Minggu
-              </Form.Label>
+              <Form.Label htmlFor="tarikhBorangMinggu">Tarikh Borang Minggu</Form.Label>
               <Controller
                 type="date"
                 id="tarikhBorangMinggu"
@@ -91,11 +88,7 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
                   />
                 )}
               />
-              {errors.tarikhBorangMinggu && (
-                <small className="text-danger">
-                  {errors.tarikhBorangMinggu.message}
-                </small>
-              )}
+              {errors.tarikhBorangMinggu && (<small className="text-danger">{errors.tarikhBorangMinggu.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -103,12 +96,6 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateMinggu}>Batal</Button>
           <Button variant="primary" onClick={handleSubmit(createMingguPembiayaanSahabat)}>Tambah</Button>
-          <Button variant="secondary" onClick={closeModalCreateMinggu}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit()}>
-            Tambah
-          </Button>
         </Modal.Footer>
       </Modal>
     </div>

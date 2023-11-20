@@ -71,6 +71,7 @@
   /* Card section */
   .cardSection {
     position: relative;
+    margin-bottom: 30px;
   }
 
   .cardHeader {
@@ -144,6 +145,10 @@
   /* Warning row in Minggu section */
   .warningRow td {
     color: #FF0000;
+  }
+
+  .maklumatPembiayaanSahabat {
+    margin-top: 10px;
   }
 
   /* ******************************** */

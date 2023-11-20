@@ -1,4 +1,8 @@
 import * as React from "react";
+import "../sahabat.css";
+import IndexAktiviti from "./aktiviti/Index";
+import IndexTrackingSahabat from "./sahabat/Index";
+import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -8,18 +12,15 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import IndexAktiviti from "../aktiviti/Index";
-import "../sahabat.css";
-
 const steps = [
   {
     description: <IndexAktiviti />,
   },
   {
-    // Azlin akan tambah
+    description: <IndexTrackingSahabat />,
   },
   {
-    // Azlin akan tambah
+    description: <IndexTrackingIsiRumah />,
   },
 ];
 

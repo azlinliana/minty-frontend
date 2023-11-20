@@ -11,39 +11,39 @@ import axios from "axios";
 function CreatePembiayaan({sahabatId}) {
   // ----------FE----------
   // Modal
-  const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
-    useState(false);
-  const openModalCreatePembiayaanSahabat = () =>
-    setIsModalCreatePembiayaanSahabat(true);
+  const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] = useState(false);
+  const openModalCreatePembiayaanSahabat = () => setIsModalCreatePembiayaanSahabat(true);
   const closeModalCreatePembiayaanSahabat = () => {
     setIsModalCreatePembiayaanSahabat(false);
     reset(); // Reset previous form input
   };
 
   // Form validation
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Create pembiayaan sahabat
+  const createPembiayaanSahabat = async (pembiayaanSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/pembiayaan/${sahabatId}`, pembiayaanSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreatePembiayaanSahabat();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreatePembiayaanSahabat}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah Pembiayaan
-      </Button>{" "}
-      <Modal
-        show={isModalCreatePembiayaanSahabat}
-        onHide={closeModalCreatePembiayaanSahabat}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Tambah Pembiayaan Sahabat</Modal.Title>
-        </Modal.Header>
+      <Button variant="primary" onClick={openModalCreatePembiayaanSahabat}><FaPlus style={{ fontSize: "10px" }} /> Tambah Pembiayaan</Button>{" "}
+      <Modal show={isModalCreatePembiayaanSahabat} onHide={closeModalCreatePembiayaanSahabat} backdrop="static" keyboard={false} >
+        <Modal.Header closeButton><Modal.Title>Tambah Pembiayaan Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createPembiayaanSahabat)} onReset={reset}>
@@ -64,11 +64,7 @@ function CreatePembiayaan({sahabatId}) {
                   </Form.Select>
                 )}
               />
-              {errors.skimPembiayaan && (
-                <small className="text-danger">
-                  {errors.skimPembiayaan.message}
-                </small>
-              )}
+              {errors.skimPembiayaan && (<small className="text-danger">{errors.skimPembiayaan.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>

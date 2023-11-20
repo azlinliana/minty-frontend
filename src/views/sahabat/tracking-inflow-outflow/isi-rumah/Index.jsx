@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import "../../sahabat.css";
 import CreateIsiRumah from './Create';
 import EditIsiRumah from './Edit';
 import IndexTrackingInflowIsiRumah from './inflow/Index';
@@ -50,8 +51,10 @@ function IndexTrackingIsiRumah({mingguId}) {
   }, []);
 
   return(
-    <div>
-      <CreateIsiRumah mingguId={mingguId} />
+    <div className="inputStepsContainer">
+      <div className="tambahBtnPlacement"><CreateIsiRumah mingguId={mingguId} /></div>
+      
+      <Alert variant="secondary">Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila tambah isi rumah.</Alert>
 
       <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
         {isiRumahSahabats.map((isiRumahSahabatsData, key) => (

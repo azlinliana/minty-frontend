@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
+import "../../sahabat.css";
+
 import IndexTrackingInflowSahabat from '../sahabat/inflow/Index';
 import IndexTrackingOutflowSahabat from '../sahabat/outflow/Index';
 import Tab from 'react-bootstrap/Tab';
@@ -17,7 +19,7 @@ function IndexTrackingSahabat({mingguId}) {
   };
 
   return(
-    <div>
+    <div className="inputStepsContainer">
       <h2>Maklumat Tracking {activeTab.title} Sahabat</h2>
 
       <Tabs id="tracking-inflow-outflow-sahabat" className="mb-3" activeKey={activeTab.key} onSelect={(key) => handleTabInflowOutflowSahabatChange(key, key === 'tracking-inflow-sahabat' ? 'Inflow' : 'Outflow')}>
