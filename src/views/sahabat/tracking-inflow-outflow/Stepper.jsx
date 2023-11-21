@@ -1,30 +1,40 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import {
+  Stepper,
+  Step,
+  StepContent,
+  StepLabel,
+  Button,
+  Typography,
+  Box,
+  Paper,
+} from "@mui/material";
 
 import IndexAktiviti from "../aktiviti/Index";
+import IndexIsiRumah from "../isi-rumah/Index";
 import "../sahabat.css";
 
-const steps = [
-  {
-    description: <IndexAktiviti />,
-  },
-  {
-    // Azlin akan tambah
-  },
-  {
-    // Azlin akan tambah
-  },
-];
+const steps = ["Step 1", "Step 2", "Step 3"];
 
-export default function VerticalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
+const Step1 = () => <Typography>Step 1 Content</Typography>;
+const Step2 = () => <Typography>Step 2 Content</Typography>;
+const Step3 = () => <Typography>Step 3 Content</Typography>;
+
+const getStepContent = (step) => {
+  switch (step) {
+    case 0:
+      return <IndexAktiviti />;
+    case 1:
+      return <Step2 />;
+    case 2:
+      return <IndexIsiRumah />;
+    default:
+      return "Unknown step";
+  }
+};
+
+const VerticalStepper = () => {
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -66,7 +76,7 @@ export default function VerticalLinearStepper() {
               {step.label}
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              {getStepContent(index)}
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
@@ -101,4 +111,6 @@ export default function VerticalLinearStepper() {
       )}
     </Box>
   );
-}
+};
+
+export default VerticalStepper;

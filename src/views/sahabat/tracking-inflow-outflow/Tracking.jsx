@@ -129,7 +129,7 @@ function TrackingInflowOutflow() {
         <div className="progressBarContainer">
           <h2>Borang Tracking Mingguan Sahabat</h2>
           <Stepper />
-
+          {/* Step 2 */}
           <div className="inputStepsContainer">
             <h2>
               Maklumat Tracking {activeTabTitleInflowOutflowSahabat} Sahabat

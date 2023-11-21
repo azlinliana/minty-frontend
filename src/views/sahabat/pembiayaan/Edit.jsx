@@ -30,11 +30,7 @@ function EditPembiayaan() {
 
   return (
     <div>
-      <a
-        href="#"
-        className="statusLink"
-        onClick={openModalEditPembiayaanSahabat}
-      >
+      <a className="statusLink" onClick={openModalEditPembiayaanSahabat}>
         Kemas Kini
       </a>{" "}
       <Modal
