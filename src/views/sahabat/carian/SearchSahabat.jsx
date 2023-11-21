@@ -19,7 +19,7 @@ function SearchSahabat() {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
       if (response.status === 200) {
-        navigate('/search-result-sahabat', {state: { resultSahabat: response.data }}); // Set response data as a state
+        navigate('/search-result-sahabat', {state: {resultSahabat: response.data}}); // Set response data as a state
       } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
@@ -55,6 +55,7 @@ function SearchSahabat() {
               />
               {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
             </Form.Group>
+
             <Form.Group className="col-md-2"><div className="buttonContainer"><Button className="searchBarBtn" onClick={handleSubmit(searchNoKadPengenalanSahabat)}>Cari</Button></div></Form.Group>
           </Row>
         </Form>

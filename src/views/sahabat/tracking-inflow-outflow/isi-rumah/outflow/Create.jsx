@@ -40,7 +40,7 @@ function CreateTrackingOutflowIsiRumah() {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kod outflow diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Outflow--</option>
                     <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>

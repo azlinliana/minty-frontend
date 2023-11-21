@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
+import "../sahabat.css";
 import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
+import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -52,8 +54,6 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
   
   return(
     <div>
-      <div className="contentDiv"><hr /></div>
-
       <h2>Maklumat Pembiayaan Sahabat</h2>
 
       {/* Hide tambah button */}
@@ -67,14 +67,18 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
 
       {/* Display pembiayaan sahabat list */}
       {pembiayaanSahabats.length === 0 ? (
-        <p>Tiada maklumat pembiayaan untuk sahabat ini.</p>
+        <Alert variant="secondary">
+          Tiada maklumat pembiayaan untuk sahabat ini. 
+          Sila klik butang "Tambah Pembiayaan" untuk merekodkan pembiayaan baharu.
+        </Alert>
       ) : (
         pembiayaanSahabats.map((pembiayaanSahabatsData, key) => (
-          <div className="cardSection">
+          <div className="cardSection" key={pembiayaanSahabatsData.id}>
             <Card key={key}>
               <Card.Header as="h5" className="cardHeader">
                 <div className="cardBody">
                   <div className="cardSkim">{pembiayaanSahabatsData.skimPembiayaan}</div>
+                  
                   <Badge pill bg="primary">{pembiayaanSahabatsData.statusPembiayaan}</Badge>
                 </div>
 
@@ -98,11 +102,11 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
                 // Senarai minggu pembiayaan
                 <Card.Body>
                   <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
+
                   <IndexMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanSahabatsData.id} resultSahabat={resultSahabat} />
                 </Card.Body>
               )}
             </Card>
-            
           </div>
         ))
       )}

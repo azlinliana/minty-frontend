@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import "../sahabat.css";
-import EditMinggu from '../minggu/Edit.jsx';
 import MaklumatSahabat from './MaklumatSahabat.jsx';
 import MaklumatMinggu from './MaklumatMinggu.jsx';
 import BorangTrackingMingguanSahabat from './BorangTrackingMingguanSahabat.jsx';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Stepper from "./Stepper.jsx";
 
 function TrackingInflowOutflow() {
   // ----------FE----------
@@ -21,9 +14,7 @@ function TrackingInflowOutflow() {
 
   // Get sahabat, minggu and pembiayaan information
   const location = useLocation();
-  const {sahabatId, pembiayaanId, mingguId} = location.state;
-
-  // ----------BE----------
+  const {resultSahabat, sahabatId, pembiayaanId, mingguId} = location.state;
 
   return (
     <div>
@@ -37,11 +28,13 @@ function TrackingInflowOutflow() {
         </Breadcrumb>
       </div>
 
-      <MaklumatSahabat />
+      {resultSahabat.map((dataSahabat) => (
+        <MaklumatSahabat key={dataSahabat.id} dataSahabat={dataSahabat} />
+      ))}
 
-      <MaklumatMinggu />
+      <MaklumatMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} mingguId={mingguId} />
 
-      <BorangTrackingMingguanSahabat />
+      <BorangTrackingMingguanSahabat mingguId={mingguId} />
       
       <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
     </div>

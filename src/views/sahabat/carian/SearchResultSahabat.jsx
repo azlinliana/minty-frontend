@@ -103,6 +103,8 @@ function SearchResultSahabat() {
               </Container>
             </div>
 
+            <div className="contentDiv"><hr /></div>
+
             <IndexPembiayaan resultSahabat={resultSahabat} sahabatId={dataSahabat.id}/>
           </div>
         </div>

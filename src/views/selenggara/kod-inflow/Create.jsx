@@ -39,7 +39,7 @@ function CreateKodInflow() {
 
   return (
     <div>
-      <Button variant="primary" onClick={openModalCreateKodInflow}><FaPlus style={{ fontSize: "10px" }} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateKodInflow}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
       <Modal show={isModalCreateKodInflow} onHide={closeModalCreateKodInflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Kod Inflow</Modal.Title></Modal.Header>

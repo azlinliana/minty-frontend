@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import "../sahabat.css";
 import CreateMinggu from "./Create";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
@@ -14,7 +14,7 @@ function IndexMinggu({resultSahabat, sahabatId, pembiayaanId}) {
   // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
   const clickKemasKiniMinggu = (mingguId) => {
-    navigate('/tracking-inflow-outflow', {state: {sahabatId, pembiayaanId, mingguId}});
+    navigate('/tracking-inflow-outflow', {state: {resultSahabat, sahabatId, pembiayaanId, mingguId}});
   };
 
   // ----------BE----------
@@ -66,7 +66,7 @@ function IndexMinggu({resultSahabat, sahabatId, pembiayaanId}) {
                     .sort((a, b) => a - b) // Add this line for sorting in ascending order
                     .join(', ')
                   }
-                </span>. 
+                </span>.
                 Klik butang "Kemas Kini" bagi minggu berkenaan.
               </Alert>
             )

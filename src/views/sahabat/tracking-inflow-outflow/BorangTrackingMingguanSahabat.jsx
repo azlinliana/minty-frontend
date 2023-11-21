@@ -1,17 +1,17 @@
 import React from "react";
 import "../sahabat.css";
+
 import Stepper from "./Stepper.jsx";
 
-function BorangTrackingMingguanSahabat() {
+function BorangTrackingMingguanSahabat({mingguId}) {
   return(
     <div className="sahabatTrackingContent">
+      <div className="progressBarContainer">
+        <h2>Borang Tracking Mingguan Sahabat</h2>
 
-    <div className="progressBarContainer">
-      <h2>Borang Tracking Mingguan Sahabat</h2>
-
-      <Stepper />
+        <Stepper mingguId={mingguId} />
+      </div>
     </div>
-  </div>
   );
 }
 

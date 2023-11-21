@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, {useState} from "react";
+import {useForm, Controller} from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Modal from "react-bootstrap/Modal";
@@ -39,7 +39,7 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
 
   return(
     <div>
-      <a className="statusLink" onClick={openModalEditPembiayaanSahabat}>Kemas Kini</a>{" "}
+      <span className="statusLink" onClick={openModalEditPembiayaanSahabat}>Kemas Kini</span>{" "}
       
       <Modal show={isModalEditPembiayaanSahabat} onHide={closeModalEditPembiayaanSahabat} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
@@ -54,7 +54,7 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
                 control={control}
                 defaultValue={pembiayaanSahabat.skimPembiayaan}
                 rules={{required: 'Skim pembiayaan sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue={pembiayaanSahabat.skimPembiayaan}>
                     <option value="" disabled>--Pilih Skim Pembiayaan--</option>
                     <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
@@ -74,7 +74,7 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
                 control={control}
                 defaultValue={pembiayaanSahabat.statusPembiayaan}
                 rules={{required: 'Status pembiayaan sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue={pembiayaanSahabat.statusPembiayaan}>
                     <option value="" disabled>--Pilih Status Pembiayaan--</option>
                     <option value="AKTIF">AKTIF</option>

@@ -39,7 +39,7 @@ function CreateHubungan() {
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateHubungan}><FaPlus style={{ fontSize: "10px" }} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateHubungan}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
       
       <Modal show={isModalCreateHubungan} onHide={closeModalCreateHubungan} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Hubungan</Modal.Title></Modal.Header>

@@ -17,29 +17,16 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
   };
 
   // Form validation
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
 
   return (
     <div>
-      <Button className="editBtn" onClick={openModalEditInflow}>
-        Kemas Kini
-      </Button>{" "}
-      <Modal
-        show={isModalEditInflow}
-        onHide={closeModalEditInflow}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Inflow Isi Rumah</Modal.Title>
-        </Modal.Header>
+      <Button className="editBtn" onClick={openModalEditInflow}>Kemas Kini</Button>{" "}
+
+      <Modal show={isModalEditInflow} onHide={closeModalEditInflow} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Kemas Kini Inflow Isi Rumah</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
@@ -50,26 +37,16 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
                 name="kodInflow"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Kod inflow diperlukan." }}
-                render={({ field: { onChange } }) => (
+                rules={{required: "Kod inflow diperlukan."}}
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>
-                      --Pilih Kod Inflow--
-                    </option>
-                    <option value="A1">
-                      A1-Pendapatan (dari Pembiayaan AIM)
-                    </option>
-                    <option value="A2">
-                      A2-Pendapatan (Pembiayaan Selain AIM)
-                    </option>
+                    <option value="" disabled>--Pilih Kod Inflow--</option>
+                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
+                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && (
-                <small className="text-danger">
-                  {errors.kodInflow.message}
-                </small>
-              )}
+              {errors.kodInflow && (<small className="text-danger">{errors.kodInflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -82,8 +59,8 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
                 name="keteranganKodInflow"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Keterangan kod inflow diperlukan." }}
-                render={({ field: { onChange, value } }) => (
+                rules={{required: "Keterangan kod inflow diperlukan."}}
+                render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -93,11 +70,7 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
                   />
                 )}
               />
-              {errors.keteranganKodInflow && (
-                <small className="text-danger">
-                  {errors.keteranganKodInflow.message}
-                </small>
-              )}
+              {errors.keteranganKodInflow && (<small className="text-danger">{errors.keteranganKodInflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -107,8 +80,8 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
                 name="amaunInflow"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Amaun inflow diperlukan." }}
-                render={({ field: { onChange, value } }) => (
+                rules={{required: "Amaun inflow diperlukan."}}
+                render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="number"
                     min="0.00"
@@ -121,22 +94,14 @@ function EditTrackingInflowIsiRumah({ trackingInflowIsiRumah }) {
                   />
                 )}
               />
-              {errors.amaunInflow && (
-                <small className="text-danger">
-                  {errors.amaunInflow.message}
-                </small>
-              )}
+              {errors.amaunInflow && (<small className="text-danger">{errors.amaunInflow.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditInflow}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit()}>
-            Kemas Kini
-          </Button>
+          <Button variant="secondary" onClick={closeModalEditInflow}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

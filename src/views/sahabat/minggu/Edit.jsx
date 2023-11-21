@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}) {
+function EditMinggu({sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId}) {
   // ----------FE----------
   // Modal
   const [isModalEditMinggu, setIsModalEditMinggu] = useState(false);
@@ -23,7 +23,6 @@ function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}
   // ----------BE----------
   // Update minggu pembiayaan sahabat
   const updateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
-    console.log(mingguPembiayaanSahabatInput);
     try {
       const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`, mingguPembiayaanSahabatInput);
       if(response.status === 200) {
@@ -51,11 +50,11 @@ function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}
             <Form.Group>
               <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
               <Controller
-                type="number"
                 id="bilanganMinggu"
                 name="bilanganMinggu"
+                type="number"
                 control={control}
-                // defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
+                defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
                 rules={{required: 'Bilangan minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
@@ -77,7 +76,7 @@ function EditMinggu({sahabatId, pembiayaanId, mingguId, mingguPembiayaanSahabat}
                 id="tarikhBorangMinggu"
                 name="tarikhBorangMinggu"
                 control={control}
-                // defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
+                defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
                 rules={{required: 'Tarikh borang minggu diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control

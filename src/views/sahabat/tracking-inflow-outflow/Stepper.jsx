@@ -1,31 +1,44 @@
-import * as React from "react";
+import React, { useState } from "react";
 import "../sahabat.css";
+import {
+  Stepper,
+  Step,
+  StepContent,
+  StepLabel,
+  Button,
+  Typography,
+  Box,
+  Paper,
+} from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
-import IndexTrackingSahabat from "./sahabat/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import IndexTrackingSahabat from "./sahabat/Index";
 
 const steps = [
-  {
-    description: <IndexAktiviti />,
-  },
-  {
-    description: <IndexTrackingSahabat />,
-  },
-  {
-    description: <IndexTrackingIsiRumah />,
-  },
+  { label: "Langkah 1" },
+  { label: "Langkah 2" },
+  { label: "Langkah 3" },
 ];
 
-export default function VerticalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
+const Step1 = () => <Typography>Step 1 Content</Typography>;
+const Step2 = () => <Typography>Step 2 Content</Typography>;
+const Step3 = () => <Typography>Step 3 Content</Typography>;
+
+const getStepContent = (step, mingguId) => {
+  switch (step) {
+    case 0:
+      return <IndexAktiviti />;
+    case 1:
+      return <IndexTrackingSahabat mingguId={mingguId} />;
+    case 2:
+      return <IndexTrackingIsiRumah mingguId={mingguId} />;
+    default:
+      return "Unknown step";
+  }
+};
+
+const VerticalStepper = ({mingguId}) => {
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -54,7 +67,7 @@ export default function VerticalLinearStepper() {
         }}
       >
         {steps.map((step, index) => (
-          <Step key={step.label}>
+          <Step key={index}>
             <StepLabel
               optional={
                 index === 2 ? (
@@ -67,7 +80,9 @@ export default function VerticalLinearStepper() {
               {step.label}
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              {index === 0 ? <IndexAktiviti /> : null}
+              {index === 1 ? <IndexTrackingSahabat mingguId={mingguId} /> : null}
+              {index === 2 ? <IndexTrackingIsiRumah mingguId={mingguId} /> : null}
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
@@ -102,4 +117,6 @@ export default function VerticalLinearStepper() {
       )}
     </Box>
   );
-}
+};
+
+export default VerticalStepper;

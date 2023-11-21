@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import "../../sahabat.css";
 import CreateAktiviti from "./Create";
 import EditAktiviti from "./Edit";
@@ -10,7 +10,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function IndexAktiviti() {
-  return (
+  return(
     <div className="inputStepsContainer">
       <h2>Maklumat Aktiviti Sahabat</h2>
 

@@ -40,7 +40,7 @@ function CreateAktiviti() {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kegiatan sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kegiatan Sahabat--</option>
                     <option value="PERTANIAN">PERTANIAN</option>
@@ -54,7 +54,7 @@ function CreateAktiviti() {
                   </Form.Select>
                 )}
               />
-              {errors.kegiatanAktiviti && ( <small className="text-danger">{errors.kegiatanAktiviti.message}</small> )}            
+              {errors.kegiatanAktiviti && (<small className="text-danger">{errors.kegiatanAktiviti.message}</small>)}            
             </Form.Group>
 
             <Form.Group>
@@ -65,7 +65,7 @@ function CreateAktiviti() {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kegiatan Terperinci Sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kegiatan Terperinci Sahabat--</option>
                     <option value="TANAMAN KONTAN">TANAMAN KONTAN</option>
@@ -83,7 +83,7 @@ function CreateAktiviti() {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Projek Sahabat diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Projek Sahabat--</option>
                     <option value="PEMPROSESAN TANAH ORGANIK">PEMPROSESAN TANAH ORGANIK</option>
@@ -91,7 +91,7 @@ function CreateAktiviti() {
                   </Form.Select>
                 )}
               />
-              {errors.projekAktiviti && ( <small className="text-danger">{errors.projekAktiviti.message}</small> )}            
+              {errors.projekAktiviti && (<small className="text-danger">{errors.projekAktiviti.message}</small>)}            
             </Form.Group>
 
             <Form.Group>
@@ -102,7 +102,7 @@ function CreateAktiviti() {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Pengurusan dana aktiviti diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Pengurusan Dana Sahabat--</option>
                     <option value="FM-FUND MANAGER">FM-FUND MANAGER</option>
@@ -111,7 +111,7 @@ function CreateAktiviti() {
                   </Form.Select>
                 )}
               />
-              {errors.pengurusanDanaAktiviti && ( <small className="text-danger">{errors.pengurusanDanaAktiviti.message}</small> )}            
+              {errors.pengurusanDanaAktiviti && (<small className="text-danger">{errors.pengurusanDanaAktiviti.message}</small>)}            
             </Form.Group>
 
             <Form.Group>

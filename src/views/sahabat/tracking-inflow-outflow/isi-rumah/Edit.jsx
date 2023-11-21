@@ -23,7 +23,7 @@ function EditTrackingIsiRumah({editIsiRumah}) {
 
   return(
     <div>
-      <Button variant="warning" onClick={openModalEditIsiRumah}>Kemas Kini Isi Rumah</Button>{' '}
+      <span className="statusLink" onClick={openModalEditIsiRumah}>Kemas Kini</span>{" "}
 
       <Modal show={isModalEditIsiRumah} onHide={closeModalEditIsiRumah} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Isi Rumah</Modal.Title></Modal.Header>

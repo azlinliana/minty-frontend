@@ -66,7 +66,7 @@ function IndexTrackingOutflowSahabat({mingguId}) {
                 <td>{trackingOutflowSahabatsData.amaunOutflow}</td>
                 <td>
                   <EditTrackingOutflowSahabat />
-                  <Button variant="danger">Padam</Button>{' '}
+                  <Button className="delBtn">Padam</Button>{" "}
                 </td>
               </tr>
             ))

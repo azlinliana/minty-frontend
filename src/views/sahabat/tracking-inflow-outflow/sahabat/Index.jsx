@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import "../../sahabat.css";
-
 import IndexTrackingInflowSahabat from '../sahabat/inflow/Index';
 import IndexTrackingOutflowSahabat from '../sahabat/outflow/Index';
 import Tab from 'react-bootstrap/Tab';
@@ -9,9 +8,6 @@ import Tabs from 'react-bootstrap/Tabs';
 
 function IndexTrackingSahabat({mingguId}) {
   // ----------FE----------
-  // Dynamic tab title
-  const navigate = useNavigate();
-
   // Tab tracking sahabat
   const [activeTab, setActiveTab] = useState({key: 'tracking-inflow-sahabat', title: 'Inflow'});
   const handleTabInflowOutflowSahabatChange = (key, title) => {

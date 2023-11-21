@@ -56,7 +56,7 @@ function CreateTrackingInflowSahabat({mingguId}) {
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kod inflow diperlukan.'}}
-                render={({ field: {onChange}}) => (
+                render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Inflow--</option>
                     <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
@@ -64,7 +64,7 @@ function CreateTrackingInflowSahabat({mingguId}) {
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && ( <small className="text-danger">{errors.kodInflow.message}</small> )}
+              {errors.kodInflow && (<small className="text-danger">{errors.kodInflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -86,7 +86,7 @@ function CreateTrackingInflowSahabat({mingguId}) {
                   />
                 )}
               />
-              {errors.keteranganKodInflow && ( <small className="text-danger">{errors.keteranganKodInflow.message}</small> )}
+              {errors.keteranganKodInflow && (<small className="text-danger">{errors.keteranganKodInflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -109,7 +109,7 @@ function CreateTrackingInflowSahabat({mingguId}) {
                   />
                 )}
               />
-              {errors.amaunInflow && ( <small className="text-danger">{errors.amaunInflow.message}</small> )}
+              {errors.amaunInflow && (<small className="text-danger">{errors.amaunInflow.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>

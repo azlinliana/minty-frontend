@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function MaklumatSahabat() {
+function MaklumatSahabat({dataSahabat}) {
   return(
     <div className="sahabatTrackingContent">
       <h2>Maklumat Sahabat</h2>
@@ -19,7 +19,7 @@ function MaklumatSahabat() {
               <Col xs={12}>
                 <Form.Group>
                   <Form.Label>Nama</Form.Label>
-                  <Form.Control type="text" defaultValue="" disabled />
+                  <Form.Control type="text" value={dataSahabat.namaSahabat} disabled />
                 </Form.Group>
               </Col>
             </Row>
@@ -28,20 +28,20 @@ function MaklumatSahabat() {
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>No. Kad Pengenalan</Form.Label>
-                  <Form.Control type="text" defaultValue="" disabled />
+                  <Form.Control type="text" value={dataSahabat.noKadPengenalanSahabat} disabled />
                 </Form.Group>
               </Col>
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>No. Sahabat</Form.Label>
-                  <Form.Control type="text" defaultValue="" disabled />
+                  <Form.Control type="text" value={dataSahabat.noSahabat} disabled />
                 </Form.Group>
               </Col>
             </Row>
           </Container>
         </Card.Body>
       </Card>
-  </div>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import "../../../sahabat.css";
 import CreateTrackingInflowSahabat from './Create';
 import EditTrackingInflowSahabat from './Edit';
 import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
@@ -7,8 +8,6 @@ import Table from "react-bootstrap/Table";
 import axios from 'axios';
 
 function IndexTrackingInflowSahabat({mingguId}) {
-  // ----------FE----------
-
   // ----------BE----------
   // List inflow sahabat
   const [trackingInflowSahabats, setTrackingInflowSahabats] = useState([]);
@@ -23,6 +22,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
       }
     }
     catch (error) {
+      console.log(error);
       ErrorAlert(error);
     }
   };
@@ -64,7 +64,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
                 <td>{trackingInflowSahabatsData.amaunInflow}</td>
                 <td>
                   <EditTrackingInflowSahabat />
-                  <Button variant="danger">Padam</Button>{' '}
+                  <Button className="delBtn">Padam</Button>{" "}
                 </td>
               </tr>
             ))

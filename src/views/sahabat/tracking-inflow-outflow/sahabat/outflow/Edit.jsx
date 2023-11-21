@@ -24,7 +24,7 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalEditTrackingOutflowSahabat}>Kemas Kini</Button>{" "}
+      <Button className="editBtn" onClick={openModalEditTrackingOutflowSahabat}>Kemas Kini</Button>{" "}
 
       <Modal show={isModalEditTrackingOutflowSahabat} onHide={closeModalEditTrackingOutflowSahabat} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title></Modal.Header>

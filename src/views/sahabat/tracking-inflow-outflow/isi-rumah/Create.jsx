@@ -35,6 +35,7 @@ function CreateTrackingIsiRumah({mingguId}) {
       }
     }
     catch (error) {
+      console.log(error);
       ErrorAlert(error);
     }
   }
