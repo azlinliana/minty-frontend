@@ -23,7 +23,9 @@ function IndexTrackingInflowSahabat() {
         <thead>
           <tr>
             <th>Bil.</th>
-            <th>Kod Inflow</th>
+            <th rowSpan={2} className="rowCategory">
+              Kod Inflow
+            </th>
             <th>Keterangan Inflow</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
@@ -32,8 +34,35 @@ function IndexTrackingInflowSahabat() {
         <tbody>
           <tr>
             <td>1</td>
+            <td>A1</td>
+            <div className="multipleRows">
+              <tr>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>2</td>
+              </tr>
+            </div>
             <td></td>
-            <td></td>
+            <td>
+              <EditTrackingInflowSahabat />
+              <Button className="delBtn" variant="danger">
+                Padam
+              </Button>{" "}
+            </td>
+          </tr>
+          {/* Bil 2 */}
+          <tr>
+            <td>1</td>
+            <td>A1</td>
+            <div className="multipleRows">
+              <tr>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>2</td>
+              </tr>
+            </div>
             <td></td>
             <td>
               <EditTrackingInflowSahabat />

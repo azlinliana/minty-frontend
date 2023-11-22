@@ -1,5 +1,5 @@
-import React, {useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Selenggara.css";
 import CreateKodInflow from "./Create";
 import EditKodInflow from "./Edit";
@@ -50,15 +50,19 @@ function IndexKodInflow() {
   // Back button
   const navigate = useNavigate();
 
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
-  return(
+  return (
     <div>
       <div className="pageTitle">
         <h1>Kod Inflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Selenggara
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -72,7 +76,9 @@ function IndexKodInflow() {
           <thead>
             <tr>
               <th>Bil.</th>
-              <th>Kod Inflow</th>
+              <th rowSpan={2} className="rowCategory">
+                Kod Inflow
+              </th>
               <th>Keterangan Kod Inflow</th>
               <th>Kod Inflow Terperinci</th>
               <th>Keterangan Kod Inflow Terperinci</th>
@@ -80,7 +86,7 @@ function IndexKodInflow() {
             </tr>
           </thead>
           <tbody>
-            {kodInflows.length > 0 && kodInflows.map((kodInflowData, key) => (
+            {/* {kodInflows.length > 0 && kodInflows.map((kodInflowData, key) => (
               <React.Fragment key={key}>
                 <tr>
                   <td rowSpan={kodInflowData.kod_inflow_terperincis.length + 1}>{key + 1}</td>
@@ -98,12 +104,32 @@ function IndexKodInflow() {
                   </tr>
                 ))}
               </React.Fragment>
-            ))}
+            ))} */}
+            <tr>
+              <td>1</td>
+              <td>A1</td>
+              <div className="multipleRowsInARow">
+                <tr>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                </tr>
+              </div>
+              <td></td>
+              <td></td>
+              <td>
+                <Button className="editBtn">Kemas Kini</Button>{" "}
+                <Button className="delBtn">Padam</Button>{" "}
+              </td>
+            </tr>
           </tbody>
         </Table>
 
         <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
+          <Button className="kembaliBtn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
         </div>
       </div>
     </div>
