@@ -23,9 +23,7 @@ function IndexTrackingInflowSahabat() {
         <thead>
           <tr>
             <th>Bil.</th>
-            <th rowSpan={2} className="rowCategory">
-              Kod Inflow
-            </th>
+            <th>Kod Inflow</th>
             <th>Keterangan Inflow</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
@@ -35,15 +33,8 @@ function IndexTrackingInflowSahabat() {
           <tr>
             <td>1</td>
             <td>A1</td>
-            <div className="multipleRows">
-              <tr>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>2</td>
-              </tr>
-            </div>
-            <td></td>
+            <td>1</td>
+            <td>RM</td>
             <td>
               <EditTrackingInflowSahabat />
               <Button className="delBtn" variant="danger">
@@ -51,25 +42,22 @@ function IndexTrackingInflowSahabat() {
               </Button>{" "}
             </td>
           </tr>
-          {/* Bil 2 */}
+          {/* Nested row for "Phone" */}
           <tr>
-            <td>1</td>
-            <td>A1</td>
-            <div className="multipleRows">
-              <tr>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>2</td>
-              </tr>
-            </div>
-            <td></td>
-            <td>
+            <td rowspan="2">2</td>
+            <td rowspan="2">A2</td>
+            <td>555-1234</td>
+            <td rowspan="2">RM</td>
+            <td rowspan="2">
               <EditTrackingInflowSahabat />
               <Button className="delBtn" variant="danger">
                 Padam
               </Button>{" "}
             </td>
+          </tr>
+          {/* Another nested row for "Phone" */}
+          <tr>
+            <td>555-8745</td>
           </tr>
         </tbody>
       </Table>

@@ -105,23 +105,22 @@ function IndexKodInflow() {
                 ))}
               </React.Fragment>
             ))} */}
+            {/* Nested row for "Phone" */}
             <tr>
-              <td>1</td>
-              <td>A1</td>
-              <div className="multipleRowsInARow">
-                <tr>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                </tr>
-              </div>
-              <td></td>
-              <td></td>
-              <td>
-                <Button className="editBtn">Kemas Kini</Button>{" "}
-                <Button className="delBtn">Padam</Button>{" "}
+              <td rowspan="2">2</td>
+              <td rowspan="2">A2</td>
+              <td>555-1234</td>
+              <td rowspan="2">RM</td>
+              <td rowspan="2">
+                <EditTrackingInflowSahabat />
+                <Button className="delBtn" variant="danger">
+                  Padam
+                </Button>{" "}
               </td>
+            </tr>
+            {/* Another nested row for "Phone" */}
+            <tr>
+              <td>555-8745</td>
             </tr>
           </tbody>
         </Table>
