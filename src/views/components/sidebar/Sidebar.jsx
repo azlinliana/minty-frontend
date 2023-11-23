@@ -10,7 +10,7 @@ import SidebarMenu from "./SidebarMenu";
 import "./Sidebar.css";
 
 function Sidebar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
