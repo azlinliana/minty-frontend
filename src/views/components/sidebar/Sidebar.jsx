@@ -1,13 +1,13 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import SidebarMenu from "./SidebarMenu";
-import "./Sidebar.css";
 import { TfiArrowCircleLeft } from "react-icons/tfi";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 import { BsPersonCircle } from "react-icons/bs";
 
 import ListGroup from "react-bootstrap/ListGroup";
-import { useState } from "react";
+
+import SidebarMenu from "./SidebarMenu";
+import "./Sidebar.css";
 
 function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
