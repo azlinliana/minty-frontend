@@ -115,14 +115,12 @@ function ResultTF01() {
         </div>
       </div>
 
-      <div className="contain">
-        <div className="resultTitle">
-          <h3>
-            Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
-          </h3>
-        </div>
+      <div className="searchResultContainer">
+        <h3>
+          Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
+        </h3>
 
-        <div className="tableContainer">
+        <div>
           <Table responsive striped bordered>
             <thead>
               <tr>
@@ -173,7 +171,6 @@ function ResultTF01() {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr>
                 <td></td>
@@ -197,10 +194,8 @@ function ResultTF01() {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
