@@ -34,17 +34,23 @@ const getStepContent = (step) => {
 };
 
 const VerticalStepper = () => {
+  const [expandedSteps, setExpandedSteps] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
+    setExpandedSteps((prevExpandedSteps) => [...prevExpandedSteps, activeStep]);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setExpandedSteps((prevExpandedSteps) =>
+      prevExpandedSteps.filter((step) => step !== activeStep - 1)
+    );
   };
 
   const handleReset = () => {
+    setExpandedSteps([]);
     setActiveStep(0);
   };
 
@@ -63,43 +69,46 @@ const VerticalStepper = () => {
         }}
       >
         {steps.map((step, index) => (
-          <Step key={step.label}>
+          <Step key={step} expanded={expandedSteps.includes(index)}>
             <StepLabel
               optional={
-                index === 2 ? (
+                index === steps.length - 1 ? (
                   <Typography variant="caption">
                     Borang tamat di sini
                   </Typography>
                 ) : null
               }
             >
-              {step.label}
+              {step}
             </StepLabel>
             <StepContent>
               {getStepContent(index)}
               <Box sx={{ mb: 2 }}>
                 <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
-                  >
-                    {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
-                  >
-                    Kembali
-                  </Button>
+                  {index === activeStep && index < steps.length - 1 && (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
+                    >
+                      Seterusnya
+                    </Button>
+                  )}
+                  {index === activeStep && index > 0 && (
+                    <Button
+                      onClick={handleBack}
+                      sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
+                    >
+                      Kembali
+                    </Button>
+                  )}
                 </div>
               </Box>
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length && (
+      {activeStep === steps.length - 1 && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>
             Maklumat tracking minggu ini telah selesai diisi.
