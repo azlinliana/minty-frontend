@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { TfiArrowCircleLeft } from "react-icons/tfi";
 import { TfiArrowCircleRight } from "react-icons/tfi";
@@ -11,13 +11,35 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      // Optionally, you can close the sidebar for small screens
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className={`sidebar ${isSidebarOpen ? "open" : "shrink"}`}>
+    <div
+      className={`sidebar ${isMobile && !isSidebarOpen ? "shrink" : "open"}`}
+    >
       <div className="sidebar-toggle-button">
         <button onClick={toggleSidebar} className="toggle-button">
           {isSidebarOpen ? (
