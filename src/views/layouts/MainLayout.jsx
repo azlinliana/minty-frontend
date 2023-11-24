@@ -1,10 +1,10 @@
-import './MainLayout.css'
+import "./MainLayout.css";
 
-import Sidebar from "../components/sidebar/Sidebar"
-import FirstNavbar from "../components/navbar/FirstNavbar"
-import SecondNavbar from "../components/navbar/SecondNavbar"
+import Sidebar from "../components/sidebar/Sidebar";
+import FirstNavbar from "../components/navbar/FirstNavbar";
+import SecondNavbar from "../components/navbar/SecondNavbar";
 
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
@@ -17,13 +17,13 @@ function MainLayout() {
 
           <div className="content">
             <SecondNavbar />
-            
+
             <Outlet />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default MainLayout
+export default MainLayout;

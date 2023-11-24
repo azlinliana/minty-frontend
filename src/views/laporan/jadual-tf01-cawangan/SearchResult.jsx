@@ -99,115 +99,114 @@ function ResultTf01ByCawangan() {
         </div>
       </div>
 
-      <div>
+      <div className="searchResultContainer">
         <h3>
           Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
         </h3>
 
-        <Table responsive striped bordered>
-          <thead>
-            <tr>
-              <th>Bil.</th>
-              <th>Nama Cawangan</th>
-              <th>Nama Pusat</th>
-              <th>No. KP Sahabat</th>
-              <th>No. Kakitangan</th>
-              <th>Nama Sahabat/Sampel</th>
-              <th>Dimensi</th>
-              <th>Tulen/Campuran</th>
-              <th>Julat</th>
-              <th>Kegiatan</th>
-              <th>Sub Kegiatan</th>
-              <th>Pembiayaan + Caj (RM)</th>
-              <th>Pendapatan dari AIM (A1) (RM)</th>
-              <th>Pendapatan dari Jumlah Masuk (Inflow) (RM)</th>
-              <th>Pendapatan dari Jumlah Keluar (Outflow) (RM)</th>
-              <th>Pulangan Per RM</th>
-              <th>Bilangna Kali Pinjam</th>
-              <th>Pengguna Modal</th>
-              <th>Bil. Minggu Tracking</th>
-              <th>Tarikh Last Tracking</th>
-              <th>Julat Pulangan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </Table>
-
         <div>
-          <Button variant="primary">Download TF01</Button>{" "}
+          <Table responsive striped bordered>
+            <thead>
+              <tr>
+                <th>Bil.</th>
+                <th>Nama Cawangan</th>
+                <th>Nama Pusat</th>
+                <th>No. KP Sahabat</th>
+                <th>No. Kakitangan</th>
+                <th>Nama Sahabat/Sampel</th>
+                <th>Dimensi</th>
+                <th>Tulen/Campuran</th>
+                <th>Julat</th>
+                <th>Kegiatan</th>
+                <th>Sub Kegiatan</th>
+                <th>Pembiayaan + Caj (RM)</th>
+                <th>Pendapatan dari AIM (A1) (RM)</th>
+                <th>Pendapatan dari Jumlah Masuk (Inflow) (RM)</th>
+                <th>Pendapatan dari Jumlah Keluar (Outflow) (RM)</th>
+                <th>Pulangan Per RM</th>
+                <th>Bilangna Kali Pinjam</th>
+                <th>Pengguna Modal</th>
+                <th>Bil. Minggu Tracking</th>
+                <th>Tarikh Last Tracking</th>
+                <th>Julat Pulangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+
+        <div className="downloadBtnPlacement">
+          <Button className="downloadBtn">Download TF01</Button>{" "}
         </div>
       </div>
     </>

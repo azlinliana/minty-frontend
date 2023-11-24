@@ -57,6 +57,10 @@
 }
 
 /* Table section */
+.searchResultContainer {
+    margin: 20px;
+}
+
 .laporanTable {
     border: 1px solid #000; /* provide border to the tables */
 }

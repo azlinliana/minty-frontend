@@ -7,12 +7,22 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
+import "../Sahabat.css";
 
 function SearchSahabat() {
   // ----------FE----------
+  // Link pages
+  const navigate = useNavigate();
+  const clickCarian = () => navigate('/search-result-sahabat');
+
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
-  
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   // ----------BE----------
   const navigate = useNavigate();
   const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
@@ -30,7 +40,9 @@ function SearchSahabat() {
   
   return (
     <div>
-      <div className="pageTitle"><h1>Carian Sahabat</h1></div>
+      <div className="pageTitle">
+        <h1>Carian Sahabat</h1>
+      </div>
 
       <div className="container-fluid searchSection">
         <Form className="searchBar" onSubmit={handleSubmit(searchNoKadPengenalanSahabat)} onReset={reset}>
@@ -53,10 +65,21 @@ function SearchSahabat() {
                   />
                 )}
               />
-              {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
+              {errors.noKadPengenalanSahabat && (
+                <small className="text-danger">
+                  {errors.noKadPengenalanSahabat.message}
+                </small>
+              )}
             </Form.Group>
 
-            <Form.Group className="col-md-2"><div className="buttonContainer"><Button className="searchBarBtn" onClick={handleSubmit(searchNoKadPengenalanSahabat)}>Cari</Button></div></Form.Group>
+            <Form.Group className="col-md-2"><div>
+                <Button
+                  className="CarianSearchBarBtn"
+                  onClick={handleSubmit(searchNoKadPengenalanSahabat)}
+                >
+                  Cari
+                </Button>
+              </div></Form.Group>
           </Row>
         </Form>
       </div>
@@ -65,3 +88,4 @@ function SearchSahabat() {
 }
 
 export default SearchSahabat;
+

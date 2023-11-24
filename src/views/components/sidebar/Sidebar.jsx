@@ -1,20 +1,35 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
+import { BsPersonCircle } from "react-icons/bs";
+import ListGroup from "react-bootstrap/ListGroup";
 import SidebarMenu from "./SidebarMenu";
 import "./Sidebar.css";
-import { TfiArrowCircleLeft } from "react-icons/tfi";
-import { TfiArrowCircleRight } from "react-icons/tfi";
-import { BsPersonCircle } from "react-icons/bs";
-
-import ListGroup from "react-bootstrap/ListGroup";
-import { useState } from "react";
 
 function Sidebar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : "shrink"}`}>
@@ -29,7 +44,6 @@ function Sidebar() {
       </div>
       {isSidebarOpen && (
         <div className="user-profile">
-          {/* Profil Pengguna */}
           <BsPersonCircle className="userIcon" />
           <h5>Nurul Aida Nazihah Binti Abdul Rashid</h5>
           <h6>(Unit Sistem Teknologi Maklumat)</h6>
