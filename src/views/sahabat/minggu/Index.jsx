@@ -87,14 +87,10 @@ function IndexMinggu({resultSahabat, sahabatId, pembiayaanId}) {
               <tr><td colSpan="5"><center>Tiada maklumat minggu tracking. Sila klik butang "Tambah Minggu" untuk merekodkan minggu baharu.</center></td></tr>
             ) : (
               mingguPembiayaanSahabats.map((mingguPembiayaanSahabatsData, key) => (
-                <tr key={key} >
+                <tr key={key} className={mingguPembiayaanSahabatsData.totalOutflow === 'Tiada maklumat' ? 'warningRow' : ''}>
                   <td>{mingguPembiayaanSahabatsData.bilanganMinggu}</td>
-                  <td className={mingguPembiayaanSahabatsData.totalInflow === 'Tiada maklumat' ? 'warningRow' : ''}>
-                    {mingguPembiayaanSahabatsData.totalInflow}
-                  </td>
-                  <td className={mingguPembiayaanSahabatsData.totalOutflow === 'Tiada maklumat' ? 'warningRow' : ''}>
-                    {mingguPembiayaanSahabatsData.totalOutflow}
-                  </td>
+                  <td>{mingguPembiayaanSahabatsData.totalInflow}</td>
+                  <td>{mingguPembiayaanSahabatsData.totalOutflow}</td>
                   <td>{new Date(mingguPembiayaanSahabatsData.tarikhBorangMinggu).toLocaleDateString('en-GB')}</td>
                   <td>
                     <Button className="editBtn" onClick={() => clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)}>Kemas Kini</Button>{" "}
