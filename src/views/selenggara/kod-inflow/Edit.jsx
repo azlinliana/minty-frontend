@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditKodInflow({kodInflow}) {
+function EditKodInflow() {
   // ----------FE----------
   // Modal
   const [isModalEditKodInflow, setIsModalEditKodInflow] = useState(false);
@@ -37,7 +37,7 @@ function EditKodInflow({kodInflow}) {
 
   return(
     <div>
-      <Button variant="warning" onClick={openModalEditKodInflow}>Kemas Kini</Button>{' '}
+      <Button className="editBtn" onClick={openModalEditKodInflow}>Kemas Kini</Button>{' '}
 
       <Modal show={isModalEditKodInflow} onHide={closeModalEditKodInflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Kod Inflow</Modal.Title></Modal.Header>
@@ -51,7 +51,7 @@ function EditKodInflow({kodInflow}) {
                 name="kodInflow"
                 id="kodInflow"
                 control={control}
-                defaultValue={kodInflow.kodInflow}
+                defaultValue=""
                 rules={{required: 'Kod inflow diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
@@ -73,7 +73,7 @@ function EditKodInflow({kodInflow}) {
                 name="keteranganKodInflow"
                 id="keteranganKodInflow"
                 control={control}
-                defaultValue={kodInflow.keteranganKodInflow}
+                defaultValue=""
                 rules={{required: 'Keterangan kod inflow diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
@@ -94,7 +94,7 @@ function EditKodInflow({kodInflow}) {
               <Controller
                 name="statusKodInflow"
                 control={control}
-                defaultValue={kodInflow.statusKodInflow}
+                defaultValue=""
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue={kodInflow.statusKodInflow}>
                     <option value="" disabled>--Pilih Kod Inflow--</option>

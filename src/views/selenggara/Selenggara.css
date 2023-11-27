@@ -56,3 +56,21 @@
 .active {
     font-weight: 700;
 }
+
+  /* Kod inflow, kod outflow, dimensi, and hubungan section */
+  /* Tables CSS */
+  .editBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FFAE42;
+    background-color: #FFAE42;
+    margin-bottom: 10px;
+  }
+
+  .delBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: #FF0000;
+    background-color: #FF0000;
+    margin-bottom: 10px;
+  }
