@@ -15,7 +15,7 @@ function TrackingInflowOutflow() {
   // Get sahabat, minggu and pembiayaan information
   const location = useLocation();
   const {resultSahabat, sahabatId, pembiayaanId, mingguId} = location.state;
-
+  
   return (
     <div>
       <div className="pageTitle">

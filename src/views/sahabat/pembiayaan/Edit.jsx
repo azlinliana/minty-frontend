@@ -39,22 +39,10 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
 
   return(
     <div>
-      <a
-        href="#"
-        className="statusLink"
-        onClick={openModalEditPembiayaanSahabat}
-      >
-        Kemas Kini
-      </a>{" "}
-      <Modal
-        show={isModalEditPembiayaanSahabat}
-        onHide={closeModalEditPembiayaanSahabat}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title>
-        </Modal.Header>
+      <span href="#" className="statusLink" onClick={openModalEditPembiayaanSahabat}>Kemas Kini</span>{" "}
+
+      <Modal show={isModalEditPembiayaanSahabat} onHide={closeModalEditPembiayaanSahabat} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton><Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(updatePembiayaanSahabat)} onReset={reset}>

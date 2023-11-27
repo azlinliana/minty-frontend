@@ -47,7 +47,7 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
                   </Form.Select>
                 )}
               />
-              {errors.kodOutflow && ( <small className="text-danger">{errors.kodOutflow.message}</small> )}
+              {errors.kodOutflow && (<small className="text-danger">{errors.kodOutflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -69,7 +69,7 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
                   />
                 )}
               />
-              {errors.keteranganKodOutflow && ( <small className="text-danger">{errors.keteranganKodOutflow.message}</small> )}
+              {errors.keteranganKodOutflow && (<small className="text-danger">{errors.keteranganKodOutflow.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -92,7 +92,7 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
                   />
                 )}
               />
-              {errors.amaunOutflow && ( <small className="text-danger">{errors.amaunOutflow.message}</small> )}
+              {errors.amaunOutflow && (<small className="text-danger">{errors.amaunOutflow.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>

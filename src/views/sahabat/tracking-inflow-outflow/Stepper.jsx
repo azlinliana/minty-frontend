@@ -1,14 +1,4 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-
-import IndexAktiviti from "../aktiviti/Index";
+import React, { useState } from "react";
 import "../sahabat.css";
 import {
   Stepper,
@@ -49,44 +39,27 @@ const getStepContent = (step, mingguId) => {
 
 const VerticalStepper = ({mingguId}) => {
   const [activeStep, setActiveStep] = useState(0);
-const steps = ["Step 1", "Step 2", "Step 3"];
-
-const Step1 = () => <Typography>Step 1 Content</Typography>;
-const Step2 = () => <Typography>Step 2 Content</Typography>;
-const Step3 = () => <Typography>Step 3 Content</Typography>;
-
-const getStepContent = (step) => {
-  switch (step) {
-    case 0:
-      return <IndexAktiviti />;
-    case 1:
-      return <Step2 />;
-    case 2:
-      return <IndexIsiRumah />;
-    default:
-      return "Unknown step";
-  }
-};
-
-const VerticalStepper = () => {
   const [expandedSteps, setExpandedSteps] = useState([]);
-  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
-    setExpandedSteps((prevExpandedSteps) => [...prevExpandedSteps, activeStep]);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => {
+      setExpandedSteps((prevExpandedSteps) => [...prevExpandedSteps, prevActiveStep]);
+      return prevActiveStep + 1;
+    });
   };
-
+  
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    setExpandedSteps((prevExpandedSteps) =>
-      prevExpandedSteps.filter((step) => step !== activeStep - 1)
-    );
+    setActiveStep((prevActiveStep) => {
+      setExpandedSteps((prevExpandedSteps) =>
+        prevExpandedSteps.filter((step) => step !== prevActiveStep - 1)
+      );
+      return Math.max(0, prevActiveStep - 1);
+    });
   };
 
   const handleReset = () => {
-    setExpandedSteps([]);
     setActiveStep(0);
+    setExpandedSteps([]);
   };
 
   return (
@@ -104,8 +77,7 @@ const VerticalStepper = () => {
         }}
       >
         {steps.map((step, index) => (
-          <Step key={index}>
-          <Step key={step} expanded={expandedSteps.includes(index)}>
+          <Step key={index} expanded={expandedSteps.includes(index)}>
             <StepLabel
               optional={
                 index === steps.length - 1 ? (
@@ -115,39 +87,35 @@ const VerticalStepper = () => {
                 ) : null
               }
             >
-              {step}
+              {step.label}
             </StepLabel>
             <StepContent>
               {index === 0 ? <IndexAktiviti /> : null}
               {index === 1 ? <IndexTrackingSahabat mingguId={mingguId} /> : null}
               {index === 2 ? <IndexTrackingIsiRumah mingguId={mingguId} /> : null}
-              {getStepContent(index)}
               <Box sx={{ mb: 2 }}>
                 <div>
-                  {index === activeStep && index < steps.length - 1 && (
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
-                    >
-                      Seterusnya
-                    </Button>
-                  )}
-                  {index === activeStep && index > 0 && (
-                    <Button
-                      onClick={handleBack}
-                      sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
-                    >
-                      Kembali
-                    </Button>
-                  )}
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
+                  >
+                    {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
+                  </Button>
+                  <Button
+                    disabled={index === 0}
+                    onClick={handleBack}
+                    sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
+                  >
+                    Kembali
+                  </Button>
                 </div>
               </Box>
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length - 1 && (
+      {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>
             Maklumat tracking minggu ini telah selesai diisi.
@@ -160,8 +128,5 @@ const VerticalStepper = () => {
     </Box>
   );
 };
-};
-
-export default VerticalStepper;
 
 export default VerticalStepper;
