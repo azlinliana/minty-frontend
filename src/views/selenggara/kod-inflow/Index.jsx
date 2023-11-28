@@ -81,10 +81,10 @@ function IndexKodInflow() {
                     <td rowSpan={kodInflow.kod_inflow_terperincis.length + 1}>{kodInflow.kodInflow}</td>
                     <td rowSpan={kodInflow.kod_inflow_terperincis.length + 1}>{kodInflow.keteranganKodInflow}</td>
                   </tr>
-                  {kodInflow.kod_inflow_terperincis.map((terperinci, subIndex) => (
+                  {kodInflow.kod_inflow_terperincis.map((kodInflowTerperinci, subIndex) => (
                     <tr key={subIndex}>
-                      <td>{terperinci.kodInflowTerperinci}</td>
-                      <td>{terperinci.keteranganKodInflowTerperinci}</td>
+                      <td>{kodInflowTerperinci.kodInflowTerperinci}</td>
+                      <td>{kodInflowTerperinci.keteranganKodInflowTerperinci}</td>
                       <td>
                         <EditKodInflow />
                         <Button className="delBtn" variant="danger">Padam</Button>{" "}
