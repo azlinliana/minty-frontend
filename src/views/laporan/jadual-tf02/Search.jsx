@@ -1,17 +1,22 @@
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+import ResultTf02 from "./SearchResult";
 import "../Laporan.css";
 
 function SearchTf02() {
-  // Link pages
-  const navigate = useNavigate();
-  const clickCariJadualTF02 = () => navigate("/result-tf02");
+  // ----------FE----------
+  const [isSearchResultJadualTf02Visible, setIsSearchResultJadualTf02Visible] =
+    useState(false);
+
+  const handleSearchResultJadualTf02Visibility = () => {
+    setIsSearchResultJadualTf02Visible(!isSearchResultJadualTf02Visible);
+  };
 
   return (
     <>
@@ -60,11 +65,18 @@ function SearchTf02() {
               </Col>
             </Row>
             <div className="cariBtnPlacement">
-              <Button className="cariBtn" onClick={clickCariJadualTF02}>
+              <Button
+                className="cariBtn"
+                onClick={handleSearchResultJadualTf02Visibility}
+              >
                 Cari
               </Button>{" "}
             </div>
           </Container>
+
+          <div className="searchResultContainer">
+            {isSearchResultJadualTf02Visible && <ResultTf02 />}
+          </div>
 
           <div className="kembaliBtnPlacement">
             <Button className="kembaliBtn">Kembali</Button>{" "}

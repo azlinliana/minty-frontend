@@ -1,17 +1,24 @@
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+import ResultTf01ByCawangan from "./SearchResult";
 import "../Laporan.css";
 
 function SearchTf01ByCawangan() {
-  // Link pages
-  const navigate = useNavigate();
-  const clickCariJadualTF01Cawangan = () => navigate("/result-tf01-cawangan");
+  // ----------FE----------
+  const [
+    isSearchResultTf01CawanganVisible,
+    setIsSearchResultTf01CawanganVisible,
+  ] = useState(false);
+
+  const handleSearchResultTf01CawanganVisibility = () => {
+    setIsSearchResultTf01CawanganVisible(!isSearchResultTf01CawanganVisible);
+  };
 
   return (
     <>
@@ -85,11 +92,18 @@ function SearchTf01ByCawangan() {
               </Col>
             </Row>
             <div className="cariBtnPlacement">
-              <Button className="cariBtn" onClick={clickCariJadualTF01Cawangan}>
+              <Button
+                className="cariBtn"
+                onClick={handleSearchResultTf01CawanganVisibility}
+              >
                 Cari
               </Button>{" "}
             </div>
           </Container>
+
+          <div className="searchResultContainer">
+            {isSearchResultTf01CawanganVisible && <ResultTf01ByCawangan />}
+          </div>
 
           <div className="kembaliBtnPlacement">
             <Button className="kembaliBtn">Kembali</Button>{" "}
