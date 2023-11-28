@@ -4,6 +4,7 @@ import "../Selenggara.css";
 import CreateKodInflow from "./Create";
 import EditKodInflow from "./Edit";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
@@ -18,7 +19,6 @@ function IndexKodInflow() {
   // ----------BE----------
   // List kod inflow
   const [kodInflows, setKodInflows] = useState([]);
-
   const fetchKodInflows = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow`);
@@ -74,23 +74,24 @@ function IndexKodInflow() {
             {kodInflows.length === 0 ? (
               <tr><td colSpan="6"><center>Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk merekodkan kod inflow baharu.</center></td></tr>
             ) : (
-              kodInflows.map((kodInflow, index) => (
+              kodInflows.map((kodInflowsData, index) => (
                 <React.Fragment key={index}>
                   <tr>
-                    <td rowSpan={kodInflow.kod_inflow_terperincis.length + 1}>{index + 1}</td>
-                    <td rowSpan={kodInflow.kod_inflow_terperincis.length + 1}>{kodInflow.kodInflow}</td>
-                    <td rowSpan={kodInflow.kod_inflow_terperincis.length + 1}>{kodInflow.keteranganKodInflow}</td>
+                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{index + 1}</td>
+                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{kodInflowsData.kodInflow}</td>
+                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{kodInflowsData.keteranganKodInflow}</td>
                   </tr>
-                  {kodInflow.kod_inflow_terperincis.map((kodInflowTerperinci, subIndex) => (
+                  {kodInflowsData.kod_inflow_terperincis.map((kodInflowTerperincisData, subIndex) => (
                     <tr key={subIndex}>
-                      <td>{kodInflowTerperinci.kodInflowTerperinci}</td>
-                      <td>{kodInflowTerperinci.keteranganKodInflowTerperinci}</td>
+                      <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                      <td>{kodInflowTerperincisData.keteranganKodInflowTerperinci}</td>
                       <td>
-                        <EditKodInflow />
+                        <EditKodInflow kodInflowId={kodInflowsData.id} />
                         <Button className="delBtn" variant="danger">Padam</Button>{" "}
                       </td>
                     </tr>
                   ))}
+                  
                 </React.Fragment>
               ))
             )}

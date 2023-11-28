@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditKodInflow() {
+function EditKodInflow({kodInflowId}) {
   // ----------FE----------
   // Modal
   const [isModalEditKodInflow, setIsModalEditKodInflow] = useState(false);
@@ -44,66 +44,6 @@ function EditKodInflow() {
         
         <Modal.Body>
           <Form onSubmit={handleSubmit(updateKodInflow)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodInflow">Kod Inflow</Form.Label>
-
-              <Controller
-                name="kodInflow"
-                id="kodInflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Kod inflow diperlukan'}}
-                render={({field: {onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod inflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.kodInflow && ( <small className="text-danger">{errors.kodInflow.message}</small> )}            
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganKodInflow">Keterangan Kod Inflow</Form.Label>
-
-              <Controller
-                name="keteranganKodInflow"
-                id="keteranganKodInflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod inflow diperlukan'}}
-                render={({field: {onChange, value}}) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan kod inflow"
-                  />
-                )}
-              />
-              {errors.keteranganKodInflow && ( <small className="text-danger">{errors.keteranganKodInflow.message}</small> )}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Status Kod Inflow</Form.Label>
-
-              <Controller
-                name="statusKodInflow"
-                control={control}
-                defaultValue=""
-                render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue={kodInflow.statusKodInflow}>
-                    <option value="" disabled>--Pilih Kod Inflow--</option>
-                    <option value="AKTIF">AKTIF</option>
-                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
-                  </Form.Select>
-                )}
-              />
-            </Form.Group>
           </Form>
         </Modal.Body>
         
