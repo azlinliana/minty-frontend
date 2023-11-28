@@ -58,6 +58,12 @@
     background-color: var(--white);
   }
 
+  .hasilCarian {
+    margin: 30px auto;
+    padding: 15px;
+    background-color: var(--white);
+  }
+
   .searchResultId {
     margin-left: 20px;
   }

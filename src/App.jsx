@@ -22,6 +22,9 @@ import SearchTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/Search";
 import ResultTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/SearchResult";
 import SearchTf02 from "./views/laporan/jadual-tf02/Search";
 import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
+// New imports
+import SearchResultProfilSahabat from "./views/laporan/profil-sahabat/SearchResult";
+import SearchResultProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/SearchResult";
 
 // IMPORT FROM SELENGGARA FOLDER
 import IndexSelenggara from "./views/selenggara/Index";
@@ -32,7 +35,7 @@ import IndexHubungan from "./views/selenggara/hubungan/Index";
 import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
 
 function App() {
-  return(
+  return (
     <>
       <BrowserRouter>
         <Routes>
@@ -42,19 +45,43 @@ function App() {
           <Route element={<MainLayout />}>
             {/* SAHABAT PATH */}
             <Route path="search-sahabat" element={<SearchSahabat />} />
-            <Route path="search-result-sahabat" element={<SearchResultSahabat /> } />
-            <Route path="tracking-inflow-outflow" element={<TrackingInflowOutflow />} />
+            <Route
+              path="search-result-sahabat"
+              element={<SearchResultSahabat />}
+            />
+            <Route
+              path="tracking-inflow-outflow"
+              element={<TrackingInflowOutflow />}
+            />
 
             {/* LAPORAN PATH */}
             <Route path="laporan" element={<IndexLaporan />} />
             <Route path="profil-sahabat" element={<ShowProfilSahabat />} />
-            <Route path="profil-sahabat-terperinci" element={<ShowProfilSahabatTerperinci />} />
+            <Route
+              path="profil-sahabat-terperinci"
+              element={<ShowProfilSahabatTerperinci />}
+            />
             <Route path="search-tf01" element={<SearchTf01 />} />
             <Route path="result-tf01" element={<ResultTf01 />} />
-            <Route path="search-tf01-cawangan" element={<SearchTf01ByCawangan />} />
-            <Route path="result-tf01-cawangan" element={<ResultTf01ByCawangan />} />
+            <Route
+              path="search-tf01-cawangan"
+              element={<SearchTf01ByCawangan />}
+            />
+            <Route
+              path="result-tf01-cawangan"
+              element={<ResultTf01ByCawangan />}
+            />
             <Route path="search-tf02" element={<SearchTf02 />} />
             <Route path="result-tf02" element={<ResultTf02 />} />
+            {/* New routes */}
+            <Route
+              path="pembiayaan-sahabat"
+              element={<SearchResultProfilSahabat />}
+            />
+            <Route
+              path="pembiayaan-sahabat-terperinci"
+              element={<SearchResultProfilSahabatTerperinci />}
+            />
 
             {/* SELENGGARA PATH */}
             <Route path="selenggara" element={<IndexSelenggara />} />
