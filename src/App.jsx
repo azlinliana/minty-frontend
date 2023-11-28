@@ -23,8 +23,8 @@ import ResultTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/SearchRes
 import SearchTf02 from "./views/laporan/jadual-tf02/Search";
 import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
 // New imports
-import SearchResultProfilSahabat from "./views/laporan/profil-sahabat/SearchResult";
-import SearchResultProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/SearchResult";
+import SearchProfilSahabat from "./views/laporan/profil-sahabat/Search";
+import SearchProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Search";
 
 // IMPORT FROM SELENGGARA FOLDER
 import IndexSelenggara from "./views/selenggara/Index";
@@ -76,11 +76,11 @@ function App() {
             {/* New routes */}
             <Route
               path="pembiayaan-sahabat"
-              element={<SearchResultProfilSahabat />}
+              element={<SearchProfilSahabat />}
             />
             <Route
               path="pembiayaan-sahabat-terperinci"
-              element={<SearchResultProfilSahabatTerperinci />}
+              element={<SearchProfilSahabatTerperinci />}
             />
 
             {/* SELENGGARA PATH */}

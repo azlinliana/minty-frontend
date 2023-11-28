@@ -57,7 +57,9 @@
 
 /* Jenis Pembiayaan section */
 .carianPembiayaanSahabat {
-    margin: 30px 10px 10px 10px;
+    margin: 30px 15px;
+    padding: 15px;
+    background-color: var(--white);
 }
 
 .hasilCarianPembiayaan {
@@ -72,6 +74,16 @@
     border-color: #FFAE42;
     background-color: #FFAE42;
     margin-bottom: 10px;
+  }
+
+  .cariPembiayaanBtn {
+    width: 100%;
+  }
+
+  @media(max-width: 767px) {
+    .cariPembiayaanBtn {
+        margin-top: 10px;
+      }
   }
 
 /* Table section */

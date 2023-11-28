@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import "../Laporan.css";
 
-function ResultTF01() {
+function SearchResultTF01() {
   // Link pages
   const navigate = useNavigate();
   const clickCariJadualTF01 = () => navigate("/result-tf01");
@@ -231,4 +231,4 @@ function ResultTF01() {
   );
 }
 
-export default ResultTF01;
+export default SearchResultTF01;

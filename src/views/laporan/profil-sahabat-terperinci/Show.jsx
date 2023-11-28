@@ -15,6 +15,9 @@ function ShowProfilSahabatTerperinci() {
           <Breadcrumb.Item className="previousLink" href="#">
             Senarai Laporan
           </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Carian Pembiayaan Sahabat Terperinci
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>
             Laporan Profil Sahabat Terperinci
           </Breadcrumb.Item>
