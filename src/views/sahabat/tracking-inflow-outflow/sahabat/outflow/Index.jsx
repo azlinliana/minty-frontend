@@ -61,7 +61,7 @@ function IndexTrackingOutflowSahabat({mingguId}) {
             trackingOutflowSahabats.map((trackingOutflowSahabatsData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{trackingOutflowSahabatsData.kodOutflow}</td>
+                <td>{trackingOutflowSahabatsData.kod_outflow.kodOutflow}</td>
                 <td>{trackingOutflowSahabatsData.keteranganKodOutflow}</td>
                 <td>{trackingOutflowSahabatsData.amaunOutflow}</td>
                 <td>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
@@ -39,6 +39,26 @@ function CreateTrackingOutflowSahabat({mingguId}) {
     }
   }
 
+  // Fetch kod outflow data
+  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+  useEffect(() => {
+    const fetchKodOutflow = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-outflow/display-kod-outflow`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodOutflowsData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodOutflow();
+  }, []);
+
   return(
     <div>
       <Button variant="primary" onClick={openModalCreateTrackingOutflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
@@ -49,44 +69,23 @@ function CreateTrackingOutflowSahabat({mingguId}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+              <Form.Label htmlFor="kodOutflowId">Kod Outflow</Form.Label>
               <Controller
-                id="kodOutflow"
-                name="kodOutflow"
+                id="kodOutflowId"
+                name="kodOutflowId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kod outflow diperlukan.'}}
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Outflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    {kodOutflowsData.map((kodOutflow) => (
+                      <option key={kodOutflow.id} value={kodOutflow.id}>{kodOutflow.kodOutflow} - {kodOutflow.keteranganKodOutflow}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodOutflow && (<small className="text-danger">{errors.kodOutflow.message}</small>)}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKodOutflow">Keterangan Kod Outflow</Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodOutflow"
-                name="keteranganKodOutflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod outflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod outflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.keteranganKodOutflow && (<small className="text-danger">{errors.keteranganKodOutflow.message}</small>)}
+              {errors.kodOutflowId && (<small className="text-danger">{errors.kodOutflowId.message}</small>)}
             </Form.Group>
 
             <Form.Group>
