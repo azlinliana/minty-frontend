@@ -9,47 +9,39 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
 function IndexKodOutflow() {
+  // ----------FE----------
+  // Back button
+  const navigate = useNavigate();
+  const goBack = () => {navigate(-1);};
+
+  // ----------BE----------
   // List kod outflow
   const [kodOutflows, setKodOutflows] = useState([]);
-
   const fetchKodOutflows = async () => {
-    await axios
-      .get("http://127.0.0.1:8000/api/selenggara/kod-outflow")
-      .then(({ data }) => {
-        setKodOutflows(data);
-      });
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-outflow`);
+      if (response.status === 200) {
+        setKodOutflows(response.data);
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
   };
 
   useEffect(() => {
     fetchKodOutflows();
+    const interval = setInterval(() => { // Set up recurring fetch every 5 second
+      fetchKodOutflows();
+    }, 5000);
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
-
-  // Update kod outflow
-  const updateKodOutflow = (editedKodOutflow) => {
-    const updatedKodOutflows = kodOutflows.map((kodOutflow) =>
-      kodOutflow.id === editedKodOutflow.id ? editedKodOutflow : kodOutflow
-    );
-    setKodOutflows(updatedKodOutflows);
-  };
-
-  // Delete kod outflow
-  const handleDeleteKodOutflow = async (kodOutflowId) => {
-    try {
-      await axios.delete(
-        `http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflowId}`
-      );
-
-      setKodOutflows((prevKodOutflows) =>
-        prevKodOutflows.filter((kodOutflow) => kodOutflow.id !== kodOutflowId)
-      );
-    } catch (error) {
-      console.error("Ralat dalam memadam kod outflow", error);
-    }
-  };
-
-  // Back button
-  const navigate = useNavigate();
-  const goBack = () => {navigate(-1);};
 
   return(
     <div>
@@ -64,7 +56,7 @@ function IndexKodOutflow() {
 
       <div className="tableSection">
         <div className="tambahBtnPlacement">
-          <CreateKodOutflow fetchKodOutflows={fetchKodOutflows} />
+          <CreateKodOutflow />
         </div>
 
         <Table responsive>
@@ -72,29 +64,30 @@ function IndexKodOutflow() {
             <tr>
               <th>Bil.</th>
               <th>Kod Outflow</th>
-              <th>Keterangan</th>
+              <th>Keterangan Kod Outflow</th>
               <th>Tindakan</th>
             </tr>
           </thead>
           <tbody>
-            {kodOutflows.length > 0 &&
-              kodOutflows.map((row, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{row.kodOutflow}</td>
-                  <td>{row.keterangan}</td>
+            {kodOutflows.length === 0 ? (
+              <tr><td colSpan="6"><center>Tiada maklumat kod outflow. Sila klik butang "Tambah" untuk merekodkan kod outflow baharu.</center></td></tr>
+            ) : (
+              kodOutflows.map((kodOutflowsData, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{kodOutflowsData.kodOutflow}</td>
+                  <td>{kodOutflowsData.keteranganKodOutflow}</td>
                   <td>
-                    <EditKodOutflow kodOutflow={row} updateKodOutflow={updateKodOutflow} closeModalEditKodOutflow={() => {}}/>
-                    <Button variant="danger" onClick={() => handleDeleteKodOutflow(row.id)}>Padam</Button>{" "}
+                    <EditKodOutflow kodOutflowId={kodOutflowsData.id} />
+                    <Button className="delBtn" variant="danger">Padam</Button>{" "}
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
           </tbody>
         </Table>
 
-        <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
-        </div>
+        <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
       </div>
     </div>
   );

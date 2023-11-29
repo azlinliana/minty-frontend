@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditKodOutflow({kodOutflow}) {
+function EditKodOutflow({kodOutflowId}) {
   // ----------FE----------
   // Modal
   const [isModalEditKodOutflow, setIsModalEditKodOutflow] = useState(false);
@@ -37,7 +37,7 @@ function EditKodOutflow({kodOutflow}) {
 
   return(
     <div>
-      <Button variant="warning" onClick={openModalEditKodOutflow}>Kemas Kini</Button>{' '}
+      <Button className="editBtn" onClick={openModalEditKodOutflow}>Kemas Kini</Button>{' '}
 
       <Modal show={isModalEditKodOutflow} onHide={closeModalEditKodOutflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Kod Outflow</Modal.Title></Modal.Header>
@@ -51,7 +51,7 @@ function EditKodOutflow({kodOutflow}) {
                 name="kodOutflow"
                 id="kodOutflow"
                 control={control}
-                defaultValue={kodOutflow.kodOutflow}
+                defaultValue=""
                 rules={{required: 'Kod outflow diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
@@ -73,7 +73,7 @@ function EditKodOutflow({kodOutflow}) {
                 name="keteranganKodOutflow"
                 id="keteranganKodOutflow"
                 control={control}
-                defaultValue={kodOutflow.keteranganKodOutflow}
+                defaultValue=""
                 rules={{required: 'Keterangan kod outflow diperlukan'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
@@ -94,9 +94,9 @@ function EditKodOutflow({kodOutflow}) {
               <Controller
                 name="statusKodOutflow"
                 control={control}
-                defaultValue={kodOutflow.statusKodOutflow}
+                defaultValue=""
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue={kodOutflow.statusKodOutflow}>
+                  <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Outflow--</option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="TIDAK AKTIF">TIDAK AKTIF</option>
