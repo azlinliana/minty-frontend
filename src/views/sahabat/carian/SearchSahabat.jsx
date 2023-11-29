@@ -48,7 +48,7 @@ function SearchSahabat() {
                     maxLength={12}
                     onChange={onChange}
                     value={value}
-                    placeholder="Masukkan no. kad pengenalan isi rumah sahabat"
+                    placeholder="Masukkan no. kad pengenalan sahabat"
                     autoFocus
                   />
                 )}
