@@ -1,17 +1,20 @@
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import ResultTF01 from "./SearchResult";
 import "../Laporan.css";
 
 function SearchTf01() {
-  // Link pages
-  const navigate = useNavigate();
-  const clickCariJadualTF01 = () => navigate("/result-tf01");
+  // ---- FE -----
+  // Controls the visibility of the reports
+  const [ isSearchResultTf01Visible, setIsSearchResultTf01Visible] = useState(false);
+  const handleSearchResultTf01Visible = () => {
+    setIsSearchResultTf01Visible(!isSearchResultTf01Visible);
+  };
 
   return (
     <>
@@ -19,7 +22,7 @@ function SearchTf01() {
         <h1>Jadual TF01</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="previousLink">
             Senarai Laporan
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Jadual TF01</Breadcrumb.Item>
@@ -102,11 +105,15 @@ function SearchTf01() {
               </Col>
             </Row>
             <div className="cariBtnPlacement">
-              <Button className="cariBtn" onClick={clickCariJadualTF01}>
+              <Button className="cariBtn" onClick={handleSearchResultTf01Visible}>
                 Cari
               </Button>{" "}
             </div>
           </Container>
+
+          <div className="searchResultContainer">
+            {isSearchResultTf01Visible && <ResultTF01/>}
+          </div>
 
           <div className="kembaliBtnPlacement">
             <Button className="kembaliBtn">Kembali</Button>{" "}

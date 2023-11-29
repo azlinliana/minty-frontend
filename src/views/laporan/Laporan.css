@@ -56,9 +56,41 @@
     margin: 10px 10px;
 }
 
+/* Jenis Pembiayaan Section */
+.carianPembiayaanSahabat {
+    margin: 30px 15px;
+    padding: 15px;
+    background-color: var(--white);
+}
+
+.hasilCarianPembiayaan {
+    margin: 30px 15px;
+    padding: 15px;
+    background-color: var(--white);
+}
+
+.viewBtn {
+    font-size: 0.75em;
+    font-weight: 700;
+    border-color: var(--noticeyellow);
+    background-color: var(--noticeyellow);
+    margin-bottom: 10px;
+}
+
+.cariPembiayaanBtn {
+    width: 100%;
+}
+
+@media(max-width: 767px) {
+    .cariPembiayaanBtn {
+        margin-top: 10px;
+    }
+}
+
 /* Table section */
 .searchResultContainer {
-    margin: 20px;
+    padding: 20px;
+    background-color: var(--white);
 }
 
 .laporanTable {
