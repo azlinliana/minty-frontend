@@ -15,8 +15,11 @@ function ShowProfilSahabat() {
         <h1>Profil Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="previousLink">
             Senarai Laporan
+          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Carian Pembiayaan Sahabat
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Laporan Profil Sahabat</Breadcrumb.Item>
         </Breadcrumb>

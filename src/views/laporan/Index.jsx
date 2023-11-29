@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import CarianLaporanProfilSahabatModal from "../components/modal/CarianLaporanProfilSahabatModal";
-
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import CarianLaporanProfilSahabatModal from "../components/modal/CarianLaporanProfilSahabatModal";
 import "./Laporan.css";
 
 function IndexLaporan() {
@@ -16,9 +14,9 @@ function IndexLaporan() {
   const clickJadualTF02 = () => navigate("/search-tf02");
 
   // Temporary link - Removed when carian functionality work
-  const clickCarianLaporanProfilSahabat = () => navigate("/profil-sahabat");
-  const clickCarianLaporanProfilSahabatTerperinci = () =>
-    navigate("/profil-sahabat-terperinci");
+  const clickCarianLaporanProfilSahabatMelaluiPembiayaan = () => navigate("/pembiayaan-sahabat");
+  const clickCarianLaporanProfilSahabatTerperinciMelaluiPembiayaan = () =>
+    navigate("/pembiayaan-sahabat-terperinci");
 
   // Separate modals
   const [isModal1Open, setIsModal1Open] = useState(false);
@@ -97,7 +95,7 @@ function IndexLaporan() {
                       <Button
                         variant="primary"
                         type="submit"
-                        onClick={clickCarianLaporanProfilSahabat}
+                        onClick={clickCarianLaporanProfilSahabatMelaluiPembiayaan}
                       >
                         Cari
                       </Button>
@@ -145,7 +143,7 @@ function IndexLaporan() {
                       <Button
                         variant="primary"
                         type="submit"
-                        onClick={clickCarianLaporanProfilSahabatTerperinci}
+                        onClick={clickCarianLaporanProfilSahabatTerperinciMelaluiPembiayaan}
                       >
                         Cari
                       </Button>

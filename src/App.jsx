@@ -14,7 +14,9 @@ import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Track
 
 // IMPORT FROM LAPORAN FOLDER
 import IndexLaporan from "./views/laporan/Index";
+import SearchProfilSahabat from "./views/laporan/profil-sahabat/Search";
 import ShowProfilSahabat from "./views/laporan/profil-sahabat/Show";
+import SearchProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Search";
 import ShowProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Show";
 import SearchTf01 from "./views/laporan/jadual-tf01/Search";
 import ResultTf01 from "./views/laporan/jadual-tf01/SearchResult";
@@ -47,7 +49,9 @@ function App() {
 
             {/* LAPORAN PATH */}
             <Route path="laporan" element={<IndexLaporan />} />
+            <Route path="pembiayaan-sahabat" element={<SearchProfilSahabat/>}/>
             <Route path="profil-sahabat" element={<ShowProfilSahabat />} />
+            <Route path="pembiayaan-sahabat-terperinci" element={<SearchProfilSahabatTerperinci/>}/>
             <Route path="profil-sahabat-terperinci" element={<ShowProfilSahabatTerperinci />} />
             <Route path="search-tf01" element={<SearchTf01 />} />
             <Route path="result-tf01" element={<ResultTf01 />} />
