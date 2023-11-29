@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
@@ -39,6 +39,27 @@ function CreateTrackingInflowSahabat({mingguId}) {
     }
   }
 
+  // Fetch kod inflow data
+  const [kodInflowsData, setKodInflowsData] = useState([]);
+  useEffect(() => {
+    const fetchKodInflow = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow/display-kod-inflow`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodInflowsData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodInflow();
+  }, []);
+
+
   return(
     <div>
       <Button variant="primary" onClick={openModalCreateTrackingInflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
@@ -49,44 +70,23 @@ function CreateTrackingInflowSahabat({mingguId}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="kodInflow">Kod Inflow</Form.Label>
+              <Form.Label htmlFor="kodInflowId">Kod Inflow</Form.Label>
               <Controller
-                id="kodInflow"
-                name="kodInflow"
+                id="kodInflowId"
+                name="kodInflowId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kod inflow diperlukan.'}}
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Inflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    {kodInflowsData.map((kodInflow) => (
+                      <option key={kodInflow.id} value={kodInflow.id}>{kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && (<small className="text-danger">{errors.kodInflow.message}</small>)}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKodInflow">Keterangan Kod Inflow</Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodInflow"
-                name="keteranganKodInflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod inflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod inflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.keteranganKodInflow && (<small className="text-danger">{errors.keteranganKodInflow.message}</small>)}
+              {errors.kodInflowId && (<small className="text-danger">{errors.kodInflowId.message}</small>)}
             </Form.Group>
 
             <Form.Group>
