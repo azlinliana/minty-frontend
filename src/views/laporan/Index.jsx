@@ -1,54 +1,68 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import CarianLaporanProfilSahabatModal from "../components/modal/CarianLaporanProfilSahabatModal";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useForm, Controller} from "react-hook-form";
 import "./Laporan.css";
+import ErrorAlert from "../components/sweet-alert/ErrorAlert";
+import {Table, Button, Form, Modal} from 'react-bootstrap';
+import axios from "axios";
 
 function IndexLaporan() {
+  // ----------FE----------
+  // Modal Carian Laporan Profil Sahabat
+  const [isModalCarianLaporanProfilSahabat, setIsModalCarianLaporanProfilSahabat] = useState(false);
+  const openModalCarianLaporanProfilSahabat = () => setIsModalCarianLaporanProfilSahabat(true);
+  const closeModalCarianLaporanProfilSahabat = () => {
+    setIsModalCarianLaporanProfilSahabat(false);
+    reset(); // Reset previous form input
+  };
+
+  // Modal Carian Laporan Profil Sahabat Terperinci
+  const [isModalCarianLaporanProfilSahabatTerperinci, setIsModalCarianLaporanProfilSahabatTerperinci] = useState(false);
+  const openModalCarianLaporanProfilSahabatTerperinci = () => setIsModalCarianLaporanProfilSahabatTerperinci(true);
+  const closeModalCarianLaporanProfilSahabatTerperinci = () => {
+    setIsModalCarianLaporanProfilSahabatTerperinci(false);
+    reset(); // Reset previous form input
+  };
+
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+
   // Link pages
   const navigate = useNavigate();
   const clickJadualTF01 = () => navigate("/search-tf01");
   const clickJadualTF01Cawangan = () => navigate("/search-tf01-cawangan");
   const clickJadualTF02 = () => navigate("/search-tf02");
 
-  // Temporary link - Removed when carian functionality work
-  const clickCarianLaporanProfilSahabatMelaluiPembiayaan = () => navigate("/pembiayaan-sahabat");
-  const clickCarianLaporanProfilSahabatTerperinciMelaluiPembiayaan = () =>
-    navigate("/pembiayaan-sahabat-terperinci");
-
-  // Separate modals
-  const [isModal1Open, setIsModal1Open] = useState(false);
-  const [isModal2Open, setIsModal2Open] = useState(false);
-
-  // Modal 1 - Carian Profil Sahabat
-  const openModal1 = () => {
-    console.log("Opening Modal 1");
-    setIsModal1Open(true);
+  // ----------BE----------
+  const searchNoKadPengenalanSahabatProfilSahabat = async (noKadPengenalanSahabatInput) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
+      if (response.status === 200) {
+        navigate('/pembiayaan-sahabat', {state: {resultSahabat: response.data}}); // Set response data as a state
+      } else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error); // Error related to API response or client side
+    }    
   };
 
-  const closeModal1 = () => {
-    console.log("Closing Modal 1");
-    setIsModal1Open(false);
-  };
-
-  // Modal 2 - Carian Profil Sahsbat Terperinci
-  const openModal2 = () => {
-    console.log("Closing Modal 2");
-    setIsModal2Open(true);
-  };
-
-  const closeModal2 = () => {
-    console.log("Closing Modal 2");
-    setIsModal2Open(false);
+  const searchNoKadPengenalanSahabatProfilSahabatTerperinci = async (noKadPengenalanSahabatInput) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
+      if (response.status === 200) {
+        navigate('/pembiayaan-sahabat-terperinci', {state: {resultSahabat: response.data}}); // Set response data as a state
+      } else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error); // Error related to API response or client side
+    }    
   };
 
   return (
-    <>
-      <div className="pageTitle">
-        <h1>Senarai Laporan</h1>
-      </div>
+    <div>
+      <div className="pageTitle"><h1>Senarai Laporan</h1></div>
 
       <div className="tableSection">
         <Table responsive>
@@ -63,144 +77,108 @@ function IndexLaporan() {
             <tr>
               <td className="tableBil">1</td>
               <td>Laporan Profil Sahabat</td>
-
-              {/* Modal Carian Laporan Profil Sahabat start */}
               <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={openModal1}
-                >
-                  Cari
-                </Button>{" "}
-                <CarianLaporanProfilSahabatModal
-                  modalTitle="Carian Laporan Profil Sahabat"
-                  modalContent={
-                    <Form>
+                <Button className="indexLaporanBtn" variant="primary" onClick={openModalCarianLaporanProfilSahabat}>Cari</Button>{" "}
+                
+                <Modal show={isModalCarianLaporanProfilSahabat} onHide={closeModalCarianLaporanProfilSahabat} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton><Modal.Title>Carian Laporan Profil Sahabat</Modal.Title></Modal.Header>
+
+                  <Modal.Body>
+                    <Form onSubmit={handleSubmit(searchNoKadPengenalanSahabatProfilSahabat)} onReset={reset}>
                       <Form.Group className="mb-3">
-                        <Form.Control
-                          type="text"
-                          id="carian-ic-sahabat"
-                          placeholder="Carian No. Kad Pengenalan Sahabat"
-                          autoFocus
+                        <Controller
+                          id="noKadPengenalanSahabat"
+                          name="noKadPengenalanSahabat"
+                          control={control}
+                          defaultValue=""
+                          rules={{required: 'No. kad pengenalan sahabat diperlukan.'}}
+                          render={({field:{onChange, value}}) => (
+                            <Form.Control
+                              type="text"
+                              maxLength={12}
+                              onChange={onChange}
+                              value={value}
+                              placeholder="Masukkan no. kad pengenalan sahabat"
+                              autoFocus
+                            />
+                          )}
                         />
+                        {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
                       </Form.Group>
                     </Form>
-                  }
-                  modalFooter={
-                    <>
-                      <Button className="batalBtn" onClick={closeModal1}>
-                        Batal
-                      </Button>
-                      <Button
-                        variant="primary"
-                        type="submit"
-                        onClick={clickCarianLaporanProfilSahabatMelaluiPembiayaan}
-                      >
-                        Cari
-                      </Button>
-                    </>
-                  }
-                  isModalOpen={isModal1Open}
-                  closeModal={closeModal1}
-                />
+                  </Modal.Body>
+
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModalCarianLaporanProfilSahabat}>Batal</Button>
+                    <Button variant="primary" onClick={handleSubmit(searchNoKadPengenalanSahabatProfilSahabat)}>Cari</Button>
+                  </Modal.Footer>
+                </Modal>
               </td>
-              {/* Modal Carian Laporan Profil Sahabat end */}
             </tr>
 
             <tr>
               <td className="tableBil">2</td>
               <td>Laporan Profil Sahabat Terperinci</td>
-
-              {/* Modal Carian Laporan Profil Sahabat Terperinci start */}
               <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={openModal2}
-                >
-                  Cari
-                </Button>{" "}
-                <CarianLaporanProfilSahabatModal
-                  modalTitle="Carian Laporan Profil Sahabat Terperinci"
-                  modalContent={
-                    <Form>
+                <Button className="indexLaporanBtn" variant="primary" onClick={openModalCarianLaporanProfilSahabatTerperinci}>Cari</Button>{" "}
+                
+                <Modal show={isModalCarianLaporanProfilSahabatTerperinci} onHide={closeModalCarianLaporanProfilSahabatTerperinci} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton><Modal.Title>Carian Laporan Profil Sahabat Terperinci</Modal.Title></Modal.Header>
+
+                  <Modal.Body>
+                    <Form onSubmit={handleSubmit(searchNoKadPengenalanSahabatProfilSahabatTerperinci)} onReset={reset}>
                       <Form.Group className="mb-3">
-                        <Form.Control
-                          type="text"
-                          id="carian-ic-sahabat"
-                          placeholder="Carian No. Kad Pengenalan Sahabat"
-                          autoFocus
+                        <Controller
+                          id="noKadPengenalanSahabat"
+                          name="noKadPengenalanSahabat"
+                          control={control}
+                          defaultValue=""
+                          rules={{required: 'No. kad pengenalan sahabat diperlukan.'}}
+                          render={({field:{onChange, value}}) => (
+                            <Form.Control
+                              type="text"
+                              maxLength={12}
+                              onChange={onChange}
+                              value={value}
+                              placeholder="Masukkan no. kad pengenalan sahabat"
+                              autoFocus
+                            />
+                          )}
                         />
+                        {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
                       </Form.Group>
                     </Form>
-                  }
-                  modalFooter={
-                    <>
-                      <Button className="batalBtn" onClick={closeModal2}>
-                        Batal
-                      </Button>
-                      <Button
-                        variant="primary"
-                        type="submit"
-                        onClick={clickCarianLaporanProfilSahabatTerperinciMelaluiPembiayaan}
-                      >
-                        Cari
-                      </Button>
-                    </>
-                  }
-                  isModalOpen={isModal2Open}
-                  closeModal={closeModal2}
-                />
+                  </Modal.Body>
+
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModalCarianLaporanProfilSahabatTerperinci}>Batal</Button>
+                    <Button variant="primary" onClick={handleSubmit(searchNoKadPengenalanSahabatProfilSahabatTerperinci)}>Cari</Button>
+                  </Modal.Footer>
+                </Modal>
               </td>
-              {/* Modal Carian Laporan Profil Sahabat Terperinci end */}
             </tr>
 
             <tr>
               <td className="tableBil">3</td>
               <td>Jadual TF01</td>
-              <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={clickJadualTF01}
-                >
-                  Lihat
-                </Button>{" "}
-              </td>
+              <td><Button className="indexLaporanBtn" variant="primary" onClick={clickJadualTF01}>Lihat</Button>{" "}</td>
             </tr>
 
             <tr>
               <td className="tableBil">4</td>
               <td>Jadual TF01 Mengikut Cawangan</td>
-              <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={clickJadualTF01Cawangan}
-                >
-                  Lihat
-                </Button>{" "}
-              </td>
+              <td><Button className="indexLaporanBtn" variant="primary" onClick={clickJadualTF01Cawangan}>Lihat</Button>{" "}</td>
             </tr>
 
             <tr>
               <td className="tableBil">5</td>
               <td>Jadual TF02</td>
-              <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={clickJadualTF02}
-                >
-                  Lihat
-                </Button>{" "}
-              </td>
+              <td><Button className="indexLaporanBtn" variant="primary" onClick={clickJadualTF02}>Lihat</Button>{" "}</td>
             </tr>
           </tbody>
         </Table>
       </div>
-    </>
+    </div>
   );
 }
 
