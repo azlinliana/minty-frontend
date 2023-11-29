@@ -40,13 +40,13 @@ function CreateKodInflow() {
   }
 
   // Fetch kod inflow data
-  const [kodInflowData, setKodInflowData] = useState([]);
+  const [kodInflowsData, setKodInflowsData] = useState([]);
   useEffect(() => {
     const fetchKodInflow = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow/display-kod-inflow`);
         if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodInflowData(response.data); // Display all kod inflow data
+          setKodInflowsData(response.data); // Display all kod inflow data
         } else {
           ErrorAlert(response.data);
         }
@@ -57,7 +57,7 @@ function CreateKodInflow() {
     };
   
     fetchKodInflow();
-  }, []); // Make sure to include the dependency array
+  }, []);
     
   return (
     <div>
@@ -80,7 +80,7 @@ function CreateKodInflow() {
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Inflow--</option>
-                    {kodInflowData.map((kodInflow) => (
+                    {kodInflowsData.map((kodInflow) => (
                       <option key={kodInflow.id} value={kodInflow.id}>{kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}</option>
                     ))}
                     <option value="KOD INFLOW BAHARU">KOD INFLOW BAHARU</option>
