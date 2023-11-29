@@ -47,7 +47,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
           <tr>
             <th>Bil.</th>
             <th>Kod Inflow</th>
-            <th>Keterangan Inflow</th>
+            <th>Kod Inflow Terperinci</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
           </tr>
@@ -59,7 +59,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
             trackingInflowSahabats.map((trackingInflowSahabatsData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{trackingInflowSahabatsData.kodInflow}</td>
+                <td>{trackingInflowSahabatsData.kod_inflow.kodInflow}</td>
                 <td>{trackingInflowSahabatsData.keteranganKodInflow}</td>
                 <td>{trackingInflowSahabatsData.amaunInflow}</td>
                 <td>
