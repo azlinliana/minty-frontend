@@ -56,8 +56,8 @@ function SearchSahabat() {
               {errors.noKadPengenalanSahabat && (<small className="text-danger">{errors.noKadPengenalanSahabat.message}</small>)}
             </Form.Group>
 
-            <Form.Group className="col-md-2"><
-              div><Button className="CarianSearchBarBtn" onClick={handleSubmit(searchNoKadPengenalanSahabat)} >Cari</Button></div>
+            <Form.Group className="col-md-2">
+              <div><Button className="CarianSearchBarBtn" onClick={handleSubmit(searchNoKadPengenalanSahabat)}>Cari</Button></div>
             </Form.Group>
           </Row>
         </Form>
