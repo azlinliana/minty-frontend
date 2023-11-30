@@ -1,56 +1,51 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
+import {Table, Button} from 'react-bootstrap';
 
-function SearchResultPembiayaanSahabat() {
-    // ------------ FE --------------
-    // Link pages
-    const navigate = useNavigate();
-    const clickLihat = () => navigate("/profil-sahabat");
+function SearchResultPembiayaanSahabat({pembiayaanSahabats, selectedSkimPembiayaan}) {
+  // ------------ FE --------------
+  // Link pages
+  const navigate = useNavigate();
+  const clickLihat = () => navigate("/profil-sahabat");
+
+  // ------------ BE --------------
+  // Filter pembiayaanSahabats based on selectedSkimPembiayaan
+  const filteredPembiayaanSahabats = pembiayaanSahabats.filter(
+    (pembiayaan) => pembiayaan.skimPembiayaan === selectedSkimPembiayaan
+  );
 
   return (
     <div>
-        <div className='hasilCarianSahabatTitle'>
-            <h3>Hasil Carian: Pembiayaan i-Sejahtera</h3>
-        </div>
+      <div className='hasilCarianSahabatTitle'><h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3></div>
+
       <div className='searchResultContainer'>
         <Table responsive striped bordered>
-            <thead>
-                <tr>
-                    <th>Bil.</th>
-                    <th>Status</th>
-                    <th>Jenis Pembiayaan</th>
-                    <th>Tarikh Mula</th>
-                    <th>Tarikh Tamat</th>
-                    <th>Tindakan</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Aktif</td>
-                    <td>i-Sejahtera</td>
-                    <td>28/11/2023</td>
-                    <td>Tiada maklumat</td>
-                    <td>
-                        <Button className='viewBtn' onClick={clickLihat}>Lihat</Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Tamat</td>
-                    <td>i-Sejahtera</td>
-                    <td>27/11/2023</td>
-                    <td>28/11/2023</td>
-                    <td>
-                        <Button className='viewBtn' onClick={clickLihat}>Lihat</Button>
-                    </td>
-                </tr>
-            </tbody>
+          <thead>
+            <tr>
+              <th>Bil.</th>
+              <th>Status</th>
+              <th>Jenis Pembiayaan</th>
+              <th>Tarikh Mula</th>
+              <th>Tarikh Tamat</th>
+              <th>Tindakan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredPembiayaanSahabats.map((pembiayaan, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{pembiayaan.statusPembiayaan}</td>
+                <td>{pembiayaan.skimPembiayaan}</td>
+                <td><time dateTime={pembiayaan.created_at}>{new Date(pembiayaan.created_at).toLocaleDateString('en-GB')}</time></td>
+                <td><time dateTime={pembiayaan.updated_at}>{new Date(pembiayaan.updated_at).toLocaleDateString('en-GB')}</time></td>
+                <td><Button className='viewBtn' onClick={clickLihat}>Lihat</Button></td>
+              </tr>
+            ))}
+          </tbody>
         </Table>
       </div>
     </div>
-  )
+  );
 }
 
 export default SearchResultPembiayaanSahabat;
