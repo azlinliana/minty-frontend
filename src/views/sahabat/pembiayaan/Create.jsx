@@ -55,7 +55,7 @@ function CreatePembiayaan({sahabatId}) {
                 name="skimPembiayaan"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Skim pembiayaan sahabat diperlukan." }}
+                rules={{required: "Skim pembiayaan sahabat diperlukan."}}
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Skim Pembiayaan--</option>
