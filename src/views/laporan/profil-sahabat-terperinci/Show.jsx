@@ -1,8 +1,7 @@
+import React from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import Row from "react-bootstrap/Row";
 import "../Laporan.css";
 
 function ShowProfilSahabatTerperinci() {
