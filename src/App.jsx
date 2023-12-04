@@ -59,31 +59,16 @@ function App() {
             <Route path="pembiayaan-sahabat" element={<SearchProfilSahabat/>}/>
             <Route path="profil-sahabat" element={<ShowProfilSahabat />} />
             <Route path="pembiayaan-sahabat-terperinci" element={<SearchProfilSahabatTerperinci/>}/>
-            <Route
-              path="profil-sahabat-terperinci"
-              element={<ShowProfilSahabatTerperinci />}
-            />
+            <Route path="profil-sahabat-terperinci" element={<ShowProfilSahabatTerperinci />} />
             <Route path="search-tf01" element={<SearchTf01 />} />
             <Route path="result-tf01" element={<ResultTf01 />} />
-            <Route
-              path="search-tf01-cawangan"
-              element={<SearchTf01ByCawangan />}
-            />
-            <Route
-              path="result-tf01-cawangan"
-              element={<ResultTf01ByCawangan />}
-            />
+            <Route path="search-tf01-cawangan" element={<SearchTf01ByCawangan />} />
+            <Route path="result-tf01-cawangan" element={<ResultTf01ByCawangan />} />
             <Route path="search-tf02" element={<SearchTf02 />} />
             <Route path="result-tf02" element={<ResultTf02 />} />
             {/* New routes */}
-            <Route
-              path="pembiayaan-sahabat"
-              element={<SearchProfilSahabat />}
-            />
-            <Route
-              path="pembiayaan-sahabat-terperinci"
-              element={<SearchProfilSahabatTerperinci />}
-            />
+            <Route path="pembiayaan-sahabat" element={<SearchProfilSahabat />} />
+            <Route path="pembiayaan-sahabat-terperinci" element={<SearchProfilSahabatTerperinci />} />
 
             {/* SELENGGARA PATH */}
             <Route path="selenggara" element={<IndexSelenggara />} />
