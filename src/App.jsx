@@ -15,7 +15,7 @@ import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Track
 // IMPORT FROM LAPORAN FOLDER
 import IndexLaporan from "./views/laporan/Index";
 import ShowProfilSahabat from "./views/laporan/profil-sahabat/show-result/Show";
-import ShowProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Show";
+import ShowProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/show-result/Show";
 import SearchTf01 from "./views/laporan/jadual-tf01/Search";
 import ResultTf01 from "./views/laporan/jadual-tf01/SearchResult";
 import SearchTf01ByCawangan from "./views/laporan/jadual-tf01-cawangan/Search";
