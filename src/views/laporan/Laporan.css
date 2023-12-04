@@ -49,14 +49,13 @@
     width: 98%;
     border: 1px solid #fff;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
 }
 .hasilCarian p {
     margin: 10px 10px;
 }
 
-/* Jenis Pembiayaan Section */
+/* Jenis Pembiayaan section */
 .carianPembiayaanSahabat {
     margin: 30px 15px;
     padding: 15px;
@@ -67,30 +66,30 @@
     margin: 30px 15px;
     padding: 15px;
     background-color: var(--white);
-}
+  }
 
-.viewBtn {
+  .viewBtn {
     font-size: 0.75em;
     font-weight: 700;
-    border-color: var(--noticeyellow);
-    background-color: var(--noticeyellow);
+    border-color: #FFAE42;
+    background-color: #FFAE42;
     margin-bottom: 10px;
-}
+  }
 
-.cariPembiayaanBtn {
+  .cariPembiayaanBtn {
     width: 100%;
-}
+  }
 
-@media(max-width: 767px) {
+  @media(max-width: 767px) {
     .cariPembiayaanBtn {
         margin-top: 10px;
-    }
-}
+      }
+  }
 
 /* Table section */
 .searchResultContainer {
-    padding: 20px;
     background-color: var(--white);
+    padding: 20px;
 }
 
 .laporanTable {

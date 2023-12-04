@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+
 import "../Laporan.css";
 
 function ResultTf02() {
