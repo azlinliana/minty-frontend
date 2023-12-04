@@ -1,94 +1,119 @@
+import React, {useState, useEffect} from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
+import "../Laporan.css";
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../Laporan.css";
+import axios from 'axios';
 
 function ShowProfilSahabat() {
-  return (
-    <>
+  // ------------ FE --------------
+  // Get pembiayaan sahabat
+  const location = useLocation();
+  const {sahabatId, pembiayaanSahabatId} = location.state;
+
+  // ------------ BE --------------
+  // Fetch maklumat asas
+  const [maklumatAsas, setMaklumatAsas] = useState([]);
+  const getMaklumatAsas = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat/maklumat-asas/${sahabatId}`);
+      if (response.status === 200) {
+        setMaklumatAsas(response.data);
+      } else {
+        ErrorAlert(response); // Error from the backend or unknown error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
+  useEffect(() => {
+    getMaklumatAsas();
+  });
+
+  return(
+    <div>
       <div className="pageTitle">
         <h1>Profil Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
-            Senarai Laporan
-          </Breadcrumb.Item>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Carian Pembiayaan Sahabat
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink">Senarai Laporan</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Carian Pembiayaan Sahabat</Breadcrumb.Item>
           <Breadcrumb.Item active>Laporan Profil Sahabat</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="hasilCarian">
-          <p>
-            <strong>Hasil Carian:</strong> 821006086174
-          </p>
-        </div>
-      </div>
+        {maklumatAsas && (
+          <div className="hasilCarian">
+            <p>
+              <strong>Hasil Carian:</strong> {maklumatAsas.sahabat?.noKadPengenalanSahabat}
+            </p>
+          </div>
+        )}      </div>
+
       <div className="buttonContainer">
         <DropdownButton id="dropdown-basic-button" title="Pilih Eksport">
           <Dropdown.Item href="#/action-1">Eksport Inflow</Dropdown.Item>
           <Dropdown.Item href="#/action-2">Eksport Outflow</Dropdown.Item>
         </DropdownButton>
+
         <Button>Cetak</Button>{" "}
       </div>
 
       {/* Bahagian A: Maklumat Asas */}
       <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian A: Maklumat Asas</h1>
-        </div>
+        <div className="sectionHeader"><h1>Bahagian A: Maklumat Asas</h1></div>
 
         <Table responsive striped bordered className="laporanTable">
           <tbody>
             <tr>
               <th>Perkara</th>
-              <td>: ROTIF</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>No IC</th>
-              <td>: 821006086174</td>
+              <td>: {maklumatAsas.sahabat?.noKadPengenalanSahabat}</td>
             </tr>
             <tr>
               <th>Nama Sahabat</th>
-              <td>: NOR HASIMAH BINTI NOR RASHID</td>
+              <td>: {maklumatAsas.sahabat?.namaSahabat}</td>
             </tr>
             <tr>
               <th>Nama Suami</th>
-              <td>: HALIM BIN ABDULLAH</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>Cawangan</th>
-              <td>: 026 - KUALA KANGSAR</td>
+              <td>: {maklumatAsas.sahabat?.cawanganSahabat}</td>
             </tr>
             <tr>
               <th>Pusat</th>
-              <td>: 02600034 - HIJAU</td>
+              <td>: {maklumatAsas.sahabat?.pusatSahabat}</td>
             </tr>
             <tr>
               <th>Dimensi</th>
-              <td>: ROTIF</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>Kumulatif PJM</th>
-              <td>: 11000</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>Pengurusan Dana</th>
-              <td>: FM - Fund Manager</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>Projek</th>
-              <td>: Pembuatan Proses Makanan Kering</td>
+              <td>: </td>
             </tr>
             <tr>
               <th>Loan Cycle</th>
-              <td>: Pembuatan Proses Makanan Kering</td>
+              <td>: </td>
             </tr>
           </tbody>
         </Table>
@@ -96,9 +121,7 @@ function ShowProfilSahabat() {
 
       {/* Bahagian B: Maklumat Kegiatan Modal */}
       <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian B: Maklumat Kegiatan Modal</h1>
-        </div>
+        <div className="sectionHeader"><h1>Bahagian B: Maklumat Kegiatan Modal</h1></div>
 
         <Table responsive striped bordered className="laporanTable">
           <thead>
@@ -120,15 +143,14 @@ function ShowProfilSahabat() {
 
       {/* Bahagian C: Maklumat Inflow/Outflow Sahabat */}
       <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian C: Maklumat Inflow/Outflow Sahabat</h1>
-        </div>
+        <div className="sectionHeader"><h1>Bahagian C: Maklumat Inflow/Outflow Sahabat</h1></div>
 
         <div className="tableBhgC">
           <Row>
             {/* Left Section */}
             <Col md={6}>
-              <h2>Section 1</h2>
+              <h2>Rekod Mingguan Inflow/Outflow Sahabat</h2>
+
               <Table responsive striped bordered className="laporanTable">
                 <tbody>
                   <tr>
@@ -207,7 +229,8 @@ function ShowProfilSahabat() {
 
             {/* Right Section */}
             <Col md={6}>
-              <h2>Section 2</h2>
+              <h2>Rekod Kumulatif Inflow/Outflow Sahabat</h2>
+
               <Table striped bordered className="laporanTable">
                 <tbody>
                   <tr>
@@ -233,12 +256,10 @@ function ShowProfilSahabat() {
 
       {/* Bahagian D: Maklumat Inflow/Outflow Sahabat */}
       <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian D: Maklumat Inflow/Outflow Sahabat</h1>
-        </div>
+        <div className="sectionHeader"><h1>Bahagian D: Maklumat Inflow/Outflow Sahabat</h1></div>
         Using chart.js & react-chartjs-2
       </div>
-    </>
+    </div>
   );
 }
 

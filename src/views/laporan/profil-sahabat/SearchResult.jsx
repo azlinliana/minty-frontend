@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useState, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import {Table, Button} from 'react-bootstrap';
 
-function SearchResultPembiayaanSahabat({pembiayaanSahabats, selectedSkimPembiayaan}) {
+function SearchResultPembiayaanSahabat({sahabatId, pembiayaanSahabats, selectedSkimPembiayaan}) {
   // ------------ FE --------------
-  // Link pages
+  // Navigate to profil sahabat along with sahabat and pembiayaan data
   const navigate = useNavigate();
-  const clickLihat = () => navigate("/profil-sahabat");
-
+  const clickLihatPembiayaan = (pembiayaanSahabatId) => {
+    navigate('/profil-sahabat/', { state: {sahabatId, pembiayaanSahabatId} });
+  };
+  
   // ------------ BE --------------
   // Filter pembiayaanSahabats based on selectedSkimPembiayaan
   const filteredPembiayaanSahabats = pembiayaanSahabats.filter(
@@ -31,14 +33,14 @@ function SearchResultPembiayaanSahabat({pembiayaanSahabats, selectedSkimPembiaya
             </tr>
           </thead>
           <tbody>
-            {filteredPembiayaanSahabats.map((pembiayaan, index) => (
+            {filteredPembiayaanSahabats.map((pembiayaanSahabatsData, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{pembiayaan.statusPembiayaan}</td>
-                <td>{pembiayaan.skimPembiayaan}</td>
-                <td><time dateTime={pembiayaan.created_at}>{new Date(pembiayaan.created_at).toLocaleDateString('en-GB')}</time></td>
-                <td><time dateTime={pembiayaan.updated_at}>{new Date(pembiayaan.updated_at).toLocaleDateString('en-GB')}</time></td>
-                <td><Button className='viewBtn' onClick={clickLihat}>Lihat</Button></td>
+                <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
+                <td>{pembiayaanSahabatsData.skimPembiayaan}</td>
+                <td><time dateTime={pembiayaanSahabatsData.created_at}>{new Date(pembiayaanSahabatsData.created_at).toLocaleDateString('en-GB')}</time></td>
+                <td><time dateTime={pembiayaanSahabatsData.updated_at}>{new Date(pembiayaanSahabatsData.updated_at).toLocaleDateString('en-GB')}</time></td>
+                <td><Button className='viewBtn' onClick={() => clickLihatPembiayaan(pembiayaanSahabatsData.id)}>Lihat</Button></td>
               </tr>
             ))}
           </tbody>
