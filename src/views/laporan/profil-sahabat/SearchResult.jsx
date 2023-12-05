@@ -1,19 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-function SearchResultPembiayaanSahabat() {
+function SearchResultPembiayaanSahabat({sahabatId, pembiayaanSahabats, selectedSkimPembiayaan}) {
   // ----------FE----------
-  // Link pages
+  // Navigate to profil sahabat along with sahabat and pembiayaan data
   const navigate = useNavigate();
-  const clickLihat = () => navigate("/profil-sahabat");
+  const clickLihatPembiayaan = (pembiayaanSahabatId) => {
+    navigate('/profil-sahabat/', { state: {sahabatId, pembiayaanSahabatId} });
+  };
+
+  // ------------ BE --------------
+  // Filter pembiayaanSahabats based on selectedSkimPembiayaan
+  const filteredPembiayaanSahabats = pembiayaanSahabats.filter(
+    (pembiayaan) => pembiayaan.skimPembiayaan === selectedSkimPembiayaan
+  );
 
   return (
-    <>
+    <div>
       <div>
         <div className="hasilCarianSahabatTitle">
-          <h3>Hasil Carian: Pembiayaan i-Sejahtera</h3>
+          <h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3>
           <hr />
         </div>
 
@@ -30,35 +38,21 @@ function SearchResultPembiayaanSahabat() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td className="pembiayaanAktif">Aktif</td>
-                <td>i-Sejahtera</td>
-                <td>28/11/2023</td>
-                <td></td>
-                <td>
-                  <Button className="viewBtn" onClick={clickLihat}>
-                    Lihat
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td className="pembiayaanTamat">Tamat</td>
-                <td>i-Sejahtera</td>
-                <td>27/11/2023</td>
-                <td>28/11/2023</td>
-                <td>
-                  <Button className="viewBtn" onClick={clickLihat}>
-                    Lihat
-                  </Button>
-                </td>
-              </tr>
+              {filteredPembiayaanSahabats.map((pembiayaanSahabatsData, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
+                  <td>{pembiayaanSahabatsData.skimPembiayaan}</td>
+                  <td><time dateTime={pembiayaanSahabatsData.created_at}>{new Date(pembiayaanSahabatsData.created_at).toLocaleDateString('en-GB')}</time></td>
+                  <td><time dateTime={pembiayaanSahabatsData.updated_at}>{new Date(pembiayaanSahabatsData.updated_at).toLocaleDateString('en-GB')}</time></td>
+                  <td><Button className='viewBtn' onClick={() => clickLihatPembiayaan(pembiayaanSahabatsData.id)}>Lihat</Button></td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

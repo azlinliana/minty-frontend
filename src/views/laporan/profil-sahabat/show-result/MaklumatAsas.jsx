@@ -1,65 +1,94 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import React, {useState, useEffect} from 'react';
+import Table from "react-bootstrap/Table";
+import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
+import axios from 'axios';
 
-function MaklumatAsas() {
+function MaklumatAsas({sahabatId}) {
+  // ------------ BE --------------
+  // Fetch maklumat asas
+  const [maklumatAsas, setMaklumatAsas] = useState([]);
+  const getMaklumatAsas = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat/maklumat-asas/${sahabatId}`);
+      if (response.status === 200) {
+        setMaklumatAsas(response.data);
+      } else {
+        ErrorAlert(response); // Error from the backend or unknown error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
+  useEffect(() => {
+    getMaklumatAsas();
+  });
+
   return (
-    <>
-      {/* Bahagian A: Maklumat Asas */}
+    <div>
       <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian A: Maklumat Asas</h1>
-        </div>
+        <div className="sectionHeader"><h1>Bahagian A: Maklumat Asas</h1></div>
 
         <Table responsive striped bordered className="laporanTable">
           <tbody>
             <tr>
               <th>Perkara</th>
-              <td>: ROTIF</td>
+              <td>: </td>
             </tr>
+
             <tr>
               <th>No IC</th>
-              <td>: 821006086174</td>
+              <td>: {maklumatAsas.sahabat?.noKadPengenalanSahabat}</td>
             </tr>
+
             <tr>
               <th>Nama Sahabat</th>
-              <td>: NOR HASIMAH BINTI NOR RASHID</td>
+              <td>: {maklumatAsas.sahabat?.namaSahabat}</td>
             </tr>
+
             <tr>
               <th>Nama Suami</th>
-              <td>: HALIM BIN ABDULLAH</td>
+              <td>: </td>
             </tr>
+
             <tr>
               <th>Cawangan</th>
-              <td>: 026 - KUALA KANGSAR</td>
+              <td>: {maklumatAsas.sahabat?.cawanganSahabat}</td>
             </tr>
+
             <tr>
               <th>Pusat</th>
-              <td>: 02600034 - HIJAU</td>
+              <td>: {maklumatAsas.sahabat?.pusatSahabat}</td>
             </tr>
+
             <tr>
               <th>Dimensi</th>
-              <td>: ROTIF</td>
+              <td>: </td>
             </tr>
+
             <tr>
               <th>Kumulatif PJM</th>
-              <td>: 11000</td>
+              <td>: </td>
             </tr>
+
             <tr>
               <th>Pengurusan Dana</th>
-              <td>: FM - Fund Manager</td>
+              <td>: </td>
             </tr>
+
             <tr>
               <th>Projek</th>
-              <td>: Pembuatan Proses Makanan Kering</td>
+              <td>: </td>
             </tr>
+            
             <tr>
               <th>Loan Cycle</th>
-              <td>: Pembuatan Proses Makanan Kering</td>
+              <td>: </td>
             </tr>
           </tbody>
         </Table>
       </div>
-    </>
+    </div>
   );
 }
 
