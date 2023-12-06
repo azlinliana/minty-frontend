@@ -22,7 +22,8 @@ function DeletionAlert(onConfirmDeletion, onCancelDeletion) {
     .then((result) => {
       if (result.isConfirmed) {
         onConfirmDeletion(); // Call the function to perform deletion
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } 
+      else if (result.dismiss === Swal.DismissReason.cancel) {
         onCancelDeletion(); // Call the function for canceling deletion
       }
     });

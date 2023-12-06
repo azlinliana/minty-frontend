@@ -22,23 +22,6 @@ function CreateTrackingInflowSahabat({mingguId}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
-  // Create inflow sahabat
-  const createInflowSahabat = async (inflowSahabatInput) => {
-    try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}`, inflowSahabatInput);
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateTrackingInflowSahabat();
-      }
-      else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      ErrorAlert(error);
-    }
-  }
-
   // Fetch kod inflow data
   const [kodInflowsData, setKodInflowsData] = useState([]);
   useEffect(() => {
@@ -58,6 +41,23 @@ function CreateTrackingInflowSahabat({mingguId}) {
   
     fetchKodInflow();
   }, []);
+
+  // Create inflow sahabat
+  const createInflowSahabat = async (inflowSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}`, inflowSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateTrackingInflowSahabat();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
