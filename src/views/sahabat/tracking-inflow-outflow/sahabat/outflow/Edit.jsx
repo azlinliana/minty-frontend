@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from "react";
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
@@ -7,13 +7,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
+function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}) {
   // ----------FE----------
   // Modal
-  const [isModalEditTrackingOutflowSahabat, setIsModalEditTrackingOutflowSahabat] = useState(false);
-  const openModalEditTrackingOutflowSahabat = () => setIsModalEditTrackingOutflowSahabat(true);
-  const closeModalEditTrackingOutflowSahabat = () => {
-    setIsModalEditTrackingOutflowSahabat(false);
+  const [isModalEditOutflow, setIsModalEditOutflow] = useState(false);
+  const openModalEditOutflow = () => setIsModalEditOutflow(true);
+  const closeModalEditOutflow = () => {
+    setIsModalEditOutflow(false);
     reset(); // Reset previous form input
   };
 
@@ -21,55 +21,70 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Fetch kod outflow data
+  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+  useEffect(() => {
+    const fetchKodOutflow = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-outflow/display-kod-outflow`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodOutflowsData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodOutflow();
+  }, []);
+
+  // Update outflow sahabat
+  const updateOutflowSahabat = async (outflowSahabatInput) => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/outflow-sahabat/${mingguId}/${outflowSahabatId}`, outflowSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditOutflow();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
 
   return(
     <div>
-      <Button className="editBtn" onClick={openModalEditTrackingOutflowSahabat}>Kemas Kini</Button>{" "}
+      <Button className="editBtn" onClick={openModalEditOutflow}>Kemas Kini</Button>{" "}
 
-      <Modal show={isModalEditTrackingOutflowSahabat} onHide={closeModalEditTrackingOutflowSahabat} backdrop="static" keyboard={false}>
+      <Modal show={isModalEditOutflow} onHide={closeModalEditOutflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+              <Form.Label htmlFor="kodOutflowId">Kod Outflow</Form.Label>
               <Controller
-                id="kodOutflow"
-                name="kodOutflow"
+                id="kodOutflowId"
+                name="kodOutflowId"
                 control={control}
-                defaultValue=""
+                defaultValue={outflowSahabat.kodOutflowId}
                 rules={{required: 'Kod outflow diperlukan.'}}
-                render={({ field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                render={({field: {onChange}}) => (
+                  <Form.Select onChange={onChange} defaultValue={outflowSahabat.kodOutflowId}>
                     <option value="" disabled>--Pilih Kod Outflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    {kodOutflowsData.map((kodOutflow) => (
+                      <option key={kodOutflow.id} value={kodOutflow.id}>{kodOutflow.kodOutflow} - {kodOutflow.keteranganKodOutflow}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodOutflow && (<small className="text-danger">{errors.kodOutflow.message}</small>)}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKodOutflow">Keterangan Kod Outflow</Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodOutflow"
-                name="keteranganKodOutflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod outflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod outflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.keteranganKodOutflow && (<small className="text-danger">{errors.keteranganKodOutflow.message}</small>)}
+              {errors.kodOutflowId && (<small className="text-danger">{errors.kodOutflowId.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -78,7 +93,7 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
                 id="amaunOutflow"
                 name="amaunOutflow"
                 control={control}
-                defaultValue=""
+                defaultValue={outflowSahabat.amaunOutflow}
                 rules={{required: 'Amaun outflow diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
@@ -98,8 +113,8 @@ function EditTrackingOutflowSahabat({trackingOutflowSahabat}) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditTrackingOutflowSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="secondary" onClick={closeModalEditOutflow}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(updateOutflowSahabat)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

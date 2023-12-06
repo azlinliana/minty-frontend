@@ -11,10 +11,10 @@ import axios from 'axios';
 function CreateTrackingOutflowSahabat({mingguId}) {
   // ----------FE----------
   // Modal
-  const [isModalCreateTrackingOutflowSahabat, setIsModalCreateTrackingOutflowSahabat] = useState(false);
-  const openModalCreateTrackingOutflowSahabat = () => setIsModalCreateTrackingOutflowSahabat(true);
-  const closeModalCreateTrackingOutflowSahabat = () => {
-    setIsModalCreateTrackingOutflowSahabat(false);
+  const [isModalCreateOutflow, setIsModalCreateOuflow] = useState(false);
+  const openModalCreateOutflow = () => setIsModalCreateOuflow(true);
+  const closeModalCreateOutflow = () => {
+    setIsModalCreateOuflow(false);
     reset(); // Reset previous form input
   };
 
@@ -22,23 +22,6 @@ function CreateTrackingOutflowSahabat({mingguId}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
-  // Create inflow sahabat
-  const createOutflowSahabat = async (outflowSahabatInput) => {
-    try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/outflow-sahabat/${mingguId}`, outflowSahabatInput);
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateTrackingOutflowSahabat();
-      }
-       else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      ErrorAlert(error);
-    }
-  }
-
   // Fetch kod outflow data
   const [kodOutflowsData, setKodOutflowsData] = useState([]);
   useEffect(() => {
@@ -59,11 +42,28 @@ function CreateTrackingOutflowSahabat({mingguId}) {
     fetchKodOutflow();
   }, []);
 
+  // Create inflow sahabat
+  const createOutflowSahabat = async (outflowSahabatInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/outflow-sahabat/${mingguId}`, outflowSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateOutflow();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
+
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateTrackingOutflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateOutflow}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
-      <Modal show={isModalCreateTrackingOutflowSahabat} onHide={closeModalCreateTrackingOutflowSahabat} backdrop="static" keyboard={false}>
+      <Modal show={isModalCreateOutflow} onHide={closeModalCreateOutflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Outflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
@@ -114,7 +114,7 @@ function CreateTrackingOutflowSahabat({mingguId}) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateTrackingOutflowSahabat}>Batal</Button>
+          <Button variant="secondary" onClick={closeModalCreateOutflow}>Batal</Button>
           <Button variant="primary" onClick={handleSubmit(createOutflowSahabat)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
