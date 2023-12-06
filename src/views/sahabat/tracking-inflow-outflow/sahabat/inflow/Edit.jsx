@@ -7,13 +7,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSahabat}) {
+function EditTrackingInflowSahabat({mingguId, inflowSahabatId, inflowSahabat}) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflow, setIsModalEditInflow] = useState(false);
-  const openModalEditInflow = () => setIsModalEditInflow(true);
+  const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] = useState(false);
+  const openModalEditInflowSahabat = () => setIsModalEditInflowSahabat(true);
   const closeModalEditInflow = () => {
-    setIsModalEditInflow(false);
+    setIsModalEditInflowSahabat(false);
   };
 
   // Form validation
@@ -28,7 +28,8 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
         const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow/display-kod-inflow`);
         if (Array.isArray(response.data) && response.data.length > 0) {
           setKodInflowsData(response.data); // Display all kod inflow data
-        } else {
+        } 
+        else {
           ErrorAlert(response.data);
         }
       }
@@ -40,6 +41,7 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
     fetchKodInflow();
   }, []);
 
+  // Update inflow sahabat
   const updateInflowSahabat = async (inflowSahabatInput) => {
     try {
       const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}/${inflowSahabatId}`, inflowSahabatInput);
@@ -47,7 +49,7 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
         SuccessAlert(response.data.message);
         closeModalEditInflow();
       }
-       else {
+      else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     }
@@ -58,9 +60,9 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
 
   return (
     <div>
-      <Button className="editBtn" onClick={openModalEditInflow}>Kemas Kini</Button>{" "}
+      <Button className="editBtn" onClick={openModalEditInflowSahabat}>Kemas Kini</Button>{" "}
 
-      <Modal show={isModalEditInflow} onHide={closeModalEditInflow} backdrop="static" keyboard={false}>
+      <Modal show={isModalEditInflowSahabat} onHide={closeModalEditInflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Inflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
@@ -71,10 +73,10 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
                 id="kodInflowId"
                 name="kodInflowId"
                 control={control}
-                defaultValue={trackingInflowSahabat.kodInflowId}
+                defaultValue={inflowSahabat.kodInflowId}
                 rules={{required: 'Kod inflow diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue={trackingInflowSahabat.kodInflowId}>
+                  <Form.Select onChange={onChange} defaultValue={inflowSahabat.kodInflowId}>
                     <option value="" disabled>--Pilih Kod Inflow--</option>
                     {kodInflowsData.map((kodInflow) => (
                       <option key={kodInflow.id} value={kodInflow.id}>{kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}</option>
@@ -91,7 +93,7 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSah
                 id="amaunInflow"
                 name="amaunInflow"
                 control={control}
-                defaultValue={trackingInflowSahabat.amaunInflow}
+                defaultValue={inflowSahabat.amaunInflow}
                 rules={{required: 'Amaun inflow diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control

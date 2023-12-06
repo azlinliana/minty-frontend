@@ -11,21 +11,20 @@ import Swal from 'sweetalert2';
 
 function IndexTrackingInflowSahabat({mingguId}) {
   // ----------BE----------
-  const [trackingInflowSahabats, setTrackingInflowSahabats] = useState([]);
+  const [inflowSahabats, setInflowSahabats] = useState([]);
 
   // List inflow sahabat
   const fetchInflowSahabats = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}`);
       if (response.status === 200) {
-        setTrackingInflowSahabats(response.data);
+        setInflowSahabats(response.data);
       }
-       else {
+      else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     }
     catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   };
@@ -42,20 +41,20 @@ function IndexTrackingInflowSahabat({mingguId}) {
   }, []);
 
   // Delete inflow sahabat
-  const deleteInflowSahabat = async (trackingInflowSahabatId) => {
+  const deleteInflowSahabat = async (inflowSahabatId) => {
     // Function to delete inflow sahabat
     const performDeletion = async () => {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${trackingInflowSahabatId}`);
+        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${inflowSahabatId}`);
         if (response.status === 200) {
-          setTrackingInflowSahabats((prevTrackingInflowSahabats) =>
-            prevTrackingInflowSahabats.filter((trackingInflowSahabat) => trackingInflowSahabat.id !== trackingInflowSahabatId)
+          setInflowSahabats((prevInflowSahabats) =>
+            prevInflowSahabats.filter((inflowSahabat) => inflowSahabat.id !== inflowSahabatId)
           );
           // Show success message from the server
           Swal.fire('Dipadam!', response.data.message, 'success');
-          console.log('Dimensi berjaya dipadam');
         }
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Ralat dalam memadam dimensi', error);
       }
     };
@@ -69,7 +68,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
-  return(
+  return (
     <div className="tableSection">
       <div className="tambahBtnPlacement"><CreateTrackingInflowSahabat mingguId={mingguId} /></div>
 
@@ -86,20 +85,20 @@ function IndexTrackingInflowSahabat({mingguId}) {
           </tr>
         </thead>
         <tbody>
-          {trackingInflowSahabats.length === 0 ? (
+          {inflowSahabats.length === 0 ? (
             <tr><td colSpan="7"><center>Tiada maklumat tracking inflow sahabat. Sila klik butang "Tambah" untuk merekodkan inflow sahabat baharu.</center></td></tr>
           ) : (
-            trackingInflowSahabats.map((trackingInflowSahabatsData, key) => (
+            inflowSahabats.map((inflowSahabatsData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{trackingInflowSahabatsData.kod_inflow.kodInflow}</td>
-                <td>{trackingInflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
+                <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
+                <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
                 <td></td>
-                <td>{trackingInflowSahabatsData.keteranganKodInflow}</td>
-                <td>{trackingInflowSahabatsData.amaunInflow}</td>
+                <td>{inflowSahabatsData.keteranganKodInflow}</td>
+                <td>{inflowSahabatsData.amaunInflow}</td>
                 <td>
-                  <EditTrackingInflowSahabat mingguId={mingguId} inflowSahabatId={trackingInflowSahabatsData.id} trackingInflowSahabat={trackingInflowSahabatsData} />
-                  <Button className="delBtn" onClick={() =>deleteInflowSahabat(trackingInflowSahabatsData.id)}>Padam</Button>{" "}
+                  <EditTrackingInflowSahabat mingguId={mingguId} inflowSahabatId={inflowSahabatsData.id} inflowSahabat={inflowSahabatsData} />
+                  <Button className="delBtn" onClick={() =>deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
                 </td>
               </tr>
             ))

@@ -11,10 +11,10 @@ import axios from 'axios';
 function CreateTrackingInflowSahabat({mingguId}) {
   // ----------FE----------
   // Modal
-  const [isModalCreateTrackingInflowSahabat, setIsModalCreateTrackingInflowSahabat] = useState(false);
-  const openModalCreateTrackingInflowSahabat = () => setIsModalCreateTrackingInflowSahabat(true);
+  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] = useState(false);
+  const openModalCreateInflowSahabat = () => setIsModalCreateInflowSahabat(true);
   const closeModalCreateTrackingInflowSahabat = () => {
-    setIsModalCreateTrackingInflowSahabat(false);
+    setIsModalCreateInflowSahabat(false);
     reset(); // Reset previous form input
   };
 
@@ -61,9 +61,9 @@ function CreateTrackingInflowSahabat({mingguId}) {
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateTrackingInflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateInflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
-      <Modal show={isModalCreateTrackingInflowSahabat} onHide={closeModalCreateTrackingInflowSahabat} backdrop="static" keyboard={false}>
+      <Modal show={isModalCreateInflowSahabat} onHide={closeModalCreateTrackingInflowSahabat} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Inflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>

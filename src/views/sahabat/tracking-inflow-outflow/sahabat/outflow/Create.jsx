@@ -11,10 +11,10 @@ import axios from 'axios';
 function CreateTrackingOutflowSahabat({mingguId}) {
   // ----------FE----------
   // Modal
-  const [isModalCreateOutflow, setIsModalCreateOuflow] = useState(false);
-  const openModalCreateOutflow = () => setIsModalCreateOuflow(true);
+  const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] = useState(false);
+  const openModalCreateOutflowSahabat = () => setIsModalCreateOutflowSahabat(true);
   const closeModalCreateOutflow = () => {
-    setIsModalCreateOuflow(false);
+    setIsModalCreateOutflowSahabat(false);
     reset(); // Reset previous form input
   };
 
@@ -61,9 +61,9 @@ function CreateTrackingOutflowSahabat({mingguId}) {
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateOutflow}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateOutflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
-      <Modal show={isModalCreateOutflow} onHide={closeModalCreateOutflow} backdrop="static" keyboard={false}>
+      <Modal show={isModalCreateOutflowSahabat} onHide={closeModalCreateOutflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Outflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>

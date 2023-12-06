@@ -10,10 +10,10 @@ import axios from 'axios';
 function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}) {
   // ----------FE----------
   // Modal
-  const [isModalEditOutflow, setIsModalEditOutflow] = useState(false);
-  const openModalEditOutflow = () => setIsModalEditOutflow(true);
+  const [isModalEditOutflowSahabat, setIsModalEditOutflowSahabat] = useState(false);
+  const openModalEditOutflowSahabat = () => setIsModalEditOutflowSahabat(true);
   const closeModalEditOutflow = () => {
-    setIsModalEditOutflow(false);
+    setIsModalEditOutflowSahabat(false);
     reset(); // Reset previous form input
   };
 
@@ -60,9 +60,9 @@ function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}
 
   return(
     <div>
-      <Button className="editBtn" onClick={openModalEditOutflow}>Kemas Kini</Button>{" "}
+      <Button className="editBtn" onClick={openModalEditOutflowSahabat}>Kemas Kini</Button>{" "}
 
-      <Modal show={isModalEditOutflow} onHide={closeModalEditOutflow} backdrop="static" keyboard={false}>
+      <Modal show={isModalEditOutflowSahabat} onHide={closeModalEditOutflow} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
