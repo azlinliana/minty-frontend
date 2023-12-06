@@ -59,7 +59,6 @@ function CreateTrackingInflowSahabat({mingguId}) {
     fetchKodInflow();
   }, []);
 
-
   return(
     <div>
       <Button variant="primary" onClick={openModalCreateTrackingInflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}

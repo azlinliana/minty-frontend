@@ -47,7 +47,9 @@ function IndexTrackingInflowSahabat({mingguId}) {
           <tr>
             <th>Bil.</th>
             <th>Kod Inflow</th>
+            <th>Keterangan Kod Inflow</th>
             <th>Kod Inflow Terperinci</th>
+            <th>Maklumat Terperinci</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
           </tr>
@@ -60,10 +62,12 @@ function IndexTrackingInflowSahabat({mingguId}) {
               <tr key={key}>
                 <td>{key + 1}</td>
                 <td>{trackingInflowSahabatsData.kod_inflow.kodInflow}</td>
+                <td>{trackingInflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
+                <td></td>
                 <td>{trackingInflowSahabatsData.keteranganKodInflow}</td>
                 <td>{trackingInflowSahabatsData.amaunInflow}</td>
                 <td>
-                  <EditTrackingInflowSahabat />
+                  <EditTrackingInflowSahabat mingguId={mingguId} inflowSahabatId={trackingInflowSahabatsData.id} trackingInflowSahabat={trackingInflowSahabatsData} />
                   <Button className="delBtn">Padam</Button>{" "}
                 </td>
               </tr>

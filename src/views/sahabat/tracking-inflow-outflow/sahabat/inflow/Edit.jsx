@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useForm, Controller} from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-function EditTrackingInflowSahabat({trackingInflowSahabat}) {
+function EditTrackingInflowSahabat({mingguId, inflowSahabatId, trackingInflowSahabat}) {
   // ----------FE----------
   // Modal
   const [isModalEditInflow, setIsModalEditInflow] = useState(false);
@@ -20,6 +20,41 @@ function EditTrackingInflowSahabat({trackingInflowSahabat}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Fetch kod inflow data
+  const [kodInflowsData, setKodInflowsData] = useState([]);
+  useEffect(() => {
+    const fetchKodInflow = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow/display-kod-inflow`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodInflowsData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodInflow();
+  }, []);
+
+  const updateInflowSahabat = async (inflowSahabatInput) => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}/${inflowSahabatId}`, inflowSahabatInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditInflow();
+      }
+       else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
 
   return (
     <div>
@@ -31,44 +66,23 @@ function EditTrackingInflowSahabat({trackingInflowSahabat}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="kodInflow">Kod Inflow</Form.Label>
+              <Form.Label htmlFor="kodInflowId">Kod Inflow</Form.Label>
               <Controller
-                id="kodInflow"
-                name="kodInflow"
+                id="kodInflowId"
+                name="kodInflowId"
                 control={control}
-                defaultValue=""
-                rules={{ required: "Kod inflow diperlukan." }}
+                defaultValue={trackingInflowSahabat.kodInflowId}
+                rules={{required: 'Kod inflow diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                  <Form.Select onChange={onChange} defaultValue={trackingInflowSahabat.kodInflowId}>
                     <option value="" disabled>--Pilih Kod Inflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    {kodInflowsData.map((kodInflow) => (
+                      <option key={kodInflow.id} value={kodInflow.id}>{kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && (<small className="text-danger">{errors.kodInflow.message}</small>)}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKodInflow">Keterangan Kod Inflow</Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodInflow"
-                name="keteranganKodInflow"
-                control={control}
-                defaultValue=""
-                rules={{required: "Keterangan kod inflow diperlukan."}}
-                render={({field: {onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod inflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.keteranganKodInflow && (<small className="text-danger">{errors.keteranganKodInflow.message}</small>)}
+              {errors.kodInflowId && (<small className="text-danger">{errors.kodInflowId.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -77,13 +91,12 @@ function EditTrackingInflowSahabat({trackingInflowSahabat}) {
                 id="amaunInflow"
                 name="amaunInflow"
                 control={control}
-                defaultValue=""
-                rules={{required: "Amaun inflow diperlukan."}}
-                render={({field: {onChange, value}}) => (
+                defaultValue={trackingInflowSahabat.amaunInflow}
+                rules={{required: 'Amaun inflow diperlukan.'}}
+                render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="number"
-                    min="0.00"
-                    max="10000.00"
+                    min="0.00" max="10000.00"
                     step="0.01"
                     onChange={onChange}
                     value={value}
@@ -99,7 +112,7 @@ function EditTrackingInflowSahabat({trackingInflowSahabat}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditInflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateInflowSahabat)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>
