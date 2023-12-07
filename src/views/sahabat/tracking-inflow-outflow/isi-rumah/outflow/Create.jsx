@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
@@ -8,13 +8,13 @@ import Form from 'react-bootstrap/Form';
 import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreateTrackingOutflowIsiRumah() {
+function CreateTrackingOutflowIsiRumah({isiRumahId}) {
   // ----------FE----------
   // Modal
-  const [isModalCreateTrackingOutflowIsiRumah, setIsModalCreateTrackingOutflowIsiRumah] = useState(false);
-  const openModalCreateTrackingOutflowIsiRumah = () => setIsModalCreateTrackingOutflowIsiRumah(true);
-  const closeModalCreateTrackingOutflowIsiRumah = () => {
-    setIsModalCreateTrackingOutflowIsiRumah(false);
+  const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] = useState(false);
+  const openModalCreateOutflowIsiRumah = () => setIsModalCreateOutflowIsiRumah(true);
+  const closeModalCreateOutflowIsiRumah = () => {
+    setIsModalCreateOutflowIsiRumah(false);
     reset(); // Reset previous form input
   };
 
@@ -22,12 +22,48 @@ function CreateTrackingOutflowIsiRumah() {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Fetch kod outflow data
+  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+  useEffect(() => {
+    const fetchKodOutflow = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-outflow/display-kod-outflow`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodOutflowsData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodOutflow();
+  }, []);
+
+  // Create outflow isi rumah
+  const createOutflowIsiRumah = async (outflowIsiRumahInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/outflow-isi-rumah/${isiRumahId}`, outflowIsiRumahInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateOutflowIsiRumah();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalCreateTrackingOutflowIsiRumah}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
+      <Button variant="primary" onClick={openModalCreateOutflowIsiRumah}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
-      <Modal show={isModalCreateTrackingOutflowIsiRumah} onHide={closeModalCreateTrackingOutflowIsiRumah} backdrop="static" keyboard={false}>
+      <Modal show={isModalCreateOutflowIsiRumah} onHide={closeModalCreateOutflowIsiRumah} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Tambah Outflow Isi Rumah</Modal.Title></Modal.Header>
 
         <Modal.Body>
@@ -35,42 +71,21 @@ function CreateTrackingOutflowIsiRumah() {
             <Form.Group>
               <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
               <Controller
-                id="kodOutflow"
-                name="kodOutflow"
+                id="kodOutflowId"
+                name="kodOutflowId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Kod outflow diperlukan.'}}
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
                     <option value="" disabled>--Pilih Kod Outflow--</option>
-                    <option value="A1">A1-Pendapatan (dari Pembiayaan AIM)</option>
-                    <option value="A2">A2-Pendapatan (Pembiayaan Selain AIM)</option>
+                    {kodOutflowsData.map((kodOutflow) => (
+                      <option key={kodOutflow.id} value={kodOutflow.id}>{kodOutflow.kodOutflow} - {kodOutflow.keteranganKodOutflow}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodOutflow && (<small className="text-danger">{errors.kodOutflow.message}</small>)}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKodOutflow">Keterangan Kod Outflow</Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodOutflow"
-                name="keteranganKodOutflow"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod outflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod outflow"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.keteranganKodOutflow && (<small className="text-danger">{errors.keteranganKodOutflow.message}</small>)}
+              {errors.kodOutflowId && (<small className="text-danger">{errors.kodOutflowId.message}</small>)}
             </Form.Group>
 
             <Form.Group>
@@ -99,8 +114,8 @@ function CreateTrackingOutflowIsiRumah() {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateTrackingOutflowIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="secondary" onClick={closeModalCreateOutflowIsiRumah}>Batal</Button>
+          <Button variant="primary" onClick={handleSubmit(createOutflowIsiRumah)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>

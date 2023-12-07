@@ -12,7 +12,7 @@ function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}
   // Modal
   const [isModalEditOutflowSahabat, setIsModalEditOutflowSahabat] = useState(false);
   const openModalEditOutflowSahabat = () => setIsModalEditOutflowSahabat(true);
-  const closeModalEditOutflow = () => {
+  const closeModalEditOutflowSahabat = () => {
     setIsModalEditOutflowSahabat(false);
     reset(); // Reset previous form input
   };
@@ -47,7 +47,7 @@ function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}
       const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/outflow-sahabat/${mingguId}/${outflowSahabatId}`, outflowSahabatInput);
       if (response.status === 200) {
         SuccessAlert(response.data.message);
-        closeModalEditOutflow();
+        closeModalEditOutflowSahabat();
       }
       else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
@@ -62,7 +62,7 @@ function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}
     <div>
       <Button className="editBtn" onClick={openModalEditOutflowSahabat}>Kemas Kini</Button>{" "}
 
-      <Modal show={isModalEditOutflowSahabat} onHide={closeModalEditOutflow} backdrop="static" keyboard={false}>
+      <Modal show={isModalEditOutflowSahabat} onHide={closeModalEditOutflowSahabat} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title></Modal.Header>
 
         <Modal.Body>
@@ -113,7 +113,7 @@ function EditTrackingOutflowSahabat({mingguId, outflowSahabatId, outflowSahabat}
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditOutflow}>Batal</Button>
+          <Button variant="secondary" onClick={closeModalEditOutflowSahabat}>Batal</Button>
           <Button variant="primary" onClick={handleSubmit(updateOutflowSahabat)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>

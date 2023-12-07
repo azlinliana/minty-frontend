@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import "../../../sahabat.css";
 import CreateTrackingOutflowIsiRumah from './Create';
 import EditTrackingOutflowIsiRumah from './Edit';
+import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
 import DeletionAlert from '../../../../components/sweet-alert/DeletionAlert';
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function IndexTrackingOutflowIsiRumah({isiRumahId}) {
   // ----------BE----------
   // List outflow isi rumah sahabat
-  const [trackingOutflowIsiRumahSahabats, setTrackingOutflowIsiRumahSahabats] = useState([]);
-  const fetchOutflowIsiRumahSahabats = async () => {
+  const [outflowIsiRumahs, setOutflowIsiRumahs] = useState([]);
+  const fetchOutflowIsiRumahs = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/outflow-isi-rumah/${isiRumahId}`);
       if (response.status === 200) {
-        setTrackingOutflowIsiRumahSahabats(response.data);
+        setOutflowIsiRumahs(response.data);
       }
        else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
@@ -27,19 +29,47 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
   }
 
   useEffect(() => {
-    fetchOutflowIsiRumahSahabats();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchOutflowIsiRumahSahabats();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    fetchOutflowIsiRumahs();
+    const interval = setInterval(() => { // Set up recurring fetch every 5 second
+      fetchOutflowIsiRumahs();
+    }, 5000);
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
+
+  // Delete outflow isi rumah
+  const deleteOutflowIsiRumah = async (outflowIsiRumahId) => {
+    // Function to delete outflow isi rumah
+    const performDeletion = async () => {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/outflow-isi-rumah/${outflowIsiRumahId}`);
+        if (response.status === 200) {
+          setOutflowIsiRumahs((prevOutflowIsiRumahs) =>
+            prevOutflowIsiRumahs.filter((outflowIsiRumah) => outflowIsiRumah.id !== outflowIsiRumahId)
+          );
+          // Show success message from the server
+          Swal.fire('Dipadam!', response.data.message, 'success');
+        }
+      } 
+      catch (error) {
+        console.error('Ralat dalam memadam dimensi', error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
   
   return(
     <div className="tableSection">
-      <div className="tambahBtnPlacement"><CreateTrackingOutflowIsiRumah /></div>
+      <div className="tambahBtnPlacement"><CreateTrackingOutflowIsiRumah isiRumahId={isiRumahId} /></div>
 
       <Table responsive>
         <thead>
@@ -52,18 +82,20 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
           </tr>
         </thead>
         <tbody>
-          {trackingOutflowIsiRumahSahabats.length === 0 ? (
-            <tr><td colSpan="5"><center>Tiada maklumat tracking outflow isi rumah sahabat. Sila klik butang "Tambah" untuk merekodkan outflow isi rumah sahabat baharu.</center></td></tr>
+          {outflowIsiRumahs.length === 0 ? (
+            <tr><td colSpan="7"><center>Tiada maklumat tracking outflow isi rumah sahabat. Sila klik butang "Tambah" untuk merekodkan outflow isi rumah sahabat baharu.</center></td></tr>
           ) : (
-            trackingOutflowIsiRumahSahabats.map((trackingOutflowIsiRumahSahabatsData, key) => (
+            outflowIsiRumahs.map((outflowIsiRumahsData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
-                <td>{trackingOutflowIsiRumahSahabatsData.kodOutflow}</td>
-                <td>{trackingOutflowIsiRumahSahabatsData.keteranganKodOutflow}</td>
-                <td>{trackingOutflowIsiRumahSahabatsData.amaunOutflow}</td>
+                <td>{outflowIsiRumahsData.kod_outflow.kodOutflow}</td>
+                <td>{outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}</td>
+                <td></td>
+                <td>{outflowIsiRumahsData.keteranganKodOutflow}</td>
+                <td>{outflowIsiRumahsData.amaunOutflow}</td>
                 <td>
-                  <EditTrackingOutflowIsiRumah />
-                  <Button variant="danger">Padam</Button>{' '}
+                  <EditTrackingOutflowIsiRumah isiRumahId={isiRumahId} outflowIsiRumahId={outflowIsiRumahsData.id} outflowIsiRumah={outflowIsiRumahsData} />
+                  <Button className="delBtn" onClick={() =>deleteOutflowIsiRumah(outflowIsiRumahsData.id)}>Padam</Button>{' '}
                 </td>
               </tr>
             ))
