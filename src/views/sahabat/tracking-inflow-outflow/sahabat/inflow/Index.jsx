@@ -68,7 +68,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
-  return (
+  return(
     <div className="tableSection">
       <div className="tambahBtnPlacement"><CreateTrackingInflowSahabat mingguId={mingguId} /></div>
 
@@ -98,7 +98,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
                 <td>{inflowSahabatsData.amaunInflow}</td>
                 <td>
                   <EditTrackingInflowSahabat mingguId={mingguId} inflowSahabatId={inflowSahabatsData.id} inflowSahabat={inflowSahabatsData} />
-                  <Button className="delBtn" onClick={() =>deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
+                  <Button className="delBtn" onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
                 </td>
               </tr>
             ))
