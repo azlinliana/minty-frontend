@@ -55,7 +55,6 @@ function CreateTrackingInflowIsiRumah({isiRumahId}) {
       }
     }
     catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   }

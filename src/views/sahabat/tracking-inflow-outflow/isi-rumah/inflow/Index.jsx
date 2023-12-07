@@ -39,7 +39,7 @@ function IndexTrackingInflowIsiRumah({isiRumahId}) {
     };
   }, []);
 
-  // Delete inflow ii rumah
+  // Delete inflow isi rumah
   const deleteInflowIsiRumah = async (inflowIsiRumahId) => {
     // Function to delete inflow isi rumah
     const performDeletion = async () => {

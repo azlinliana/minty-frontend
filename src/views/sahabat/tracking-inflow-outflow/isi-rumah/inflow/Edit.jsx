@@ -54,7 +54,6 @@ function EditTrackingInflowIsiRumah({isiRumahId, inflowIsiRumahId, inflowIsiRuma
       }
     }
     catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   };
