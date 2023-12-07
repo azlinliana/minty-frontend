@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
@@ -22,10 +22,30 @@ function CreateTrackingIsiRumah({mingguId}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
   
   // ----------BE----------
-  // Create inflow isi rumah
-  const createInflowIsiRumah = async (inflowIsiRumahInput) => {
+  // Fetch hubungan data
+  const [hubungansData, setHubungansData] = useState([]);
+  useEffect(() => {
+    const fetchHubungan = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/hubungan/display-hubungan`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setHubungansData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchHubungan();
+  }, []);
+
+  // Create isi rumah
+  const createIsiRumah = async (isiRumahInput) => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/isi-rumah/${mingguId}`, inflowIsiRumahInput);
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/isi-rumah/${mingguId}`, isiRumahInput);
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateIsiRumah();
@@ -35,7 +55,6 @@ function CreateTrackingIsiRumah({mingguId}) {
       }
     }
     catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   }
@@ -56,8 +75,14 @@ function CreateTrackingIsiRumah({mingguId}) {
               name="noKadPengenalanIsiRumah"
               control={control}
               defaultValue=""
-              rules={{required: 'No. kad pengenalan isi rumah diperlukan.'}}
-              render={({field:{onChange, value}}) => (
+              rules={{
+                required: 'No. kad pengenalan isi rumah diperlukan.',
+                pattern: {
+                  value: /^\d{12}$/,
+                  message: 'No. kad pengenalan isi rumah perlu mengandungi 12 digit.'
+                }
+              }}
+              render={({field: {onChange, value}}) => (
                 <Form.Control
                   type="text"
                   onChange={onChange}
@@ -67,6 +92,7 @@ function CreateTrackingIsiRumah({mingguId}) {
                 />
               )}
             />
+
             {errors.noKadPengenalanIsiRumah && (<small className="text-danger">{errors.noKadPengenalanIsiRumah.message}</small>)}
           </Form>
 
@@ -94,46 +120,28 @@ function CreateTrackingIsiRumah({mingguId}) {
 
           <Form.Group>
             <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
-
-            {/* <Controller
-              id="hubunganIsiRumah"
-              name="hubunganIsiRumah"
-              control={control}
-              defaultValue=""
-              rules={{required: 'Hubungan isi rumah diperlukan.'}}
-              render={({ field: {onChange}}) => (
-                <Form.Select onChange={onChange} defaultValue="">
-                  <option value="" disabled>--Pilih Hubungan Isi Rumah Sahabat--</option>
-                  <option value="SUAMI">SUAMI</option>
-                  <option value="ANAK">ANAK</option>
-                </Form.Select>
-              )}
-            /> */}
-
             <Controller
-              type="text"
               id="hubunganId"
               name="hubunganId"
               control={control}
               defaultValue=""
               rules={{required: 'Hubungan isi rumah diperlukan.'}}
-              render={({field:{onChange, value}}) => (
-                <Form.Control
-                  type="text"
-                  onChange={onChange}
-                  value={value}
-                  placeholder="Masukkan hubungan isi rumah sahabat"
-                  autoFocus
-                />
+              render={({field: {onChange}}) => (
+                <Form.Select onChange={onChange} defaultValue="">
+                  <option value="" disabled>--Pilih Hubungan--</option>
+                  {hubungansData.map((hubungan) => (
+                    <option key={hubungan.id} value={hubungan.id}>{hubungan.kodHubungan}</option>
+                  ))}
+                </Form.Select>
               )}
             />
-            {errors.hubunganIsiRumah && (<small className="text-danger">{errors.hubunganIsiRumah.message}</small>)}
+            {errors.hubunganId && (<small className="text-danger">{errors.hubunganId.message}</small>)}
           </Form.Group>
         </Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createInflowIsiRumah)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createIsiRumah)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>

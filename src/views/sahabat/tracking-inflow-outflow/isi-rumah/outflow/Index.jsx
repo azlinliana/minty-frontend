@@ -28,13 +28,13 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
 
   useEffect(() => {
     fetchOutflowIsiRumahSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 5 second
-      fetchOutflowIsiRumahSahabats();
-    }, 5000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
+    //   fetchOutflowIsiRumahSahabats();
+    // }, 5000);
+    // // Cleanup the interval when the component unmounts
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
   
   return(

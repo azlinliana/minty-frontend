@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from "react";
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditTrackingIsiRumah({editIsiRumah}) {
+function EditTrackingIsiRumah({mingguId, isiRumahSahabat}) {
   // ----------FE----------  
   // Modal
   const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
@@ -20,6 +20,42 @@ function EditTrackingIsiRumah({editIsiRumah}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // ----------BE----------
+  // Fetch hubungan data
+  const [hubungansData, setHubungansData] = useState([]);
+  useEffect(() => {
+    const fetchHubungan = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/hubungan/display-hubungan`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setHubungansData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    fetchHubungan();
+  }, []);
+
+  // Update isi rumah
+  const updateIsiRumah = async (isiRumahInput) => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/sahabat/isi-rumah/${mingguId}`, isiRumahInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditIsiRumah();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
 
   return(
     <div>
@@ -36,8 +72,14 @@ function EditTrackingIsiRumah({editIsiRumah}) {
               id="noKadPengenalanIsiRumah"
               name="noKadPengenalanIsiRumah"
               control={control}
-              defaultValue=""
-              rules={{required: 'No. kad pengenalan isi rumah diperlukan.'}}
+              defaultValue={isiRumahSahabat.noKadPengenalanIsiRumah}
+              rules={{
+                required: 'No. kad pengenalan isi rumah diperlukan.',
+                pattern: {
+                  value: /^\d{12}$/,
+                  message: 'No. kad pengenalan isi rumah perlu mengandungi 12 digit.'
+                }
+              }}
               render={({field:{onChange, value}}) => (
                 <Form.Control
                   type="text"
@@ -58,7 +100,7 @@ function EditTrackingIsiRumah({editIsiRumah}) {
               id="namaIsiRumah"
               name="namaIsiRumah"
               control={control}
-              defaultValue=""
+              defaultValue={isiRumahSahabat.namaIsiRumah}
               rules={{required: 'Nama isi rumah diperlukan.'}}
               render={({field:{onChange, value}}) => (
                 <Form.Control
@@ -76,16 +118,17 @@ function EditTrackingIsiRumah({editIsiRumah}) {
           <Form.Group>
             <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
             <Controller
-              id="hubunganIsiRumah"
-              name="hubunganIsiRumah"
+              id="hubunganId"
+              name="hubunganId"
               control={control}
-              defaultValue=""
+              defaultValue={isiRumahSahabat.hubunganId}
               rules={{required: 'Hubungan isi rumah diperlukan.'}}
-              render={({ field: {onChange}}) => (
-                <Form.Select onChange={onChange} defaultValue="">
-                  <option value="" disabled>--Pilih Hubungan Isi Rumah Sahabat--</option>
-                  <option value="SUAMI">SUAMI</option>
-                  <option value="ANAK">ANAK</option>
+              render={({field: {onChange}}) => (
+                <Form.Select onChange={onChange} defaultValue={isiRumahSahabat.hubunganId}>
+                  <option value="" disabled>--Pilih Hubungan--</option>
+                  {hubungansData.map((hubungan) => (
+                    <option key={hubungan.id} value={hubungan.id}>{hubungan.kodHubungan}</option>
+                  ))}
                 </Form.Select>
               )}
             />
@@ -95,7 +138,7 @@ function EditTrackingIsiRumah({editIsiRumah}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateIsiRumah)}>Kemas Kini</Button>
         </Modal.Footer>
       </Modal>
     </div>

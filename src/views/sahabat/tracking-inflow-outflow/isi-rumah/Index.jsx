@@ -49,13 +49,13 @@ function IndexTrackingIsiRumah({mingguId}) {
 
   useEffect(() => {
     fetchIsiRumahSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 5 second
-      fetchIsiRumahSahabats();
-    }, 5000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
+    //   fetchIsiRumahSahabats();
+    // }, 5000);
+    // // Cleanup the interval when the component unmounts
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   return(
@@ -65,10 +65,7 @@ function IndexTrackingIsiRumah({mingguId}) {
       <div className="tambahBtnPlacement"><CreateTrackingIsiRumah mingguId={mingguId} /></div>
 
         {isiRumahSahabats.length === 0 ? (
-          <Alert variant="secondary">
-            Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila tambah isi
-            rumah.
-          </Alert>
+          <Alert variant="secondary">Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila tambah isi rumah.</Alert>
         ) : (
           <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
             {isiRumahSahabats.map((isiRumahSahabatsData, key) => (
@@ -76,7 +73,7 @@ function IndexTrackingIsiRumah({mingguId}) {
                 <div>
                   <div className="isiRumahActionsPlacement">
                     <DropdownButton align="end" title="Status Isi Rumah" id="dropdown-menu-align-end">
-                      <Dropdown.Item eventKey="1"><EditTrackingIsiRumah /></Dropdown.Item>
+                      <Dropdown.Item eventKey="1"><EditTrackingIsiRumah mingguId={mingguId} isiRumahSahabat={isiRumahSahabatsData} /></Dropdown.Item>
                       <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
                     </DropdownButton>
                   </div>
@@ -106,7 +103,7 @@ function IndexTrackingIsiRumah({mingguId}) {
                           <Col xs={12}>
                             <Form.Group>
                               <Form.Label>Hubungan</Form.Label>
-                              <Form.Control type="text" defaultValue={isiRumahSahabatsData.hubunganId} disabled />
+                              <Form.Control type="text" defaultValue={isiRumahSahabatsData.hubungan.kodHubungan} disabled />
                             </Form.Group>
                           </Col>
                         </Row>

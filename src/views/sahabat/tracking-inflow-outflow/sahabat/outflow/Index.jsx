@@ -31,13 +31,13 @@ function IndexTrackingOutflowSahabat({mingguId}) {
 
   useEffect(() => {
     fetchOutflowSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 5 second
-      fetchOutflowSahabats();
-    }, 5000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
+    //   fetchOutflowSahabats();
+    // }, 5000);
+    // // Cleanup the interval when the component unmounts
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   // Delete outflow sahabat
