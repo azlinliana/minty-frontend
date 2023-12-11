@@ -1,22 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
+import {useForm, Controller} from "react-hook-form";
+import {Link} from "react-router-dom";
 import "./Auth.css";
+import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 import styled from "styled-components";
 import backgroundImage from "../../assets/background-img.png";
 import aimLogo from "../../assets/aim-logo.svg";
-
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
-
-// BACKGROUND STYLING FOR THIS PAGE ROUTE
+// Background styling for this page route
 const PageContainer = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover;
@@ -30,125 +26,111 @@ const PageContainer = styled.div`
 `;
 
 function SignIn() {
-  // FORM VERIFICATION
-  // Ensure that the input fields are filled
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // ----------FE----------
+  // Modal
+  const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
+  const handleCloseModalForgotPassword = () => setIsModalForgotPassword(false);
+  const handleIsModalForgotPassword = () => setIsModalForgotPassword(true);
+
+  // Redirect user to e-Penyelenggaraan
+  const clickForgotPasswordLink = [{
+    label: "Ke e-Penyelenggaraan",
+    variant: "primary",
+    onClick: openLinkInNewTab,
+  },];
+
+  function openLinkInNewTab() {
+    window.open("https://epenv3.aim.gov.my/", "_blank");
+  }
+
+  // Form validation
+  const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
-  // MODAL DISPLAY
-  // useState hook to manage modal dislay's visibility
-  const [showModal1, setShowModal1] = useState(false);
-  const handleCloseModal1 = () => setShowModal1(false);
-  const handleShowModal1 = () => setShowModal1(true);
+  // ----------BE----------
 
-  const buttons1 = [
-    {
-      label: "Ke e-Penyelenggaraan",
-      variant: "primary",
-      onClick: openLinkInNewTab,
-    },
-  ];
-
-  // to redirect users to e-Penyelenggaraan
-  function openLinkInNewTab() {
-    window.open("https://epenv3.aim.gov.my/", "_blank");
-  }
-
-  return (
+  return(
     <PageContainer>
       <Container fluid="md" className="signInContainer">
         <Row>
+          {/* Sign in form header */}
           <Col md={12} lg={6} className="signInHeader formHeader">
-            {/* SIGN IN FORM HEADER */}
             <img src={aimLogo} alt="aim-logo" />
             <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
           </Col>
 
-          {/* SIGN IN FORM CONTENT */}
+          {/* Sign in form content */}
           <Col md={12} lg={6} className="formContent">
-            {/* FORM CONTENT HEADER */}
+            {/* Form content header */}
             <div className="formContentHeader">
               <h3>PBMR</h3>
               <h2>Selamat Datang</h2>
             </div>
 
-            {/* FORM CONTENT */}
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Form.Group className="mb-3" controlId="staffId">
-                <Form.Label className="formLabel">Id Kakitangan</Form.Label>
+            {/* Form content */}
+            <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+              <Form.Group className="mb-3">
+                <Form.Label className="formLabel" htmlFor="idKakitangan">Id Kakitangan</Form.Label>
                 <Controller
-                  name="staffId"
+                  type="text"
+                  id="idKakitangan"
+                  name="idKakitangan"
                   control={control}
                   defaultValue=""
-                  rules={{ required: "ID kakitangan diperlukan" }}
-                  render={({ field }) => (
-                    <Form.Control type="text" placeholder="123456" {...field} />
-                  )}
-                />
-                {errors.staffId && (
-                  <Form.Text className="text-danger">
-                    {errors.staffId.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="staffPassword">
-                <Form.Label className="formLabel">Kata Laluan</Form.Label>
-                <Controller
-                  name="staffPassword"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: "Kata laluan diperlukan" }}
-                  render={({ field }) => (
-                    <Form.Control
-                      type="password"
-                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-                      {...field}
+                  rules={{required: "ID kakitangan diperlukan."}}
+                  render={({field: {onChange, value}}) => (
+                    <Form.Control 
+                      type="text" 
+                      onChange={onChange}
+                      value={value}
+                      placeholder="Masukkan id kakitangan"
+                      autoFocus
                     />
                   )}
                 />
-                {errors.staffPassword && (
-                  <Form.Text className="text-danger">
-                    {errors.staffPassword.message}
-                  </Form.Text>
-                )}
+                {errors.idKakitangan && (<Form.Text className="text-danger">{errors.idKakitangan.message}</Form.Text>)}
               </Form.Group>
 
-              <Button className="submitButton" variant="primary" type="submit">
-                Log Masuk
-              </Button>
+              <Form.Group className="mb-3">
+                <Form.Label className="formLabel" htmlFor="passwordKakitangan">Kata Laluan</Form.Label>
+                <Controller
+                  type="password"
+                  name="passwordKakitangan"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Kata laluan diperlukan" }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="password"
+                      onChange={onChange}  // Corrected from "onchange" to "onChange"
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      value={value}
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.passwordKakitangan && (<Form.Text className="text-danger">{errors.passwordKakitangan.message}</Form.Text>)}
+              </Form.Group>
+
+              <Button className="submitButton" variant="primary" onClick={handleSubmit()}>Log Masuk</Button>
             </Form>
 
+            {/* Forgot password */}
             <div className="callToAction">
               <p>
                 Terlupa kata laluan?{" "}
-                <Link
-                  to="#"
-                  className="forgotPasswordLink"
-                  onClick={handleShowModal1}
-                >
-                  Klik di sini.
-                </Link>
+                <Link to="#" className="forgotPasswordLink" onClick={handleIsModalForgotPassword}>Klik di sini.</Link>
               </p>
 
               <ForgotPasswordModal
-                show={showModal1}
-                handleClose={handleCloseModal1}
+                show={isModalForgotPassword}
+                handleClose={handleCloseModalForgotPassword}
                 title="Tetap Semula Kata Laluan"
-                content={
-                  <p>
-                    Sila tetapkan kata laluan anda semula melalui
-                    e-Penyelenggaraan.
-                  </p>
-                }
-                buttons={buttons1}
+                content={<p> Sila tetapkan kata laluan anda semula melalui e-Penyelenggaraan.</p>}
+                buttons={clickForgotPasswordLink}
               />
             </div>
           </Col>
