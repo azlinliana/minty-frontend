@@ -46,13 +46,12 @@
 /* Page content */
 .hasilCarian {
     background-color: #fff;
-    width: 98%;
     border: 1px solid #fff;
     border-radius: 5px;
     margin-bottom: 20px;
 }
 .hasilCarian p {
-    margin: 10px 10px;
+    margin: 5px 5px;
 }
 
 /* Jenis Pembiayaan section */
@@ -184,6 +183,19 @@
     width: 120px;
 }
 
+.chartDropdown {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.chartCanvas {
+    width: 200px;
+    height: 400px;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
 @media (max-width: 767px) {
     .searchBarSection {
         width: 90%;
@@ -191,6 +203,10 @@
     }
 
     .cariBtn {
+        width: 100%;
+    }
+
+    .chartDropdown {
         width: 100%;
     }
 }
