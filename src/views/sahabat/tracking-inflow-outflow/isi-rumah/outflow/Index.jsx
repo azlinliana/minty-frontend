@@ -76,7 +76,7 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
           <tr>
             <th>Bil.</th>
             <th>Kod Outflow</th>
-            <th>Keterangan Outflow</th>
+            <th>Keterangan Kod Outflow</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
           </tr>
@@ -90,8 +90,6 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
                 <td>{key + 1}</td>
                 <td>{outflowIsiRumahsData.kod_outflow.kodOutflow}</td>
                 <td>{outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}</td>
-                <td></td>
-                <td>{outflowIsiRumahsData.keteranganKodOutflow}</td>
                 <td>{outflowIsiRumahsData.amaunOutflow}</td>
                 <td>
                   <EditTrackingOutflowIsiRumah isiRumahId={isiRumahId} outflowIsiRumahId={outflowIsiRumahsData.id} outflowIsiRumah={outflowIsiRumahsData} />
