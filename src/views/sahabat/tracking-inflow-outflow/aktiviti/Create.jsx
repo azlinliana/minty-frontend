@@ -22,6 +22,10 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
   // Dummy data for simulation
+  // State for selected values
+  const [selectedAktiviti, setSelectedAktiviti] = useState('');
+  const [selectedKeteranganAktiviti, setSelectedKeteranganAktiviti] = useState('');
+
   const [aktivitiOptions, setAktivitiOptions] = useState([]);
   const [keteranganAktivitiOptions, setKeteranganAktivitiOptions] = useState([]);
   const [projekAktivitiOptions, setProjekAktivitiOptions] = useState([]);
@@ -107,12 +111,12 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
                 defaultValue=""
                 rules={{required: 'Aktivti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => { setSelectedAktiviti(e.target.value); onChange(e); }} defaultValue="">
-                    <option value="" disabled>--Pilih Projek Aktiviti--</option>
-                    {aktivitiOptions.map((aktiviti) => (
-                      <option key={aktiviti.id} value={aktiviti.jenisAktiviti}>{aktiviti.jenisAktiviti}</option>
-                    ))}
-                  </Form.Select>
+                  <Form.Select onChange={(e) => {setSelectedAktiviti(e.target.value); onChange(e);}} defaultValue="">
+                    <option value="" disabled>--Pilih Aktiviti--</option>
+                      {aktivitiOptions.map((aktiviti) => (
+                        <option key={aktiviti.id} value={aktiviti.id}>{aktiviti.jenisAktiviti}</option>
+                      ))}
+                  </Form.Select>                
                 )}
               />
               {errors.aktivitiId && (<small className="text-danger">{errors.aktivitiId.message}</small>)}       
@@ -127,13 +131,14 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
                 defaultValue=""
                 rules={{required: 'Keterangan aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => { setSelectedKeteranganAktiviti(e.target.value); onChange(e); }} defaultValue="">
-                    <option value="" disabled>--Pilih Projek Aktiviti--</option>
+                  <Form.Select onChange={(e) => {setSelectedKeteranganAktiviti(e.target.value); onChange(e);}} defaultValue="">
+                    <option value="" disabled>--Pilih Keterangan Aktiviti--</option>
                     {keteranganAktivitiOptions
-                    .filter((item) => item.aktivitiId === Number(selectedAktiviti))
-                    .map((keteranganAktiviti) => (
-                      <option key={keteranganAktiviti.id} value={keteranganAktiviti.jenisKeteranganAktiviti}>{keteranganAktiviti.jenisKeteranganAktiviti}</option>
-                    ))}
+                      .filter((item) => item.aktivitiId === Number(selectedAktiviti))
+                      .map((keteranganAktiviti) => (
+                        <option key={keteranganAktiviti.id} value={keteranganAktiviti.id}>{keteranganAktiviti.jenisKeteranganAktiviti}</option>
+                      ))
+                    }
                   </Form.Select>
                 )}
               />
@@ -154,8 +159,9 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
                     {projekAktivitiOptions
                       .filter((item) => item.keteranganAktivitiId === Number(selectedKeteranganAktiviti))
                       .map((projekAktiviti) => (
-                        <option key={projekAktiviti.id} value={projekAktiviti.jenisProjekAktiviti}>{projekAktiviti.jenisProjekAktiviti}</option>
-                      ))}
+                        <option key={projekAktiviti.id} value={projekAktiviti.id}>{projekAktiviti.jenisProjekAktiviti}</option>
+                      ))
+                    }
                   </Form.Select>
                 )}
               />
