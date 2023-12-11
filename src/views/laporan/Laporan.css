@@ -188,6 +188,14 @@
     margin-bottom: 10px;
 }
 
+.chartCanvas {
+    width: 200px;
+    height: 400px;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
 @media (max-width: 767px) {
     .searchBarSection {
         width: 90%;

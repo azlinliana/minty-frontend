@@ -3,53 +3,42 @@ import { Dropdown } from "react-bootstrap";
 import LineChart from "./LineChart";
 
 function RajahInflowOutflow() {
-  const [selectedChart, setSelectedChart] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const chartDataInflow = {
-    // Define your Chart.js data for the first chart
-    // Example data: labels, datasets, etc.
+  const handleSelect = (eventKey) => {
+    setSelectedItem(eventKey);
   };
 
-  const chartDataOutflow = {
-    // Define your Chart.js data for the second chart
-  };
-
-  const chartDataInflowOutflow = {
-    // Define your Chart.js data for the second chart
-  };
-
-  const handleChartChange = (chart) => {
-    setSelectedChart(chart);
-  };
+  const dropdownItems = [
+    { value: "chartInflow", label: "Inflow" },
+    { value: "chartOutflow", label: "Outflow" },
+    { value: "chartInflowOutflow", label: "Inflow-Outflow" },
+  ];
 
   return (
-    <>
-      <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian D: Maklumat Inflow/Outflow Sahabat</h1>
-        </div>
-
-        <div>
-          <Dropdown onSelect={handleChartChange}>
-            <Dropdown.Toggle
-              className="chartDropdown"
-              id="dropdown-basic-button"
-            >
-              Pilih Jenis Data Inflow/Outflow Sahabat
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item eventKey={chartDataInflow}>Inflow</Dropdown.Item>
-              <Dropdown.Item eventKey={chartDataOutflow}>Outflow</Dropdown.Item>
-              <Dropdown.Item eventKey={chartDataInflowOutflow}>
-                Inflow-Outflow
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-
-          {selectedChart && <LineChart data={selectedChart} />}
-        </div>
+    <div className="tableSection">
+      <div className="sectionHeader">
+        <h1>Bahagian D: Maklumat Inflow/Outflow Sahabat</h1>
       </div>
-    </>
+
+      <Dropdown onSelect={handleSelect}>
+        <Dropdown.Toggle className="chartDropdown" id="dropdown-basic-button">
+          {selectedItem
+            ? `Selected: ${selectedItem}`
+            : "Pilih Inflow/Outflow Sahabat"}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {dropdownItems.map((item) => (
+            <Dropdown.Item key={item.value} eventKey={item.value}>
+              {item.label}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+
+        {selectedItem && <LineChart selectedItem={selectedItem} />}
+      </Dropdown>
+    </div>
   );
 }
 
