@@ -79,16 +79,19 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
   const createAktiviti = async (aktivitiInput) => {
     try{
       console.log('Aktiviti Input:', aktivitiInput);
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`, inflowIsiRumahInput);
+
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`, aktivitiInput);
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateAktiviti();
       }
       else {
+        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     }
     catch (error) {
+      console.log(error);
       ErrorAlert(error);
     }
   }
@@ -209,10 +212,10 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="keteranganLain">Keterangan untuk Lain-Lain</Form.Label>
+              <Form.Label htmlFor="keteranganLainAktiviti">Keterangan untuk Lain-Lain</Form.Label>
               <Controller
-                id="keteranganLain"
-                name="keteranganLain"
+                id="keteranganLainAktiviti"
+                name="keteranganLainAktiviti"
                 control={control}
                 defaultValue=""
                 render={({field:{onChange, value}}) => (
@@ -228,10 +231,10 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="jumlahPinjaman">Jumlah Pinjaman (RM)</Form.Label>
+              <Form.Label htmlFor="jumlahPinjamanAktiviti">Jumlah Pinjaman (RM)</Form.Label>
               <Controller
-                id="jumlahPinjaman"
-                name="jumlahPinjaman"
+                id="jumlahPinjamanAktiviti"
+                name="jumlahPinjamanAktiviti"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Jumlah pinjaman diperlukan.'}}
@@ -247,7 +250,7 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
                   />
                 )}
               />
-              {errors.jumlahPinjaman && (<small className="text-danger">{errors.jumlahPinjaman.message}</small>)}
+              {errors.jumlahPinjamanAktiviti && (<small className="text-danger">{errors.jumlahPinjamanAktiviti.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>
