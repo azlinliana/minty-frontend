@@ -34,7 +34,7 @@ function TrackingInflowOutflow() {
 
       <MaklumatMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} mingguId={mingguId} />
 
-      <BorangTrackingMingguanSahabat mingguId={mingguId} />
+      <BorangTrackingMingguanSahabat sahabatId={sahabatId} pembiayaanId={pembiayaanId} mingguId={mingguId} />
       
       <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
     </div>

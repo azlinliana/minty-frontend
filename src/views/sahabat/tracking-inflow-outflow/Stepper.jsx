@@ -24,10 +24,10 @@ const Step1 = () => <Typography>Step 1 Content</Typography>;
 const Step2 = () => <Typography>Step 2 Content</Typography>;
 const Step3 = () => <Typography>Step 3 Content</Typography>;
 
-const getStepContent = (step, mingguId) => {
+const getStepContent = (step, sahabatId, pembiayaanId, mingguId) => {
   switch (step) {
     case 0:
-      return <IndexAktiviti />;
+      return <IndexAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} />;
     case 1:
       return <IndexTrackingSahabat mingguId={mingguId} />;
     case 2:
@@ -37,7 +37,7 @@ const getStepContent = (step, mingguId) => {
   }
 };
 
-const VerticalStepper = ({mingguId}) => {
+const VerticalStepper = ({sahabatId, pembiayaanId, mingguId}) => {
   const [activeStep, setActiveStep] = useState(0);
   const [expandedSteps, setExpandedSteps] = useState([]);
 
@@ -90,7 +90,7 @@ const VerticalStepper = ({mingguId}) => {
               {step.label}
             </StepLabel>
             <StepContent>
-              {index === 0 ? <IndexAktiviti /> : null}
+              {index === 0 ? <IndexAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} /> : null}
               {index === 1 ? <IndexTrackingSahabat mingguId={mingguId} /> : null}
               {index === 2 ? <IndexTrackingIsiRumah mingguId={mingguId} /> : null}
               <Box sx={{ mb: 2 }}>

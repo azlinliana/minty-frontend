@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import {FaPlus} from "react-icons/fa";
 import axios from 'axios';
 
-function CreateAktiviti() {
+function CreateAktiviti({sahabatId, pembiayaanId}) {
   // ----------FE----------
   // Modal
   const [isModalCreateAktiviti, setIsModalCreateAktiviti] = useState(false);
@@ -21,8 +21,74 @@ function CreateAktiviti() {
   // Form validation
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
-  // ----------BE----------
+  // Dummy data for simulation
+  const [aktivitiOptions, setAktivitiOptions] = useState([]);
+  const [keteranganAktivitiOptions, setKeteranganAktivitiOptions] = useState([]);
+  const [projekAktivitiOptions, setProjekAktivitiOptions] = useState([]);
   
+  useEffect(() => {
+    // Simulate process of fetching aktiviti, keterangan aktiviti, and projek aktiviti data
+    setAktivitiOptions([
+      { id: 1, jenisAktiviti: 'PERTANIAN' },
+      { id: 2, jenisAktiviti: 'TERNAKAN' },
+      { id: 3, jenisAktiviti: 'PERIKANAN' },
+      { id: 4, jenisAktiviti: 'PEMBUATAN' },
+      { id: 5, jenisAktiviti: 'PERNIAGAAN' },
+    ]);
+
+    setKeteranganAktivitiOptions([
+      { id: 1, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KEKAL' },
+      { id: 2, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KONTAN' },
+      { id: 3, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN DAGING' },
+      // ... other options
+    ]);
+
+    setProjekAktivitiOptions([
+      { id: 1, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'GETAH' },
+      { id: 2, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'KOKO' },
+      // ... other options
+    ]);
+  }, []); // Empty dependency array means this effect runs once after the initial render
+  
+  // ----------BE----------
+  // Fetch kod dimensi data
+  const [kodDimensisData, setKodDimensisData] = useState([]);
+  useEffect(() => {
+    const fetchKodDimensi = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/dimensi/display-dimensi`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKodDimensisData(response.data); // Display all kod inflow data
+        } else {
+          ErrorAlert(response.data);
+        }
+      }
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+  
+    fetchKodDimensi();
+  }, []);
+
+  // Create aktiviti
+  const createAktiviti = async (aktivitiInput) => {
+    try{
+      console.log('Aktiviti Input:', aktivitiInput);
+      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`, inflowIsiRumahInput);
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalCreateAktiviti();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    }
+    catch (error) {
+      ErrorAlert(error);
+    }
+  }
+
   return(
     <div>
       <Button variant="primary" onClick={openModalCreateAktiviti}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
@@ -33,113 +99,156 @@ function CreateAktiviti() {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="kegiatanAktiviti">Kegiatan</Form.Label>
+              <Form.Label htmlFor="aktivitiId">Aktiviti</Form.Label>
               <Controller
-                id="kegiatanAktiviti"
-                name="kegiatanAktiviti"
+                id="aktivitiId"
+                name="aktivitiId"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kegiatan sahabat diperlukan.'}}
+                rules={{required: 'Aktivti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Kegiatan Sahabat--</option>
-                    <option value="PERTANIAN">PERTANIAN</option>
-                    <option value="PEMBUATAN">PEMBUATAN</option>
-                    <option value="PERNIAGAAN">PERNIAGAAN</option>
-                    <option value="PERIKANAN">PERIKANAN</option>
-                    <option value="PERKHIDMATAN">PERKHIDMATAN</option>
-                    <option value="TERNAKAN">TERNAKAN</option>
-                    <option value="PELBAGAI">PELBAGAI</option>
-                    <option value="PELBAGAI">PROJEK MIX</option>
+                  <Form.Select onChange={(e) => { setSelectedAktiviti(e.target.value); onChange(e); }} defaultValue="">
+                    <option value="" disabled>--Pilih Projek Aktiviti--</option>
+                    {aktivitiOptions.map((aktiviti) => (
+                      <option key={aktiviti.id} value={aktiviti.jenisAktiviti}>{aktiviti.jenisAktiviti}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kegiatanAktiviti && (<small className="text-danger">{errors.kegiatanAktiviti.message}</small>)}            
+              {errors.aktivitiId && (<small className="text-danger">{errors.aktivitiId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="kegiatanTerperinciAktiviti">Kegiatan Terperinci</Form.Label>
+              <Form.Label htmlFor="keteranganAktivitiId">Keterangan Aktiviti</Form.Label>
               <Controller
-                id="kegiatanTerperinciAktiviti"
-                name="kegiatanTerperinciAktiviti"
+                id="keteranganAktivitiId"
+                name="keteranganAktivitiId"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kegiatan Terperinci Sahabat diperlukan.'}}
+                rules={{required: 'Keterangan aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Kegiatan Terperinci Sahabat--</option>
-                    <option value="TANAMAN KONTAN">TANAMAN KONTAN</option>
-                    <option value="LAIN-LAIN">LAIN-LAIN</option>
+                  <Form.Select onChange={(e) => { setSelectedKeteranganAktiviti(e.target.value); onChange(e); }} defaultValue="">
+                    <option value="" disabled>--Pilih Projek Aktiviti--</option>
+                    {keteranganAktivitiOptions
+                    .filter((item) => item.aktivitiId === Number(selectedAktiviti))
+                    .map((keteranganAktiviti) => (
+                      <option key={keteranganAktiviti.id} value={keteranganAktiviti.jenisKeteranganAktiviti}>{keteranganAktiviti.jenisKeteranganAktiviti}</option>
+                    ))}
                   </Form.Select>
                 )}
               />
-              {errors.kegiatanTerperinciAktiviti && ( <small className="text-danger">{errors.kegiatanTerperinciAktiviti.message}</small> )}            
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="projekAktiviti">Projek</Form.Label>
-              <Controller
-                id="projekAktiviti"
-                name="projekAktiviti"
-                control={control}
-                defaultValue=""
-                rules={{required: 'Projek Sahabat diperlukan.'}}
-                render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Projek Sahabat--</option>
-                    <option value="PEMPROSESAN TANAH ORGANIK">PEMPROSESAN TANAH ORGANIK</option>
-                    <option value="LAIN-LAIN">LAIN-LAIN</option>
-                  </Form.Select>
-                )}
-              />
-              {errors.projekAktiviti && (<small className="text-danger">{errors.projekAktiviti.message}</small>)}            
+              {errors.keteranganAktivitiId && (<small className="text-danger">{errors.keteranganAktivitiId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="pengurusanDanaAktiviti">Pegurusan Dana</Form.Label>
+              <Form.Label htmlFor="projekAktivitiId">Projek Aktiviti</Form.Label>
               <Controller
-                id="pegurusanDanaAktiviti"
-                name="pengurusanDanaAktiviti"
+                id="projekAktivitiId"
+                name="projekAktivitiId"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Pengurusan dana aktiviti diperlukan.'}}
+                rules={{required: 'Projek aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Pengurusan Dana Sahabat--</option>
+                    <option value="" disabled>--Pilih Projek Aktiviti--</option>
+                    {projekAktivitiOptions
+                      .filter((item) => item.keteranganAktivitiId === Number(selectedKeteranganAktiviti))
+                      .map((projekAktiviti) => (
+                        <option key={projekAktiviti.id} value={projekAktiviti.jenisProjekAktiviti}>{projekAktiviti.jenisProjekAktiviti}</option>
+                      ))}
+                  </Form.Select>
+                )}
+              />
+              {errors.projekAktivitiId && (<small className="text-danger">{errors.projekAktivitiId.message}</small>)}       
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label htmlFor="dimensiId">Dimensi</Form.Label>
+              <Controller
+                id="dimensiId"
+                name="dimensiId"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Kod dimensi diperlukan.'}}
+                render={({field: {onChange}}) => (
+                  <Form.Select onChange={onChange} defaultValue="">
+                    <option value="" disabled>--Pilih Kod Dimensi--</option>
+                    {kodDimensisData.map((kodDimensi) => (
+                      <option key={kodDimensi.id} value={kodDimensi.id}>{kodDimensi.kodDimensi} - {kodDimensi.keteranganDimensi}</option>
+                    ))}
+                  </Form.Select>
+                )}
+              />
+              {errors.dimensiId && ( <small className="text-danger">{errors.dimensiId.message}</small> )}
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="pengurusDana">Pengurusan Dana</Form.Label>
+              <Controller
+                id="pegurusDanaAktiviti"
+                name="pengurusDanaAktiviti"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Pengurus dana diperlukan.'}}
+                render={({field: {onChange}}) => (
+                  <Form.Select onChange={onChange} defaultValue="">
+                    <option value="" disabled>--Pilih Pengurus Dana Sahabat--</option>
                     <option value="FM-FUND MANAGER">FM-FUND MANAGER</option>
                     <option value="PS-PARTNERSHIP">PS-PARTNERSHIP</option>
-                    <option value="PERNIAGAAN">PL-PIPELINER</option>
+                    <option value="PL-PERNIAGAAN">PL-PIPELINER</option>
                   </Form.Select>
                 )}
               />
-              {errors.pengurusanDanaAktiviti && (<small className="text-danger">{errors.pengurusanDanaAktiviti.message}</small>)}            
+              {errors.pengurusDanaAktiviti && (<small className="text-danger">{errors.pengurusDanaAktiviti.message}</small>)}            
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="keteranganLainAktiviti">Keterangan Lain</Form.Label>
+              <Form.Label htmlFor="keteranganLain">Keterangan untuk Lain-Lain</Form.Label>
               <Controller
-                type="text"
-                id="keteranganLainAktiviti"
-                name="keteranganLainAktiviti"
+                id="keteranganLain"
+                name="keteranganLain"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan lain aktiviti diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
                     value={value}
+                    placeholder="Masukkan keterangan untuk lain-lain"
                     autoFocus
                   />
                 )}
               />
-              {errors.keteranganLainAktiviti && (<small className="text-danger">{errors.keteranganLainAktiviti.message}</small>)}
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label htmlFor="jumlahPinjaman">Jumlah Pinjaman (RM)</Form.Label>
+              <Controller
+                id="jumlahPinjaman"
+                name="jumlahPinjaman"
+                control={control}
+                defaultValue=""
+                rules={{required: 'Jumlah pinjaman diperlukan.'}}
+                render={({field:{onChange, value}}) => (
+                  <Form.Control
+                    type="number"
+                    min="0.00" max="10000.00"
+                    step="0.01"
+                    onChange={onChange}
+                    value={value}
+                    placeholder="Masukkan jumlah pinjaman (RM)"
+                    autoFocus
+                  />
+                )}
+              />
+              {errors.jumlahPinjaman && (<small className="text-danger">{errors.jumlahPinjaman.message}</small>)}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateAktiviti}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit()}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createAktiviti)}>Tambah</Button>
         </Modal.Footer>
       </Modal>
     </div>
