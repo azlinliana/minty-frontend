@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Breadcrumb,
-  Dropdown,
-  DropdownButton,
-  Button,
-  Table,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Breadcrumb, Dropdown, DropdownButton, Button } from "react-bootstrap";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";

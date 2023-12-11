@@ -183,6 +183,11 @@
     width: 120px;
 }
 
+.chartDropdown {
+    float: right;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 767px) {
     .searchBarSection {
         width: 90%;
@@ -190,6 +195,10 @@
     }
 
     .cariBtn {
+        width: 100%;
+    }
+
+    .chartDropdown {
         width: 100%;
     }
 }
