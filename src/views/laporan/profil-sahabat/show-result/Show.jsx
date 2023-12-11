@@ -9,8 +9,6 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import React from "react";
-import { Breadcrumb, Dropdown, DropdownButton, Button } from "react-bootstrap";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";
