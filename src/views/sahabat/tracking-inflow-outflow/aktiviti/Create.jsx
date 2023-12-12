@@ -186,10 +186,10 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
                   </Form.Select>
                 )}
               />
-              {errors.dimensiId && ( <small className="text-danger">{errors.dimensiId.message}</small> )}
+              {errors.dimensiId && (<small className="text-danger">{errors.dimensiId.message}</small>)}
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Label htmlFor="pengurusDana">Pengurusan Dana</Form.Label>
               <Controller
                 id="pegurusDanaAktiviti"
