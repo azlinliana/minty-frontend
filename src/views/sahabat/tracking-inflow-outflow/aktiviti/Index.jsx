@@ -41,6 +41,34 @@ function IndexAktiviti({sahabatId, pembiayaanId}) {
     // };
   }, []);
 
+  // Delete aktiviti
+  const deleteAktiviti = async (aktivitiId) => {
+    // Function to delete aktiviti
+    const performDeletion = async () => {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/aktiviti/${aktivitiId}`);
+        if (response.status === 200) {
+          setAktivitis((prevAktiviti) =>
+            prevAktiviti.filter((aktiviti) => aktiviti.id !== aktivitiId)
+          );
+          // Show success message from the server
+          Swal.fire('Dipadam!', response.data.message, 'success');
+        }
+      } 
+      catch (error) {
+        console.error('Ralat dalam memadam aktiviti sahabat', error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
+
   return(
     <div className="inputStepsContainer">
       <h2>Maklumat Aktiviti Sahabat</h2>
@@ -75,8 +103,8 @@ function IndexAktiviti({sahabatId, pembiayaanId}) {
                   <td>{aktivitisData.pengurusDanaAktiviti}</td>
                   <td>{aktivitisData.jumlahPinjamanAktiviti}</td>
                   <td>
-                    <EditAktiviti />
-                    <Button className="delBtn">Padam</Button>
+                    <EditAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} aktivitiId={aktivitisData.id} aktiviti={aktivitisData} />
+                    <Button className="delBtn" onClick={() =>deleteAktiviti(aktivitisData.id)}>Padam</Button>
                   </td>
                 </tr>
               ))
