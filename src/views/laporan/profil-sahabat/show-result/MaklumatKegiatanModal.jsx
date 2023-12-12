@@ -10,7 +10,6 @@ function MaklumatKegiatanModal({sahabatId, pembiayaanSahabatId}) {
   const getMaklumatKegiatanModal = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat/maklumat-kegiatan-modal/${sahabatId}/${pembiayaanSahabatId}`);
-      console.log(response.data);
       if (response.status === 200) {
         setMaklumatKegiatanModal(response.data);
       } else {

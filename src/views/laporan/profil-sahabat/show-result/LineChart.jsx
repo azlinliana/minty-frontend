@@ -1,14 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const LineChart = ({ selectedItem }) => {
+const LineChart = ({ selectedChart, data }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    // Fetch or generate data based on the selected item
-    const chartData = getDataForItem(selectedItem);
-
     // Destroy existing Chart instance
     if (chartInstance.current) {
       chartInstance.current.destroy();
@@ -16,15 +13,64 @@ const LineChart = ({ selectedItem }) => {
 
     // Configure Chart.js
     const ctx = chartRef.current.getContext("2d");
+
+    let chartData;
+    if (selectedChart === "Graf Inflow") {
+      chartData = {
+        labels: data ? data.map((entry) => entry.minggu) : [],
+        datasets: [
+          {
+            label: "Inflow",
+            data: data ? data.map((entry) => entry.inflow) : [],
+            borderColor: "rgba(60, 179, 113)",
+            borderWidth: 2,
+            fill: false,
+          },
+        ],
+      };
+    } 
+    else if (selectedChart === "Graf Outflow") {
+      chartData = {
+        labels: data ? data.map((entry) => entry.minggu) : [],
+        datasets: [
+          {
+            label: "Outflow",
+            data: data ? data.map((entry) => entry.outflow) : [],
+            borderColor: "rgba(255, 0, 0)",
+            borderWidth: 2,
+            fill: false,
+          },
+        ],
+      };
+    } 
+    else if (selectedChart === "Graf Inflow Outflow") {
+      chartData = {
+        labels: data ? data.map((entry) => entry.minggu) : [],
+        datasets: [
+          {
+            label: "Inflow",
+            data: data ? data.map((entry) => entry.inflow) : [],
+            borderColor: "rgba(60, 179, 113)",
+            borderWidth: 2,
+            fill: false,
+          },
+          {
+            label: "Outflow",
+            data: data ? data.map((entry) => entry.outflow) : [],
+            borderColor: "rgba(255, 0, 0)",
+            borderWidth: 2,
+            fill: false,
+          },
+        ],
+      };
+    }
+
     chartInstance.current = new Chart(ctx, {
       type: "line",
-      data: {
-        labels: chartData.labels,
-        datasets: chartData.datasets,
-      },
+      data: chartData,
       options: {
         responsive: true,
-        maintainAspectRatio: true, // Set to true if you want to maintain aspect ratio
+        maintainAspectRatio: true,
       },
     });
 
@@ -34,63 +80,7 @@ const LineChart = ({ selectedItem }) => {
         chartInstance.current.destroy();
       }
     };
-  }, [selectedItem]);
-
-  const getDataForItem = (item) => {
-    // Replace this with your logic to fetch or generate chart data
-    // You may fetch data from an API or use local data based on the selected item
-    // The data structure should include labels and data for the chart
-
-    let labels = ["Label 1", "Label 2", "Label 3"];
-    let datasets = [];
-
-    if (item === "chartInflow") {
-      labels = ["Label 1", "Label 2", "Label 3"];
-      datasets = [
-        {
-          label: `Line for Inflow`,
-          data: [10, 20, 30],
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 2,
-          fill: false,
-        },
-      ];
-    } else if (item === "chartOutflow") {
-      labels = ["Label 1", "Label 2", "Label 3"];
-      datasets = [
-        {
-          label: `Line for Outflow`,
-          data: [30, 25, 20],
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 2,
-          fill: false,
-        },
-      ];
-    } else if (item === "chartInflowOutflow") {
-      labels = ["Label 1", "Label 2", "Label 3"];
-      datasets = [
-        {
-          label: `Line 1 for Inflow-Outflow`,
-          data: [10, 20, 30],
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 2,
-          fill: false,
-        },
-        {
-          label: `Line 2 for Inflow-Outflow`,
-          data: [30, 25, 20],
-          borderColor: "rgba(192, 75, 192, 1)", // Adjust color as needed
-          borderWidth: 2,
-          fill: false,
-        },
-      ];
-    }
-
-    return {
-      labels,
-      datasets,
-    };
-  };
+  }, [selectedChart, data]);
 
   return <canvas ref={chartRef} className="chartCanvas" />;
 };

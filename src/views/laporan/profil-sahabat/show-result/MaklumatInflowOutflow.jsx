@@ -57,7 +57,7 @@ function MaklumatInflowOutflow({sahabatId, pembiayaanSahabatId}) {
               <>
                 {/* Left Section */}
                 <Col md={6}>
-                  <h2>Rekod Minggu Inflow/Outflow Sahabat</h2>
+                  <h2>Rekod Mingguan Inflow/Outflow Sahabat</h2>
 
                   <Table responsive striped bordered className="laporanTable">
                     <thead>

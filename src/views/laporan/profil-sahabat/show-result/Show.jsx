@@ -1,19 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
+import React from 'react';
+import {useLocation} from 'react-router-dom';
 import "../../Laporan.css";
-import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";
 import RajahInflowOutflow from "./RajahInflowOutflow";
-import axios from 'axios';
 
 function ShowProfilSahabat() {
   // ------------ FE --------------
@@ -21,7 +16,7 @@ function ShowProfilSahabat() {
   const location = useLocation();
   const {sahabatId, pembiayaanSahabatId} = location.state;
 
-  return (
+  return(
     <div>
       <div className="pageTitle">
         <h1>Profil Sahabat</h1>
@@ -53,7 +48,7 @@ function ShowProfilSahabat() {
       <MaklumatInflowOutflow sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
 
       {/* Bahagian D: Maklumat Inflow/Outflow Sahabat */}
-      <RajahInflowOutflow />
+      <RajahInflowOutflow sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
     </div>
   );
 }
