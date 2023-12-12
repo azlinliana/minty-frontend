@@ -78,8 +78,6 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
   // Create aktiviti
   const createAktiviti = async (aktivitiInput) => {
     try{
-      console.log('Aktiviti Input:', aktivitiInput);
-
       const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`, aktivitiInput);
       if (response.status === 200) {
         SuccessAlert(response.data.message);
