@@ -15,8 +15,8 @@ function DeletionAlert(onConfirmDeletion, onCancelDeletion) {
       text: 'Anda tidak akan dapat membatalkan ini!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Ya, padam!',
-      cancelButtonText: 'Tidak, batalkan pemadaman!',
+      confirmButtonText: 'Padam',
+      cancelButtonText: 'Batal',
       reverseButtons: true,
     })
     .then((result) => {
