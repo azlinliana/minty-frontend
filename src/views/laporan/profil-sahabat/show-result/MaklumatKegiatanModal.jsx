@@ -39,9 +39,9 @@ function MaklumatKegiatanModal({sahabatId, pembiayaanSahabatId}) {
           </thead>
           <tbody>
             <tr>
-              <td></td>
+              <td>{maklumatKegiatanModal.modalPembiayaanAIM}</td>
               <td>{maklumatKegiatanModal.pendapatanDaripadaModal}</td>
-              <td></td>
+              <td>{maklumatKegiatanModal.pulanganPerRM}</td>
             </tr>
           </tbody>
         </Table>
