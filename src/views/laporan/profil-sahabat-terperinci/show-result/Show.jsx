@@ -1,6 +1,7 @@
 import React from "react";
-import { Breadcrumb, Button } from "react-bootstrap";
+import {useLocation} from 'react-router-dom';
 import "../../Laporan.css";
+import { Breadcrumb, Button } from "react-bootstrap";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import PendapatanKumulatifKegiatan from "./PendapatanKumulatifKegiatan";
@@ -9,28 +10,23 @@ import PerbelanjaanKumulatifSumber from "./PerbelanjaanKumulatifSumber";
 import PendapatanVersusPerbelanjaan from "./PendapatanVersusPerbelanjaan";
 
 function ShowProfilSahabatTerperinci() {
-  return (
-    <>
+    // ------------ FE --------------
+  // Get pembiayaan sahabat
+  const location = useLocation();
+  const {resultSahabat, sahabatId, pembiayaanSahabatId} = location.state;
+
+  return(
+    <div>
       <div className="pageTitle">
         <h1>Profil Sahabat Terperinci</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Senarai Laporan
-          </Breadcrumb.Item>
-          <Breadcrumb.Item className="previousLink" href="#">
-            Carian Pembiayaan Sahabat Terperinci
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Laporan Profil Sahabat Terperinci
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Senarai Laporan</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">Carian Pembiayaan Sahabat Terperinci</Breadcrumb.Item>
+          <Breadcrumb.Item active>Laporan Profil Sahabat Terperinci</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="hasilCarian">
-          <p>
-            <strong>Hasil Carian:</strong> 821006086174
-          </p>
-        </div>
+        <div className="hasilCarian"><p><strong>Hasil Carian: {resultSahabat.map((dataSahabat) => (dataSahabat.noKadPengenalanSahabat))}</strong></p></div>
       </div>
 
       <div className="buttonContainer">
@@ -38,7 +34,7 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas />
+      <MaklumatAsas sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
 
       {/* Bahagian B: Maklumat Kegiatan & Modal */}
       <MaklumatKegiatanModal />
@@ -54,7 +50,7 @@ function ShowProfilSahabatTerperinci() {
 
       {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
       <PendapatanVersusPerbelanjaan />
-    </>
+    </div>
   );
 }
 
