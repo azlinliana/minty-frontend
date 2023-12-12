@@ -43,13 +43,13 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
 
   useEffect(() => {
     fetchPembiayaanSahabats();
-    const interval = setInterval(() => { // Set up recurring fetch every 5 second
-      fetchPembiayaanSahabats();
-    }, 5000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
+    //   fetchPembiayaanSahabats();
+    // }, 5000);
+    // // Cleanup the interval when the component unmounts
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
   
   return(
