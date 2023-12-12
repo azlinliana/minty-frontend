@@ -39,7 +39,7 @@ function ShowProfilSahabat() {
       </div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas sahabatId={sahabatId} />
+      <MaklumatAsas sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
 
       {/* Bahagian B: Maklumat Kegiatan Modal */}
       <MaklumatKegiatanModal sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
