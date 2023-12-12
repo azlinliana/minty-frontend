@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-function SearchResultPembiayaanSahabat({sahabatId, pembiayaanSahabats, selectedSkimPembiayaan}) {
+function SearchResultPembiayaanSahabat({resultSahabat, sahabatId, pembiayaanSahabats, selectedSkimPembiayaan}) {
   // ----------FE----------
   // Navigate to profil sahabat along with sahabat and pembiayaan data
   const navigate = useNavigate();
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
-    navigate('/profil-sahabat/', { state: {sahabatId, pembiayaanSahabatId} });
+    navigate('/profil-sahabat/', {state: {resultSahabat, sahabatId, pembiayaanSahabatId}});
   };
 
   // ------------ BE --------------

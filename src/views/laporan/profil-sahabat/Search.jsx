@@ -124,7 +124,7 @@ function SearchProfilSahabat() {
           </div>
 
           {isSearchResultVisible && (
-            <div className="hasilCarianPembiayaan"><SearchResultPembiayaanSahabat sahabatId={dataSahabat.id} pembiayaanSahabats={pembiayaanSahabats} selectedSkimPembiayaan={selectedSkimPembiayaan} /></div>
+            <div className="hasilCarianPembiayaan"><SearchResultPembiayaanSahabat resultSahabat={resultSahabat} sahabatId={dataSahabat.id} pembiayaanSahabats={pembiayaanSahabats} selectedSkimPembiayaan={selectedSkimPembiayaan} /></div>
           )}
         </React.Fragment>
       ))}

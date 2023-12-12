@@ -14,7 +14,7 @@ function ShowProfilSahabat() {
   // ------------ FE --------------
   // Get pembiayaan sahabat
   const location = useLocation();
-  const {sahabatId, pembiayaanSahabatId} = location.state;
+  const {resultSahabat, sahabatId, pembiayaanSahabatId} = location.state;
 
   return(
     <div>
@@ -27,7 +27,7 @@ function ShowProfilSahabat() {
           <Breadcrumb.Item active>Laporan Profil Sahabat</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="hasilCarian"><p><strong>Hasil Carian:</strong></p></div>
+        <div className="hasilCarian"><p><strong>Hasil Carian: {resultSahabat.map((dataSahabat) => (dataSahabat.noKadPengenalanSahabat))}</strong></p></div>
       </div>
 
       <div className="buttonContainer">
