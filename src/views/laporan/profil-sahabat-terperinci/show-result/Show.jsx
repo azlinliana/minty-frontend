@@ -40,7 +40,7 @@ function ShowProfilSahabatTerperinci() {
       <MaklumatKegiatanModal />
 
       {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
-      <PendapatanKumulatifKegiatan />
+      <PendapatanKumulatifKegiatan sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
 
       {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
       <PendapatanKumulatifSumber />
