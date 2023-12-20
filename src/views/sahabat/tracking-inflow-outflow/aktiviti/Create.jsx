@@ -44,13 +44,37 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
       { id: 1, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KEKAL' },
       { id: 2, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KONTAN' },
       { id: 3, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN DAGING' },
-      // ... other options
+      { id: 4, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN SUSU' },
+      { id: 5, aktivitiId: 3, jenisKeteranganAktiviti: 'AKUAKULTUR/TERNAKAN' },
+      { id: 6, aktivitiId: 3, jenisKeteranganAktiviti: 'PERALATAN' },
+      { id: 7, aktivitiId: 4, jenisKeteranganAktiviti: 'PERTUKANGAN' },
+      { id: 8, aktivitiId: 4, jenisKeteranganAktiviti: 'JAHITAN' },
+      { id: 9, aktivitiId: 5, jenisKeteranganAktiviti: 'PASAR MINI/KEDAI RUNCIT' },
+      { id: 10, aktivitiId: 5, jenisKeteranganAktiviti: 'BAKERI' },
     ]);
 
     setProjekAktivitiOptions([
       { id: 1, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'GETAH' },
       { id: 2, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'KOKO' },
-      // ... other options
+      { id: 3, aktivitiId: 1, keteranganAktivitiId: 2, jenisProjekAktiviti: 'JAGUNG' },
+      { id: 4, aktivitiId: 1, keteranganAktivitiId: 2, jenisProjekAktiviti: 'PISANG' },
+      { id: 5, aktivitiId: 2, keteranganAktivitiId: 3, jenisProjekAktiviti: 'LEMBU/KERBAU' },
+      { id: 6, aktivitiId: 2, keteranganAktivitiId: 3, jenisProjekAktiviti: 'BIRI-BIRI' },
+      { id: 7, aktivitiId: 2, keteranganAktivitiId: 4, jenisProjekAktiviti: 'LEMBU' },
+      { id: 8, aktivitiId: 2, keteranganAktivitiId: 4, jenisProjekAktiviti: 'KAMBING' },
+      { id: 9, aktivitiId: 3, keteranganAktivitiId: 5, jenisProjekAktiviti: 'IKAN' },
+      { id: 10, aktivitiId: 3, keteranganAktivitiId: 5, jenisProjekAktiviti: 'UDANG/KERANG' },
+      { id: 11, aktivitiId: 3, keteranganAktivitiId: 6, jenisProjekAktiviti: 'SAMPAN/BOT' },
+      { id: 12, aktivitiId: 3, keteranganAktivitiId: 6, jenisProjekAktiviti: 'JALA/PUKAT/SAUK' },
+      { id: 13, aktivitiId: 4, keteranganAktivitiId: 7, jenisProjekAktiviti: 'KIMPALAN BESI' },
+      { id: 14, aktivitiId: 4, keteranganAktivitiId: 7, jenisProjekAktiviti: 'SIMEN' },
+      { id: 15, aktivitiId: 4, keteranganAktivitiId: 8, jenisProjekAktiviti: 'PAKAIAN' },
+      { id: 16, aktivitiId: 4, keteranganAktivitiId: 8, jenisProjekAktiviti: 'BEG' },
+      { id: 17, aktivitiId: 5, keteranganAktivitiId: 9, jenisProjekAktiviti: 'BARANG RUNCIT' },
+      { id: 18, aktivitiId: 5, keteranganAktivitiId: 9, jenisProjekAktiviti: 'LAIN-LAIN' },
+      { id: 19, aktivitiId: 5, keteranganAktivitiId: 10, jenisProjekAktiviti: 'ROTI DAN KEK' },
+      { id: 20, aktivitiId: 5, keteranganAktivitiId: 10, jenisProjekAktiviti: 'LAIN-LAIN' },
+
     ]);
   }, []); // Empty dependency array means this effect runs once after the initial render
   
