@@ -1,20 +1,41 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./Navbar.css";
-
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Image from "react-bootstrap/Image";
-
 import aimLogo from "../../../assets/aim-logo.svg";
-
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import ErrorAlert from "../sweet-alert/ErrorAlert";
+import axios from "axios";
 
 function FirstNavbar() {
-  // Link pages
   const navigate = useNavigate();
+
+  // ----------FE----------
+  // Link pages
   const clickAIMLogo = () => navigate("/inflow-outflow");
-  const handleLogout = () => navigate("/");
+
+  // ----------BE----------
+  // const signOut = async () => {
+  //   try {
+  //     const response = await axios.post(`http://127.0.0.1:8000/api/auth/logout`, null, {
+  //       withCredentials: true,
+  //     });
+
+  //     if (response.status === 200) {
+  //       navigate('/');
+  //     } 
+  //     else {
+  //       console.log(response.data.error)
+  //       ErrorAlert(response.data.error); // Error message from the backend
+  //     }
+  //   } 
+  //   catch (error) {
+  //     console.log(error);
+  //     ErrorAlert(error); // Error related to API response or client side
+  //   }
+  // };
 
   return (
     <>
@@ -39,16 +60,8 @@ function FirstNavbar() {
           {/* Logout button */}
           <div className="ml-auto">
             {/* This is the right column of the navbar */}
-            <button className="log-keluar-btn" onClick={handleLogout}>
-              <span className="icon-container">
-                <FaArrowRightFromBracket
-                  size={16}
-                  style={{
-                    marginRight: "5px",
-                    marginBottom: "3px",
-                  }}
-                />
-              </span>
+            <button className="log-keluar-btn">
+              <span className="icon-container"><FaArrowRightFromBracket size={16} style={{ marginRight: "5px", marginBottom: "3px"}}/></span>
               <span className="mobile-visibility">Log Keluar</span>
             </button>
           </div>

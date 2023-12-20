@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {useForm, Controller} from "react-hook-form";
 import {Link} from "react-router-dom";
 import "./Auth.css";
@@ -11,6 +12,9 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ErrorAlert from "../components/sweet-alert/ErrorAlert";
+import axios from '../axiosConfig';
+// import axios from "axios";
 
 // Background styling for this page route
 const PageContainer = styled.div`
@@ -46,12 +50,28 @@ function SignIn() {
   // Form validation
   const {handleSubmit, control, reset, formState: {errors}} = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
   // ----------BE----------
+  const navigate = useNavigate();
+  // User sign in
+// User sign in
+const signIn = async (signInInput) => {
+  try {
+    const response = await axios.post(`http://127.0.0.1:8000/api/auth/login`, signInInput);
+    console.log(response);
 
+    if (response.success === 'Log masuk berjaya') {
+      navigate('/search-sahabat');
+    } else {
+      ErrorAlert(response.error);
+    }
+  } catch (error) {
+    // Handle request error
+    console.error('An error occurred during the request:', error.message);
+    ErrorAlert('An unexpected error occurred. Please try again.');
+  }
+};
+
+  
   return(
     <PageContainer>
       <Container fluid="md" className="signInContainer">
@@ -71,7 +91,7 @@ function SignIn() {
             </div>
 
             {/* Form content */}
-            <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+            <Form onSubmit={handleSubmit(signIn)} onReset={reset}>
               <Form.Group className="mb-3">
                 <Form.Label className="formLabel" htmlFor="idKakitangan">Id Kakitangan</Form.Label>
                 <Controller
@@ -98,7 +118,8 @@ function SignIn() {
                 <Form.Label className="formLabel" htmlFor="passwordKakitangan">Kata Laluan</Form.Label>
                 <Controller
                   type="password"
-                  name="passwordKakitangan"
+                  id="kataLaluanKakitangan"
+                  name="kataLaluanKakitangan"
                   control={control}
                   defaultValue=""
                   rules={{ required: "Kata laluan diperlukan" }}
@@ -106,16 +127,16 @@ function SignIn() {
                     <Form.Control
                       type="password"
                       onChange={onChange}  // Corrected from "onchange" to "onChange"
-                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      placeholder="Masukkan kata laluan"
                       value={value}
                       autoFocus
                     />
                   )}
                 />
-                {errors.passwordKakitangan && (<Form.Text className="text-danger">{errors.passwordKakitangan.message}</Form.Text>)}
+                {errors.kataLaluanKakitangan && (<Form.Text className="text-danger">{errors.kataLaluanKakitangan.message}</Form.Text>)}
               </Form.Group>
 
-              <Button className="submitButton" variant="primary" onClick={handleSubmit()}>Log Masuk</Button>
+              <Button className="submitButton" variant="primary" onClick={handleSubmit(signIn)}>Log Masuk</Button>
             </Form>
 
             {/* Forgot password */}
