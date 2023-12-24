@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from "react-hook-form";
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
@@ -6,118 +8,194 @@ import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ResultTF01 from "./SearchResult";
-import "../Laporan.css";
+import axios from "axios";
 
 function SearchTf01() {
-  // ---- FE -----
-  // Controls the visibility of the reports
-  const [ isSearchResultTf01Visible, setIsSearchResultTf01Visible] = useState(false);
+  // ----------FE----------
+  const [isSearchResultTf01Visible, setIsSearchResultTf01Visible] = useState(false);
   const handleSearchResultTf01Visible = () => {
     setIsSearchResultTf01Visible(!isSearchResultTf01Visible);
   };
+  
+  // Form validation
+  const { handleSubmit, control, reset, formState: { errors } } = useForm();
+
+  // ----------BE----------
+  const [selectedWilayah, setSelectedWilayah] = useState('');
+  const [selectedCawangan, setSelectedCawangan] = useState('');
+  const [selectedPusat, setSelectedPusat] = useState('');
+  const [wilayahOptions, setWilayahOptions] = useState([]);
+  const [cawanganOptions, setCawanganOptions] = useState([]);
+  const [pusatOptions, setPusatOptions] = useState([]);
+
+  // Fetch wilayah
+  useEffect(() => {
+    const fetchWilayahs = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/wilayah/display-wilayah`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setWilayahOptions(response.data.map(wilayah => ({
+            value: wilayah.id,
+            label: wilayah.namaWilayah
+          })));
+
+          fetchCawangans();
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchCawangans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/cawangan/display-cawangan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setCawanganOptions(response.data.map(cawangan => ({
+            value: cawangan.id,
+            label: cawangan.namaCawangan,
+            wilayahId: cawangan.wilayahId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchPusats = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/pusat/display-pusat`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setPusatOptions(response.data.map(pusat => ({
+            value: pusat.id,
+            label: pusat.namaPusat,
+            wilayahId: pusat.wilayahId,
+            cawanganId: pusat.cawanganId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    fetchWilayahs();
+    fetchCawangans();
+    fetchPusats();
+  }, []);
 
   return (
     <>
       <div className="pageTitle">
         <h1>Jadual TF01</h1>
-
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
-            Senarai Laporan
-          </Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink">Senarai Laporan</Breadcrumb.Item>
           <Breadcrumb.Item active>Jadual TF01</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div className="searchSection">
-        <div className="searchHeader">
-          <h2>Senarai Sahabat Mengikut Cawangan, Blok, Pusat dan Pulangan</h2>
-        </div>
+        <div className="searchHeader"><h2>Senarai Sahabat Mengikut Cawangan, Blok, Pusat dan Pulangan</h2></div>
 
         <div className="searchBarSection">
           <Container className="container-fluid searchBar">
-            <Row>
-              {/* Wilayah */}
-              <Col xs={12} md={4}>
-                <div>
-                  <Form.Label>Wilayah</Form.Label>
-                  <Form.Select>
-                    <option>-Sila Pilih-</option>
-                    <option value="PERAK">PERAK</option>
-                    <option value="NEGERI SEMBILAN/MELAKA">
-                      NEGERI SEMBILAN/MELAKA
-                    </option>
-                    <option value="SABAH">SABAH</option>
-                    <option value="PAHANG">PAHANG</option>
-                    <option value="KELANTAN">KELANTAN</option>
-                    <option value="KEDAH">KEDAH</option>
-                    <option value="SELANGOR/KUALA LUMPUR">
-                      SELANGOR/KUALA LUMPUR
-                    </option>
-                    <option value="TERENGGANU">TERENGGANU</option>
-                    <option value="JOHOR">JOHOR</option>
-                  </Form.Select>
-                </div>
-              </Col>
+            <Form onSubmit={handleSubmit} onReset={reset}>
+              <Row>
+                <Col xs={12} md={4}>
+                  <div>
+                    <Form.Group>
+                      <Form.Label>Wilayah</Form.Label>
+                      <Controller
+                        id="wilayahId"
+                        name="wilayahId"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "Wilayah diperlukan." }}
+                        render={({ field: { onChange } }) => (
+                          <Form.Select onChange={(e) => {setSelectedWilayah(e.target.value); onChange(e);}} defaultValue="">
+                            <option value="" disabled>--Pilih Wilayah--</option>
+                            {wilayahOptions.map((wilayah) => (
+                              <option key={wilayah.value} value={wilayah.value}>{wilayah.label}</option>
+                            ))}
+                          </Form.Select>  
+                        )}
+                      />
+                      {errors.wilayahId && (<small className="text-danger">{errors.wilayahId.message}</small>)}
+                    </Form.Group>
+                  </div>
+                </Col>
 
-              {/* Cawangan */}
-              <Col xs={12} md={4}>
-                <div>
-                  <Form.Label>Cawangan</Form.Label>
-                  <Form.Select>
-                    <option>-Sila Pilih-</option>
-                    <option value="GERIK">GERIK</option>
-                    <option value="IPOH">IPOH</option>
-                    <option value="KERIAN">KERIAN</option>
-                    <option value="KINTA">KINTA</option>
-                    <option value="KUALA KANGSAR">KUALA KANGSAR</option>
-                    <option value="LENGGONG">LENGGONG</option>
-                    <option value="MANJUNG">MANJUNG</option>
-                    <option value="MINI TANJUNG MALIM">
-                      MINI TANJUNG MALIM
-                    </option>
-                    <option value="SELAMA">SELAMA</option>
-                    <option value="SERI ISKANDAR">SERI ISKANDAR</option>
-                    <option value="TAIPING">TAIPING</option>
-                    <option value="SELAMA">TAPAH</option>
-                    <option value="SELAMA">TELUK INTAN</option>
-                  </Form.Select>
-                </div>
-              </Col>
+                <Col xs={12} md={4}>
+                  <div>
+                    <Form.Group>
+                      <Form.Label>Cawangan</Form.Label>
+                      <Controller
+                        id="cawanganId"
+                        name="cawanganId"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "Cawangan diperlukan." }}
+                        render={({ field: { onChange } }) => (
+                          <Form.Select onChange={(e) => {setSelectedCawangan(e.target.value); onChange(e);}} defaultValue="">
+                            <option value="" disabled>--Pilih Cawangan--</option>
+                            {cawanganOptions
+                              .filter((item) => selectedWilayah && item.wilayahId === Number(selectedWilayah))
+                              .map((cawangan) => (
+                                <option key={cawangan.value} value={cawangan.value}>{cawangan.label}</option>
+                              ))
+                            }
+                          </Form.Select>
+                        )}
+                      />
+                      {errors.cawanganId && (<small className="text-danger">{errors.cawanganId.message}</small>)}
+                    </Form.Group>
+                  </div>
+                </Col>
 
-              {/* Pusat */}
-              <Col xs={12} md={4}>
-                <div>
-                  <Form.Label>Pusat</Form.Label>
-                  <Form.Select>
-                    <option>-Sila Pilih-</option>
-                    <option value="AINUL ASMA">AINUL ASMA</option>
-                    <option value="AINUL HAYAT">AINUL HAYAT</option>
-                    <option value="AINUL NURA">AINUL NURA</option>
-                    <option value="AINUL SOFIA">AINUL SOFIA</option>
-                    <option value="AINUL YASMIN">AINUL YASMIN</option>
-                    <option value="AL-ANSAR">AL-ANSAR</option>
-                    <option value="AL-BARAQAH">AL-BARAQAH</option>
-                    <option value="AL-HIJIRIAH">AL-HIJIRIAH</option>
-                    <option value="AL-QAUSAR">AL-QAUSAR</option>
-                  </Form.Select>
-                </div>
-              </Col>
-            </Row>
-            <div className="cariBtnPlacement">
-              <Button className="cariBtn" onClick={handleSearchResultTf01Visible}>
-                Cari
-              </Button>{" "}
-            </div>
+                <Col xs={12} md={4}>
+                  <div>
+                    <Form.Group>
+                      <Form.Label>Pusat</Form.Label>
+                      <Controller
+                        id="pusatId"
+                        name="pusatId"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "Pusat diperlukan." }}
+                        render={({ field: { onChange } }) => (
+                          <Form.Select onChange={(e) => {setSelectedPusat(e.target.value); onChange(e);}} defaultValue="">
+                            <option value="" disabled>--Pilih Pusat--</option>
+                            {pusatOptions
+                              .filter((item) => selectedCawangan && item.cawanganId === Number(selectedCawangan))
+                              .map((pusat) => (
+                                <option key={pusat.value} value={pusat.value}>{pusat.label}</option>
+                              ))}
+                          </Form.Select>
+                        )}
+                      />
+                      {errors.pusatId && (<small className="text-danger">{errors.pusatId.message}</small>)}
+                    </Form.Group>
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+
+            <div className="cariBtnPlacement"><Button className="cariBtn" onClick={handleSubmit()}>Cari</Button>{" "}</div>
           </Container>
 
-          <div className="searchResultContainer">
-            {isSearchResultTf01Visible && <ResultTF01/>}
-          </div>
+          <div className="searchResultContainer">{isSearchResultTf01Visible && <ResultTF01 />}</div>
 
-          <div className="kembaliBtnPlacement">
-            <Button className="kembaliBtn">Kembali</Button>{" "}
-          </div>
+          <div className="kembaliBtnPlacement"><Button className="kembaliBtn">Kembali</Button>{" "}</div>
         </div>
       </div>
     </>
