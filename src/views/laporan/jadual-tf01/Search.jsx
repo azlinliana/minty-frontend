@@ -9,6 +9,7 @@ import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ResultTF01 from "./SearchResult";
+import axios from 'axios';
 
 function SearchTf01() {
   // ----------FE----------
