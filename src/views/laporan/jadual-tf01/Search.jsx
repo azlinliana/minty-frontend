@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from "react-hook-form";
+import "../Laporan.css";
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Container } from "react-bootstrap";
@@ -8,7 +9,6 @@ import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ResultTF01 from "./SearchResult";
-import axios from "axios";
 
 function SearchTf01() {
   // ----------FE----------
@@ -28,7 +28,7 @@ function SearchTf01() {
   const [cawanganOptions, setCawanganOptions] = useState([]);
   const [pusatOptions, setPusatOptions] = useState([]);
 
-  // Fetch wilayah
+  // Fetch wilayah, cawangan, and pusat
   useEffect(() => {
     const fetchWilayahs = async () => {
       try {
@@ -45,7 +45,8 @@ function SearchTf01() {
         else {
           ErrorAlert(response.data);
         }
-      } catch (error) {
+      } 
+      catch (error) {
         ErrorAlert(error);
       }
     };
@@ -64,7 +65,8 @@ function SearchTf01() {
         else {
           ErrorAlert(response.data);
         }
-      } catch (error) {
+      } 
+      catch (error) {
         ErrorAlert(error);
       }
     };
@@ -84,7 +86,8 @@ function SearchTf01() {
         else {
           ErrorAlert(response.data);
         }
-      } catch (error) {
+      } 
+      catch (error) {
         ErrorAlert(error);
       }
     };
