@@ -13,8 +13,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ErrorAlert from "../components/sweet-alert/ErrorAlert";
-import axios from '../axiosConfig';
-// import axios from "axios";
+// import axios from '../axiosConfig';
+import axios from "axios";
 
 // Background styling for this page route
 const PageContainer = styled.div`
@@ -52,26 +52,28 @@ function SignIn() {
 
   // ----------BE----------
   const navigate = useNavigate();
+
   // User sign in
-// User sign in
-const signIn = async (signInInput) => {
-  try {
-    const response = await axios.post(`http://127.0.0.1:8000/api/auth/login`, signInInput);
-    console.log(response);
-
-    if (response.success === 'Log masuk berjaya') {
-      navigate('/search-sahabat');
-    } else {
-      ErrorAlert(response.error);
-    }
-  } catch (error) {
-    // Handle request error
-    console.error('An error occurred during the request:', error.message);
-    ErrorAlert('An unexpected error occurred. Please try again.');
-  }
-};
-
+  const signIn = async (signInInput) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/auth/login`, signInInput);
   
+      if (response.data.success === 'Log masuk berjaya') {
+        // Store the token in local storage for authentication
+        localStorage.setItem('token', response.data.token);
+  
+        // Redirect to the desired page after successful login
+        navigate('/search-sahabat');
+      } 
+      else {
+        ErrorAlert(response.data.error);
+      }
+    } 
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
   return(
     <PageContainer>
       <Container fluid="md" className="signInContainer">
@@ -126,7 +128,7 @@ const signIn = async (signInInput) => {
                   render={({ field: { onChange, value } }) => (
                     <Form.Control
                       type="password"
-                      onChange={onChange}  // Corrected from "onchange" to "onChange"
+                      onChange={onChange}
                       placeholder="Masukkan kata laluan"
                       value={value}
                       autoFocus
