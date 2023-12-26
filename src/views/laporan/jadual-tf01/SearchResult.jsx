@@ -1,14 +1,14 @@
+import React, {useState, useEffect} from 'react';
+import "../Laporan.css";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import "../Laporan.css";
 
-function SearchResultTF01() {
+function SearchResultTF01({resultTF01}) {
+  // ----------BE----------
   return (
     <>
       <div className="searchResultContainer">
-        <h3>
-          Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
-        </h3>
+        <h3>Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat</h3>
 
         <div>
           <Table responsive striped bordered>
@@ -39,37 +39,15 @@ function SearchResultTF01() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {resultTF01.map((resultTF01Data, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{resultTF01Data.namaCawangan}</td>
                 <td></td>
+                <td>{resultTF01Data.namaPusat}</td>
+                <td>{resultTF01Data.noKadPengenalanSahabat}</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{resultTF01Data.namaSahabat}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -85,38 +63,13 @@ function SearchResultTF01() {
                 <td></td>
                 <td></td>
               </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              ))}
             </tbody>
           </Table>{" "}
         </div>
       </div>
-      <div className="downloadBtnPlacement">
-        <div className="downloadBtn">
-          <Button variant="primary">Muat Turun TF01</Button>{" "}
-        </div>
-      </div>
+
+      <div className="downloadBtnPlacement"><div className="downloadBtn"><Button variant="primary">Muat Turun TF01</Button>{" "}</div></div>
     </>
   );
 }

@@ -14,9 +14,6 @@ import axios from 'axios';
 function SearchTf01() {
   // ----------FE----------
   const [isSearchResultTf01Visible, setIsSearchResultTf01Visible] = useState(false);
-  const handleSearchResultTf01Visible = () => {
-    setIsSearchResultTf01Visible(!isSearchResultTf01Visible);
-  };
   
   // Form validation
   const { handleSubmit, control, reset, formState: { errors } } = useForm();
@@ -97,6 +94,24 @@ function SearchTf01() {
     fetchCawangans();
     fetchPusats();
   }, []);
+
+  // Search jadual TF01
+  const [resultTF01, setResultTF01] = useState([]);
+  const searchJadualTF01 = async(jadualTF01Input) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/laporan/carian-jadual-tf01`, jadualTF01Input);
+      if (response.status === 200) {
+        setResultTF01(response.data);
+        setIsSearchResultTf01Visible(true);
+      } 
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } 
+    catch (error) {
+      ErrorAlert(error); // Error related to API response or client side
+    }  
+  };
 
   return (
     <>
@@ -194,10 +209,12 @@ function SearchTf01() {
               </Row>
             </Form>
 
-            <div className="cariBtnPlacement"><Button className="cariBtn" onClick={handleSubmit()}>Cari</Button>{" "}</div>
+            <div className="cariBtnPlacement"><Button className="cariBtn" onClick={handleSubmit(searchJadualTF01)}>Cari</Button>{" "}</div>
           </Container>
 
-          <div className="searchResultContainer">{isSearchResultTf01Visible && <ResultTF01 />}</div>
+          {isSearchResultTf01Visible && (
+            <div className="searchResultContainer"><ResultTF01 resultTF01={resultTF01}/></div>
+          )}
 
           <div className="kembaliBtnPlacement"><Button className="kembaliBtn">Kembali</Button>{" "}</div>
         </div>
