@@ -15,39 +15,55 @@ function SearchTf02() {
   // ------- FE ---------
   // Controls visibility of the reports
   const [ isSearchResultJadualTf02Visible, setIsSearchResultJadualTf02Visible ] = useState(false);
-  const handleSearchResultJadualTf02Visibility = () => {
-    setIsSearchResultJadualTf02Visible(!isSearchResultJadualTf02Visible);
-  }
 
-    // Form validation
-    const { handleSubmit, control, reset, formState: { errors } } = useForm();
+  // Form validation
+  const { handleSubmit, control, reset, formState: { errors } } = useForm();
 
-    // ----------BE----------
-    const [cawanganOptions, setCawanganOptions] = useState([]);
-  
-    // Fetch cawangan
-    useEffect(() => {
-      const fetchCawangans = async () => {
-        try {
-          const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/cawangan/display-cawangan`);
-  
-          if (Array.isArray(response.data) && response.data.length > 0) {
-            setCawanganOptions(response.data.map(cawangan => ({
-              value: cawangan.id,
-              label: cawangan.namaCawangan,
-            })));
-          } 
-          else {
-            ErrorAlert(response.data);
-          }
+  // ----------BE----------
+  const [selectedCawangan, setSelectedCawangan] = useState('');
+  const [cawanganOptions, setCawanganOptions] = useState([]);
+
+  // Fetch cawangan
+  useEffect(() => {
+    const fetchCawangans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/cawangan/display-cawangan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setCawanganOptions(response.data.map(cawangan => ({
+            value: cawangan.id,
+            label: cawangan.namaCawangan,
+          })));
         } 
-        catch (error) {
-          ErrorAlert(error);
+        else {
+          ErrorAlert(response.data);
         }
-      };
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
 
-      fetchCawangans();
-    }, []);
+    fetchCawangans();
+  }, []);
+
+  // Search jadual TF02
+  const [resultTf02, setResultTF02] = useState([]);
+  const searchJadualTF02 = async(jadualTF02Input) => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/laporan/carian-jadual-tf02`, jadualTF02Input);
+      if (response.status === 200) {
+        setResultTF02(response.data);
+        setIsSearchResultJadualTf02Visible(true);
+      } 
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } 
+    catch (error) {
+      ErrorAlert(error); // Error related to API response or client side
+    }  
+  };
 
   return (
     <>
@@ -92,10 +108,12 @@ function SearchTf02() {
               </Col>
             </Row>
 
-            <div className="cariBtnPlacement"><Button className="cariBtn" onClick={handleSearchResultJadualTf02Visibility}>Cari</Button>{" "}</div>
+            <div className="cariBtnPlacement"><Button className="cariBtn" onClick={handleSubmit(searchJadualTF02)}>Cari</Button>{" "}</div>
           </Container>
 
-          <div className="searchResultContainer">{isSearchResultJadualTf02Visible && <ResultTf02/>}</div>
+          {isSearchResultJadualTf02Visible && (
+            <div className="searchResultContainer"><ResultTf02 resultTf02={resultTf02} /></div>
+          )}
 
           <div className="kembaliBtnPlacement"><Button className="kembaliBtn">Kembali</Button>{" "}</div>
         </div>
