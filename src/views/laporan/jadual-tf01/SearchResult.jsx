@@ -38,31 +38,36 @@ function SearchResultTF01({resultTF01}) {
               </tr>
             </thead>
             <tbody>
-              {resultTF01.map((resultTF01Data, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{resultTF01Data.namaCawangan}</td>
-                <td></td>
-                <td>{resultTF01Data.namaPusat}</td>
-                <td>{resultTF01Data.noKadPengenalanSahabat}</td>
-                <td></td>
-                <td>{resultTF01Data.namaSahabat}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              ))}
+              {resultTF01.length === 0 ? (
+                <tr><td colSpan={22}><center>Tiada maklumat.</center></td></tr>
+              ) : (
+                resultTF01.map((resultTF01Data, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{resultTF01Data.namaCawangan}</td>
+                    <td></td>
+                    <td>{resultTF01Data.namaPusat}</td>
+                    <td>{resultTF01Data.noKadPengenalanSahabat}</td>
+                    <td></td>
+                    <td>{resultTF01Data.namaSahabat}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </Table>{" "}
         </div>
