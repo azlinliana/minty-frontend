@@ -1,19 +1,43 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import "../../Laporan.css";
-import { Breadcrumb, Button } from "react-bootstrap";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
-import PendapatanKumulatifKegiatan from "./PendapatanKumulatifKegiatan";
-import PendapatanKumulatifSumber from "./PendapatanKumulatifSumber";
-import PerbelanjaanKumulatifSumber from "./PerbelanjaanKumulatifSumber";
-import PendapatanVersusPerbelanjaan from "./PendapatanVersusPerbelanjaan";
+import PendapatanKumulatifKegiatan from './PendapatanKumulatifKegiatan';
+import PendapatanKumulatifSumberPengusaha from './PendapatanKumulatifSumberPengusaha';
+import PerbelanjaanKumulatifSumberPengusaha from './PerbelanjaanKumulatifSumberPengusaha';
+import PendapatanVSPerbelanjaanSumberPengusaha from './PendapatanVSPerbelanjaanSumberPengusaha';
+import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
+import { Breadcrumb, Button } from "react-bootstrap";
+import axios from 'axios';
 
 function ShowProfilSahabatTerperinci() {
-    // ------------ FE --------------
+  // ------------ FE --------------
   // Get pembiayaan sahabat
   const location = useLocation();
   const {resultSahabat, sahabatId, pembiayaanSahabatId} = location.state;
+
+  // ------------ BE --------------
+  // Fetch profil sahabat terperinci
+  const [profilSahabatTerperinci, setProfilSahabatTerperinci] = useState({});
+  const getProfilSahabatTerperinci = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat-terperinci/${sahabatId}/${pembiayaanSahabatId}`);
+      if (response.status === 200) {
+        setProfilSahabatTerperinci(response.data);
+      } 
+      else {
+        ErrorAlert(response); // Error from the backend or unknown error from the server side
+      }
+    } 
+    catch (error) {
+      ErrorAlert(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfilSahabatTerperinci();
+  }, [profilSahabatTerperinci]);
 
   return(
     <div>
@@ -29,27 +53,25 @@ function ShowProfilSahabatTerperinci() {
         <div className="hasilCarian"><p><strong>Hasil Carian: {resultSahabat.map((dataSahabat) => (dataSahabat.noKadPengenalanSahabat))}</strong></p></div>
       </div>
 
-      <div className="buttonContainer">
-        <Button variant="primary">Cetak</Button>{" "}
-      </div>
+      <div className="buttonContainer"><Button variant="primary">Cetak</Button>{" "}</div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
+      <MaklumatAsas sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} maklumatAsasData={profilSahabatTerperinci.maklumatAsas || {}} />
 
       {/* Bahagian B: Maklumat Kegiatan & Modal */}
-      <MaklumatKegiatanModal />
+      <MaklumatKegiatanModal maklumatKegiatanModalData={profilSahabatTerperinci.maklumatKegiatanModal || {}} />
 
       {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
-      <PendapatanKumulatifKegiatan sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} />
+      <PendapatanKumulatifKegiatan maklumatPendapatanKumulatifKegiatanData={profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan || {}} />
 
       {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <PendapatanKumulatifSumber />
+      <PendapatanKumulatifSumberPengusaha pendapatanKumulatifSumberData={profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha || {}} />
 
       {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <PerbelanjaanKumulatifSumber />
+      <PerbelanjaanKumulatifSumberPengusaha perbelanjaanKumulatifSumberData={profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha || {}} />
 
       {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
-      <PendapatanVersusPerbelanjaan />
+      <PendapatanVSPerbelanjaanSumberPengusaha pendapatanVSPerbelanjaanData={profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan || {}} />
     </div>
   );
 }

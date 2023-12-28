@@ -3,49 +3,7 @@ import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
 import {Table} from "react-bootstrap";
 import axios from 'axios';
 
-function PendapatanKumulatifKegiatan({sahabatId, pembiayaanSahabatId}) {
-  // Fetch maklumat pendapatan kumulatif kegiatan sahabat
-  const [maklumatPendapatanKumulatifKegiatanSahabats, setMaklumatPendapatanKumulatifKegiatanSahabats] = useState([]);
-  const fetchMaklumatPendapatanKumulatifKegiatanSahabats = async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat-terperinci/maklumat-pendapatan-kumulatif-kegiatan-sahabat/${sahabatId}/${pembiayaanSahabatId}`);
-      if (response.status === 200) {
-        setMaklumatPendapatanKumulatifKegiatanSahabats(response.data.sahabat || []);
-      }
-      else {
-        ErrorAlert(response); // Error from the backend or unknown error from the server side
-      }
-    } 
-    catch (error) {
-      ErrorAlert(error);
-    }
-  };
-  
-  useEffect(() => {
-    fetchMaklumatPendapatanKumulatifKegiatanSahabats();
-  }, [sahabatId, pembiayaanSahabatId]);
-
-  // Fetch maklumat pendapatan kumulatif kegiatan isi rumah
-  const [maklumatPendapatanKumulatifKegiatanIsiRumahs, setMaklumatPendapatanKumulatifKegiatanIsiRumahs] = useState([]);
-  const fetchMaklumatPendapatanKumulatifKegiatanIsiRumahs = async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat-terperinci/maklumat-pendapatan-kumulatif-kegiatan-isi-rumah/${sahabatId}/${pembiayaanSahabatId}`);
-      if (response.status === 200) {
-        setMaklumatPendapatanKumulatifKegiatanIsiRumahs(response.data.isiRumah || []);
-      }
-      else {
-        ErrorAlert(response); // Error from the backend or unknown error from the server side
-      }
-    } 
-    catch (error) {
-      ErrorAlert(error);
-    }
-  };
-  
-  useEffect(() => {
-    fetchMaklumatPendapatanKumulatifKegiatanIsiRumahs();
-  }, [sahabatId, pembiayaanSahabatId]);
-
+function PendapatanKumulatifKegiatan({maklumatPendapatanKumulatifKegiatanData}) {
   return(
     <div>
       <div className="tableSection">
@@ -64,21 +22,21 @@ function PendapatanKumulatifKegiatan({sahabatId, pembiayaanSahabatId}) {
           </thead>
           <tbody>
             {/* Sahabat */}
-            {maklumatPendapatanKumulatifKegiatanSahabats.map((maklumatPendapatanKumulatifKegiatanSahabatsData, sahabatIndex) => (
+            {maklumatPendapatanKumulatifKegiatanData?.sahabat && maklumatPendapatanKumulatifKegiatanData.sahabat.map((sahabatData, sahabatIndex) => (
               <tr key={sahabatIndex}>
                 <td>{sahabatIndex + 1}</td>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabatsData.namaSahabat}</td>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabatsData.kodInflow}</td>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabatsData.cumulativeTotalInflow}</td>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabatsData.pengusaha}</td>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabatsData.kegiatan}</td>
+                <td>{sahabatData.namaSahabat}</td>
+                <td>{sahabatData.kodInflow}</td>
+                <td>{sahabatData.cumulativeTotalInflow}</td>
+                <td>{sahabatData.pengusaha}</td>
+                <td>{sahabatData.kegiatan}</td>
               </tr>
             ))}
 
             {/* Isi Rumah */}
-            {maklumatPendapatanKumulatifKegiatanIsiRumahs.map((isiRumahData, isiRumahIndex) => (
+            {maklumatPendapatanKumulatifKegiatanData?.isiRumah && maklumatPendapatanKumulatifKegiatanData.isiRumah.map((isiRumahData, isiRumahIndex) => (
               <tr key={isiRumahIndex}>
-                <td>{maklumatPendapatanKumulatifKegiatanSahabats.length + isiRumahIndex + 1}</td>
+                <td>{maklumatPendapatanKumulatifKegiatanData.sahabat.length + isiRumahIndex + 1}</td>
                 <td>{isiRumahData[0].namaIsiRumah}</td>
                 <td>{isiRumahData[0].kodInflow}</td>
                 <td>{isiRumahData[0].cumulativeTotalInflow}</td>
