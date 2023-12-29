@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import "../../Laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
@@ -13,6 +14,10 @@ import axios from 'axios';
 
 function ShowProfilSahabatTerperinci() {
   // ------------ FE --------------
+  // Back button
+  const navigate = useNavigate();
+  const goBack = () => {navigate(-1);};
+
   // Get pembiayaan sahabat
   const location = useLocation();
   const {resultSahabat, sahabatId, pembiayaanSahabatId} = location.state;
@@ -72,6 +77,10 @@ function ShowProfilSahabatTerperinci() {
 
       {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
       <PendapatanVSPerbelanjaanSumberPengusaha pendapatanVSPerbelanjaanData={profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan || {}} />
+
+      <div className="kembaliBtnPlacement">
+          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
+        </div>
     </div>
   );
 }
