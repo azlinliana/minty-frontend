@@ -1,14 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {useLocation} from "react-router-dom";
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { useForm, Controller } from 'react-hook-form';
 import "../Laporan.css";
 import SearchResultPembiayaanTerperinciSahabat from './SearchResult';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import {Breadcrumb, Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
+import { Breadcrumb, Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 function SearchProfilSahabatTerperinci() {
   // ----------FE----------
+  // Back button
+  const navigate = useNavigate();
+  const goBack = () => {navigate(-1);};
+
   // Display sahabat search result
   const location = useLocation();
   const resultSahabat = location.state.resultSahabat || [];
@@ -48,7 +53,7 @@ function SearchProfilSahabatTerperinci() {
   }, [resultSahabat, isSearchResultVisible]);
 
   return(
-    <div>
+    <>
       <div className="pageTitle">
         <h1>Carian Pembiayaan Sahabat Terperinci</h1>
 
@@ -61,7 +66,9 @@ function SearchProfilSahabatTerperinci() {
       {resultSahabat.map((dataSahabat) => (
         <React.Fragment key={dataSahabat.id}>
           <div className='hasilCarianContent'>
-            <div className='hasilCarianSahabatTitle'><h2>Maklumat Sahabat</h2></div>
+            <div className='hasilCarianSahabatTitle'>
+              <h2>Maklumat Sahabat</h2>
+            </div>
 
             <Container>
               <Row>
@@ -72,6 +79,7 @@ function SearchProfilSahabatTerperinci() {
                   </Form.Group>
                 </Col>
               </Row>
+
               <Row className="sahabatInfoSpacing">
                 <Col xs={6}>
                   <Form.Group>
@@ -79,6 +87,7 @@ function SearchProfilSahabatTerperinci() {
                     <Form.Control type="text" value={dataSahabat.noKadPengenalanSahabat} disabled />
                   </Form.Group>
                 </Col>
+
                 <Col xs={6}>
                   <Form.Group>
                     <Form.Label>No. Sahabat</Form.Label>
@@ -117,7 +126,10 @@ function SearchProfilSahabatTerperinci() {
                       {errors.skimPembiayaan && (<small className="text-danger">{errors.skimPembiayaan.message}</small>)}
                     </Form.Group>
                   </Col>
-                  <Col xs={12} xl={2}><Button onClick={handleSearchResultPembiayaanVisibility} className="cariPembiayaanBtn">Cari</Button></Col>
+
+                  <Col xs={12} xl={2}>
+                    <Button onClick={handleSearchResultPembiayaanVisibility} className="cariPembiayaanBtn">Cari</Button>
+                  </Col>
                 </Row>
               )}
             </Container>
@@ -128,7 +140,11 @@ function SearchProfilSahabatTerperinci() {
           )}
         </React.Fragment>
       ))}
-    </div>
+
+      <div className="kembaliBtnPlacement">
+        <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
+      </div>
+    </>
   );
 }
 

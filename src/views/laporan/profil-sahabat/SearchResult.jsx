@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-function SearchResultPembiayaanSahabat({resultSahabat, sahabatId, pembiayaanSahabats, selectedSkimPembiayaan}) {
+function SearchResultPembiayaanSahabat({ resultSahabat, sahabatId, pembiayaanSahabats, selectedSkimPembiayaan }) {
   // ----------FE----------
   // Navigate to profil sahabat along with sahabat and pembiayaan data
   const navigate = useNavigate();
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
-    navigate('/profil-sahabat/', {state: {resultSahabat, sahabatId, pembiayaanSahabatId}});
+    navigate('/profil-sahabat/', { state: { resultSahabat, sahabatId, pembiayaanSahabatId } });
   };
 
   // ------------ BE --------------
@@ -18,8 +18,8 @@ function SearchResultPembiayaanSahabat({resultSahabat, sahabatId, pembiayaanSaha
   );
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="hasilCarianPembiayaan ">
         <div className="hasilCarianSahabatTitle">
           <h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3>
           <hr />
@@ -52,7 +52,7 @@ function SearchResultPembiayaanSahabat({resultSahabat, sahabatId, pembiayaanSaha
           </Table>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

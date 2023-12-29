@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
@@ -18,7 +18,7 @@ function SearchResultPembiayaanTerperinciSahabat({resultSahabat, sahabatId, pemb
   );
 
   return (
-    <div>
+    <>
       <div className="hasilCarianPembiayaan ">
         <div className="hasilCarianSahabatTitle">
           <h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3>
@@ -52,7 +52,7 @@ function SearchResultPembiayaanTerperinciSahabat({resultSahabat, sahabatId, pemb
           </Table>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
