@@ -6,7 +6,7 @@ const LineChart = ({ selectedChart, data }) => {
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    // Destroy existing Chart instance
+    // Destroy existing chart instance
     if (chartInstance.current) {
       chartInstance.current.destroy();
     }
@@ -15,52 +15,17 @@ const LineChart = ({ selectedChart, data }) => {
     const ctx = chartRef.current.getContext("2d");
 
     let chartData;
+    
     if (selectedChart === "Graf Inflow") {
+      chartData = createChartData(data, "Inflow", "rgba(60, 179, 113)");
+    } else if (selectedChart === "Graf Outflow") {
+      chartData = createChartData(data, "Outflow", "rgba(255, 0, 0)");
+    } else if (selectedChart === "Graf Inflow Outflow") {
       chartData = {
         labels: data ? data.map((entry) => entry.minggu) : [],
         datasets: [
-          {
-            label: "Inflow",
-            data: data ? data.map((entry) => entry.inflow) : [],
-            borderColor: "rgba(60, 179, 113)",
-            borderWidth: 2,
-            fill: false,
-          },
-        ],
-      };
-    } 
-    else if (selectedChart === "Graf Outflow") {
-      chartData = {
-        labels: data ? data.map((entry) => entry.minggu) : [],
-        datasets: [
-          {
-            label: "Outflow",
-            data: data ? data.map((entry) => entry.outflow) : [],
-            borderColor: "rgba(255, 0, 0)",
-            borderWidth: 2,
-            fill: false,
-          },
-        ],
-      };
-    } 
-    else if (selectedChart === "Graf Inflow Outflow") {
-      chartData = {
-        labels: data ? data.map((entry) => entry.minggu) : [],
-        datasets: [
-          {
-            label: "Inflow",
-            data: data ? data.map((entry) => entry.inflow) : [],
-            borderColor: "rgba(60, 179, 113)",
-            borderWidth: 2,
-            fill: false,
-          },
-          {
-            label: "Outflow",
-            data: data ? data.map((entry) => entry.outflow) : [],
-            borderColor: "rgba(255, 0, 0)",
-            borderWidth: 2,
-            fill: false,
-          },
+          createDataset(data, "Inflow", "rgba(60, 179, 113)"),
+          createDataset(data, "Outflow", "rgba(255, 0, 0)"),
         ],
       };
     }
@@ -81,6 +46,25 @@ const LineChart = ({ selectedChart, data }) => {
       }
     };
   }, [selectedChart, data]);
+
+  const createChartData = (data, label, borderColor) => {
+    return {
+      labels: data ? data.map((entry) => entry.minggu) : [],
+      datasets: [
+        createDataset(data, label, borderColor),
+      ],
+    };
+  };
+
+  const createDataset = (data, label, borderColor) => {
+    return {
+      label: label,
+      data: data ? data.map((entry) => entry[label.toLowerCase()]) : [],
+      borderColor: borderColor,
+      borderWidth: 2,
+      fill: false,
+    };
+  };
 
   return <canvas ref={chartRef} className="chartCanvas" />;
 };
