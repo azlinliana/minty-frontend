@@ -40,7 +40,7 @@ function EditMinggu({sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId}
 
   return(
     <div>
-      <Button variant="primary" onClick={openModalEditMinggu}> Kemas Kini</Button>{" "}
+      <Button variant="primary" onClick={openModalEditMinggu}>Kemas Kini</Button>{" "}
 
       <Modal show={isModalEditMinggu} onHide={closeModalEditMinggu} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Minggu</Modal.Title></Modal.Header>
@@ -94,7 +94,7 @@ function EditMinggu({sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId}
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditMinggu}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateMingguPembiayaanSahabat)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateMingguPembiayaanSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

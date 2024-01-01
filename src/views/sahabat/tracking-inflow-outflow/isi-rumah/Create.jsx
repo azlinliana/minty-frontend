@@ -141,7 +141,7 @@ function CreateTrackingIsiRumah({mingguId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createIsiRumah)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -95,7 +95,7 @@ function CreateMinggu({sahabatId, pembiayaanId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateMinggu}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createMingguPembiayaanSahabat)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createMingguPembiayaanSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -115,7 +115,7 @@ function EditTrackingInflowIsiRumah({isiRumahId, inflowIsiRumahId, inflowIsiRuma
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditInflowIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateInflowIsiRumah)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

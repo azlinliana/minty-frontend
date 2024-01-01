@@ -187,7 +187,7 @@ function CreateKodInflow() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateKodInflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createKodInflow)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createKodInflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

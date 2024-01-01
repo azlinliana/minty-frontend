@@ -108,7 +108,7 @@ function EditDimensi({dimensi}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditDimensi}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateDimensi)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateDimensi)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

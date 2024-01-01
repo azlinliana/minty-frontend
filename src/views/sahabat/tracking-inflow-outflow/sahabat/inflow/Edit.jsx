@@ -114,7 +114,7 @@ function EditTrackingInflowSahabat({mingguId, inflowSahabatId, inflowSahabat}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditInflowSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateInflowSahabat)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateInflowSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

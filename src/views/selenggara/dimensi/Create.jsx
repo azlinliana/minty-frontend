@@ -94,7 +94,7 @@ function CreateDimensi() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateDimensi}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createDimensi)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createDimensi)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

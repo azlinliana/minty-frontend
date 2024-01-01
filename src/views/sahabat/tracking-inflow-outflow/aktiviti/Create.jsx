@@ -279,7 +279,7 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateAktiviti}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createAktiviti)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

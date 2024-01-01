@@ -255,7 +255,7 @@ function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditAktiviti}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateAktiviti)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

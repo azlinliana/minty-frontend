@@ -94,7 +94,7 @@ function CreateHubungan() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateHubungan}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createHubungan)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createHubungan)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

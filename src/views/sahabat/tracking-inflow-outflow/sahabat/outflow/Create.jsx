@@ -115,7 +115,7 @@ function CreateTrackingOutflowSahabat({mingguId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateOutflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createOutflowSahabat)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createOutflowSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

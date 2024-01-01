@@ -106,7 +106,7 @@ function EditHubungan({hubungan}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditHubungan}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateHubungan)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateHubungan)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

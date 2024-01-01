@@ -115,7 +115,7 @@ function CreateTrackingInflowSahabat({mingguId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateTrackingInflowSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

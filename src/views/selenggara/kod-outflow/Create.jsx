@@ -94,7 +94,7 @@ function CreateKodOutflow() {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateKodOutflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

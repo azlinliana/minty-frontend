@@ -118,7 +118,7 @@ function EditTrackingOutflowIsiRumah({isiRumahId,outflowIsiRumahId, outflowIsiRu
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditOutflowIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateOutflowIsiRumah)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateOutflowIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

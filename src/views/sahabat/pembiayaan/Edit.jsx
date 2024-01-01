@@ -89,7 +89,7 @@ function EditPembiayaan({sahabatId, pembiayaanId, pembiayaanSahabat}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

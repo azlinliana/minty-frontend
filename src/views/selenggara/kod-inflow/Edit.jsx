@@ -49,7 +49,7 @@ function EditKodInflow({kodInflowId}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditKodInflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateKodInflow)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateKodInflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

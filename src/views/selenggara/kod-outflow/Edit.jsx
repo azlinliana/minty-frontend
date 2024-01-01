@@ -109,7 +109,7 @@ function EditKodOutflow({kodOutflowId}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditKodOutflow}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

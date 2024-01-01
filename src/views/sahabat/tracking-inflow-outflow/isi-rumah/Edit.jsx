@@ -138,7 +138,7 @@ function EditTrackingIsiRumah({mingguId, isiRumahSahabat}) {
         
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalEditIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateIsiRumah)}>Kemas Kini</Button>
+          <Button variant="primary" onClick={handleSubmit(updateIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>

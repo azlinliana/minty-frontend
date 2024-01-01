@@ -115,7 +115,7 @@ function CreateTrackingOutflowIsiRumah({isiRumahId}) {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalCreateOutflowIsiRumah}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createOutflowIsiRumah)}>Tambah</Button>
+          <Button variant="primary" onClick={handleSubmit(createOutflowIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </div>
