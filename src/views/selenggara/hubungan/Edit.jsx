@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditHubungan({hubungan}) {
+function EditHubungan({ hubungan }) {
   // ----------FE----------
   // Modal
   const [isModalEditHubungan, setIsModalEditHubungan] = useState(false);
@@ -27,17 +27,18 @@ function EditHubungan({hubungan}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditHubungan();
-        console.log('Hubungan berjaya dikemas kini');
+      }
+      else {
+        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error);
-      console.error('Ralat dalam mengemas kini hubungan', error);
     }
   };
 
-  return(
-    <div>
-      <Button variant="warning" onClick={openModalEditHubungan}>Kemas Kini</Button>{' '}
+  return (
+    <>
+      <Button className="editBtn" onClick={openModalEditHubungan}>Kemas Kini</Button>{' '}
 
       <Modal show={isModalEditHubungan} onHide={closeModalEditHubungan} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Hubungan</Modal.Title></Modal.Header>
@@ -51,7 +52,7 @@ function EditHubungan({hubungan}) {
                 id="kodHubungan"
                 control={control}
                 defaultValue={hubungan.kodHubungan}
-                rules={{required: 'Kod hubungan diperlukan'}}
+                rules={{required: 'Kod hubungan diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -72,7 +73,7 @@ function EditHubungan({hubungan}) {
                 id="keteranganHubungan"
                 control={control}
                 defaultValue={hubungan.keteranganHubungan}
-                rules={{required: 'Keterangan hubungan diperlukan'}}
+                rules={{required: 'Keterangan hubungan diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
@@ -109,7 +110,7 @@ function EditHubungan({hubungan}) {
           <Button variant="primary" onClick={handleSubmit(updateHubungan)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

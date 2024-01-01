@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../Selenggara.css";
 import CreateHubungan from './Create';
 import EditHubungan from './Edit';
@@ -7,36 +7,36 @@ import DeletionAlert from '../../components/sweet-alert/DeletionAlert';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
+import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function IndexHubungan() {
   // ----------FE----------
-  const [hubungans, setHubungans] = useState([]);
-
   // Back button
   const navigate = useNavigate();
   const goBack = () => {navigate(-1);};
 
   // ----------BE----------
+  // List hubungan
+  const [hubungans, setHubungans] = useState([]);
   const fetchHubungans = async() => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/selenggara/hubungan');
-      setHubungans(response.data);
-    } catch(error) {
-      console.error('Ralat dalam mengambil maklumat hubungan:', error);
+
+      if (response.status === 200) {
+        setHubungans(response.data);
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error);
     }
   };
 
   useEffect(() => {
     fetchHubungans();
-    const interval = setInterval(() => { // Set up recurring fetch every 1 second
-      fetchHubungans();
-    }, 1000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
 
   // Delete hubungan
@@ -45,16 +45,16 @@ function IndexHubungan() {
     const performDeletion = async () => {
       try {
         const response = await axios.delete(`http://127.0.0.1:8000/api/selenggara/hubungan/${hubunganId}`);
+        
         if (response.status === 200) {
           setHubungans((prevHubungans) =>
             prevHubungans.filter((hubungan) => hubungan.id !== hubunganId)
           );
           // Show success message from the server
           Swal.fire('Dipadam!', response.data.message, 'success');
-          console.log('Hubungan berjaya dipadam');
         }
       } catch (error) {
-        console.error('Ralat dalam memadam hubungan', error);
+        ErrorAlert(error);
       }
     };
 
@@ -67,8 +67,8 @@ function IndexHubungan() {
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
-  return(
-    <div>
+  return (
+    <>
       <div className="pageTitle">
         <h1>Hubungan</h1>
 
@@ -79,20 +79,19 @@ function IndexHubungan() {
       </div>
 
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateHubungan />
-        </div>
+        <div className="tambahBtnPlacement"><CreateHubungan /></div>
 
         <Table responsive>
           <thead>
             <tr>
               <th>Bil.</th>
               <th>Kod Hubungan</th>
-              <th>Keterangan</th>
+              <th>Keterangan Kod Hubungan</th>
               <th>Status</th>
               <th>Tindakan</th>
             </tr>
           </thead>
+
           <tbody>
             {hubungans.length === 0 ? (
               <tr><td colSpan="5"><center>Tiada maklumat</center></td></tr>
@@ -104,8 +103,8 @@ function IndexHubungan() {
                   <td>{hubungansData.keteranganHubungan}</td>
                   <td>{hubungansData.statusHubungan}</td>
                   <td>
-                    <EditHubungan hubungan={hubungansData}/>
-                    <Button variant="danger" onClick={() => deleteHubungan(hubungansData.id)}>Padam</Button>{' '}
+                    <EditHubungan hubungan={hubungansData} />
+                    <Button className="delBtn" onClick={() => deleteHubungan(hubungansData.id)}>Padam</Button>{' '}
                   </td>
                 </tr>
               ))
@@ -117,7 +116,7 @@ function IndexHubungan() {
           <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

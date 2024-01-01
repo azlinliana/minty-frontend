@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import axios from 'axios';
 
 function CreateHubungan() {
@@ -26,19 +26,21 @@ function CreateHubungan() {
   const createHubungan = async(hubunganInput) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/selenggara/hubungan', hubunganInput);  
+      
       if(response.status === 200) {
         SuccessAlert(response.data.message);
-        console.log('Hubungan berjaya ditambah');
         closeModalCreateHubungan();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error);
-      console.log('Tindak balas API tidak seperti yang diharapkan');
     }
   };
 
-  return(
-    <div>
+  return (
+    <>
       <Button variant="primary" onClick={openModalCreateHubungan}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
       
       <Modal show={isModalCreateHubungan} onHide={closeModalCreateHubungan} backdrop="static" keyboard={false}>
@@ -54,7 +56,7 @@ function CreateHubungan() {
                 id="kodHubungan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod hubungan is required'}}
+                rules={{required: 'Kod hubungan diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -76,7 +78,7 @@ function CreateHubungan() {
                 id="keteranganHubungan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan hubungan is required'}}
+                rules={{required: 'Keterangan hubunngan diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
@@ -97,7 +99,7 @@ function CreateHubungan() {
           <Button variant="primary" onClick={handleSubmit(createHubungan)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

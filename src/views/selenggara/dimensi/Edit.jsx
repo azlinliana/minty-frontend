@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditDimensi({dimensi}) {
+function EditDimensi({ dimensi }) {
   // ----------FE----------
   // Modal
   const [isModalEditDimensi, setIsModalEditDimensi] = useState(false);
@@ -27,17 +27,18 @@ function EditDimensi({dimensi}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditDimensi();
-        console.log('Dimensi berjaya dikemas kini');
+      }
+      else {
+        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error);
-      console.error('Ralat dalam mengemas kini dimensi', error);
     }
   };
 
   return (
     <div>
-      <Button variant="warning" onClick={openModalEditDimensi}>Kemas Kini</Button>{' '}
+      <Button className="editBtn" onClick={openModalEditDimensi}>Kemas Kini</Button>{' '}
 
       <Modal show={isModalEditDimensi} onHide={closeModalEditDimensi} backdrop="static" keyboard={false}>
         <Modal.Header closeButton><Modal.Title>Kemas Kini Dimensi</Modal.Title></Modal.Header>
@@ -52,7 +53,7 @@ function EditDimensi({dimensi}) {
                 id="kodDimensi"
                 control={control}
                 defaultValue={dimensi.kodDimensi}
-                rules={{required: 'Kod dimensi diperlukan'}}
+                rules={{required: 'Kod dimensi diperlukan.'}}
                 render={({field:{onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -73,7 +74,7 @@ function EditDimensi({dimensi}) {
                 id="keteranganDimensi"
                 control={control}
                 defaultValue={dimensi.keteranganDimensi}
-                rules={{ required: 'Keterangan dimensi diperlukan' }}
+                rules={{ required: 'Keterangan dimensi diperlukan.' }}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"

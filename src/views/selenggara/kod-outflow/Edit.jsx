@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function EditKodOutflow({kodOutflowId}) {
+function EditKodOutflow({ kodOutflow }) {
   // ----------FE----------
   // Modal
   const [isModalEditKodOutflow, setIsModalEditKodOutflow] = useState(false);
@@ -27,16 +27,17 @@ function EditKodOutflow({kodOutflowId}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditKodOutflow();
-        console.log('Kod outflow berjaya dikemas kini');
+      }
+      else {
+        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error);
-      console.error('Ralat dalam mengemas kini kod outflow', error);
     }
   };
 
-  return(
-    <div>
+  return (
+    <>
       <Button className="editBtn" onClick={openModalEditKodOutflow}>Kemas Kini</Button>{' '}
 
       <Modal show={isModalEditKodOutflow} onHide={closeModalEditKodOutflow} backdrop="static" keyboard={false}>
@@ -51,8 +52,8 @@ function EditKodOutflow({kodOutflowId}) {
                 name="kodOutflow"
                 id="kodOutflow"
                 control={control}
-                defaultValue=""
-                rules={{required: 'Kod outflow diperlukan'}}
+                defaultValue={kodOutflow.kodOutflow}
+                rules={{required: 'Kod outflow diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -73,8 +74,8 @@ function EditKodOutflow({kodOutflowId}) {
                 name="keteranganKodOutflow"
                 id="keteranganKodOutflow"
                 control={control}
-                defaultValue=""
-                rules={{required: 'Keterangan kod outflow diperlukan'}}
+                defaultValue={kodOutflow.keteranganKodOutflow}
+                rules={{required: 'Keterangan kod outflow diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
@@ -94,9 +95,9 @@ function EditKodOutflow({kodOutflowId}) {
               <Controller
                 name="statusKodOutflow"
                 control={control}
-                defaultValue=""
+                defaultValue={kodOutflow.statusKodOutflow}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                  <Form.Select onChange={onChange} defaultValue={kodOutflow.statusKodOutflow}>
                     <option value="" disabled>--Pilih Kod Outflow--</option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="TIDAK AKTIF">TIDAK AKTIF</option>
@@ -112,7 +113,7 @@ function EditKodOutflow({kodOutflowId}) {
           <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

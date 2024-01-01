@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import "../Selenggara.css";
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
-import axios from "axios";
+import DeletionAlert from '../../components/sweet-alert/DeletionAlert';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import Swal from 'sweetalert2';
+import axios from "axios";
 
 function IndexKodOutflow() {
   // ----------FE----------
@@ -20,6 +22,7 @@ function IndexKodOutflow() {
   const fetchKodOutflows = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-outflow`);
+      
       if (response.status === 200) {
         setKodOutflows(response.data);
       }
@@ -34,17 +37,38 @@ function IndexKodOutflow() {
 
   useEffect(() => {
     fetchKodOutflows();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchKodOutflows();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
   }, []);
 
-  return(
-    <div>
+  // Delete kod outflow
+  const deleteKodOutflow = async (kodOutflowId) => {
+    // Function to delete kod outflow
+    const performDeletion = async () => {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/selenggara/kod-outflow/${kodOutflowId}`);
+        
+        if (response.status === 200) {
+          setKodOutflows((prevKodOutflows) =>
+            prevKodOutflows.filter((kodOutflow) => kodOutflow.id !== kodOutflowId)
+          );
+          // Show success message from the server
+          Swal.fire('Dipadam!', response.data.message, 'success');
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
+
+  return (
+    <>
       <div className="pageTitle">
         <h1>Kod Outflow</h1>
 
@@ -55,9 +79,7 @@ function IndexKodOutflow() {
       </div>
 
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateKodOutflow />
-        </div>
+        <div className="tambahBtnPlacement"><CreateKodOutflow /></div>
 
         <Table responsive>
           <thead>
@@ -65,9 +87,11 @@ function IndexKodOutflow() {
               <th>Bil.</th>
               <th>Kod Outflow</th>
               <th>Keterangan Kod Outflow</th>
+              <th>Status</th>
               <th>Tindakan</th>
             </tr>
           </thead>
+
           <tbody>
             {kodOutflows.length === 0 ? (
               <tr><td colSpan="6"><center>Tiada maklumat kod outflow. Sila klik butang "Tambah" untuk merekodkan kod outflow baharu.</center></td></tr>
@@ -77,9 +101,10 @@ function IndexKodOutflow() {
                   <td>{index + 1}</td>
                   <td>{kodOutflowsData.kodOutflow}</td>
                   <td>{kodOutflowsData.keteranganKodOutflow}</td>
+                  <td>{kodOutflowsData.statusKodOutflow}</td>
                   <td>
-                    <EditKodOutflow kodOutflowId={kodOutflowsData.id} />
-                    <Button className="delBtn" variant="danger">Padam</Button>{" "}
+                    <EditKodOutflow kodOutflow={kodOutflowsData} />
+                    <Button className="delBtn" variant="danger" onClick={() => deleteKodOutflow(kodOutflowsData.id)}>Padam</Button>{" "}
                   </td>
                 </tr>
               ))
@@ -89,7 +114,7 @@ function IndexKodOutflow() {
 
         <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
       </div>
-    </div>
+    </>
   );
 }
 

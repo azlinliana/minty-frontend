@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import axios from 'axios';
 
 function CreateKodOutflow() {
@@ -26,19 +26,21 @@ function CreateKodOutflow() {
   const createKodOutflow = async(kodOutflowInput) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/selenggara/kod-outflow', kodOutflowInput);  
+      
       if(response.status === 200) {
         SuccessAlert(response.data.message);
-        console.log('Kod outflow berjaya ditambah');
         closeModalCreateKodOutflow();
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
       ErrorAlert(error);
-      console.log('Tindak balas API tidak seperti yang diharapkan');
     }
   };
 
   return (
-    <div>
+    <>
       <Button variant="primary" onClick={openModalCreateKodOutflow}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
       
       <Modal show={isModalCreateKodOutflow} onHide={closeModalCreateKodOutflow} backdrop="static" keyboard={false}>
@@ -97,7 +99,7 @@ function CreateKodOutflow() {
           <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

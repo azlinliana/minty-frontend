@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import axios from 'axios';
 
 function CreateDimensi() {
@@ -26,19 +26,18 @@ function CreateDimensi() {
   const createDimensi = async(dimensiInput) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/selenggara/dimensi', dimensiInput);  
+      
       if(response.status === 200) {
         SuccessAlert(response.data.message);
-        console.log('Dimensi berjaya ditambah');
         closeModalCreateDimensi();
       }
     } catch (error) {
       ErrorAlert(error);
-      console.log('Tindak balas API tidak seperti yang diharapkan');
     }
   };
 
-  return(
-    <div>
+  return (
+    <>
       <Button variant="primary" onClick={openModalCreateDimensi}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
       <Modal show={isModalCreateDimensi} onHide={closeModalCreateDimensi} backdrop="static" keyboard={false}>
@@ -54,7 +53,7 @@ function CreateDimensi() {
                 id="kodDimensi"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod dimensi is required'}}
+                rules={{required: 'Kod dimensi diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     type="text"
@@ -76,7 +75,7 @@ function CreateDimensi() {
                 id="keteranganDimensi"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan dimensi is required'}}
+                rules={{required: 'Keterangan dimensi diperlukan.'}}
                 render={({field: {onChange, value}}) => (
                   <Form.Control
                     as="textarea"
@@ -97,7 +96,7 @@ function CreateDimensi() {
           <Button variant="primary" onClick={handleSubmit(createDimensi)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../Selenggara.css";
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
@@ -7,37 +7,35 @@ import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function IndexDimensi() {
   // ----------FE----------
-  const [dimensis, setDimensis] = useState([]);
-
   // Back button
   const navigate = useNavigate();
   const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List dimensi
+  const [dimensis, setDimensis] = useState([]);
   const fetchDimensis = async() => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/selenggara/dimensi');
-      setDimensis(response.data);
+
+      if (response.status === 200) {
+        setDimensis(response.data);
+      }
+      else {
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
     } catch(error) {
-      console.error('Ralat dalam mengambil maklumat dimensi:', error);
+      ErrorAlert(error);    
     }
   };
 
   useEffect(() => {
     fetchDimensis();
-    const interval = setInterval(() => { // Set up recurring fetch every 1 second
-      fetchDimensis();
-    }, 1000);
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
 
   // Delete dimensi
@@ -46,16 +44,16 @@ function IndexDimensi() {
     const performDeletion = async () => {
       try {
         const response = await axios.delete(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensiId}`);
+        
         if (response.status === 200) {
           setDimensis((prevDimensis) =>
             prevDimensis.filter((dimensi) => dimensi.id !== dimensiId)
           );
           // Show success message from the server
           Swal.fire('Dipadam!', response.data.message, 'success');
-          console.log('Dimensi berjaya dipadam');
         }
       } catch (error) {
-        console.error('Ralat dalam memadam dimensi', error);
+        ErrorAlert(error);
       }
     };
 
@@ -68,8 +66,8 @@ function IndexDimensi() {
     DeletionAlert(performDeletion, cancelDeletion);
   };
   
-  return(
-    <div>
+  return (
+    <>
       <div className="pageTitle">
         <h1>Dimensi</h1>
 
@@ -80,20 +78,19 @@ function IndexDimensi() {
       </div>
 
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateDimensi />
-        </div>
+        <div className="tambahBtnPlacement"><CreateDimensi /></div>
 
         <Table responsive>
           <thead>
             <tr>
               <th>Bil.</th>
               <th>Kod Dimensi</th>
-              <th>Keterangan</th>
+              <th>Keterangan Dimensi</th>
               <th>Status</th>
               <th>Tindakan</th>
             </tr>
           </thead>
+
           <tbody>
             {dimensis.length === 0 ? (
               <tr><td colSpan="5"><center>Tiada maklumat</center></td></tr>
@@ -106,7 +103,7 @@ function IndexDimensi() {
                   <td>{dimensisData.statusDimensi}</td>
                   <td>
                     <EditDimensi dimensi={dimensisData}/>
-                    <Button variant="danger" onClick={() => deleteDimensi(dimensisData.id)}>Padam</Button>{' '}
+                    <Button className="delBtn" onClick={() => deleteDimensi(dimensisData.id)}>Padam</Button>{' '}
                   </td>
                 </tr>
               ))
@@ -118,7 +115,7 @@ function IndexDimensi() {
           <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
