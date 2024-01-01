@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
-import {Table} from "react-bootstrap";
-import axios from 'axios';
+import React from 'react';
+import Table from "react-bootstrap/Table";
 
-function PendapatanKumulatifKegiatan({maklumatPendapatanKumulatifKegiatanData}) {
+function PendapatanKumulatifKegiatan({ maklumatPendapatanKumulatifKegiatanData }) {
   return(
-    <div>
+    <>
       <div className="tableSection">
-        <div className="sectionHeader"><h1>Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan</h1></div>
+        <div className="sectionHeader">
+          <h1>Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan</h1>
+        </div>
 
         <Table responsive striped bordered className="laporanTable">
           <thead>
@@ -20,6 +20,7 @@ function PendapatanKumulatifKegiatan({maklumatPendapatanKumulatifKegiatanData}) 
               <th>Kegiatan</th>
             </tr>
           </thead>
+          
           <tbody>
             {/* Sahabat */}
             {maklumatPendapatanKumulatifKegiatanData?.sahabat && maklumatPendapatanKumulatifKegiatanData.sahabat.map((sahabatData, sahabatIndex) => (
@@ -49,7 +50,7 @@ function PendapatanKumulatifKegiatan({maklumatPendapatanKumulatifKegiatanData}) 
 
         <p>**Kod yang terlibat hanya A1 hingga A6 sahaja</p>
       </div>
-    </div>
+    </>
   );
 }
 

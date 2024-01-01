@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 // Helper function to render cells based on data type
 const renderCell = (data) => {
@@ -10,6 +10,7 @@ const renderCell = (data) => {
 };
 
 function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData }) {
+  // ------------ BE --------------
   // Extract data from props
   const { sahabat, isiRumah, baki, jumlah } = pendapatanVSPerbelanjaanData;
 
@@ -35,7 +36,7 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
   const overallMinus = jumlah ? jumlah.overallMinus : {};
 
   return (
-    <div>
+    <>
       <div className="tableSection">
         <div className="sectionHeader">
           <h1>Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan</h1>
@@ -50,6 +51,7 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
               <th>Jumlah (RM)</th>
             </tr>
           </thead>
+          
           <tbody>
             <tr>
               <td>PENDAPATAN</td>
@@ -81,7 +83,7 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 

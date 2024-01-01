@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useLocation} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import "../../Laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
@@ -8,19 +7,20 @@ import PendapatanKumulatifKegiatan from './PendapatanKumulatifKegiatan';
 import PendapatanKumulatifSumberPengusaha from './PendapatanKumulatifSumberPengusaha';
 import PerbelanjaanKumulatifSumberPengusaha from './PerbelanjaanKumulatifSumberPengusaha';
 import PendapatanVSPerbelanjaanSumberPengusaha from './PendapatanVSPerbelanjaanSumberPengusaha';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Button from 'react-bootstrap/Button';
 import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
-import { Breadcrumb, Button } from "react-bootstrap";
 import axios from 'axios';
 
 function ShowProfilSahabatTerperinci() {
   // ------------ FE --------------
   // Back button
   const navigate = useNavigate();
-  const goBack = () => {navigate(-1);};
+  const goBack = () => { navigate(-1); };
 
   // Get pembiayaan sahabat
   const location = useLocation();
-  const {resultSahabat, sahabatId, pembiayaanSahabatId} = location.state;
+  const { resultSahabat, sahabatId, pembiayaanSahabatId } = location.state;
 
   // ------------ BE --------------
   // Fetch profil sahabat terperinci
@@ -30,12 +30,10 @@ function ShowProfilSahabatTerperinci() {
       const response = await axios.get(`http://127.0.0.1:8000/api/laporan/profil-sahabat-terperinci/${sahabatId}/${pembiayaanSahabatId}`);
       if (response.status === 200) {
         setProfilSahabatTerperinci(response.data);
-      } 
-      else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknown error from the server side
       }
-    } 
-    catch (error) {
+    } catch (error) {
       ErrorAlert(error);
     }
   };
@@ -44,8 +42,8 @@ function ShowProfilSahabatTerperinci() {
     getProfilSahabatTerperinci();
   }, [profilSahabatTerperinci]);
 
-  return(
-    <div>
+  return (
+    <>
       <div className="pageTitle">
         <h1>Profil Sahabat Terperinci</h1>
 
@@ -58,10 +56,12 @@ function ShowProfilSahabatTerperinci() {
         <div className="hasilCarian"><p><strong>Hasil Carian: {resultSahabat.map((dataSahabat) => (dataSahabat.noKadPengenalanSahabat))}</strong></p></div>
       </div>
 
-      <div className="buttonContainer"><Button variant="primary">Cetak</Button>{" "}</div>
+      <div className="buttonContainer">
+        <Button variant="primary">Cetak</Button>{" "}
+      </div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas sahabatId={sahabatId} pembiayaanSahabatId={pembiayaanSahabatId} maklumatAsasData={profilSahabatTerperinci.maklumatAsas || {}} />
+      <MaklumatAsas maklumatAsasData={profilSahabatTerperinci.maklumatAsas || {}} />
 
       {/* Bahagian B: Maklumat Kegiatan & Modal */}
       <MaklumatKegiatanModal maklumatKegiatanModalData={profilSahabatTerperinci.maklumatKegiatanModal || {}} />
@@ -79,9 +79,9 @@ function ShowProfilSahabatTerperinci() {
       <PendapatanVSPerbelanjaanSumberPengusaha pendapatanVSPerbelanjaanData={profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan || {}} />
 
       <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
-        </div>
-    </div>
+        <Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}
+      </div>
+    </>
   );
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 function MaklumatKegiatanModal() {
   return (
-    <div>
+    <>
       <div className="tableSection">
         <div className="sectionHeader">
           <h1>Bahagian B: Maklumat Kegiatan & Modal</h1>
@@ -59,7 +59,7 @@ function MaklumatKegiatanModal() {
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 

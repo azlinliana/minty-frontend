@@ -45,9 +45,11 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
   const sortedKeys = allSumberKeys.sort(naturalSort);
 
   return (
-    <div>
+    <>
       <div className="tableSection">
-        <div className="sectionHeader"><h1>Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha</h1></div>
+        <div className="sectionHeader">
+          <h1>Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha</h1>
+        </div>
         
         <Table responsive striped bordered className="laporanTable">
           <thead>
@@ -58,6 +60,7 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
               <th>Jumlah (RM)</th>
             </tr>
           </thead>
+          
           <tbody>
             {sortedKeys.map((sumberKey) => (
               <tr key={sumberKey}>
@@ -85,7 +88,7 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 

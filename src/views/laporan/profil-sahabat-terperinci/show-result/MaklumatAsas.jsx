@@ -1,11 +1,13 @@
 import React from 'react';
 import Table from "react-bootstrap/Table";
 
-function MaklumatAsas({maklumatAsasData}) {
+function MaklumatAsas({ maklumatAsasData }) {
   return (
-    <div>
+    <>
       <div className="tableSection">
-        <div className="sectionHeader"><h1>Bahagian A: Maklumat Asas</h1></div>
+        <div className="sectionHeader">
+          <h1>Bahagian A: Maklumat Asas</h1>
+        </div>
 
         <Table responsive striped bordered className="laporanTable">
           <tbody>
@@ -57,7 +59,7 @@ function MaklumatAsas({maklumatAsasData}) {
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 
