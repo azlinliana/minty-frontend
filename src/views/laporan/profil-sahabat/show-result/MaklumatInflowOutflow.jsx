@@ -40,9 +40,9 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     <tbody>
                         {rekodMingguanInflowOutflow.data.map((rekodMingguanInflowOutflowData, index) => (
                           <tr key={index}>
-                            <td>{rekodMingguanInflowOutflowData.minggu}</td>
-                            <td>{rekodMingguanInflowOutflowData.inflow}</td>
-                            <td>{rekodMingguanInflowOutflowData.outflow}</td>
+                            <td>{rekodMingguanInflowOutflowData.minggu || '-'}</td>
+                            <td>{rekodMingguanInflowOutflowData.inflow || '-'}</td>
+                            <td>{rekodMingguanInflowOutflowData.outflow || '-'}</td>
                           </tr>
                         ))}
                     </tbody>
@@ -50,8 +50,8 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     <tfoot>
                       <tr>
                         <td>Jumlah (RM)</td>
-                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.inflow, 0)}</td>
-                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.outflow, 0)}</td>
+                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.inflow, 0) || '-'}</td>
+                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.outflow, 0) || '-'}</td>
                       </tr>
                     </tfoot>
                   </Table>
@@ -74,11 +74,11 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     
                     <tbody>
                       <tr>
-                        <td>{rekodKumulatifInflowOutflow.jumlahBilanganMinggu}</td>
-                        <td>{rekodKumulatifInflowOutflow.kumulatifInflow}</td>
-                        <td>{rekodKumulatifInflowOutflow.kumulatifOutflow}</td>
-                        <td>{rekodKumulatifInflowOutflow.bersih}</td>
-                        <td>{rekodKumulatifInflowOutflow.pendapatanDaripadaA1}</td>
+                        <td>{rekodKumulatifInflowOutflow.jumlahBilanganMinggu || '-'}</td>
+                        <td>{rekodKumulatifInflowOutflow.kumulatifInflow || '-'}</td>
+                        <td>{rekodKumulatifInflowOutflow.kumulatifOutflow || '-'}</td>
+                        <td>{rekodKumulatifInflowOutflow.bersih || '-'}</td>
+                        <td>{rekodKumulatifInflowOutflow.pendapatanDaripadaA1 || '-'}</td>
                       </tr>
                     </tbody>
                   </Table>
