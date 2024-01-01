@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate, useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../sahabat.css";
 import IndexPembiayaan from "../pembiayaan/Index";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
@@ -15,11 +15,12 @@ function SearchResultSahabat() {
   const location = useLocation();
   const resultSahabat = location.state.resultSahabat || [];
 
+  // Back button
   const navigate = useNavigate();
   const goBack = () => {navigate(-1);}; // Back button
 
   return (
-    <div>
+    <>
       <div className="pageTitle">
         <h1>Hasil Carian Sahabat</h1>
 
@@ -69,7 +70,7 @@ function SearchResultSahabat() {
                   <Col xs={12}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Wilayah</Form.Label>
-                      <Form.Control type="text" value={dataSahabat.wilayahSahabat} disabled />
+                      <Form.Control type="text" value={dataSahabat.wilayahId} disabled />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -78,7 +79,7 @@ function SearchResultSahabat() {
                   <Col xs={12}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Cawangan</Form.Label>
-                      <Form.Control type="text" value={dataSahabat.cawanganSahabat} disabled />
+                      <Form.Control type="text" value={dataSahabat.cawanganId} disabled />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -87,7 +88,7 @@ function SearchResultSahabat() {
                   <Col xs={12}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Pusat</Form.Label>
-                      <Form.Control type="text" value={dataSahabat.pusatSahabat} disabled />
+                      <Form.Control type="text" value={dataSahabat.pusatId} disabled />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -111,7 +112,7 @@ function SearchResultSahabat() {
       ))}
 
       <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
-    </div>
+    </>
   );
 }
 
