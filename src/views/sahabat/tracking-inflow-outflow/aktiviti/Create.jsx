@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import SuccessAlert from '../../../components/sweet-alert/SuccessAlert';
 import ErrorAlert from '../../../components/sweet-alert/ErrorAlert';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import axios from 'axios';
 
-function CreateAktiviti({sahabatId, pembiayaanId}) {
+function CreateAktiviti({ sahabatId, pembiayaanId }) {
   // ----------FE----------
   // Modal
   const [isModalCreateAktiviti, setIsModalCreateAktiviti] = useState(false);
@@ -19,66 +19,85 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
-
-  // Dummy data for simulation
-  // State for selected values
-  const [selectedAktiviti, setSelectedAktiviti] = useState('');
-  const [selectedKeteranganAktiviti, setSelectedKeteranganAktiviti] = useState('');
-
-  const [aktivitiOptions, setAktivitiOptions] = useState([]);
-  const [keteranganAktivitiOptions, setKeteranganAktivitiOptions] = useState([]);
-  const [projekAktivitiOptions, setProjekAktivitiOptions] = useState([]);
-  
-  useEffect(() => {
-    // Simulate process of fetching aktiviti, keterangan aktiviti, and projek aktiviti data
-    setAktivitiOptions([
-      { id: 1, jenisAktiviti: 'PERTANIAN' },
-      { id: 2, jenisAktiviti: 'TERNAKAN' },
-      { id: 3, jenisAktiviti: 'PERIKANAN' },
-      { id: 4, jenisAktiviti: 'PEMBUATAN' },
-      { id: 5, jenisAktiviti: 'PERNIAGAAN' },
-    ]);
-
-    setKeteranganAktivitiOptions([
-      { id: 1, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KEKAL' },
-      { id: 2, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KONTAN' },
-      { id: 3, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN DAGING' },
-      { id: 4, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN SUSU' },
-      { id: 5, aktivitiId: 3, jenisKeteranganAktiviti: 'AKUAKULTUR/TERNAKAN' },
-      { id: 6, aktivitiId: 3, jenisKeteranganAktiviti: 'PERALATAN' },
-      { id: 7, aktivitiId: 4, jenisKeteranganAktiviti: 'PERTUKANGAN' },
-      { id: 8, aktivitiId: 4, jenisKeteranganAktiviti: 'JAHITAN' },
-      { id: 9, aktivitiId: 5, jenisKeteranganAktiviti: 'PASAR MINI/KEDAI RUNCIT' },
-      { id: 10, aktivitiId: 5, jenisKeteranganAktiviti: 'BAKERI' },
-    ]);
-
-    setProjekAktivitiOptions([
-      { id: 1, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'GETAH' },
-      { id: 2, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'KOKO' },
-      { id: 3, aktivitiId: 1, keteranganAktivitiId: 2, jenisProjekAktiviti: 'JAGUNG' },
-      { id: 4, aktivitiId: 1, keteranganAktivitiId: 2, jenisProjekAktiviti: 'PISANG' },
-      { id: 5, aktivitiId: 2, keteranganAktivitiId: 3, jenisProjekAktiviti: 'LEMBU/KERBAU' },
-      { id: 6, aktivitiId: 2, keteranganAktivitiId: 3, jenisProjekAktiviti: 'BIRI-BIRI' },
-      { id: 7, aktivitiId: 2, keteranganAktivitiId: 4, jenisProjekAktiviti: 'LEMBU' },
-      { id: 8, aktivitiId: 2, keteranganAktivitiId: 4, jenisProjekAktiviti: 'KAMBING' },
-      { id: 9, aktivitiId: 3, keteranganAktivitiId: 5, jenisProjekAktiviti: 'IKAN' },
-      { id: 10, aktivitiId: 3, keteranganAktivitiId: 5, jenisProjekAktiviti: 'UDANG/KERANG' },
-      { id: 11, aktivitiId: 3, keteranganAktivitiId: 6, jenisProjekAktiviti: 'SAMPAN/BOT' },
-      { id: 12, aktivitiId: 3, keteranganAktivitiId: 6, jenisProjekAktiviti: 'JALA/PUKAT/SAUK' },
-      { id: 13, aktivitiId: 4, keteranganAktivitiId: 7, jenisProjekAktiviti: 'KIMPALAN BESI' },
-      { id: 14, aktivitiId: 4, keteranganAktivitiId: 7, jenisProjekAktiviti: 'SIMEN' },
-      { id: 15, aktivitiId: 4, keteranganAktivitiId: 8, jenisProjekAktiviti: 'PAKAIAN' },
-      { id: 16, aktivitiId: 4, keteranganAktivitiId: 8, jenisProjekAktiviti: 'BEG' },
-      { id: 17, aktivitiId: 5, keteranganAktivitiId: 9, jenisProjekAktiviti: 'BARANG RUNCIT' },
-      { id: 18, aktivitiId: 5, keteranganAktivitiId: 9, jenisProjekAktiviti: 'LAIN-LAIN' },
-      { id: 19, aktivitiId: 5, keteranganAktivitiId: 10, jenisProjekAktiviti: 'ROTI DAN KEK' },
-      { id: 20, aktivitiId: 5, keteranganAktivitiId: 10, jenisProjekAktiviti: 'LAIN-LAIN' },
-
-    ]);
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  const { handleSubmit, control, reset, formState: { errors } } = useForm();
   
   // ----------BE----------
+  // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
+  const [selectedKegiatan, setSelectedKegiatan] = useState('');
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState('');
+  const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState('');
+  const [kegiatanOptions, setKegiatanOptions] = useState([]);
+  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
+  const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kegiatan/display-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKegiatanOptions(response.data.map(kegiatan => ({
+            value: kegiatan.id,
+            label: kegiatan.jenisKegiatan
+          })));
+
+          fetchKegiatans();
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchKeteranganKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/keterangan-kegiatan/display-keterangan-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKeteranganKegiatanOptions(response.data.map(keteranganKegiatan => ({
+            value: keteranganKegiatan.id,
+            label: keteranganKegiatan.jenisKeteranganKegiatan,
+            kegiatanId: keteranganKegiatan.kegiatanId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchProjekKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/projek-kegiatan/display-projek-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setProjekKegiatanOptions(response.data.map(projekKegiatan => ({
+            value: projekKegiatan.id,
+            label: projekKegiatan.jenisProjekKegiatan,
+            kegiatanId: projekKegiatan.kegiatanId,
+            keteranganKegiatanId: projekKegiatan.keteranganKegiatanId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    fetchKegiatans();
+    fetchKeteranganKegiatans();
+    fetchProjekKegiatans();
+  }, []);
+
   // Fetch kod dimensi data
   const [kodDimensisData, setKodDimensisData] = useState([]);
   useEffect(() => {
@@ -90,8 +109,7 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
         } else {
           ErrorAlert(response.data);
         }
-      }
-      catch (error) {
+      } catch (error) {
         ErrorAlert(error);
       }
     };
@@ -101,6 +119,7 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
 
   // Create aktiviti
   const createAktiviti = async (aktivitiInput) => {
+    console.log(aktivitiInput);
     try{
       const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`, aktivitiInput);
       if (response.status === 200) {
@@ -118,8 +137,8 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
     }
   }
 
-  return(
-    <div>
+  return (
+    <>
       <Button variant="primary" onClick={openModalCreateAktiviti}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
 
       <Modal show={isModalCreateAktiviti} onHide={closeModalCreateAktiviti} backdrop="static" keyboard={false}>
@@ -128,69 +147,68 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="aktivitiId">Aktiviti</Form.Label>
+              <Form.Label htmlFor="kegiatanId">Aktiviti</Form.Label>
               <Controller
-                id="aktivitiId"
-                name="aktivitiId"
+                id="kegiatanId"
+                name="kegiatanId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Aktivti diperlukan.'}}
-                render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => {setSelectedAktiviti(e.target.value); onChange(e);}} defaultValue="">
+                render={({field: {onChange}}) => (     
+                  <Form.Select onChange={(e) => {setSelectedKegiatan(e.target.value); onChange(e);}} defaultValue="">
                     <option value="" disabled>--Pilih Aktiviti--</option>
-                      {aktivitiOptions.map((aktiviti) => (
-                        <option key={aktiviti.id} value={aktiviti.id}>{aktiviti.jenisAktiviti}</option>
-                      ))}
-                  </Form.Select>                
+                    {kegiatanOptions.map((kegiatan) => (
+                      <option key={kegiatan.value} value={kegiatan.value}>{kegiatan.label}</option>
+                    ))}
+                  </Form.Select>  
                 )}
               />
-              {errors.aktivitiId && (<small className="text-danger">{errors.aktivitiId.message}</small>)}       
+              {errors.kegiatanId && (<small className="text-danger">{errors.kegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="keteranganAktivitiId">Keterangan Aktiviti</Form.Label>
+              <Form.Label htmlFor="keteranganKegiatanId">Keterangan Aktiviti</Form.Label>
               <Controller
-                id="keteranganAktivitiId"
-                name="keteranganAktivitiId"
+                id="keteranganKegiatanId"
+                name="keteranganKegiatanId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Keterangan aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => {setSelectedKeteranganAktiviti(e.target.value); onChange(e);}} defaultValue="">
+                  <Form.Select onChange={(e) => {setSelectedKeteranganKegiatan(e.target.value); onChange(e);}} defaultValue="">
                     <option value="" disabled>--Pilih Keterangan Aktiviti--</option>
-                    {keteranganAktivitiOptions
-                      .filter((item) => item.aktivitiId === Number(selectedAktiviti))
-                      .map((keteranganAktiviti) => (
-                        <option key={keteranganAktiviti.id} value={keteranganAktiviti.id}>{keteranganAktiviti.jenisKeteranganAktiviti}</option>
+                    {keteranganKegiatanOptions
+                      .filter((item) => selectedKegiatan && item.kegiatanId === Number(selectedKegiatan))
+                      .map((keteranganKegiatan) => (
+                        <option key={keteranganKegiatan.value} value={keteranganKegiatan.value}>{keteranganKegiatan.label}</option>
                       ))
                     }
                   </Form.Select>
                 )}
               />
-              {errors.keteranganAktivitiId && (<small className="text-danger">{errors.keteranganAktivitiId.message}</small>)}       
+              {errors.keteranganKegiatanId && (<small className="text-danger">{errors.keteranganKegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="projekAktivitiId">Projek Aktiviti</Form.Label>
+              <Form.Label htmlFor="projekKegiatanId">Projek Aktiviti</Form.Label>
               <Controller
-                id="projekAktivitiId"
-                name="projekAktivitiId"
+                id="projekKegiatanId"
+                name="projekKegiatanId"
                 control={control}
                 defaultValue=""
                 rules={{required: 'Projek aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue="">
+                  <Form.Select onChange={(e) => {setSelectedProjekKegiatan(e.target.value); onChange(e);}} defaultValue="">
                     <option value="" disabled>--Pilih Projek Aktiviti--</option>
-                    {projekAktivitiOptions
-                      .filter((item) => item.keteranganAktivitiId === Number(selectedKeteranganAktiviti))
-                      .map((projekAktiviti) => (
-                        <option key={projekAktiviti.id} value={projekAktiviti.id}>{projekAktiviti.jenisProjekAktiviti}</option>
-                      ))
-                    }
+                    {projekKegiatanOptions
+                      .filter((item) => selectedKeteranganKegiatan && item.keteranganKegiatanId === Number(selectedKeteranganKegiatan))
+                      .map((projekKegiatan) => (
+                        <option key={projekKegiatan.value} value={projekKegiatan.value}>{projekKegiatan.label}</option>
+                      ))}
                   </Form.Select>
                 )}
               />
-              {errors.projekAktivitiId && (<small className="text-danger">{errors.projekAktivitiId.message}</small>)}       
+              {errors.projekKegiatanId && (<small className="text-danger">{errors.projekKegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
@@ -282,7 +300,7 @@ function CreateAktiviti({sahabatId, pembiayaanId}) {
           <Button variant="primary" onClick={handleSubmit(createAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

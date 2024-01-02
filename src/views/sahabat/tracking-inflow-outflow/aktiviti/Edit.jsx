@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from "react-hook-form";
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from "react-hook-form";
 import "../../sahabat.css";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
+function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti }) {
   // ----------FE----------
   // Modal
   const [isModalEditAktiviti, setIsModalEditAktiviti] = useState(false);
@@ -18,43 +18,94 @@ function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
-
-  // Dummy data for simulation
-  // State for selected values
-  const [selectedAktiviti, setSelectedAktiviti] = useState('');
-  const [selectedKeteranganAktiviti, setSelectedKeteranganAktiviti] = useState('');
-
-  const [aktivitiOptions, setAktivitiOptions] = useState([]);
-  const [keteranganAktivitiOptions, setKeteranganAktivitiOptions] = useState([]);
-  const [projekAktivitiOptions, setProjekAktivitiOptions] = useState([]);
-  
-  useEffect(() => {
-    // Simulate process of fetching aktiviti, keterangan aktiviti, and projek aktiviti data
-    setAktivitiOptions([
-      { id: 1, jenisAktiviti: 'PERTANIAN' },
-      { id: 2, jenisAktiviti: 'TERNAKAN' },
-      { id: 3, jenisAktiviti: 'PERIKANAN' },
-      { id: 4, jenisAktiviti: 'PEMBUATAN' },
-      { id: 5, jenisAktiviti: 'PERNIAGAAN' },
-    ]);
-
-    setKeteranganAktivitiOptions([
-      { id: 1, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KEKAL' },
-      { id: 2, aktivitiId: 1, jenisKeteranganAktiviti: 'TANAMAN KONTAN' },
-      { id: 3, aktivitiId: 2, jenisKeteranganAktiviti: 'TERNAKAN DAGING' },
-      // ... other options
-    ]);
-
-    setProjekAktivitiOptions([
-      { id: 1, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'GETAH' },
-      { id: 2, aktivitiId: 1, keteranganAktivitiId: 1, jenisProjekAktiviti: 'KOKO' },
-      // ... other options
-    ]);
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  const { handleSubmit, control, reset, formState: { errors } } = useForm();
 
   // ----------BE----------
-  // Fetch kod outflow data
+  // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
+  const [selectedKegiatan, setSelectedKegiatan] = useState('');
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState('');
+  const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState('');
+  const [kegiatanOptions, setKegiatanOptions] = useState([]);
+  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
+  const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
+
+  // Set initial values based on aktiviti prop
+  useEffect(() => {
+    if (aktiviti) {
+      setSelectedKegiatan(aktiviti.kegiatanId.toString());
+      setSelectedKeteranganKegiatan(aktiviti.keteranganKegiatanId.toString());
+      setSelectedProjekKegiatan(aktiviti.projekKegiatanId.toString());
+    }
+  }, [aktiviti]);
+
+  useEffect(() => {
+    const fetchKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kegiatan/display-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKegiatanOptions(response.data.map(kegiatan => ({
+            value: kegiatan.id,
+            label: kegiatan.jenisKegiatan
+          })));
+
+          fetchKegiatans();
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchKeteranganKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/keterangan-kegiatan/display-keterangan-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setKeteranganKegiatanOptions(response.data.map(keteranganKegiatan => ({
+            value: keteranganKegiatan.id,
+            label: keteranganKegiatan.jenisKeteranganKegiatan,
+            kegiatanId: keteranganKegiatan.kegiatanId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    const fetchProjekKegiatans = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/projek-kegiatan/display-projek-kegiatan`);
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setProjekKegiatanOptions(response.data.map(projekKegiatan => ({
+            value: projekKegiatan.id,
+            label: projekKegiatan.jenisProjekKegiatan,
+            kegiatanId: projekKegiatan.kegiatanId,
+            keteranganKegiatanId: projekKegiatan.keteranganKegiatanId,
+          })));
+        } 
+        else {
+          ErrorAlert(response.data);
+        }
+      } 
+      catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    fetchKegiatans();
+    fetchKeteranganKegiatans();
+    fetchProjekKegiatans();
+  }, []);
+
   // Fetch kod dimensi data
   const [kodDimensisData, setKodDimensisData] = useState([]);
   useEffect(() => {
@@ -83,19 +134,17 @@ function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditAktiviti();
+      } else {
+        console.log(response);
+        ErrorAlert(response.error); // Error from the backend or unknow error from the server side
       }
-      else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    }
-    catch (error) {
-      console.log(error);
+    } catch (error) {
       ErrorAlert(error);
     }
   };
 
   return (
-    <div>
+    <>
       <Button className="editBtn" onClick={openModalEditAktiviti}>Kemas Kini</Button>{" "}
 
       <Modal show={isModalEditAktiviti} onHide={closeModalEditAktiviti} backdrop="static" keyboard={false}>
@@ -104,69 +153,68 @@ function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
             <Form.Group>
-              <Form.Label htmlFor="aktivitiId">Aktiviti</Form.Label>
+              <Form.Label htmlFor="kegiatanId">Aktiviti</Form.Label>
               <Controller
-                id="aktivitiId"
-                name="aktivitiId"
+                id="kegiatanId"
+                name="kegiatanId"
                 control={control}
-                defaultValue={aktiviti.aktivitiId || ''}
+                defaultValue={aktiviti.kegiatanId}
                 rules={{required: 'Aktivti diperlukan.'}}
-                render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => {setSelectedAktiviti(e.target.value); onChange(e);}} defaultValue={aktiviti.aktivitiId}>
+                render={({field: {onChange}}) => (     
+                  <Form.Select onChange={(e) => {setSelectedKegiatan(e.target.value); onChange(e);}} defaultValue={aktiviti.kegiatanId}>
                     <option value="" disabled>--Pilih Aktiviti--</option>
-                      {aktivitiOptions.map((aktiviti) => (
-                        <option key={aktiviti.id} value={aktiviti.id}>{aktiviti.jenisAktiviti}</option>
-                      ))}
-                  </Form.Select>                
+                    {kegiatanOptions.map((kegiatan) => (
+                      <option key={kegiatan.value} value={kegiatan.value}>{kegiatan.label}</option>
+                    ))}
+                  </Form.Select>  
                 )}
               />
-              {errors.aktivitiId && (<small className="text-danger">{errors.aktivitiId.message}</small>)}       
+              {errors.kegiatanId && (<small className="text-danger">{errors.kegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="keteranganAktivitiId">Keterangan Aktiviti</Form.Label>
+              <Form.Label htmlFor="keteranganKegiatanId">Keterangan Aktiviti</Form.Label>
               <Controller
-                id="keteranganAktivitiId"
-                name="keteranganAktivitiId"
+                id="keteranganKegiatanId"
+                name="keteranganKegiatanId"
                 control={control}
-                defaultValue={aktiviti.keteranganAktivitiId || ''}
+                defaultValue={aktiviti.keteranganKegiatanId}
                 rules={{required: 'Keterangan aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={(e) => {setSelectedKeteranganAktiviti(e.target.value); onChange(e);}} defaultValue={aktiviti.keteranganAktivitiId}>
+                  <Form.Select onChange={(e) => {setSelectedKeteranganKegiatan(e.target.value); onChange(e);}} defaultValue={aktiviti.keteranganKegiatanId}>
                     <option value="" disabled>--Pilih Keterangan Aktiviti--</option>
-                    {keteranganAktivitiOptions
-                      .filter((item) => item.aktivitiId === Number(selectedAktiviti))
-                      .map((keteranganAktiviti) => (
-                        <option key={keteranganAktiviti.id} value={keteranganAktiviti.id}>{keteranganAktiviti.jenisKeteranganAktiviti}</option>
+                    {keteranganKegiatanOptions
+                      .filter((item) => selectedKegiatan && item.kegiatanId === Number(selectedKegiatan))
+                      .map((keteranganKegiatan) => (
+                        <option key={keteranganKegiatan.value} value={keteranganKegiatan.value}>{keteranganKegiatan.label}</option>
                       ))
                     }
                   </Form.Select>
                 )}
               />
-              {errors.keteranganAktivitiId && (<small className="text-danger">{errors.keteranganAktivitiId.message}</small>)}       
+              {errors.keteranganKegiatanId && (<small className="text-danger">{errors.keteranganKegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
-              <Form.Label htmlFor="projekAktivitiId">Projek Aktiviti</Form.Label>
+              <Form.Label htmlFor="projekKegiatanId">Projek Aktiviti</Form.Label>
               <Controller
-                id="projekAktivitiId"
-                name="projekAktivitiId"
+                id="projekKegiatanId"
+                name="projekKegiatanId"
                 control={control}
-                defaultValue={aktiviti.projekAktivitiId || ''}
+                defaultValue={aktiviti.projekKegiatanId}
                 rules={{required: 'Projek aktiviti diperlukan.'}}
                 render={({field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue={aktiviti.projekAktivitiId}>
+                  <Form.Select onChange={(e) => {setSelectedProjekKegiatan(e.target.value); onChange(e);}} defaultValue={aktiviti.projekKegiatanId}>
                     <option value="" disabled>--Pilih Projek Aktiviti--</option>
-                    {projekAktivitiOptions
-                      .filter((item) => item.keteranganAktivitiId === Number(selectedKeteranganAktiviti))
-                      .map((projekAktiviti) => (
-                        <option key={projekAktiviti.id} value={projekAktiviti.id}>{projekAktiviti.jenisProjekAktiviti}</option>
-                      ))
-                    }
+                    {projekKegiatanOptions
+                      .filter((item) => selectedKeteranganKegiatan && item.keteranganKegiatanId === Number(selectedKeteranganKegiatan))
+                      .map((projekKegiatan) => (
+                        <option key={projekKegiatan.value} value={projekKegiatan.value}>{projekKegiatan.label}</option>
+                      ))}
                   </Form.Select>
                 )}
               />
-              {errors.projekAktivitiId && (<small className="text-danger">{errors.projekAktivitiId.message}</small>)}       
+              {errors.projekKegiatanId && (<small className="text-danger">{errors.projekKegiatanId.message}</small>)}       
             </Form.Group>
 
             <Form.Group>
@@ -258,7 +306,7 @@ function EditAktiviti({sahabatId, pembiayaanId, aktivitiId, aktiviti}) {
           <Button variant="primary" onClick={handleSubmit(updateAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 
