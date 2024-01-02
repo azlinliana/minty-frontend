@@ -56,7 +56,11 @@ function MaklumatAsas({ maklumatAsasData }) {
 
             <tr>
               <th>Projek</th>
-              <td>: </td>
+              <td>
+                : {maklumatAsasData?.aktiviti?.kegiatan?.jenisKegiatan || '-'} {' 》'}
+                  {maklumatAsasData?.aktiviti?.keterangan_kegiatan?.jenisKeteranganKegiatan || '-'} {' 》'}
+                  {maklumatAsasData?.aktiviti?.projek_kegiatan?.jenisProjekKegiatan || '-'}
+              </td>
             </tr>
             
             <tr>

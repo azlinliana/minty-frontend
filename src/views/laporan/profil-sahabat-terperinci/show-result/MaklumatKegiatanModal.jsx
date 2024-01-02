@@ -1,7 +1,8 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 
-function MaklumatKegiatanModal() {
+function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
+  console.log(maklumatKegiatanModalData);
   return (
     <>
       <div className="tableSection">
@@ -19,7 +20,7 @@ function MaklumatKegiatanModal() {
             <tr>
               <th>2.</th>
               <th>Bil. Minggu Tracking</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.bilMingguTracking || '-'}</td>
             </tr>
             <tr>
               <th>3.</th>
@@ -29,7 +30,7 @@ function MaklumatKegiatanModal() {
             <tr>
               <th>4.</th>
               <th>Jum Pembiayaan + Caj Terkini (RM)</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.jumlahPembiayaanCajTerkini || '-'}</td>
             </tr>
             <tr>
               <th>5.</th>
@@ -39,22 +40,28 @@ function MaklumatKegiatanModal() {
             <tr>
               <th>6.</th>
               <th>Pengguna Dana</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.penggunaDana
+                ? maklumatKegiatanModalData.penggunaDana.map((item, index) => (
+                    <span key={index}>{item}{index < maklumatKegiatanModalData.penggunaDana.length - 1 && ', '}</span>
+                  ))
+                : '-'
+              }
+              </td>
             </tr>
             <tr>
               <th>7.</th>
               <th>Pendapatan dari A1 (RM)</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.pendapatanDariA1 || '-'}</td>
             </tr>
             <tr>
               <th>8.</th>
               <th>Pulangan Per RM</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.pulanganPerRM || '-'}</td>
             </tr>
             <tr>
               <th>9.</th>
               <th>Loan Cycle</th>
-              <td>: </td>
+              <td>: {maklumatKegiatanModalData?.loanCycle || '-'}</td>
             </tr>
           </tbody>
         </Table>
