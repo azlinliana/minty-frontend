@@ -2,6 +2,14 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 
 function PerbelanjaanKumulatifSumberPengusaha({ perbelanjaanKumulatifSumberData }) {
+  // ------------ FE --------------
+  // Format money value
+  const formatMoney = (value) => {
+    return value !== null && !isNaN(value)
+      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '-';
+  };
+
   // ------------ BE --------------
   // Extract data from props
   const { sahabat, isiRumah, jumlah } = perbelanjaanKumulatifSumberData;
@@ -65,25 +73,25 @@ function PerbelanjaanKumulatifSumberPengusaha({ perbelanjaanKumulatifSumberData 
             {sortedKeys.map((sumberKey) => (
               <tr key={sumberKey}>
                 <td>{sumberKey}</td>
-                <td>{sahabat && sahabat.data[sumberKey] !== undefined ? sahabat.data[sumberKey] : "-"}</td>
+                <td>{formatMoney(sahabat && sahabat.data[sumberKey] !== undefined ? sahabat.data[sumberKey] : "-")}</td>
                 {isiRumahKeys.map((category) => (
-                  <td key={category}>{isiRumah && isiRumah.data[category] && isiRumah.data[category][sumberKey] !== undefined ? isiRumah.data[category][sumberKey] : "-"}</td>
+                  <td key={category}>{formatMoney(isiRumah && isiRumah.data[category] && isiRumah.data[category][sumberKey] !== undefined ? isiRumah.data[category][sumberKey] : "-")}</td>
                 ))}
-                <td>{jumlah && jumlah.totalByKodOutflow && jumlah.totalByKodOutflow[sumberKey] !== undefined ? jumlah.totalByKodOutflow[sumberKey] : "-"}</td>
+                <td>{formatMoney(jumlah && jumlah.totalByKodOutflow && jumlah.totalByKodOutflow[sumberKey] !== undefined ? jumlah.totalByKodOutflow[sumberKey] : "-")}</td>
               </tr>
             ))}
 
             <tr>
               <td>Jumlah (RM)</td>
-              <td>{sahabat && sahabat.totalOutflowSahabat !== undefined ? sahabat.totalOutflowSahabat : "-"}</td>
+              <td>{formatMoney(sahabat && sahabat.totalOutflowSahabat !== undefined ? sahabat.totalOutflowSahabat : "-")}</td>
               {isiRumahKeys.map((category) => (
                 <td key={category}>
-                  {isiRumah && isiRumah.totalOutflowIsiRumah && isiRumah.totalOutflowIsiRumah[category] !== undefined
+                  {formatMoney(isiRumah && isiRumah.totalOutflowIsiRumah && isiRumah.totalOutflowIsiRumah[category] !== undefined
                     ? isiRumah.totalOutflowIsiRumah[category]
-                    : "-"}
+                    : "-")}
                 </td>
               ))}
-              <td>{jumlah && jumlah.overallTotalOutflow !== undefined ? jumlah.overallTotalOutflow : "-"}</td>
+              <td>{formatMoney(jumlah && jumlah.overallTotalOutflow !== undefined ? jumlah.overallTotalOutflow : "-")}</td>
             </tr>
           </tbody>
         </Table>

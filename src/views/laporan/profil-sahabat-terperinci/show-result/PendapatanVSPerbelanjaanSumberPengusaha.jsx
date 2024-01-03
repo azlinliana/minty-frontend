@@ -10,6 +10,14 @@ const renderCell = (data) => {
 };
 
 function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData }) {
+  // ------------ FE --------------
+  // Format money value
+  const formatMoney = (value) => {
+    return value !== null && !isNaN(value)
+      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '-';
+  };
+
   // ------------ BE --------------
   // Extract data from props
   const { sahabat, isiRumah, baki, jumlah } = pendapatanVSPerbelanjaanData;
@@ -55,30 +63,30 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
           <tbody>
             <tr>
               <td>PENDAPATAN</td>
-              <td>{renderCell(sahabatPendapatan)}</td>
+              <td>{renderCell(formatMoney(sahabatPendapatan))}</td>
               {/* Loop through isiRumah for Pendapatan */}
               {isiRumahKeys.map((key) => (
-                <td key={key}>{renderCell(isiRumah.pendapatan[key])}</td>
+                <td key={key}>{renderCell(formatMoney(isiRumah.pendapatan[key]))}</td>
               ))}
-              <td>{renderCell(totalPendapatan)}</td>
+              <td>{renderCell(formatMoney(totalPendapatan))}</td>
             </tr>
             <tr>
               <td>PERBELANJAAN</td>
-              <td>{renderCell(sahabatPerbelanjaan)}</td>
+              <td>{renderCell(formatMoney(sahabatPerbelanjaan))}</td>
               {/* Loop through isiRumah for Perbelanjaan */}
               {isiRumahKeys.map((key) => (
-                <td key={key}>{renderCell(isiRumah.perbelanjaan[key])}</td>
+                <td key={key}>{renderCell(formatMoney(isiRumah.perbelanjaan[key]))}</td>
               ))}
-              <td>{renderCell(totalPerbelanjaan)}</td>
+              <td>{renderCell(formatMoney(totalPerbelanjaan))}</td>
             </tr>
             <tr>
               <td>BAKI (RM)</td>
-              <td>{renderCell(bakiSahabat)}</td>
+              <td>{renderCell(formatMoney(bakiSahabat))}</td>
               {/* Loop through bakiIsiRumah for each isi rumah */}
               {isiRumahKeys.map((key) => (
-                <td key={key}>{renderCell(bakiIsiRumah[key])}</td>
+                <td key={key}>{renderCell(formatMoney(bakiIsiRumah[key]))}</td>
               ))}
-              <td>{renderCell(overallMinus)}</td>
+              <td>{renderCell(formatMoney(overallMinus))}</td>
             </tr>
           </tbody>
         </Table>

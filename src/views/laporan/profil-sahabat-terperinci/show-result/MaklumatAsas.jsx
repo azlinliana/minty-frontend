@@ -14,7 +14,7 @@ function MaklumatAsas({ maklumatAsasData }) {
             <tr>
               <th>1.</th>
               <th>Perkara</th>
-              <td>: {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || '-'} - JULAT TO BE DEFINED</td>
+              <td>: {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || '-'} - JULAT SEDERHANA</td>
             </tr>
             <tr>
               <th>2.</th>

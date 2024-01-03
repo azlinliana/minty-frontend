@@ -2,7 +2,14 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 
 function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
-  console.log(maklumatKegiatanModalData);
+  // ------------ FE --------------
+  // Format money value
+  const formatMoney = (value) => {
+    return value !== null && !isNaN(value)
+      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '-';
+  };
+
   return (
     <>
       <div className="tableSection">
@@ -30,12 +37,16 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             <tr>
               <th>4.</th>
               <th>Jum Pembiayaan + Caj Terkini (RM)</th>
-              <td>: {maklumatKegiatanModalData?.jumlahPembiayaanCajTerkini || '-'}</td>
+              <td>: {formatMoney(maklumatKegiatanModalData?.jumlahPembiayaanCajTerkini) || '-'}</td>
             </tr>
             <tr>
               <th>5.</th>
               <th>Projek / Sub Kegiatan</th>
-              <td>: </td>
+              <td>
+                : {maklumatKegiatanModalData?.projekSubKegiatan?.kegiatan?.jenisKegiatan || '-'} {' 》'}
+                  {maklumatKegiatanModalData?.projekSubKegiatan?.keterangan_kegiatan?.jenisKeteranganKegiatan || '-'} {' 》'}
+                  {maklumatKegiatanModalData?.projekSubKegiatan?.projek_kegiatan?.jenisProjekKegiatan || '-'}
+              </td>
             </tr>
             <tr>
               <th>6.</th>
@@ -51,7 +62,7 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             <tr>
               <th>7.</th>
               <th>Pendapatan dari A1 (RM)</th>
-              <td>: {maklumatKegiatanModalData?.pendapatanDariA1 || '-'}</td>
+              <td>: {formatMoney(maklumatKegiatanModalData?.pendapatanDariA1) || '-'}</td>
             </tr>
             <tr>
               <th>8.</th>
