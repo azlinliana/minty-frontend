@@ -12,6 +12,11 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
   
   // Extract data from props
   const { rekodMingguanInflowOutflow, rekodKumulatifInflowOutflow } = maklumatInflowOutflowSahabatData;
+
+  // Format money value
+  const formatMoney = (value) => {
+    return value ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
+  };
   
   return (
     <>
@@ -41,8 +46,8 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                         {rekodMingguanInflowOutflow.data.map((rekodMingguanInflowOutflowData, index) => (
                           <tr key={index}>
                             <td>{rekodMingguanInflowOutflowData.minggu || '-'}</td>
-                            <td>{rekodMingguanInflowOutflowData.inflow || '-'}</td>
-                            <td>{rekodMingguanInflowOutflowData.outflow || '-'}</td>
+                            <td>{formatMoney(rekodMingguanInflowOutflowData.inflow) || '-'}</td>
+                            <td>{formatMoney(rekodMingguanInflowOutflowData.outflow) || '-'}</td>
                           </tr>
                         ))}
                     </tbody>
@@ -50,8 +55,8 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     <tfoot>
                       <tr>
                         <td>Jumlah (RM)</td>
-                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.inflow, 0) || '-'}</td>
-                        <td>{rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.outflow, 0) || '-'}</td>
+                        <td>{formatMoney(rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.inflow, 0)) || '-'}</td>
+                        <td>{formatMoney(rekodMingguanInflowOutflow.data.reduce((total, data) => total + data.outflow, 0)) || '-'}</td>
                       </tr>
                     </tfoot>
                   </Table>
@@ -75,10 +80,10 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     <tbody>
                       <tr>
                         <td>{rekodKumulatifInflowOutflow.jumlahBilanganMinggu || '-'}</td>
-                        <td>{rekodKumulatifInflowOutflow.kumulatifInflow || '-'}</td>
-                        <td>{rekodKumulatifInflowOutflow.kumulatifOutflow || '-'}</td>
-                        <td>{rekodKumulatifInflowOutflow.bersih || '-'}</td>
-                        <td>{rekodKumulatifInflowOutflow.pendapatanDaripadaA1 || '-'}</td>
+                        <td>{formatMoney(rekodKumulatifInflowOutflow.kumulatifInflow) || '-'}</td>
+                        <td>{formatMoney(rekodKumulatifInflowOutflow.kumulatifOutflow) || '-'}</td>
+                        <td>{formatMoney(rekodKumulatifInflowOutflow.bersih) || '-'}</td>
+                        <td>{formatMoney(rekodKumulatifInflowOutflow.pendapatanDaripadaA1) || '-'}</td>
                       </tr>
                     </tbody>
                   </Table>

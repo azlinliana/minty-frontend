@@ -2,6 +2,12 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 
 function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
+  // ------------ FE --------------
+  // Format money value
+  const formatMoney = (value) => {
+    return value ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
+  };
+
   return (
     <>
       <div className="tableSection">
@@ -18,8 +24,8 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
           
           <tbody>
             <tr>
-              <td>{maklumatKegiatanModalData?.modalPembiayaanAIM || '-'}</td>
-              <td>{maklumatKegiatanModalData?.pendapatanDaripadaModal || '-'}</td>
+              <td>{formatMoney(maklumatKegiatanModalData?.modalPembiayaanAIM) || '-'}</td>
+              <td>{formatMoney(maklumatKegiatanModalData?.pendapatanDaripadaModal) || '-'}</td>
               <td>{maklumatKegiatanModalData?.pulanganPerRM || '-'}</td>
             </tr>
           </tbody>

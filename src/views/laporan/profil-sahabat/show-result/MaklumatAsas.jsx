@@ -2,6 +2,12 @@ import React from 'react';
 import Table from "react-bootstrap/Table";
 
 function MaklumatAsas({ maklumatAsasData }) {
+  // ------------ FE --------------
+  // Format money value
+  const formatMoney = (value) => {
+    return value ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
+  };
+
   return (
     <>
       <div className="tableSection">
@@ -11,7 +17,7 @@ function MaklumatAsas({ maklumatAsasData }) {
           <tbody>
             <tr>
               <th>Perkara</th>
-              <td>: {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || '-'} - JULAT TO BE DEFINED</td>
+              <td>: {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || '-'} - JULAT SEDERHANA</td>
             </tr>
 
             <tr>
@@ -46,7 +52,7 @@ function MaklumatAsas({ maklumatAsasData }) {
 
             <tr>
               <th>Kumulatif PJM</th>
-              <td>: {maklumatAsasData?.kumulatifPJM || '-'}</td>
+              <td>: {formatMoney(maklumatAsasData?.kumulatifPJM) || '-'}</td>
             </tr>
 
             <tr>
