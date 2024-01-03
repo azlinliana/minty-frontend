@@ -5,7 +5,9 @@ function MaklumatAsas({ maklumatAsasData }) {
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {
-    return value ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
+    return value !== null && !isNaN(value)
+      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      : '-';
   };
 
   return (
