@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { FaPlus } from "react-icons/fa";
-import axios from 'axios';
+import axios from "axios";
 
 function CreateHubungan() {
   // ----------FE----------
@@ -19,19 +19,26 @@ function CreateHubungan() {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
   // Create hubungan
-  const createHubungan = async(hubunganInput) => {
+  const createHubungan = async (hubunganInput) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/hubungan', hubunganInput);  
-      
-      if(response.status === 200) {
+      const response = await axiosCustom.post(
+        "/selenggara/hubungan",
+        hubunganInput
+      );
+
+      if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateHubungan();
-      }
-      else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
@@ -41,10 +48,18 @@ function CreateHubungan() {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateHubungan}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
-      
-      <Modal show={isModalCreateHubungan} onHide={closeModalCreateHubungan} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Hubungan</Modal.Title></Modal.Header>
+      <Button variant="primary" onClick={openModalCreateHubungan}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+      </Button>{" "}
+      <Modal
+        show={isModalCreateHubungan}
+        onHide={closeModalCreateHubungan}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Hubungan</Modal.Title>
+        </Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createHubungan)} onReset={reset}>
@@ -56,8 +71,8 @@ function CreateHubungan() {
                 id="kodHubungan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod hubungan diperlukan.'}}
-                render={({field: {onChange, value}}) => (
+                rules={{ required: "Kod hubungan diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -67,19 +82,25 @@ function CreateHubungan() {
                   />
                 )}
               />
-              {errors.kodHubungan && ( <small className="text-danger">{errors.kodHubungan.message}</small> )}            
+              {errors.kodHubungan && (
+                <small className="text-danger">
+                  {errors.kodHubungan.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganHubungan">Keterangan Hubungan</Form.Label>
+              <Form.Label htmlFor="keteranganHubungan">
+                Keterangan Hubungan
+              </Form.Label>
 
               <Controller
                 name="keteranganHubungan"
                 id="keteranganHubungan"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan hubunngan diperlukan.'}}
-                render={({field: {onChange, value}}) => (
+                rules={{ required: "Keterangan hubunngan diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     as="textarea"
                     onChange={onChange}
@@ -89,14 +110,22 @@ function CreateHubungan() {
                   />
                 )}
               />
-              {errors.keteranganHubungan && ( <small className="text-danger">{errors.keteranganHubungan.message}</small> )}
+              {errors.keteranganHubungan && (
+                <small className="text-danger">
+                  {errors.keteranganHubungan.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateHubungan}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createHubungan)}>Simpan</Button>
+          <Button variant="secondary" onClick={closeModalCreateHubungan}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit(createHubungan)}>
+            Simpan
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

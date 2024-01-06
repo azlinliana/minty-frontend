@@ -10,7 +10,7 @@ import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {TfiArrowCircleDown, TfiArrowCircleUp, TfiMoreAlt} from "react-icons/tfi";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function IndexPembiayaan({resultSahabat, sahabatId}) {
   // ----------FE----------
@@ -28,7 +28,7 @@ function IndexPembiayaan({resultSahabat, sahabatId}) {
   const [pembiayaanSahabats, setPembiayaanSahabats] = useState([]);
   const fetchPembiayaanSahabats = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/pembiayaan/${sahabatId}`);
+      const response = await axiosCustom.get(`/sahabat/pembiayaan/${sahabatId}`);
       if (response.status === 200) {
         setPembiayaanSahabats(response.data);
       }

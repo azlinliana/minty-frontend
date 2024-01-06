@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 
 function EditDimensi({ dimensi }) {
   // ----------FE----------
@@ -17,18 +17,25 @@ function EditDimensi({ dimensi }) {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
   const updateDimensi = async (dimensiInput) => {
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/selenggara/dimensi/${dimensi.id}`, dimensiInput);
-  
+      const response = await axiosCustom.put(
+        `/selenggara/dimensi/${dimensi.id}`,
+        dimensiInput
+      );
+
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalEditDimensi();
-      }
-      else {
+      } else {
         ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
@@ -38,11 +45,19 @@ function EditDimensi({ dimensi }) {
 
   return (
     <div>
-      <Button className="editBtn" onClick={openModalEditDimensi}>Kemas Kini</Button>{' '}
+      <Button className="editBtn" onClick={openModalEditDimensi}>
+        Kemas Kini
+      </Button>{" "}
+      <Modal
+        show={isModalEditDimensi}
+        onHide={closeModalEditDimensi}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kemas Kini Dimensi</Modal.Title>
+        </Modal.Header>
 
-      <Modal show={isModalEditDimensi} onHide={closeModalEditDimensi} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Kemas Kini Dimensi</Modal.Title></Modal.Header>
-        
         <Modal.Body>
           <Form onSubmit={handleSubmit(updateDimensi)} onReset={reset}>
             <Form.Group className="mb-3">
@@ -53,8 +68,8 @@ function EditDimensi({ dimensi }) {
                 id="kodDimensi"
                 control={control}
                 defaultValue={dimensi.kodDimensi}
-                rules={{required: 'Kod dimensi diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Kod dimensi diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -64,18 +79,24 @@ function EditDimensi({ dimensi }) {
                   />
                 )}
               />
-              {errors.kodDimensi && ( <small className="text-danger">{errors.kodDimensi.message}</small> )}            
+              {errors.kodDimensi && (
+                <small className="text-danger">
+                  {errors.kodDimensi.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganDimensi">Keterangan Dimensi</Form.Label>
+              <Form.Label htmlFor="keteranganDimensi">
+                Keterangan Dimensi
+              </Form.Label>
               <Controller
                 name="keteranganDimensi"
                 id="keteranganDimensi"
                 control={control}
                 defaultValue={dimensi.keteranganDimensi}
-                rules={{ required: 'Keterangan dimensi diperlukan.' }}
-                render={({field: {onChange, value}}) => (
+                rules={{ required: "Keterangan dimensi diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     as="textarea"
                     onChange={onChange}
@@ -85,7 +106,11 @@ function EditDimensi({ dimensi }) {
                   />
                 )}
               />
-              {errors.keteranganDimensi && ( <small className="text-danger">{errors.keteranganDimensi.message}</small> )}
+              {errors.keteranganDimensi && (
+                <small className="text-danger">
+                  {errors.keteranganDimensi.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
@@ -95,9 +120,14 @@ function EditDimensi({ dimensi }) {
                 name="statusDimensi"
                 control={control}
                 defaultValue={dimensi.statusDimensi}
-                render={({ field: {onChange}}) => (
-                  <Form.Select onChange={onChange} defaultValue={dimensi.statusDimensi}>
-                    <option value="" disabled>--Pilih Dimensi--</option>
+                render={({ field: { onChange } }) => (
+                  <Form.Select
+                    onChange={onChange}
+                    defaultValue={dimensi.statusDimensi}
+                  >
+                    <option value="" disabled>
+                      --Pilih Dimensi--
+                    </option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="TIDAK AKTIF">TIDAK AKTIF</option>
                   </Form.Select>
@@ -106,10 +136,14 @@ function EditDimensi({ dimensi }) {
             </Form.Group>
           </Form>
         </Modal.Body>
-        
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditDimensi}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(updateDimensi)}>Simpan</Button>
+          <Button variant="secondary" onClick={closeModalEditDimensi}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit(updateDimensi)}>
+            Simpan
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

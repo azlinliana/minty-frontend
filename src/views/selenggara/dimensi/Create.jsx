@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import SuccessAlert from '../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { FaPlus } from "react-icons/fa";
-import axios from 'axios';
+import axios from "axios";
 
 function CreateDimensi() {
   // ----------FE----------
@@ -19,15 +19,23 @@ function CreateDimensi() {
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
   // Create dimensi
-  const createDimensi = async(dimensiInput) => {
+  const createDimensi = async (dimensiInput) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/selenggara/dimensi', dimensiInput);  
-      
-      if(response.status === 200) {
+      const response = await axiosCustom.post(
+        "/selenggara/dimensi",
+        dimensiInput
+      );
+
+      if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateDimensi();
       }
@@ -38,10 +46,18 @@ function CreateDimensi() {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateDimensi}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
-
-      <Modal show={isModalCreateDimensi} onHide={closeModalCreateDimensi} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Dimensi</Modal.Title></Modal.Header>
+      <Button variant="primary" onClick={openModalCreateDimensi}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+      </Button>{" "}
+      <Modal
+        show={isModalCreateDimensi}
+        onHide={closeModalCreateDimensi}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Dimensi</Modal.Title>
+        </Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit(createDimensi)} onReset={reset}>
@@ -53,8 +69,8 @@ function CreateDimensi() {
                 id="kodDimensi"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod dimensi diperlukan.'}}
-                render={({field: {onChange, value}}) => (
+                rules={{ required: "Kod dimensi diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="text"
                     onChange={onChange}
@@ -64,19 +80,25 @@ function CreateDimensi() {
                   />
                 )}
               />
-              {errors.kodDimensi && ( <small className="text-danger">{errors.kodDimensi.message}</small> )}            
+              {errors.kodDimensi && (
+                <small className="text-danger">
+                  {errors.kodDimensi.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganDimensi">Keterangan Dimensi</Form.Label>
+              <Form.Label htmlFor="keteranganDimensi">
+                Keterangan Dimensi
+              </Form.Label>
 
               <Controller
                 name="keteranganDimensi"
                 id="keteranganDimensi"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Keterangan dimensi diperlukan.'}}
-                render={({field: {onChange, value}}) => (
+                rules={{ required: "Keterangan dimensi diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     as="textarea"
                     onChange={onChange}
@@ -86,14 +108,22 @@ function CreateDimensi() {
                   />
                 )}
               />
-              {errors.keteranganDimensi && ( <small className="text-danger">{errors.keteranganDimensi.message}</small> )}
+              {errors.keteranganDimensi && (
+                <small className="text-danger">
+                  {errors.keteranganDimensi.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateDimensi}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createDimensi)}>Simpan</Button>
+          <Button variant="secondary" onClick={closeModalCreateDimensi}>
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit(createDimensi)}>
+            Simpan
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

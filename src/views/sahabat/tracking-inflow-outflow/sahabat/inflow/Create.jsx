@@ -1,25 +1,32 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import SuccessAlert from '../../../../components/sweet-alert/SuccessAlert';
-import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import {FaPlus} from "react-icons/fa";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { FaPlus } from "react-icons/fa";
+import axiosCustom from "../../../../../axios";
 
-function CreateTrackingInflowSahabat({mingguId}) {
+function CreateTrackingInflowSahabat({ mingguId }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] = useState(false);
-  const openModalCreateInflowSahabat = () => setIsModalCreateInflowSahabat(true);
+  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] =
+    useState(false);
+  const openModalCreateInflowSahabat = () =>
+    setIsModalCreateInflowSahabat(true);
   const closeModalCreateTrackingInflowSahabat = () => {
     setIsModalCreateInflowSahabat(false);
     reset(); // Reset previous form input
   };
 
   // Form validation
-  const {handleSubmit, control, reset, formState: {errors}} = useForm();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // ----------BE----------
   // Fetch kod inflow data
@@ -27,44 +34,54 @@ function CreateTrackingInflowSahabat({mingguId}) {
   useEffect(() => {
     const fetchKodInflow = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow/display-kod-inflow`);
+        const response = await axiosCustom.get(
+          `/selenggara/kod-inflow/display-kod-inflow`
+        );
         if (Array.isArray(response.data) && response.data.length > 0) {
           setKodInflowsData(response.data); // Display all kod inflow data
         } else {
           ErrorAlert(response.data);
         }
-      }
-      catch (error) {
+      } catch (error) {
         ErrorAlert(error);
       }
     };
-  
+
     fetchKodInflow();
   }, []);
 
   // Create inflow sahabat
   const createInflowSahabat = async (inflowSahabatInput) => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}`, inflowSahabatInput);
+      const response = await axiosCustom.post(
+        `/sahabat/inflow-sahabat/${mingguId}`,
+        inflowSahabatInput
+      );
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateTrackingInflowSahabat();
-      }
-      else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
-    }
-    catch (error) {
+    } catch (error) {
       ErrorAlert(error);
     }
-  }
+  };
 
-  return(
+  return (
     <div>
-      <Button variant="primary" onClick={openModalCreateInflowSahabat}><FaPlus style={{fontSize: "10px"}} /> Tambah</Button>{" "}
-
-      <Modal show={isModalCreateInflowSahabat} onHide={closeModalCreateTrackingInflowSahabat} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton><Modal.Title>Tambah Inflow Sahabat</Modal.Title></Modal.Header>
+      <Button variant="primary" onClick={openModalCreateInflowSahabat}>
+        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+      </Button>{" "}
+      <Modal
+        show={isModalCreateInflowSahabat}
+        onHide={closeModalCreateTrackingInflowSahabat}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Inflow Sahabat</Modal.Title>
+        </Modal.Header>
 
         <Modal.Body>
           <Form onSubmit={handleSubmit} onReset={reset}>
@@ -75,17 +92,25 @@ function CreateTrackingInflowSahabat({mingguId}) {
                 name="kodInflowId"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Kod inflow diperlukan.'}}
-                render={({field: {onChange}}) => (
+                rules={{ required: "Kod inflow diperlukan." }}
+                render={({ field: { onChange } }) => (
                   <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>--Pilih Kod Inflow--</option>
+                    <option value="" disabled>
+                      --Pilih Kod Inflow--
+                    </option>
                     {kodInflowsData.map((kodInflow) => (
-                      <option key={kodInflow.id} value={kodInflow.id}>{kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}</option>
+                      <option key={kodInflow.id} value={kodInflow.id}>
+                        {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
+                      </option>
                     ))}
                   </Form.Select>
                 )}
               />
-              {errors.kodInflowId && (<small className="text-danger">{errors.kodInflowId.message}</small>)}
+              {errors.kodInflowId && (
+                <small className="text-danger">
+                  {errors.kodInflowId.message}
+                </small>
+              )}
             </Form.Group>
 
             <Form.Group>
@@ -95,11 +120,12 @@ function CreateTrackingInflowSahabat({mingguId}) {
                 name="amaunInflow"
                 control={control}
                 defaultValue=""
-                rules={{required: 'Amaun inflow diperlukan.'}}
-                render={({field:{onChange, value}}) => (
+                rules={{ required: "Amaun inflow diperlukan." }}
+                render={({ field: { onChange, value } }) => (
                   <Form.Control
                     type="number"
-                    min="0.00" max="10000.00"
+                    min="0.00"
+                    max="10000.00"
                     step="0.01"
                     onChange={onChange}
                     value={value}
@@ -108,14 +134,25 @@ function CreateTrackingInflowSahabat({mingguId}) {
                   />
                 )}
               />
-              {errors.amaunInflow && (<small className="text-danger">{errors.amaunInflow.message}</small>)}
+              {errors.amaunInflow && (
+                <small className="text-danger">
+                  {errors.amaunInflow.message}
+                </small>
+              )}
             </Form.Group>
           </Form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateTrackingInflowSahabat}>Batal</Button>
-          <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>Simpan</Button>
+          <Button
+            variant="secondary"
+            onClick={closeModalCreateTrackingInflowSahabat}
+          >
+            Batal
+          </Button>
+          <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>
+            Simpan
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

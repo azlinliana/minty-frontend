@@ -1,32 +1,32 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import "../../../sahabat.css";
-import CreateTrackingOutflowIsiRumah from './Create';
-import EditTrackingOutflowIsiRumah from './Edit';
-import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
-import DeletionAlert from '../../../../components/sweet-alert/DeletionAlert';
+import CreateTrackingOutflowIsiRumah from "./Create";
+import EditTrackingOutflowIsiRumah from "./Edit";
+import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
+import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axiosCustom from "../../../../../axios";
+import Swal from "sweetalert2";
 
-function IndexTrackingOutflowIsiRumah({isiRumahId}) {
+function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
   // ----------BE----------
   // List outflow isi rumah sahabat
   const [outflowIsiRumahs, setOutflowIsiRumahs] = useState([]);
   const fetchOutflowIsiRumahs = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/outflow-isi-rumah/${isiRumahId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/outflow-isi-rumah/${isiRumahId}`
+      );
       if (response.status === 200) {
         setOutflowIsiRumahs(response.data);
-      }
-       else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
-    }
-    catch (error) {
+    } catch (error) {
       ErrorAlert(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchOutflowIsiRumahs();
@@ -44,32 +44,37 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
     // Function to delete outflow isi rumah
     const performDeletion = async () => {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/outflow-isi-rumah/${outflowIsiRumahId}`);
+        const response = await axiosCustom.delete(
+          `/sahabat/outflow-isi-rumah/${outflowIsiRumahId}`
+        );
         if (response.status === 200) {
           setOutflowIsiRumahs((prevOutflowIsiRumahs) =>
-            prevOutflowIsiRumahs.filter((outflowIsiRumah) => outflowIsiRumah.id !== outflowIsiRumahId)
+            prevOutflowIsiRumahs.filter(
+              (outflowIsiRumah) => outflowIsiRumah.id !== outflowIsiRumahId
+            )
           );
           // Show success message from the server
-          Swal.fire('Dipadam!', response.data.message, 'success');
+          Swal.fire("Dipadam!", response.data.message, "success");
         }
-      } 
-      catch (error) {
-        console.error('Ralat dalam memadam dimensi', error);
+      } catch (error) {
+        console.error("Ralat dalam memadam dimensi", error);
       }
     };
 
     // Function to handle cancellation
     const cancelDeletion = () => {
-      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
     };
 
     // Display the deletion confirmation dialog
     DeletionAlert(performDeletion, cancelDeletion);
   };
-  
-  return(
+
+  return (
     <div className="tableSection">
-      <div className="tambahBtnPlacement"><CreateTrackingOutflowIsiRumah isiRumahId={isiRumahId} /></div>
+      <div className="tambahBtnPlacement">
+        <CreateTrackingOutflowIsiRumah isiRumahId={isiRumahId} />
+      </div>
 
       <Table responsive>
         <thead>
@@ -83,7 +88,15 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
         </thead>
         <tbody>
           {outflowIsiRumahs.length === 0 ? (
-            <tr><td colSpan="7"><center>Tiada maklumat tracking outflow isi rumah sahabat. Sila klik butang "Tambah" untuk merekodkan outflow isi rumah sahabat baharu.</center></td></tr>
+            <tr>
+              <td colSpan="7">
+                <center>
+                  Tiada maklumat tracking outflow isi rumah sahabat. Sila klik
+                  butang "Tambah" untuk merekodkan outflow isi rumah sahabat
+                  baharu.
+                </center>
+              </td>
+            </tr>
           ) : (
             outflowIsiRumahs.map((outflowIsiRumahsData, key) => (
               <tr key={key}>
@@ -92,8 +105,19 @@ function IndexTrackingOutflowIsiRumah({isiRumahId}) {
                 <td>{outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}</td>
                 <td>{outflowIsiRumahsData.amaunOutflow}</td>
                 <td>
-                  <EditTrackingOutflowIsiRumah isiRumahId={isiRumahId} outflowIsiRumahId={outflowIsiRumahsData.id} outflowIsiRumah={outflowIsiRumahsData} />
-                  <Button className="delBtn" onClick={() =>deleteOutflowIsiRumah(outflowIsiRumahsData.id)}>Padam</Button>{' '}
+                  <EditTrackingOutflowIsiRumah
+                    isiRumahId={isiRumahId}
+                    outflowIsiRumahId={outflowIsiRumahsData.id}
+                    outflowIsiRumah={outflowIsiRumahsData}
+                  />
+                  <Button
+                    className="delBtn"
+                    onClick={() =>
+                      deleteOutflowIsiRumah(outflowIsiRumahsData.id)
+                    }
+                  >
+                    Padam
+                  </Button>{" "}
                 </td>
               </tr>
             ))

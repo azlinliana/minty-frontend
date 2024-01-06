@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Selenggara.css";
 import CreateKodInflow from "./Create";
 import EditKodInflow from "./Edit";
@@ -14,22 +14,22 @@ function IndexKodInflow() {
   // ----------FE----------
   // Back button
   const navigate = useNavigate();
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // ----------BE----------
   // List kod inflow
   const [kodInflows, setKodInflows] = useState([]);
   const fetchKodInflows = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/selenggara/kod-inflow`);
+      const response = await axiosCustom.get(`/selenggara/kod-inflow`);
       if (response.status === 200) {
         setKodInflows(response.data);
-      }
-      else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
-    }
-    catch (error) {
+    } catch (error) {
       ErrorAlert(error);
     }
   };
@@ -51,19 +51,25 @@ function IndexKodInflow() {
         <h1>Kod Inflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">Senarai Selenggara</Breadcrumb.Item>
+          <Breadcrumb.Item className="previousLink" href="#">
+            Senarai Selenggara
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div className="tableSection">
-        <div className="tambahBtnPlacement"><CreateKodInflow /></div>
+        <div className="tambahBtnPlacement">
+          <CreateKodInflow />
+        </div>
 
         <Table responsive>
           <thead>
             <tr>
               <th>Bil.</th>
-              <th rowSpan={2} className="rowCategory">Kod Inflow</th>
+              <th rowSpan={2} className="rowCategory">
+                Kod Inflow
+              </th>
               <th>Keterangan Kod Inflow</th>
               <th>Kod Inflow Terperinci</th>
               <th>Keterangan Kod Inflow Terperinci</th>
@@ -72,33 +78,63 @@ function IndexKodInflow() {
           </thead>
           <tbody>
             {kodInflows.length === 0 ? (
-              <tr><td colSpan="6"><center>Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk merekodkan kod inflow baharu.</center></td></tr>
+              <tr>
+                <td colSpan="6">
+                  <center>
+                    Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk
+                    merekodkan kod inflow baharu.
+                  </center>
+                </td>
+              </tr>
             ) : (
               kodInflows.map((kodInflowsData, index) => (
                 <React.Fragment key={index}>
                   <tr>
-                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{index + 1}</td>
-                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{kodInflowsData.kodInflow}</td>
-                    <td rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}>{kodInflowsData.keteranganKodInflow}</td>
+                    <td
+                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
+                    >
+                      {index + 1}
+                    </td>
+                    <td
+                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
+                    >
+                      {kodInflowsData.kodInflow}
+                    </td>
+                    <td
+                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
+                    >
+                      {kodInflowsData.keteranganKodInflow}
+                    </td>
                   </tr>
-                  {kodInflowsData.kod_inflow_terperincis.map((kodInflowTerperincisData, subIndex) => (
-                    <tr key={subIndex}>
-                      <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
-                      <td>{kodInflowTerperincisData.keteranganKodInflowTerperinci}</td>
-                      <td>
-                        <EditKodInflow kodInflowId={kodInflowsData.id} />
-                        <Button className="delBtn" variant="danger">Padam</Button>{" "}
-                      </td>
-                    </tr>
-                  ))}
-                  
+                  {kodInflowsData.kod_inflow_terperincis.map(
+                    (kodInflowTerperincisData, subIndex) => (
+                      <tr key={subIndex}>
+                        <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                        <td>
+                          {
+                            kodInflowTerperincisData.keteranganKodInflowTerperinci
+                          }
+                        </td>
+                        <td>
+                          <EditKodInflow kodInflowId={kodInflowsData.id} />
+                          <Button className="delBtn" variant="danger">
+                            Padam
+                          </Button>{" "}
+                        </td>
+                      </tr>
+                    )
+                  )}
                 </React.Fragment>
               ))
             )}
           </tbody>
         </Table>
 
-        <div className="kembaliBtnPlacement"><Button className="kembaliBtn" onClick={goBack}>Kembali</Button>{" "}</div>
+        <div className="kembaliBtnPlacement">
+          <Button className="kembaliBtn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
+        </div>
       </div>
     </div>
   );

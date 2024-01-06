@@ -6,7 +6,7 @@ import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from "axios";
+import axiosCustom from "../../../../axios";
 import Swal from "sweetalert2";
 
 function IndexAktiviti({ sahabatId, pembiayaanId }) {
@@ -15,7 +15,9 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
   const [aktivitis, setAktivitis] = useState([]);
   const fetchAktivitis = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`);
+      const response = await axiosCustom.get(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`
+      );
       if (response.status === 200) {
         setAktivitis(response.data);
         handleAktivitisLength(response.data.length);
@@ -36,23 +38,24 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
     // Function to delete aktiviti
     const performDeletion = async () => {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/aktiviti/${aktivitiId}`);
+        const response = await axiosCustom.delete(
+          `/sahabat/aktiviti/${aktivitiId}`
+        );
         if (response.status === 200) {
           setAktivitis((prevAktiviti) =>
             prevAktiviti.filter((aktiviti) => aktiviti.id !== aktivitiId)
           );
           // Show success message from the server
-          Swal.fire('Dipadam!', response.data.message, 'success');
+          Swal.fire("Dipadam!", response.data.message, "success");
         }
-      } 
-      catch (error) {
-        console.error('Ralat dalam memadam aktiviti sahabat', error);
+      } catch (error) {
+        console.error("Ralat dalam memadam aktiviti sahabat", error);
       }
     };
 
     // Function to handle cancellation
     const cancelDeletion = () => {
-      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
     };
 
     // Display the deletion confirmation dialog
@@ -65,7 +68,9 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
         <h2>Maklumat Aktiviti Sahabat</h2>
 
         <div className="tableSection">
-          <div className="tambahBtnPlacement"><CreateAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} /></div>
+          <div className="tambahBtnPlacement">
+            <CreateAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
+          </div>
 
           <Table responsive>
             <thead>
@@ -84,21 +89,43 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
 
             <tbody>
               {aktivitis.length === 0 ? (
-                <tr><td colSpan="9"><center>Tiada maklumat aktiviti untuk sahabat ini. Sila klik butang "Tambah" untuk merekodkan aktiviti baharu.</center></td></tr>
+                <tr>
+                  <td colSpan="9">
+                    <center>
+                      Tiada maklumat aktiviti untuk sahabat ini. Sila klik
+                      butang "Tambah" untuk merekodkan aktiviti baharu.
+                    </center>
+                  </td>
+                </tr>
               ) : (
                 aktivitis.map((aktivitisData, key) => (
                   <tr key={key}>
                     <td>{key + 1}</td>
                     <td>{aktivitisData.kegiatan.jenisKegiatan}</td>
-                    <td>{aktivitisData.keterangan_kegiatan.jenisKeteranganKegiatan}</td>
+                    <td>
+                      {
+                        aktivitisData.keterangan_kegiatan
+                          .jenisKeteranganKegiatan
+                      }
+                    </td>
                     <td>{aktivitisData.projek_kegiatan.jenisProjekKegiatan}</td>
                     <td>{aktivitisData.dimensi.kodDimensi}</td>
                     <td>{aktivitisData.pengurusDanaAktiviti}</td>
-                    <td>{aktivitisData.keteranganLainAktiviti || '-'}</td>
+                    <td>{aktivitisData.keteranganLainAktiviti || "-"}</td>
                     <td>{aktivitisData.jumlahPinjamanAktiviti}</td>
                     <td>
-                      <EditAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} aktivitiId={aktivitisData.id} aktiviti={aktivitisData} />
-                      <Button className="delBtn" onClick={() =>deleteAktiviti(aktivitisData.id)}>Padam</Button>
+                      <EditAktiviti
+                        sahabatId={sahabatId}
+                        pembiayaanId={pembiayaanId}
+                        aktivitiId={aktivitisData.id}
+                        aktiviti={aktivitisData}
+                      />
+                      <Button
+                        className="delBtn"
+                        onClick={() => deleteAktiviti(aktivitisData.id)}
+                      >
+                        Padam
+                      </Button>
                     </td>
                   </tr>
                 ))

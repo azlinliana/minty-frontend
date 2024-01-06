@@ -6,7 +6,7 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function SearchSahabat() {
   // ----------FE----------
@@ -17,7 +17,7 @@ function SearchSahabat() {
   const navigate = useNavigate();
   const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
+      const response = await axiosCustom.get(`/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`);
       if (response.status === 200) {
         navigate('/search-result-sahabat', {state: {resultSahabat: response.data}}); // Set response data as a state
       } else {
