@@ -1,30 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import "../../../sahabat.css";
-import CreateTrackingInflowSahabat from './Create';
-import EditTrackingInflowSahabat from './Edit';
-import ErrorAlert from '../../../../components/sweet-alert/ErrorAlert';
-import DeletionAlert from '../../../../components/sweet-alert/DeletionAlert';
+import CreateTrackingInflowSahabat from "./Create";
+import EditTrackingInflowSahabat from "./Edit";
+import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
+import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axiosCustom from "../../../../../axios";
+import Swal from "sweetalert2";
 
-function IndexTrackingInflowSahabat({mingguId}) {
+function IndexTrackingInflowSahabat({ mingguId }) {
   // ----------BE----------
   const [inflowSahabats, setInflowSahabats] = useState([]);
 
   // List inflow sahabat
   const fetchInflowSahabats = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${mingguId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/inflow-sahabat/${mingguId}`
+      );
       if (response.status === 200) {
         setInflowSahabats(response.data);
-      }
-      else {
+      } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
-    }
-    catch (error) {
+    } catch (error) {
       ErrorAlert(error);
     }
   };
@@ -45,32 +45,37 @@ function IndexTrackingInflowSahabat({mingguId}) {
     // Function to delete inflow sahabat
     const performDeletion = async () => {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/sahabat/inflow-sahabat/${inflowSahabatId}`);
+        const response = await axiosCustom.delete(
+          `/sahabat/inflow-sahabat/${inflowSahabatId}`
+        );
         if (response.status === 200) {
           setInflowSahabats((prevInflowSahabats) =>
-            prevInflowSahabats.filter((inflowSahabat) => inflowSahabat.id !== inflowSahabatId)
+            prevInflowSahabats.filter(
+              (inflowSahabat) => inflowSahabat.id !== inflowSahabatId
+            )
           );
           // Show success message from the server
-          Swal.fire('Dipadam!', response.data.message, 'success');
+          Swal.fire("Dipadam!", response.data.message, "success");
         }
-      } 
-      catch (error) {
-        console.error('Ralat dalam memadam dimensi', error);
+      } catch (error) {
+        console.error("Ralat dalam memadam dimensi", error);
       }
     };
 
     // Function to handle cancellation
     const cancelDeletion = () => {
-      Swal.fire('Dibatalkan', 'Data anda selamat.', 'error');
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
     };
 
     // Display the deletion confirmation dialog
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
-  return(
+  return (
     <div className="tableSection">
-      <div className="tambahBtnPlacement"><CreateTrackingInflowSahabat mingguId={mingguId} /></div>
+      <div className="tambahBtnPlacement">
+        <CreateTrackingInflowSahabat mingguId={mingguId} />
+      </div>
 
       <Table responsive>
         <thead>
@@ -79,6 +84,7 @@ function IndexTrackingInflowSahabat({mingguId}) {
             <th>Kod Inflow</th>
             <th>Keterangan Kod Inflow</th>
             <th>Kod Inflow Terperinci</th>
+            <th>Keterangan Kod Inflow Terperinci</th>
             <th>Maklumat Terperinci</th>
             <th>Amaun (RM)</th>
             <th>Tindakan</th>
@@ -86,19 +92,53 @@ function IndexTrackingInflowSahabat({mingguId}) {
         </thead>
         <tbody>
           {inflowSahabats.length === 0 ? (
-            <tr><td colSpan="7"><center>Tiada maklumat tracking inflow sahabat. Sila klik butang "Tambah" untuk merekodkan inflow sahabat baharu.</center></td></tr>
+            <tr>
+              <td colSpan="7">
+                <center>
+                  Tiada maklumat tracking inflow sahabat. Sila klik butang
+                  "Tambah" untuk merekodkan inflow sahabat baharu.
+                </center>
+              </td>
+            </tr>
           ) : (
             inflowSahabats.map((inflowSahabatsData, key) => (
               <tr key={key}>
                 <td>{key + 1}</td>
                 <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
                 <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
-                <td></td>
+                {/* Displaying Kod Inflow Terperinci */}
+                {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length ===
+                0 ? (
+                  <React.Fragment>
+                    <td>-</td>
+                    <td>-</td>
+                  </React.Fragment>
+                ) : (
+                  inflowSahabatsData.kod_inflow.kod_inflow_terperincis.map(
+                    (terperinci, index) => (
+                      <React.Fragment key={index}>
+                        <td>{terperinci.kodInflowTerperinci}</td>
+                        <td>{terperinci.keteranganKodInflowTerperinci}</td>
+                      </React.Fragment>
+                    )
+                  )
+                )}
+                <td>{inflowSahabatsData.keteranganKodInflow}</td>
+                <td>{inflowSahabatsData.amaunInflow}</td>
                 <td>{inflowSahabatsData.keteranganKodInflow}</td>
                 <td>{inflowSahabatsData.amaunInflow}</td>
                 <td>
-                  <EditTrackingInflowSahabat mingguId={mingguId} inflowSahabatId={inflowSahabatsData.id} inflowSahabat={inflowSahabatsData} />
-                  <Button className="delBtn" onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
+                  <EditTrackingInflowSahabat
+                    mingguId={mingguId}
+                    inflowSahabatId={inflowSahabatsData.id}
+                    inflowSahabat={inflowSahabatsData}
+                  />
+                  <Button
+                    className="delBtn"
+                    onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}
+                  >
+                    Padam
+                  </Button>{" "}
                 </td>
               </tr>
             ))
