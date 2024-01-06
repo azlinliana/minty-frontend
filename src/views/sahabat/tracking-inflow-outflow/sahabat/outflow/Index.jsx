@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../../../sahabat.css";
 import CreateTrackingOutflowSahabat from "./Create";
 import EditTrackingOutflowSahabat from "./Edit";
@@ -14,7 +14,7 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
   const [outflowSahabats, setOutflowSahabats] = useState([]);
 
   // List outflow sahabat
-  const fetchOutflowSahabats = async () => {
+  const fetchOutflowSahabats = useCallback(async () => {
     try {
       const response = await axiosCustom.get(
         `/sahabat/outflow-sahabat/${mingguId}`
@@ -25,20 +25,47 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      ErrorAlert(error);
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
     }
-  };
+  }, [mingguId, setOutflowSahabats]);
 
   useEffect(() => {
     fetchOutflowSahabats();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchOutflowSahabats();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  }, [fetchOutflowSahabats]);
+
+  // Fetch kod outflow data
+  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+
+  const fetchKodOutflows = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/kod-outflow/display-kod-outflow`
+      );
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKodOutflowsData(response.data); // Display all kod inflow data
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
+    }
+  }, [setKodOutflowsData]);
+
+  useEffect(() => {
+    fetchKodOutflows();
+  }, [fetchKodOutflows]);
 
   // Delete outflow sahabat
   const deleteOutflowSahabat = async (outflowSahabatId) => {
@@ -72,57 +99,63 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
   };
 
   return (
-    <div className="tableSection">
-      <div className="tambahBtnPlacement">
-        <CreateTrackingOutflowSahabat mingguId={mingguId} />
-      </div>
+    <>
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateTrackingOutflowSahabat 
+            mingguId={mingguId} 
+            kodOutflowsData={kodOutflowsData} 
+          />
+        </div>
 
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>Bil.</th>
-            <th>Kod Outflow</th>
-            <th>Keterangan Kod Outflow</th>
-            <th>Amaun (RM)</th>
-            <th>Tindakan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {outflowSahabats.length === 0 ? (
+        <Table responsive>
+          <thead>
             <tr>
-              <td colSpan="5">
-                <center>
-                  Tiada maklumat tracking outflow sahabat. Sila klik butang
-                  "Tambah" untuk merekodkan outflow sahabat baharu.
-                </center>
-              </td>
+              <th>Bil.</th>
+              <th>Kod Outflow</th>
+              <th>Keterangan Kod Outflow</th>
+              <th>Amaun (RM)</th>
+              <th>Tindakan</th>
             </tr>
-          ) : (
-            outflowSahabats.map((outflowSahabatsData, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{outflowSahabatsData.kod_outflow.kodOutflow}</td>
-                <td>{outflowSahabatsData.kod_outflow.keteranganKodOutflow}</td>
-                <td>{outflowSahabatsData.amaunOutflow}</td>
-                <td>
-                  <EditTrackingOutflowSahabat
-                    mingguId={mingguId}
-                    outflowSahabatId={outflowSahabatsData.id}
-                    outflowSahabat={outflowSahabatsData}
-                  />
-                  <Button
-                    className="delBtn"
-                    onClick={() => deleteOutflowSahabat(outflowSahabatsData.id)}
-                  >
-                    Padam
-                  </Button>{" "}
+          </thead>
+          <tbody>
+            {outflowSahabats.length === 0 ? (
+              <tr>
+                <td colSpan="5">
+                  <center>
+                    Tiada maklumat tracking outflow sahabat. Sila klik butang
+                    "Tambah" untuk merekodkan outflow sahabat baharu.
+                  </center>
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
-    </div>
+            ) : (
+              outflowSahabats.map((outflowSahabatsData, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{outflowSahabatsData.kod_outflow.kodOutflow}</td>
+                  <td>{outflowSahabatsData.kod_outflow.keteranganKodOutflow}</td>
+                  <td>{outflowSahabatsData.amaunOutflow}</td>
+                  <td>
+                    <EditTrackingOutflowSahabat
+                      mingguId={mingguId}
+                      outflowSahabatId={outflowSahabatsData.id}
+                      outflowSahabat={outflowSahabatsData}
+                      kodOutflowsData={kodOutflowsData}
+                    />
+                    <Button
+                      className="delBtn"
+                      onClick={() => deleteOutflowSahabat(outflowSahabatsData.id)}
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+      </div>
+    </>
   );
 }
 

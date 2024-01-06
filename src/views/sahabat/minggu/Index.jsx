@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../sahabat.css";
 import CreateMinggu from "./Create";
@@ -22,34 +22,33 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
   // ----------BE----------
   // List minggu pembiayaan sahabat
   const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
-  const fetchMingguPembiayaanSahabats = async () => {
+
+  const fetchMingguPembiayaanSahabats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
-      );
+      const response = await axiosCustom.get(`/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
+
       if (response.status === 200) {
         setMingguPembiayaanSahabats(response.data);
       } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      ErrorAlert(error);
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }
     }
-  };
+  }, [sahabatId, pembiayaanId, setMingguPembiayaanSahabats]);
 
   useEffect(() => {
     fetchMingguPembiayaanSahabats();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchMingguPembiayaanSahabats();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  }, [fetchMingguPembiayaanSahabats]);
 
   return (
-    <div>
+    <>
       <div className="tableSection">
         <div className="tambahBtnPlacement">
           <CreateMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
@@ -135,7 +134,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }
 

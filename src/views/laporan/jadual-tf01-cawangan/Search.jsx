@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import "../Laporan.css";
 import ResultTf01ByCawangan from "./SearchResult";
@@ -9,7 +9,7 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function SearchTf01ByCawangan() {
   // -------- FE ---------
@@ -30,62 +30,68 @@ function SearchTf01ByCawangan() {
   // ----------BE----------
   const [selectedWilayah, setSelectedWilayah] = useState("");
   const [selectedCawangan, setSelectedCawangan] = useState("");
+
   const [wilayahOptions, setWilayahOptions] = useState([]);
   const [cawanganOptions, setCawanganOptions] = useState([]);
 
-  // Fetch wilayah and cawangan
+  // Fetch wilayah
+  const fetchWilayahs = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/wilayah/display-wilayah`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setWilayahOptions(
+          response.data.map((wilayah) => ({
+            value: wilayah.id,
+            label: wilayah.namaWilayah,
+          }))
+        );
+
+        fetchCawangans();
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setWilayahOptions]);
+
   useEffect(() => {
-    const fetchWilayahs = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/wilayah/display-wilayah`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setWilayahOptions(
-            response.data.map((wilayah) => ({
-              value: wilayah.id,
-              label: wilayah.namaWilayah,
-            }))
-          );
-
-          fetchCawangans();
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    const fetchCawangans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/cawangan/display-cawangan`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setCawanganOptions(
-            response.data.map((cawangan) => ({
-              value: cawangan.id,
-              label: cawangan.namaCawangan,
-              wilayahId: cawangan.wilayahId,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
     fetchWilayahs();
+  }, [fetchWilayahs]);
+
+  // Fetch cawangan
+  const fetchCawangans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/cawangan/display-cawangan`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setCawanganOptions(
+          response.data.map((cawangan) => ({
+            value: cawangan.id,
+            label: cawangan.namaCawangan,
+            wilayahId: cawangan.wilayahId,
+          }))
+        );
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setCawanganOptions]);
+
+  useEffect(() => {
     fetchCawangans();
-  }, []);
+  }, [fetchCawangans]);
 
   // Search jadual TF01 by cawangan
   const [resultTf01ByCawangan, setResultTF01ByCawangan] = useState([]);
+
   const searchJadualTF01ByCawangan = async (jadualTF01ByCawanganInput) => {
     try {
       const response = await axiosCustom.post(

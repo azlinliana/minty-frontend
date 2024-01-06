@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import "../Laporan.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
@@ -9,7 +9,7 @@ import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ResultTf02 from "./SearchResult";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function SearchTf02() {
   // ------- FE ---------
@@ -27,33 +27,35 @@ function SearchTf02() {
 
   // ----------BE----------
   const [selectedCawangan, setSelectedCawangan] = useState("");
+
   const [cawanganOptions, setCawanganOptions] = useState([]);
 
   // Fetch cawangan
-  useEffect(() => {
-    const fetchCawangans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/cawangan/display-cawangan`
+  const fetchCawangans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/cawangan/display-cawangan`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setCawanganOptions(
+          response.data.map((cawangan) => ({
+            value: cawangan.id,
+            label: cawangan.namaCawangan,
+            wilayahId: cawangan.wilayahId,
+          }))
         );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setCawanganOptions(
-            response.data.map((cawangan) => ({
-              value: cawangan.id,
-              label: cawangan.namaCawangan,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
+      } else {
+        ErrorAlert(response.data);
       }
-    };
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setCawanganOptions]);
 
+  useEffect(() => {
     fetchCawangans();
-  }, []);
+  }, [fetchCawangans]);
 
   // Search jadual TF02
   const [resultTf02, setResultTF02] = useState([]);

@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import "../sahabat.css";
-import {
-  Stepper,
-  Step,
-  StepContent,
-  StepLabel,
-  Button,
-  Typography,
-  Box,
-  Paper,
-} from "@mui/material";
+import { Stepper, Step, StepContent, StepLabel, Button, Typography, Box, Paper } from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import IndexTrackingSahabat from "./sahabat/Index";
@@ -20,24 +11,7 @@ const steps = [
   { label: "Langkah 3" },
 ];
 
-const Step1 = () => <Typography>Step 1 Content</Typography>;
-const Step2 = () => <Typography>Step 2 Content</Typography>;
-const Step3 = () => <Typography>Step 3 Content</Typography>;
-
-const getStepContent = (step, sahabatId, pembiayaanId, mingguId) => {
-  switch (step) {
-    case 0:
-      return <IndexAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} />;
-    case 1:
-      return <IndexTrackingSahabat mingguId={mingguId} />;
-    case 2:
-      return <IndexTrackingIsiRumah mingguId={mingguId} />;
-    default:
-      return "Unknown step";
-  }
-};
-
-const VerticalStepper = ({sahabatId, pembiayaanId, mingguId}) => {
+const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [expandedSteps, setExpandedSteps] = useState([]);
 
@@ -89,10 +63,12 @@ const VerticalStepper = ({sahabatId, pembiayaanId, mingguId}) => {
             >
               {step.label}
             </StepLabel>
+
             <StepContent>
               {index === 0 ? <IndexAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} /> : null}
               {index === 1 ? <IndexTrackingSahabat mingguId={mingguId} /> : null}
               {index === 2 ? <IndexTrackingIsiRumah mingguId={mingguId} /> : null}
+
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
@@ -115,6 +91,7 @@ const VerticalStepper = ({sahabatId, pembiayaanId, mingguId}) => {
           </Step>
         ))}
       </Stepper>
+
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>

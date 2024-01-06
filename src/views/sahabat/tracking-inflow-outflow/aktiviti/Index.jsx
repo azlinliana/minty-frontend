@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../../sahabat.css";
 import CreateAktiviti from "./Create";
 import EditAktiviti from "./Edit";
@@ -13,34 +13,169 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
   // ----------BE----------
   // List aktiviti
   const [aktivitis, setAktivitis] = useState([]);
-  const fetchAktivitis = async () => {
+
+  const fetchAktivitis = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`
-      );
+      const response = await axiosCustom.get(`/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti`);
+
       if (response.status === 200) {
         setAktivitis(response.data);
-        handleAktivitisLength(response.data.length);
       } else {
+        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      ErrorAlert(error);
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }
     }
-  };
+  }, [sahabatId, pembiayaanId, setAktivitis]);
 
   useEffect(() => {
     fetchAktivitis();
-  }, []);
+  }, [fetchAktivitis]);
+
+  // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
+
+  
+  const [kegiatanOptions, setKegiatanOptions] = useState([]);
+  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
+  const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
+
+  // Fetch kegiatan
+  const fetchKegiatans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(`/selenggara/kegiatan/display-kegiatan`);
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKegiatanOptions(
+          response.data.map((kegiatan) => ({
+            value: kegiatan.id,
+            label: kegiatan.jenisKegiatan,
+          }))
+        );
+
+        // fetchKegiatans();
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
+    }
+  }, [setKegiatanOptions]);
+
+  useEffect(() => {
+    fetchKegiatans();
+  }, [fetchKegiatans]);
+
+  // Fetch keterangan kegiatan
+  const fetchKeteranganKegiatans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(`/selenggara/keterangan-kegiatan/display-keterangan-kegiatan`);
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKeteranganKegiatanOptions(
+          response.data.map((keteranganKegiatan) => ({
+            value: keteranganKegiatan.id,
+            label: keteranganKegiatan.jenisKeteranganKegiatan,
+            kegiatanId: keteranganKegiatan.kegiatanId,
+          }))
+        );
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }
+    }
+  }, [setKeteranganKegiatanOptions]);
+
+  useEffect(() => {
+    fetchKeteranganKegiatans();
+  }, [fetchKeteranganKegiatans]);
+
+  // Fetch projek kegiatan
+  const fetchProjekKegiatans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(`/selenggara/projek-kegiatan/display-projek-kegiatan`);
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setProjekKegiatanOptions(
+          response.data.map((projekKegiatan) => ({
+            value: projekKegiatan.id,
+            label: projekKegiatan.jenisProjekKegiatan,
+            kegiatanId: projekKegiatan.kegiatanId,
+            keteranganKegiatanId: projekKegiatan.keteranganKegiatanId,
+          }))
+        );
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }
+  
+    }
+  }, [setProjekKegiatanOptions]);
+
+  useEffect(() => {
+    fetchProjekKegiatans();
+  }, [fetchProjekKegiatans]);
+
+  // Fetch kod dimensi
+  const [kodDimensisData, setKodDimensisData] = useState([]);
+
+  const fetchKodDimensi = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(`/selenggara/dimensi/display-dimensi`);
+      
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKodDimensisData(response.data); // Display all kod inflow data
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
+    }
+  }, [setKodDimensisData]);
+
+  useEffect(() => {
+    fetchKodDimensi();
+  }, [fetchKodDimensi]);
 
   // Delete aktiviti
   const deleteAktiviti = async (aktivitiId) => {
     // Function to delete aktiviti
     const performDeletion = async () => {
       try {
-        const response = await axiosCustom.delete(
-          `/sahabat/aktiviti/${aktivitiId}`
-        );
+        const response = await axiosCustom.delete(`/sahabat/aktiviti/${aktivitiId}`);
+        
         if (response.status === 200) {
           setAktivitis((prevAktiviti) =>
             prevAktiviti.filter((aktiviti) => aktiviti.id !== aktivitiId)
@@ -69,7 +204,14 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
 
         <div className="tableSection">
           <div className="tambahBtnPlacement">
-            <CreateAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
+            <CreateAktiviti 
+              sahabatId={sahabatId} 
+              pembiayaanId={pembiayaanId} 
+              kegiatanOptions={kegiatanOptions}
+              keteranganKegiatanOptions={keteranganKegiatanOptions}
+              projekKegiatanOptions={projekKegiatanOptions}
+              kodDimensisData={kodDimensisData}
+            />
           </div>
 
           <Table responsive>
@@ -119,6 +261,10 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
                         pembiayaanId={pembiayaanId}
                         aktivitiId={aktivitisData.id}
                         aktiviti={aktivitisData}
+                        kegiatanOptions={kegiatanOptions}
+                        keteranganKegiatanOptions={keteranganKegiatanOptions}
+                        projekKegiatanOptions={projekKegiatanOptions}
+                        kodDimensisData={kodDimensisData}
                       />
                       <Button
                         className="delBtn"

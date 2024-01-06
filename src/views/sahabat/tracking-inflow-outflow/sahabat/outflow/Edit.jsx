@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -7,11 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingOutflowSahabat({
-  mingguId,
-  outflowSahabatId,
-  outflowSahabat,
-}) {
+function EditTrackingOutflowSahabat({ mingguId, outflowSahabatId, outflowSahabat, kodOutflowsData}) {
   // ----------FE----------
   // Modal
   const [isModalEditOutflowSahabat, setIsModalEditOutflowSahabat] =
@@ -31,26 +27,6 @@ function EditTrackingOutflowSahabat({
   } = useForm();
 
   // ----------BE----------
-  // Fetch kod outflow data
-  const [kodOutflowsData, setKodOutflowsData] = useState([]);
-  useEffect(() => {
-    const fetchKodOutflow = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/kod-outflow/display-kod-outflow`
-        );
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodOutflowsData(response.data); // Display all kod inflow data
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    fetchKodOutflow();
-  }, []);
 
   // Update outflow sahabat
   const updateOutflowSahabat = async (outflowSahabatInput) => {
@@ -71,97 +47,99 @@ function EditTrackingOutflowSahabat({
   };
 
   return (
-    <div>
-      <Button className="editBtn" onClick={openModalEditOutflowSahabat}>
-        Kemas Kini
-      </Button>{" "}
-      <Modal
-        show={isModalEditOutflowSahabat}
-        onHide={closeModalEditOutflowSahabat}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title>
-        </Modal.Header>
+    <>
+      <div>
+        <Button className="editBtn" onClick={openModalEditOutflowSahabat}>
+          Kemas Kini
+        </Button>{" "}
+        <Modal
+          show={isModalEditOutflowSahabat}
+          onHide={closeModalEditOutflowSahabat}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} onReset={reset}>
-            <Form.Group>
-              <Form.Label htmlFor="kodOutflowId">Kod Outflow</Form.Label>
-              <Controller
-                id="kodOutflowId"
-                name="kodOutflowId"
-                control={control}
-                defaultValue={outflowSahabat.kodOutflowId}
-                rules={{ required: "Kod outflow diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={outflowSahabat.kodOutflowId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Kod Outflow--
-                    </option>
-                    {kodOutflowsData.map((kodOutflow) => (
-                      <option key={kodOutflow.id} value={kodOutflow.id}>
-                        {kodOutflow.kodOutflow} -{" "}
-                        {kodOutflow.keteranganKodOutflow}
+          <Modal.Body>
+            <Form onSubmit={handleSubmit} onReset={reset}>
+              <Form.Group>
+                <Form.Label htmlFor="kodOutflowId">Kod Outflow</Form.Label>
+                <Controller
+                  id="kodOutflowId"
+                  name="kodOutflowId"
+                  control={control}
+                  defaultValue={outflowSahabat.kodOutflowId}
+                  rules={{ required: "Kod outflow diperlukan." }}
+                  render={({ field: { onChange } }) => (
+                    <Form.Select
+                      onChange={onChange}
+                      defaultValue={outflowSahabat.kodOutflowId}
+                    >
+                      <option value="" disabled>
+                        --Pilih Kod Outflow--
                       </option>
-                    ))}
-                  </Form.Select>
+                      {kodOutflowsData.map((kodOutflow) => (
+                        <option key={kodOutflow.id} value={kodOutflow.id}>
+                          {kodOutflow.kodOutflow} -{" "}
+                          {kodOutflow.keteranganKodOutflow}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  )}
+                />
+                {errors.kodOutflowId && (
+                  <small className="text-danger">
+                    {errors.kodOutflowId.message}
+                  </small>
                 )}
-              />
-              {errors.kodOutflowId && (
-                <small className="text-danger">
-                  {errors.kodOutflowId.message}
-                </small>
-              )}
-            </Form.Group>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="amaunOutflow">Amaun Outflow (RM)</Form.Label>
-              <Controller
-                id="amaunOutflow"
-                name="amaunOutflow"
-                control={control}
-                defaultValue={outflowSahabat.amaunOutflow}
-                rules={{ required: "Amaun outflow diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="number"
-                    min="0.00"
-                    max="10000.00"
-                    step="0.01"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan amaun outflow (RM)"
-                    autoFocus
-                  />
+              <Form.Group>
+                <Form.Label htmlFor="amaunOutflow">Amaun Outflow (RM)</Form.Label>
+                <Controller
+                  id="amaunOutflow"
+                  name="amaunOutflow"
+                  control={control}
+                  defaultValue={outflowSahabat.amaunOutflow}
+                  rules={{ required: "Amaun outflow diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="number"
+                      min="0.00"
+                      max="10000.00"
+                      step="0.01"
+                      onChange={onChange}
+                      value={value}
+                      placeholder="Masukkan amaun outflow (RM)"
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.amaunOutflow && (
+                  <small className="text-danger">
+                    {errors.amaunOutflow.message}
+                  </small>
                 )}
-              />
-              {errors.amaunOutflow && (
-                <small className="text-danger">
-                  {errors.amaunOutflow.message}
-                </small>
-              )}
-            </Form.Group>
-          </Form>
-        </Modal.Body>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditOutflowSahabat}>
-            Batal
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit(updateOutflowSahabat)}
-          >
-            Simpan
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalEditOutflowSahabat}>
+              Batal
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSubmit(updateOutflowSahabat)}
+            >
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </>
   );
 }
 

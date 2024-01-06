@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -8,13 +8,11 @@ import Form from "react-bootstrap/Form";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
-function CreateTrackingInflowIsiRumah({ isiRumahId }) {
+function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] =
-    useState(false);
-  const openModalCreateInflowIsiRumah = () =>
-    setIsModalCreateInflowIsiRumah(true);
+  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
+  const openModalCreateInflowIsiRumah = () => setIsModalCreateInflowIsiRumah(true);
   const closeModalCreateInflowIsiRumah = () => {
     setIsModalCreateInflowIsiRumah(false);
     reset(); // Reset previous form input
@@ -29,27 +27,6 @@ function CreateTrackingInflowIsiRumah({ isiRumahId }) {
   } = useForm();
 
   // ----------BE----------
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
-  useEffect(() => {
-    const fetchKodInflow = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/kod-inflow/display-kod-inflow`
-        );
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodInflowsData(response.data); // Display all kod inflow data
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    fetchKodInflow();
-  }, []);
-
   // Create inflow isi rumah
   const createInflowIsiRumah = async (inflowIsiRumahInput) => {
     try {
@@ -69,7 +46,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId }) {
   };
 
   return (
-    <div>
+    <>
       <Button variant="primary" onClick={openModalCreateInflowIsiRumah}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
@@ -155,7 +132,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId }) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

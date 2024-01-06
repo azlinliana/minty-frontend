@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import "../Laporan.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
@@ -9,7 +9,7 @@ import { Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ResultTF01 from "./SearchResult";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function SearchTf01() {
   // ----------FE----------
@@ -28,93 +28,104 @@ function SearchTf01() {
   const [selectedWilayah, setSelectedWilayah] = useState("");
   const [selectedCawangan, setSelectedCawangan] = useState("");
   const [selectedPusat, setSelectedPusat] = useState("");
+  
   const [wilayahOptions, setWilayahOptions] = useState([]);
   const [cawanganOptions, setCawanganOptions] = useState([]);
   const [pusatOptions, setPusatOptions] = useState([]);
 
-  // Fetch wilayah, cawangan, and pusat
+  // Fetch wilayah
+  const fetchWilayahs = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/wilayah/display-wilayah`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setWilayahOptions(
+          response.data.map((wilayah) => ({
+            value: wilayah.id,
+            label: wilayah.namaWilayah,
+          }))
+        );
+
+        fetchCawangans();
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setWilayahOptions]);
+
   useEffect(() => {
-    const fetchWilayahs = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/wilayah/display-wilayah`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setWilayahOptions(
-            response.data.map((wilayah) => ({
-              value: wilayah.id,
-              label: wilayah.namaWilayah,
-            }))
-          );
-
-          fetchCawangans();
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    const fetchCawangans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/cawangan/display-cawangan`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setCawanganOptions(
-            response.data.map((cawangan) => ({
-              value: cawangan.id,
-              label: cawangan.namaCawangan,
-              wilayahId: cawangan.wilayahId,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    const fetchPusats = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/pusat/display-pusat`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setPusatOptions(
-            response.data.map((pusat) => ({
-              value: pusat.id,
-              label: pusat.namaPusat,
-              wilayahId: pusat.wilayahId,
-              cawanganId: pusat.cawanganId,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
     fetchWilayahs();
+  }, [fetchWilayahs]);
+
+  // Fetch cawangan
+  const fetchCawangans = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/cawangan/display-cawangan`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setCawanganOptions(
+          response.data.map((cawangan) => ({
+            value: cawangan.id,
+            label: cawangan.namaCawangan,
+            wilayahId: cawangan.wilayahId,
+          }))
+        );
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setCawanganOptions]);
+
+  useEffect(() => {
     fetchCawangans();
+  }, [fetchCawangans]);
+
+  // Fetch pusat
+  const fetchPusats = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/pusat/display-pusat`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setPusatOptions(
+          response.data.map((pusat) => ({
+            value: pusat.id,
+            label: pusat.namaPusat,
+            wilayahId: pusat.wilayahId,
+            cawanganId: pusat.cawanganId,
+          }))
+        );
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setPusatOptions]);
+
+  useEffect(() => {
     fetchPusats();
-  }, []);
+  }, [fetchPusats]);
 
   // Search jadual TF01
   const [resultTF01, setResultTF01] = useState([]);
+
   const searchJadualTF01 = async (jadualTF01Input) => {
     try {
       const response = await axiosCustom.post(
         `/laporan/carian-jadual-tf01`,
         jadualTF01Input
       );
+
       if (response.status === 200) {
         setResultTF01(response.data);
         setIsSearchResultTf01Visible(true);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import "../../sahabat.css";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axiosCustom from "../../../../axios";
 
-function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti }) {
+function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti, kegiatanOptions,keteranganKegiatanOptions, projekKegiatanOptions, kodDimensisData }) {
   // ----------FE----------
   // Modal
   const [isModalEditAktiviti, setIsModalEditAktiviti] = useState(false);
@@ -28,14 +28,8 @@ function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti }) {
   // ----------BE----------
   // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
   const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
-    useState("");
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState("");
   const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
-  const [kegiatanOptions, setKegiatanOptions] = useState([]);
-  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState(
-    []
-  );
-  const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
 
   // Set initial values based on aktiviti prop
   useEffect(() => {
@@ -45,105 +39,8 @@ function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti }) {
       setSelectedProjekKegiatan(aktiviti.projekKegiatanId.toString());
     }
   }, [aktiviti]);
-
-  useEffect(() => {
-    const fetchKegiatans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/kegiatan/display-kegiatan`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKegiatanOptions(
-            response.data.map((kegiatan) => ({
-              value: kegiatan.id,
-              label: kegiatan.jenisKegiatan,
-            }))
-          );
-
-          fetchKegiatans();
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    const fetchKeteranganKegiatans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/keterangan-kegiatan/display-keterangan-kegiatan`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKeteranganKegiatanOptions(
-            response.data.map((keteranganKegiatan) => ({
-              value: keteranganKegiatan.id,
-              label: keteranganKegiatan.jenisKeteranganKegiatan,
-              kegiatanId: keteranganKegiatan.kegiatanId,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    const fetchProjekKegiatans = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/projek-kegiatan/display-projek-kegiatan`
-        );
-
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setProjekKegiatanOptions(
-            response.data.map((projekKegiatan) => ({
-              value: projekKegiatan.id,
-              label: projekKegiatan.jenisProjekKegiatan,
-              kegiatanId: projekKegiatan.kegiatanId,
-              keteranganKegiatanId: projekKegiatan.keteranganKegiatanId,
-            }))
-          );
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    fetchKegiatans();
-    fetchKeteranganKegiatans();
-    fetchProjekKegiatans();
-  }, []);
-
-  // Fetch kod dimensi data
-  const [kodDimensisData, setKodDimensisData] = useState([]);
-  useEffect(() => {
-    const fetchKodDimensi = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/dimensi/display-dimensi`
-        );
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodDimensisData(response.data); // Display all kod inflow data
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    fetchKodDimensi();
-  }, []);
-
-  // Update aktiviti
+  
   const updateAktiviti = async (aktivitiInput) => {
-    console.log(aktivitiInput);
     try {
       const response = await axiosCustom.put(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti/${aktivitiId}`,

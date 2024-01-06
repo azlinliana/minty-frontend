@@ -3,7 +3,7 @@ import axios from "axios";
 // Axios instance
 const axiosCustom = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
-  timeout: 5000, // Request timeout in milliseconds
+  // timeout: 5000, // Request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

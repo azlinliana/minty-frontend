@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Selenggara.css";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
@@ -8,7 +9,7 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Swal from "sweetalert2";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function IndexDimensi() {
   // ----------FE----------
@@ -28,6 +29,7 @@ function IndexDimensi() {
       if (response.status === 200) {
         setDimensis(response.data);
       } else {
+        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {

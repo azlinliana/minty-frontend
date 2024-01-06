@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../../../sahabat.css";
 import CreateTrackingInflowSahabat from "./Create";
 import EditTrackingInflowSahabat from "./Edit";
@@ -14,7 +14,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
   const [inflowSahabats, setInflowSahabats] = useState([]);
 
   // List inflow sahabat
-  const fetchInflowSahabats = async () => {
+  const fetchInflowSahabats = useCallback(async () => {
     try {
       const response = await axiosCustom.get(
         `/sahabat/inflow-sahabat/${mingguId}`
@@ -25,20 +25,45 @@ function IndexTrackingInflowSahabat({ mingguId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      ErrorAlert(error);
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
     }
-  };
+  }, [mingguId, setInflowSahabats]);
 
   useEffect(() => {
     fetchInflowSahabats();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchInflowSahabats();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  }, [fetchInflowSahabats]);
+
+  // Fetch kod inflow data
+  const [kodInflowsData, setKodInflowsData] = useState([]);
+
+  const fetchKodInflows = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(`/selenggara/kod-inflow/display-kod-inflow`);
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKodInflowsData(response.data); // Display all kod inflow data
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }  
+    }
+  }, [setKodInflowsData]);
+
+  useEffect(() => {
+    fetchKodInflows();
+  }, [fetchKodInflows]);
 
   // Delete inflow sahabat
   const deleteInflowSahabat = async (inflowSahabatId) => {
@@ -72,80 +97,87 @@ function IndexTrackingInflowSahabat({ mingguId }) {
   };
 
   return (
-    <div className="tableSection">
-      <div className="tambahBtnPlacement">
-        <CreateTrackingInflowSahabat mingguId={mingguId} />
-      </div>
+    <>
+      <div className="tableSection">
+        <div className="tambahBtnPlacement">
+          <CreateTrackingInflowSahabat 
+          mingguId={mingguId} 
+          kodInflowsData={kodInflowsData}
+          />
+        </div>
 
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>Bil.</th>
-            <th>Kod Inflow</th>
-            <th>Keterangan Kod Inflow</th>
-            <th>Kod Inflow Terperinci</th>
-            <th>Keterangan Kod Inflow Terperinci</th>
-            <th>Maklumat Terperinci</th>
-            <th>Amaun (RM)</th>
-            <th>Tindakan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {inflowSahabats.length === 0 ? (
+        <Table responsive>
+          <thead>
             <tr>
-              <td colSpan="7">
-                <center>
-                  Tiada maklumat tracking inflow sahabat. Sila klik butang
-                  "Tambah" untuk merekodkan inflow sahabat baharu.
-                </center>
-              </td>
+              <th>Bil.</th>
+              <th>Kod Inflow</th>
+              <th>Keterangan Kod Inflow</th>
+              <th>Kod Inflow Terperinci</th>
+              <th>Keterangan Kod Inflow Terperinci</th>
+              <th>Maklumat Terperinci</th>
+              <th>Amaun (RM)</th>
+              <th>Tindakan</th>
             </tr>
-          ) : (
-            inflowSahabats.map((inflowSahabatsData, key) => (
-              <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
-                <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
-                {/* Displaying Kod Inflow Terperinci */}
-                {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length ===
-                0 ? (
-                  <React.Fragment>
-                    <td>-</td>
-                    <td>-</td>
-                  </React.Fragment>
-                ) : (
-                  inflowSahabatsData.kod_inflow.kod_inflow_terperincis.map(
-                    (terperinci, index) => (
-                      <React.Fragment key={index}>
-                        <td>{terperinci.kodInflowTerperinci}</td>
-                        <td>{terperinci.keteranganKodInflowTerperinci}</td>
-                      </React.Fragment>
-                    )
-                  )
-                )}
-                <td>{inflowSahabatsData.keteranganKodInflow}</td>
-                <td>{inflowSahabatsData.amaunInflow}</td>
-                <td>{inflowSahabatsData.keteranganKodInflow}</td>
-                <td>{inflowSahabatsData.amaunInflow}</td>
-                <td>
-                  <EditTrackingInflowSahabat
-                    mingguId={mingguId}
-                    inflowSahabatId={inflowSahabatsData.id}
-                    inflowSahabat={inflowSahabatsData}
-                  />
-                  <Button
-                    className="delBtn"
-                    onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}
-                  >
-                    Padam
-                  </Button>{" "}
+          </thead>
+
+          <tbody>
+            {inflowSahabats.length === 0 ? (
+              <tr>
+                <td colSpan="7">
+                  <center>
+                    Tiada maklumat tracking inflow sahabat. Sila klik butang
+                    "Tambah" untuk merekodkan inflow sahabat baharu.
+                  </center>
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
-    </div>
+            ) : (
+              inflowSahabats.map((inflowSahabatsData, key) => (
+                <tr key={key}>
+                  <td>{key + 1}</td>
+                  <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
+                  <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
+                  {/* Displaying Kod Inflow Terperinci */}
+                  {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length ===
+                  0 ? (
+                    <React.Fragment>
+                      <td>-</td>
+                      <td>-</td>
+                    </React.Fragment>
+                  ) : (
+                    inflowSahabatsData.kod_inflow.kod_inflow_terperincis.map(
+                      (terperinci, index) => (
+                        <React.Fragment key={index}>
+                          <td>{terperinci.kodInflowTerperinci}</td>
+                          <td>{terperinci.keteranganKodInflowTerperinci}</td>
+                        </React.Fragment>
+                      )
+                    )
+                  )}
+                  <td>{inflowSahabatsData.keteranganKodInflow}</td>
+                  <td>{inflowSahabatsData.amaunInflow}</td>
+                  <td>{inflowSahabatsData.keteranganKodInflow}</td>
+                  <td>{inflowSahabatsData.amaunInflow}</td>
+                  <td>
+                    <EditTrackingInflowSahabat
+                      mingguId={mingguId}
+                      inflowSahabatId={inflowSahabatsData.id}
+                      inflowSahabat={inflowSahabatsData}
+                      kodInflowsData={kodInflowsData}
+                    />
+                    <Button
+                      className="delBtn"
+                      onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+      </div>
+    </>
   );
 }
 

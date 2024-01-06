@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -7,15 +7,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowIsiRumah({
-  isiRumahId,
-  inflowIsiRumahId,
-  inflowIsiRumah,
-}) {
+function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRumah, kodInflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] =
-    useState(false);
+  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] = useState(false);
   const openModalEditInflowIsiRumah = () => setIsModalEditInflowIsiRumah(true);
   const closeModalEditInflowIsiRumah = () => {
     setIsModalEditInflowIsiRumah(false);
@@ -30,27 +25,6 @@ function EditTrackingInflowIsiRumah({
   } = useForm();
 
   // ----------BE----------
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
-  useEffect(() => {
-    const fetchKodInflow = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/kod-inflow/display-kod-inflow`
-        );
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodInflowsData(response.data); // Display all kod inflow data
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    fetchKodInflow();
-  }, []);
-
   // Update inflow isi rumah
   const updateInflowIsiRumah = async (inflowIsiRumahInput) => {
     try {
@@ -70,7 +44,7 @@ function EditTrackingInflowIsiRumah({
   };
 
   return (
-    <div>
+    <>
       <Button className="editBtn" onClick={openModalEditInflowIsiRumah}>
         Kemas Kini
       </Button>{" "}
@@ -159,7 +133,7 @@ function EditTrackingInflowIsiRumah({
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }
 

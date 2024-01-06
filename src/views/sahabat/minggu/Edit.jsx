@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
@@ -7,12 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axiosCustom from "../../../axios";
 
-function EditMinggu({
-  sahabatId,
-  pembiayaanId,
-  mingguPembiayaanSahabat,
-  mingguId,
-}) {
+function EditMinggu({ sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId }) {
   // ----------FE----------
   // Modal
   const [isModalEditMinggu, setIsModalEditMinggu] = useState(false);
@@ -32,9 +27,7 @@ function EditMinggu({
 
   // ----------BE----------
   // Update minggu pembiayaan sahabat
-  const updateMingguPembiayaanSahabat = async (
-    mingguPembiayaanSahabatInput
-  ) => {
+  const updateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
     try {
       const response = await axiosCustom.put(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
@@ -52,93 +45,96 @@ function EditMinggu({
   };
 
   return (
-    <div>
-      <Button variant="primary" onClick={openModalEditMinggu}>
-        Kemas Kini
-      </Button>{" "}
-      <Modal
-        show={isModalEditMinggu}
-        onHide={closeModalEditMinggu}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Minggu</Modal.Title>
-        </Modal.Header>
+    <>
+      <div>
+        <Button variant="primary" onClick={openModalEditMinggu}>
+          Kemas Kini
+        </Button>{" "}
+        
+        <Modal
+          show={isModalEditMinggu}
+          onHide={closeModalEditMinggu}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Kemas Kini Minggu</Modal.Title>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form
-            onSubmit={handleSubmit(updateMingguPembiayaanSahabat)}
-            onReset={reset}
-          >
-            <Form.Group>
-              <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
-              <Controller
-                id="bilanganMinggu"
-                name="bilanganMinggu"
-                type="number"
-                control={control}
-                defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
-                rules={{ required: "Bilangan minggu diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="number"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan minggu ke berapa"
-                    autoFocus
-                  />
+          <Modal.Body>
+            <Form
+              onSubmit={handleSubmit(updateMingguPembiayaanSahabat)}
+              onReset={reset}
+            >
+              <Form.Group>
+                <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
+                <Controller
+                  id="bilanganMinggu"
+                  name="bilanganMinggu"
+                  type="number"
+                  control={control}
+                  defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
+                  rules={{ required: "Bilangan minggu diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="number"
+                      onChange={onChange}
+                      value={value}
+                      placeholder="Masukkan minggu ke berapa"
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.bilanganMinggu && (
+                  <small className="text-danger">
+                    {errors.bilanganMinggu.message}
+                  </small>
                 )}
-              />
-              {errors.bilanganMinggu && (
-                <small className="text-danger">
-                  {errors.bilanganMinggu.message}
-                </small>
-              )}
-            </Form.Group>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="tarikhBorangMinggu">
-                Tarikh Borang Minggu
-              </Form.Label>
-              <Controller
-                type="date"
-                id="tarikhBorangMinggu"
-                name="tarikhBorangMinggu"
-                control={control}
-                defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
-                rules={{ required: "Tarikh borang minggu diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="date"
-                    onChange={onChange}
-                    value={value}
-                    autoFocus
-                  />
+              <Form.Group>
+                <Form.Label htmlFor="tarikhBorangMinggu">
+                  Tarikh Borang Minggu
+                </Form.Label>
+                <Controller
+                  type="date"
+                  id="tarikhBorangMinggu"
+                  name="tarikhBorangMinggu"
+                  control={control}
+                  defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
+                  rules={{ required: "Tarikh borang minggu diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="date"
+                      onChange={onChange}
+                      value={value}
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.tarikhBorangMinggu && (
+                  <small className="text-danger">
+                    {errors.tarikhBorangMinggu.message}
+                  </small>
                 )}
-              />
-              {errors.tarikhBorangMinggu && (
-                <small className="text-danger">
-                  {errors.tarikhBorangMinggu.message}
-                </small>
-              )}
-            </Form.Group>
-          </Form>
-        </Modal.Body>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditMinggu}>
-            Batal
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit(updateMingguPembiayaanSahabat)}
-          >
-            Simpan
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalEditMinggu}>
+              Batal
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSubmit(updateMingguPembiayaanSahabat)}
+            >
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </>
   );
 }
 

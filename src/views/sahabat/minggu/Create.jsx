@@ -28,14 +28,13 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
   // ----------BE----------
   // Create minggu pembiayaan sahabat
-  const createMingguPembiayaanSahabat = async (
-    mingguPembiayaanSahabatInput
-  ) => {
+  const createMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
     try {
       const response = await axiosCustom.post(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
         mingguPembiayaanSahabatInput
       );
+
       if (response.status === 200) {
         SuccessAlert(response.data.message);
         closeModalCreateMinggu();
@@ -48,93 +47,96 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
   };
 
   return (
-    <div>
-      <Button variant="primary" onClick={openModalCreateMinggu}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
-      </Button>{" "}
-      <Modal
-        show={isModalCreateMinggu}
-        onHide={closeModalCreateMinggu}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Tambah Minggu</Modal.Title>
-        </Modal.Header>
+    <>
+      <div>
+        <Button variant="primary" onClick={openModalCreateMinggu}>
+          <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
+        </Button>{" "}
+        
+        <Modal
+          show={isModalCreateMinggu}
+          onHide={closeModalCreateMinggu}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Tambah Minggu</Modal.Title>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form
-            onSubmit={handleSubmit(createMingguPembiayaanSahabat)}
-            onReset={reset}
-          >
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
-              <Controller
-                type="number"
-                id="bilanganMinggu"
-                name="bilanganMinggu"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Bilangan minggu diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="number"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan minggu ke berapa"
-                    autoFocus
-                  />
+          <Modal.Body>
+            <Form
+              onSubmit={handleSubmit(createMingguPembiayaanSahabat)}
+              onReset={reset}
+            >
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
+                <Controller
+                  type="number"
+                  id="bilanganMinggu"
+                  name="bilanganMinggu"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Bilangan minggu diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="number"
+                      onChange={onChange}
+                      value={value}
+                      placeholder="Masukkan minggu ke berapa"
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.bilanganMinggu && (
+                  <small className="text-danger">
+                    {errors.bilanganMinggu.message}
+                  </small>
                 )}
-              />
-              {errors.bilanganMinggu && (
-                <small className="text-danger">
-                  {errors.bilanganMinggu.message}
-                </small>
-              )}
-            </Form.Group>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="tarikhBorangMinggu">
-                Tarikh Borang Minggu
-              </Form.Label>
-              <Controller
-                type="date"
-                id="tarikhBorangMinggu"
-                name="tarikhBorangMinggu"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Tarikh borang minggu diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="date"
-                    onChange={onChange}
-                    value={value}
-                    autoFocus
-                  />
+              <Form.Group>
+                <Form.Label htmlFor="tarikhBorangMinggu">
+                  Tarikh Borang Minggu
+                </Form.Label>
+                <Controller
+                  type="date"
+                  id="tarikhBorangMinggu"
+                  name="tarikhBorangMinggu"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Tarikh borang minggu diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      type="date"
+                      onChange={onChange}
+                      value={value}
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.tarikhBorangMinggu && (
+                  <small className="text-danger">
+                    {errors.tarikhBorangMinggu.message}
+                  </small>
                 )}
-              />
-              {errors.tarikhBorangMinggu && (
-                <small className="text-danger">
-                  {errors.tarikhBorangMinggu.message}
-                </small>
-              )}
-            </Form.Group>
-          </Form>
-        </Modal.Body>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateMinggu}>
-            Batal
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit(createMingguPembiayaanSahabat)}
-          >
-            Simpan
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalCreateMinggu}>
+              Batal
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSubmit(createMingguPembiayaanSahabat)}
+            >
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </>
   );
 }
 
