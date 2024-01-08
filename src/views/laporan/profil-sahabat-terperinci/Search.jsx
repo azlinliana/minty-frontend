@@ -14,7 +14,7 @@ import {
   Button,
   Alert,
 } from "react-bootstrap";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function SearchProfilSahabatTerperinci() {
   // ----------FE----------

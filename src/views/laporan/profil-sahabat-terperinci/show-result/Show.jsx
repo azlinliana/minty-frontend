@@ -10,7 +10,7 @@ import PendapatanVSPerbelanjaanSumberPengusaha from "./PendapatanVSPerbelanjaanS
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import axios from "axios";
+import axiosCustom from "../../../../axios";
 
 function ShowProfilSahabatTerperinci() {
   // ------------ FE --------------

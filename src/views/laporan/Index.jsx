@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import "./Laporan.css";
 import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import { Table, Button, Form, Modal } from "react-bootstrap";
-import axios from "axios";
+import axiosCustom from "../../axios";
 
 function IndexLaporan() {
   // ----------FE----------

@@ -5,7 +5,7 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function EditKodOutflow({ kodOutflow }) {
   // ----------FE----------

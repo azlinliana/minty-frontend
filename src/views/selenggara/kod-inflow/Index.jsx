@@ -8,7 +8,7 @@ import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function IndexKodInflow() {
   // ----------FE----------

@@ -8,7 +8,7 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Swal from "sweetalert2";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function IndexKodOutflow() {
   // ----------FE----------

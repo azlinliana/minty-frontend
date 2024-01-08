@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaPlus } from "react-icons/fa";
-import axios from "axios";
+import axiosCustom from "../../../axios";
 
 function CreateHubungan() {
   // ----------FE----------
