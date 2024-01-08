@@ -123,55 +123,67 @@ function IndexTrackingInflowSahabat({ mingguId }) {
           <tbody>
             {inflowSahabats.length === 0 ? (
               <tr>
-                <td colSpan="7">
-                  <center>
-                    Tiada maklumat tracking inflow sahabat. Sila klik butang
-                    "Tambah" untuk merekodkan inflow sahabat baharu.
-                  </center>
+                <td colSpan="8">
+                  <center>Tiada maklumat tracking inflow sahabat. Sila klik butang "Tambah" untuk merekodkan inflow sahabat baharu.</center>
                 </td>
               </tr>
             ) : (
-              inflowSahabats.map((inflowSahabatsData, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
-                  <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
-                  {/* Displaying Kod Inflow Terperinci */}
-                  {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length ===
-                  0 ? (
-                    <React.Fragment>
+              inflowSahabats.map((inflowSahabatsData, index) => (
+                <React.Fragment key={index}>
+                  {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length === 0 ? (
+                    // Render row for inflow sahabat without kod inflow terperinci
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
+                      <td>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
                       <td>-</td>
                       <td>-</td>
-                    </React.Fragment>
+                      <td>-</td>
+                      <td>{inflowSahabatsData.amaunInflow}</td>
+                      <td>
+                        <EditTrackingInflowSahabat
+                          mingguId={mingguId}
+                          inflowSahabatId={inflowSahabatsData.id}
+                          inflowSahabat={inflowSahabatsData}
+                          kodInflowsData={kodInflowsData}
+                        />
+                        <Button className="delBtn" onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
+                      </td>
+                    </tr>
                   ) : (
-                    inflowSahabatsData.kod_inflow.kod_inflow_terperincis.map(
-                      (terperinci, index) => (
-                        <React.Fragment key={index}>
-                          <td>{terperinci.kodInflowTerperinci}</td>
-                          <td>{terperinci.keteranganKodInflowTerperinci}</td>
-                        </React.Fragment>
-                      )
-                    )
+                    // Render row for inflow sahabat with kod inflow terperinci
+                    <tr>
+                      <td rowSpan={inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length + 1}>{index + 1}</td>
+                      <td rowSpan={inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length + 1}>{inflowSahabatsData.kod_inflow.kodInflow}</td>
+                      <td rowSpan={inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length + 1}>{inflowSahabatsData.kod_inflow.keteranganKodInflow}</td>
+                    </tr>
                   )}
-                  <td>{inflowSahabatsData.keteranganKodInflow}</td>
-                  <td>{inflowSahabatsData.amaunInflow}</td>
-                  <td>{inflowSahabatsData.keteranganKodInflow}</td>
-                  <td>{inflowSahabatsData.amaunInflow}</td>
-                  <td>
-                    <EditTrackingInflowSahabat
-                      mingguId={mingguId}
-                      inflowSahabatId={inflowSahabatsData.id}
-                      inflowSahabat={inflowSahabatsData}
-                      kodInflowsData={kodInflowsData}
-                    />
-                    <Button
-                      className="delBtn"
-                      onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}
-                    >
-                      Padam
-                    </Button>{" "}
-                  </td>
-                </tr>
+                  {/* Displaying Kod Inflow Terperinci */}
+                  {inflowSahabatsData.kod_inflow.kod_inflow_terperincis.map((kodInflowTerperincisData, subIndex) => (
+                    <tr key={subIndex}>
+                      <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                      <td>{kodInflowTerperincisData.keteranganKodInflowTerperinci}</td>
+                      <td></td>
+                      {/* Displaying Amaun and Tindakan for the first row only */}
+                      {subIndex === 0 && (
+                        <React.Fragment>
+                          <td rowSpan={inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length}>
+                            {inflowSahabatsData.amaunInflow}
+                          </td>
+                          <td rowSpan={inflowSahabatsData.kod_inflow.kod_inflow_terperincis.length}>
+                            <EditTrackingInflowSahabat
+                              mingguId={mingguId}
+                              inflowSahabatId={inflowSahabatsData.id}
+                              inflowSahabat={inflowSahabatsData}
+                              kodInflowsData={kodInflowsData}
+                            />
+                            <Button className="delBtn" onClick={() => deleteInflowSahabat(inflowSahabatsData.id)}>Padam</Button>{" "}
+                          </td>
+                        </React.Fragment>
+                      )}
+                    </tr>
+                  ))}
+                </React.Fragment>
               ))
             )}
           </tbody>
