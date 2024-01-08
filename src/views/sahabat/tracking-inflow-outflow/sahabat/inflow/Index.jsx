@@ -163,7 +163,19 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                     <tr key={subIndex}>
                       <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
                       <td>{kodInflowTerperincisData.keteranganKodInflowTerperinci}</td>
-                      <td></td>
+                      <td>
+                        {inflowSahabatsData.inflow_terperincis && inflowSahabatsData.inflow_terperincis.length > 0
+                          ? inflowSahabatsData.inflow_terperincis.map((inflowTerperinci, innerIndex) => (
+                              <React.Fragment key={innerIndex}>
+                                {inflowTerperinci.kodInflowTerperinciId === kodInflowTerperincisData.id
+                                  ? inflowTerperinci.keteranganInflowTerperinci
+                                  : null
+                                }
+                              </React.Fragment>
+                            ))
+                          : '-'}
+                      </td>
+
                       {/* Displaying Amaun and Tindakan for the first row only */}
                       {subIndex === 0 && (
                         <React.Fragment>
