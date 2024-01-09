@@ -27,22 +27,74 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
   } = useForm();
 
   // ----------BE----------
+  // State to store selected kod Inflow
+  const [selectedKodInflow, setSelectedKodInflow] = useState("");
+  const [selectedKodInflowTerperinci, setSelectedKodInflowTerperinci] = useState("");
+
+  const [selectedInflowId, setSelectedInflowId] = useState(null);
+
+  const handleKodInflowChange = (selectedValue) => {
+    const selectedKodInflowData = kodInflowsData.find(
+      (item) => item.id === parseInt(selectedValue)
+    );
+  
+    console.log('Selected Kod Inflow Data:', selectedKodInflowData);
+  
+    if (selectedKodInflowData) {
+      setSelectedKodInflow(selectedKodInflowData.kodInflow);
+      setSelectedKodInflowTerperinci(
+        selectedKodInflowData.kod_inflow_terperincis
+      );
+  
+      // Reset other form data and save selected inflow ID
+      setFormData((prevData) => ({
+        ...prevData,
+        kodInflowId: selectedValue,
+        amaunInflow: "",
+      }));
+      setSelectedInflowId(selectedValue);
+  
+      // Reset keteranganInflowTerperinci values
+      const resetTerperinciValues = {};
+      selectedKodInflowData.kod_inflow_terperincis.forEach((terperinci) => {
+        const fieldName = `keteranganInflowTerperinci_${terperinci.id}`;
+        resetTerperinciValues[fieldName] = "";
+      });
+  
+      // Reset the form with the new values
+      reset(resetTerperinciValues);
+    } else {
+      // Handle the case when selectedValue is not found in kodInflowsData
+      console.error(`Kod inflow data not found for ID: ${selectedValue}`);
+    }
+  };
+  
+  const [formData, setFormData] = useState({});
+
+  const handleInputChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   // Create inflow sahabat
   const createInflowSahabat = async (inflowSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/inflow-sahabat/${mingguId}`,
-        inflowSahabatInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateTrackingInflowSahabat();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    console.log(inflowSahabatInput);
+    // try {
+    //   const response = await axiosCustom.post(
+    //     `/sahabat/inflow-sahabat/${mingguId}`,
+    //     inflowSahabatInput
+    //   );
+    //   if (response.status === 200) {
+    //     SuccessAlert(response.data.message);
+    //     closeModalCreateTrackingInflowSahabat();
+    //   } else {
+    //     ErrorAlert(response); // Error from the backend or unknow error from the server side
+    //   }
+    // } catch (error) {
+    //   ErrorAlert(error);
+    // }
   };
 
   return (
@@ -72,13 +124,20 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
                   defaultValue=""
                   rules={{ required: "Kod inflow diperlukan." }}
                   render={({ field: { onChange } }) => (
-                    <Form.Select onChange={onChange} defaultValue="">
+                    <Form.Select
+                      onChange={(e) => {
+                        onChange(e);
+                        handleKodInflowChange(e.target.value)
+                      }}
+                      value={selectedInflowId} 
+                    >
                       <option value="" disabled>
                         --Pilih Kod Inflow--
                       </option>
                       {kodInflowsData.map((kodInflow) => (
                         <option key={kodInflow.id} value={kodInflow.id}>
-                          {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
+                          {kodInflow.kodInflow} -{" "}
+                          {kodInflow.keteranganKodInflow}
                         </option>
                       ))}
                     </Form.Select>
@@ -90,6 +149,38 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
                   </small>
                 )}
               </Form.Group>
+
+              {/* Generate form input based on selected kod inflow */}
+              {selectedKodInflowTerperinci && selectedKodInflowTerperinci.length > 0 && (
+                <React.Fragment>
+                  {selectedKodInflowTerperinci.map((terperinci) => (
+                    <Form.Group key={terperinci.id}>
+                      <Form.Label htmlFor={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}>
+                        {terperinci.keteranganKodInflowTerperinci}
+                      </Form.Label>
+                      <Controller
+                        id={`keteranganInflowTerperinci_${terperinci.id}`}
+                        name={`keteranganInflowTerperinci_${terperinci.id}`}
+                        type="text"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value } }) => (
+                          <Form.Control
+                            type="text"
+                            onChange={(e) => {
+                              onChange(e);
+                              handleInputChange(`keteranganInflowTerperinci_${terperinci.id}`, e.target.value);
+                            }}
+                            value={value}
+                            placeholder="Masukkan maklumat terperinci"
+                            autoFocus
+                          />
+                        )}
+                      />
+                    </Form.Group>
+                  ))}
+                </React.Fragment>
+              )}
 
               <Form.Group>
                 <Form.Label htmlFor="amaunInflow">Amaun Inflow (RM)</Form.Label>
@@ -128,7 +219,10 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
             >
               Batal
             </Button>
-            <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>
+            <Button
+              variant="primary"
+              onClick={handleSubmit(createInflowSahabat)}
+            >
               Simpan
             </Button>
           </Modal.Footer>
