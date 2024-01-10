@@ -106,7 +106,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
           />
         </div>
 
-        <Table responsive>
+        <Table bordered responsive>
           <thead>
             <tr>
               <th>Bil.</th>
