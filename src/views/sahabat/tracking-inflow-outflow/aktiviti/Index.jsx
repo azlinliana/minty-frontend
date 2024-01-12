@@ -51,7 +51,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
     try {
       const response = await axiosCustom.get(`/selenggara/kegiatan/display-kegiatan`);
 
-      if (Array.isArray(response.data) && response.data.length > 0) {
+      if (Array.isArray(response.data)) {
         setKegiatanOptions(
           response.data.map((kegiatan) => ({
             value: kegiatan.id,
@@ -83,7 +83,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
     try {
       const response = await axiosCustom.get(`/selenggara/keterangan-kegiatan/display-keterangan-kegiatan`);
 
-      if (Array.isArray(response.data) && response.data.length > 0) {
+      if (Array.isArray(response.data)) {
         setKeteranganKegiatanOptions(
           response.data.map((keteranganKegiatan) => ({
             value: keteranganKegiatan.id,
@@ -114,7 +114,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
     try {
       const response = await axiosCustom.get(`/selenggara/projek-kegiatan/display-projek-kegiatan`);
 
-      if (Array.isArray(response.data) && response.data.length > 0) {
+      if (Array.isArray(response.data)) {
         setProjekKegiatanOptions(
           response.data.map((projekKegiatan) => ({
             value: projekKegiatan.id,
@@ -149,7 +149,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
     try {
       const response = await axiosCustom.get(`/selenggara/dimensi/display-dimensi`);
       
-      if (Array.isArray(response.data) && response.data.length > 0) {
+      if (Array.isArray(response.data)) {
         setKodDimensisData(response.data); // Display all kod inflow data
       } else {
         ErrorAlert(response.data);
