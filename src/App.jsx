@@ -71,14 +71,6 @@ function App() {
             />
             <Route path="search-tf02" element={<SearchTf02 />} />
             <Route path="result-tf02" element={<ResultTf02 />} />
-            <Route
-              path="pembiayaan-sahabat"
-              element={<SearchProfilSahabat />}
-            />
-            <Route
-              path="pembiayaan-sahabat-terperinci"
-              element={<SearchProfilSahabatTerperinci />}
-            />
 
             {/* Selenggara */}
             <Route path="selenggara" element={<IndexSelenggara />} />
