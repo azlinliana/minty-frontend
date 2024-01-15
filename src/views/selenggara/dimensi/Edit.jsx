@@ -126,7 +126,7 @@ function EditDimensi({ dimensi }) {
                     defaultValue={dimensi.statusDimensi}
                   >
                     <option value="" disabled>
-                      --Pilih Dimensi--
+                      --Pilih Status Dimensi--
                     </option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="TIDAK AKTIF">TIDAK AKTIF</option>
