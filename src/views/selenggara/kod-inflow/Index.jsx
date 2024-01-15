@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Selenggara.css";
 import CreateKodInflow from "./Create";
-import EditKodInflow from "./Edit";
+import EditWithoutKodInflowTerperinci from "./Edit/EditWithoutKodInflowTerperinci";
+import EditWithKodInflowTerperinci from "./Edit/EditWithKodInflowTerperinci";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
@@ -21,9 +22,11 @@ function IndexKodInflow() {
   // ----------BE----------
   // List kod inflow
   const [kodInflows, setKodInflows] = useState([]);
-  const fetchKodInflows = async () => {
+
+  const fetchKodInflows = useCallback(async () => {
     try {
       const response = await axiosCustom.get(`/selenggara/kod-inflow`);
+      console.log(response.data);
       if (response.status === 200) {
         setKodInflows(response.data);
       } else {
@@ -32,18 +35,11 @@ function IndexKodInflow() {
     } catch (error) {
       ErrorAlert(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchKodInflows();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   fetchKodInflows();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  }, [fetchKodInflows]);
 
   return (
     <div>
@@ -63,19 +59,20 @@ function IndexKodInflow() {
           <CreateKodInflow />
         </div>
 
-        <Table responsive>
+        <Table bordered responsive>
           <thead>
             <tr>
               <th>Bil.</th>
-              <th rowSpan={2} className="rowCategory">
-                Kod Inflow
-              </th>
+              <th>Kod Inflow</th>
               <th>Keterangan Kod Inflow</th>
+              <th>Status Kod Inflow</th>
               <th>Kod Inflow Terperinci</th>
               <th>Keterangan Kod Inflow Terperinci</th>
+              <th>Status Kod Inflow Terperinci</th>
               <th>Tindakan</th>
             </tr>
           </thead>
+
           <tbody>
             {kodInflows.length === 0 ? (
               <tr>
@@ -89,23 +86,60 @@ function IndexKodInflow() {
             ) : (
               kodInflows.map((kodInflowsData, index) => (
                 <React.Fragment key={index}>
-                  <tr>
-                    <td
-                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
-                    >
-                      {index + 1}
-                    </td>
-                    <td
-                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
-                    >
-                      {kodInflowsData.kodInflow}
-                    </td>
-                    <td
-                      rowSpan={kodInflowsData.kod_inflow_terperincis.length + 1}
-                    >
-                      {kodInflowsData.keteranganKodInflow}
-                    </td>
-                  </tr>
+                  {kodInflowsData.kod_inflow_terperincis.length === 0 ? (
+                    // Render row for kod inflow without kod inflow terperinci
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{kodInflowsData.kodInflow}</td>
+                      <td>{kodInflowsData.keteranganKodInflow}</td>
+                      <td>{kodInflowsData.statusKodInflow}</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>
+                        <EditWithoutKodInflowTerperinci
+                          kodInflow={kodInflowsData}
+                        />
+                        <Button className="delBtn" variant="danger">
+                          Padam
+                        </Button>{" "}
+                      </td>
+                    </tr>
+                  ) : (
+                    // Render row for kod inflow with kod inflow terperinci
+                    <tr>
+                      <td
+                        rowSpan={
+                          kodInflowsData.kod_inflow_terperincis.length + 1
+                        }
+                      >
+                        {index + 1}
+                      </td>
+                      <td
+                        rowSpan={
+                          kodInflowsData.kod_inflow_terperincis.length + 1
+                        }
+                      >
+                        {kodInflowsData.kodInflow}
+                      </td>
+                      <td
+                        rowSpan={
+                          kodInflowsData.kod_inflow_terperincis.length + 1
+                        }
+                      >
+                        {kodInflowsData.keteranganKodInflow}
+                      </td>
+                      <td
+                        rowSpan={
+                          kodInflowsData.kod_inflow_terperincis.length + 1
+                        }
+                      >
+                        {kodInflowsData.statusKodInflow}
+                      </td>
+                    </tr>
+                  )}
+
+                  {/* Displaying kod inflow terperinci */}
                   {kodInflowsData.kod_inflow_terperincis.map(
                     (kodInflowTerperincisData, subIndex) => (
                       <tr key={subIndex}>
@@ -116,7 +150,13 @@ function IndexKodInflow() {
                           }
                         </td>
                         <td>
-                          <EditKodInflow kodInflowId={kodInflowsData.id} />
+                          {kodInflowTerperincisData.statusKodInflowTerperinci}
+                        </td>
+                        <td>
+                          <EditWithKodInflowTerperinci
+                            kodInflow={kodInflowsData}
+                            kodInflowTerperinci={kodInflowTerperincisData}
+                          />
                           <Button className="delBtn" variant="danger">
                             Padam
                           </Button>{" "}
