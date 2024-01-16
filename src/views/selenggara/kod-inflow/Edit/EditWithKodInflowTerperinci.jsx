@@ -10,9 +10,13 @@ import axiosCustom from "../../../../axios";
 function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
   // ----------FE----------
   // Modal
-  const [isModalEditKodInflowWithKodInflowTerperinci, setIsModalEditKodInflowWithKodInflowTerperinci] = useState(false);
+  const [
+    isModalEditKodInflowWithKodInflowTerperinci,
+    setIsModalEditKodInflowWithKodInflowTerperinci,
+  ] = useState(false);
 
-  const openModalEditKodInflowWithKodInflowTerperinci = () => setIsModalEditKodInflowWithKodInflowTerperinci(true);
+  const openModalEditKodInflowWithKodInflowTerperinci = () =>
+    setIsModalEditKodInflowWithKodInflowTerperinci(true);
   const closeModalEditKodInflowWithKodInflowTerperinci = () => {
     setIsModalEditKodInflowWithKodInflowTerperinci(false);
   };
@@ -28,16 +32,32 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
   // ----------BE----------
   const updateKodInflowWithKodInflowTerperinci = async (kodInflowWithKodInflowTerperinciInput) => {
     console.log(kodInflowWithKodInflowTerperinciInput);
-    // Add your form submission logic here
+    try {
+      const response = await axiosCustom.put(
+        `/selenggara/kod-inflow/${kodInflow.id}/kod-inflow-terperinci/${kodInflowTerperinci.id}`,
+        kodInflowWithKodInflowTerperinciInput
+      );
+
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditKodInflowWithKodInflowTerperinci();
+      } else {
+        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
   };
 
   return (
     <>
       <div>
-        <Button className="editBtn" onClick={openModalEditKodInflowWithKodInflowTerperinci}>
+        <Button
+          className="editBtn"
+          onClick={openModalEditKodInflowWithKodInflowTerperinci}
+        >
           Kemas Kini
         </Button>{" "}
-
         <Modal
           show={isModalEditKodInflowWithKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithKodInflowTerperinci}
@@ -49,10 +69,15 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
           </Modal.Header>
 
           <Modal.Body>
-            <Form onSubmit={handleFormSubmit(updateKodInflowWithKodInflowTerperinci)} onReset={reset}>
+            <Form
+              onSubmit={handleFormSubmit(
+                updateKodInflowWithKodInflowTerperinci
+              )}
+              onReset={reset}
+            >
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="kodInflow">Kod Inflow</Form.Label>
-                
+
                 <Controller
                   name="kodInflow"
                   id="kodInflow"
@@ -107,7 +132,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
 
               <Form.Group className="mb-3">
                 <Form.Label>Status Kod Inflow</Form.Label>
-                
+
                 <Controller
                   name="statusKodInflow"
                   control={control}
@@ -126,9 +151,11 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                   )}
                 />
               </Form.Group>
-              
+
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="kodInflow">Kod Inflow Terperinci</Form.Label>
+                <Form.Label htmlFor="kodInflow">
+                  Kod Inflow Terperinci
+                </Form.Label>
                 <Controller
                   name="kodInflowTerperinci"
                   id="kodInflowTerperinci"
@@ -160,7 +187,9 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                   name="keteranganKodInflowTerperinci"
                   id="keteranganKodInflowTerperinci"
                   control={control}
-                  defaultValue={kodInflowTerperinci.keteranganKodInflowTerperinci}
+                  defaultValue={
+                    kodInflowTerperinci.keteranganKodInflowTerperinci
+                  }
                   rules={{ required: "Keterangan kod inflow diperlukan." }}
                   render={({ field: { onChange, value } }) => (
                     <Form.Control
@@ -182,7 +211,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
 
               <Form.Group className="mb-3">
                 <Form.Label>Status Kod Inflow Terperinci</Form.Label>
-                
+
                 <Controller
                   name="statusKodInflowTerperinci"
                   control={control}
@@ -190,7 +219,9 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                   render={({ field: { onChange } }) => (
                     <Form.Select
                       onChange={onChange}
-                      defaultValue={kodInflowTerperinci.statusKodInflowTerperinci}
+                      defaultValue={
+                        kodInflowTerperinci.statusKodInflowTerperinci
+                      }
                     >
                       <option value="" disabled>
                         --Pilih Status Kod Inflow Terperinci--
@@ -205,10 +236,16 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditKodInflowWithKodInflowTerperinci}>
+            <Button
+              variant="secondary"
+              onClick={closeModalEditKodInflowWithKodInflowTerperinci}
+            >
               Batal
             </Button>
-            <Button variant="primary" onClick={handleFormSubmit(updateKodInflowWithKodInflowTerperinci)}>
+            <Button
+              variant="primary"
+              onClick={handleFormSubmit(updateKodInflowWithKodInflowTerperinci)}
+            >
               Simpan
             </Button>
           </Modal.Footer>
