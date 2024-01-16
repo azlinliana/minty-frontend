@@ -76,7 +76,7 @@ function IndexKodInflow() {
           <tbody>
             {kodInflows.length === 0 ? (
               <tr>
-                <td colSpan="6">
+                <td colSpan="8">
                   <center>
                     Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk
                     merekodkan kod inflow baharu.
