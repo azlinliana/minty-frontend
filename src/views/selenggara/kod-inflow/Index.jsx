@@ -10,11 +10,13 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import axiosCustom from "../../../axios";
+import Swal from "sweetalert2";
 
 function IndexKodInflow() {
   // ----------FE----------
   // Back button
   const navigate = useNavigate();
+
   const goBack = () => {
     navigate(-1);
   };
@@ -26,7 +28,7 @@ function IndexKodInflow() {
   const fetchKodInflows = useCallback(async () => {
     try {
       const response = await axiosCustom.get(`/selenggara/kod-inflow`);
-      console.log(response.data);
+
       if (response.status === 200) {
         setKodInflows(response.data);
       } else {
@@ -40,6 +42,70 @@ function IndexKodInflow() {
   useEffect(() => {
     fetchKodInflows();
   }, [fetchKodInflows]);
+
+  // Delete kod inflow without kod inflow terperinci
+  const deleteKodInflowWithoutKodInflowTerperinci = async (kodInflowId) => {
+    // Function to delete kod inflow
+    const performDeletion = async () => {
+      try {
+        const response = await axiosCustom.delete(
+          `/selenggara/kod-inflow/${kodInflowId}`
+        );
+
+        if (response.status === 200) {
+          setKodInflows((prevKodInflows) =>
+            prevKodInflows.filter((kodInflow) => kodInflow.id !== kodInflowId)
+          );
+          // Show success message from the server
+          Swal.fire("Dipadam!", response.data.message, "success");
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    // // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
+    };
+
+    // // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
+
+  // Delete kod inflow with kod inflow terperinci
+  const deleteKodInflowWithKodInflowTerperinci = async (kodInflowTerperinciId) => {
+    console.log(kodInflowTerperinciId);
+    // Function to delete dimensi
+    const performDeletion = async () => {
+      try {
+        const response = await axiosCustom.delete(
+          `/selenggara/kod-inflow-terperinci/${kodInflowTerperinciId}`
+        );
+
+        if (response.status === 200) {
+          setKodInflows((prevKodInflowTerperincis) =>
+            prevKodInflowTerperincis.filter(
+              (kodInflowTerperinci) =>
+                kodInflowTerperinci.id !== kodInflowTerperinciId
+            )
+          );
+          // Show success message from the server
+          Swal.fire("Dipadam!", response.data.message, "success");
+        }
+      } catch (error) {
+        ErrorAlert(error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
 
   return (
     <div>
@@ -100,7 +166,15 @@ function IndexKodInflow() {
                         <EditWithoutKodInflowTerperinci
                           kodInflow={kodInflowsData}
                         />
-                        <Button className="delBtn" variant="danger">
+                        <Button
+                          className="delBtn"
+                          variant="danger"
+                          onClick={() =>
+                            deleteKodInflowWithoutKodInflowTerperinci(
+                              kodInflowsData.id
+                            )
+                          }
+                        >
                           Padam
                         </Button>{" "}
                       </td>
@@ -157,7 +231,15 @@ function IndexKodInflow() {
                             kodInflow={kodInflowsData}
                             kodInflowTerperinci={kodInflowTerperincisData}
                           />
-                          <Button className="delBtn" variant="danger">
+                          <Button
+                            className="delBtn"
+                            variant="danger"
+                            onClick={() =>
+                              deleteKodInflowWithKodInflowTerperinci(
+                                kodInflowTerperincisData.id
+                              )
+                            }
+                          >
                             Padam
                           </Button>{" "}
                         </td>
