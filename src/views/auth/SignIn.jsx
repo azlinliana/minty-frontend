@@ -61,14 +61,11 @@ function SignIn() {
 
   const handleSignIn = async (signInInput) => {
     try {
-      const response = await axiosCustom.post(
-        `/auth/login`,
-        signInInput
-      );
+      const response = await axiosCustom.post(`/auth/login`, signInInput);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         console.log(response.data.token);
-        navigate("/search-sahabat");
+        navigate("/carian-sahabat");
       } else {
         console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side

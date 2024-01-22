@@ -1,16 +1,18 @@
 import { FaUsers } from "react-icons/fa";
-import { FaChartLine } from "react-icons/fa";
-import { FaTools } from "react-icons/fa";
+import { BsBarChartLineFill } from "react-icons/bs";
+import { BsTools } from "react-icons/bs";
+import { BsPersonFillGear } from "react-icons/bs";
+
 
 const SidebarMenu = [
   {
     title: "Sahabat",
-    path: "/search-sahabat",
+    path: "/carian-sahabat",
     icon: <FaUsers />,
     subRoutes: [
       {
         title: "Sahabat",
-        path: "/search-result-sahabat",
+        path: "/hasil-carian-sahabat",
       },
       {
         title: "Sahabat",
@@ -21,7 +23,7 @@ const SidebarMenu = [
   {
     title: "Laporan",
     path: "/laporan",
-    icon: <FaChartLine />,
+    icon: <BsBarChartLineFill />,
     subRoutes: [
       {
         title: "Laporan",
@@ -56,7 +58,7 @@ const SidebarMenu = [
   {
     title: "Selenggara",
     path: "/selenggara",
-    icon: <FaTools />,
+    icon: <BsTools />,
     subRoutes: [
       {
         title: "Selenggara",
@@ -80,6 +82,21 @@ const SidebarMenu = [
       },
     ],
   },
+  {
+    title: "Pengguna",
+    path: "/tetapan-pengguna",
+    icon: <BsPersonFillGear />,
+    subRoutes: [
+      {
+        title: "Pengguna",
+        path: "/senarai-admin",
+      },
+      {
+        title: "Pengguna",
+        path: "/senarai-super-admin",
+      },
+    ]
+  }
 ];
 
 export default SidebarMenu;

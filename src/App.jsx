@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
-import NoPage from "./views/auth/NoPage";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -23,6 +22,9 @@ import IndexKodOutflow from "./views/selenggara/kod-outflow/Index";
 import IndexDimensi from "./views/selenggara/dimensi/Index";
 import IndexHubungan from "./views/selenggara/hubungan/Index";
 import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
+import IndexPengguna from "./views/pengguna/Index";
+import IndexAdmin from "./views/pengguna/admin/Index";
+import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
 
 function App() {
   return (
@@ -34,9 +36,9 @@ function App() {
 
           <Route element={<MainLayout />}>
             {/* Sahabat */}
-            <Route path="search-sahabat" element={<SearchSahabat />} />
+            <Route path="carian-sahabat" element={<SearchSahabat />} />
             <Route
-              path="search-result-sahabat"
+              path="hasil-carian-sahabat"
               element={<SearchResultSahabat />}
             />
             <Route
@@ -79,9 +81,12 @@ function App() {
             <Route path="dimensi" element={<IndexDimensi />} />
             <Route path="hubungan" element={<IndexHubungan />} />
             <Route path="pinjaman-aktiviti" element={<PinjamanAktiviti />} />
-          </Route>
 
-          <Route path="*" element={<NoPage />} />
+            {/* Pengguna */}
+            <Route path="tetapan-pengguna" element={<IndexPengguna />} />
+            <Route path="senarai-admin" element={<IndexAdmin />} />
+            <Route path="senarai-super-admin" element={<IndexSuperAdmin />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
