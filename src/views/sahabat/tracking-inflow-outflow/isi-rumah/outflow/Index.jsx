@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../../../sahabat.css";
+import "../../../Sahabat.css";
 import CreateTrackingOutflowIsiRumah from "./Create";
 import EditTrackingOutflowIsiRumah from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
