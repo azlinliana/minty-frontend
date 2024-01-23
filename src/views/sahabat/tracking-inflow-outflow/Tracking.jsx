@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../sahabat.css";
+import "../Sahabat.css";
 import MaklumatSahabat from "./MaklumatSahabat.jsx";
 import MaklumatMinggu from "./MaklumatMinggu.jsx";
 import BorangTrackingMingguanSahabat from "./BorangTrackingMingguanSahabat.jsx";
