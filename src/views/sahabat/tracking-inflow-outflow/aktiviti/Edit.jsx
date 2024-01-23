@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "../../sahabat.css";
+import "../../Sahabat.css";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import Modal from "react-bootstrap/Modal";
