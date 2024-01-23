@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../../../sahabat.css";
+import "../../../Sahabat.css";
 import CreateTrackingOutflowSahabat from "./Create";
 import EditTrackingOutflowSahabat from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -25,13 +25,16 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, [mingguId, setOutflowSahabats]);
 
@@ -53,13 +56,16 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, [setKodOutflowsData]);
 
@@ -102,9 +108,9 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
     <>
       <div className="tableSection">
         <div className="tambahBtnPlacement">
-          <CreateTrackingOutflowSahabat 
-            mingguId={mingguId} 
-            kodOutflowsData={kodOutflowsData} 
+          <CreateTrackingOutflowSahabat
+            mingguId={mingguId}
+            kodOutflowsData={kodOutflowsData}
           />
         </div>
 
@@ -133,7 +139,9 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
                 <tr key={key}>
                   <td>{key + 1}</td>
                   <td>{outflowSahabatsData.kod_outflow.kodOutflow}</td>
-                  <td>{outflowSahabatsData.kod_outflow.keteranganKodOutflow}</td>
+                  <td>
+                    {outflowSahabatsData.kod_outflow.keteranganKodOutflow}
+                  </td>
                   <td>{outflowSahabatsData.amaunOutflow}</td>
                   <td>
                     <EditTrackingOutflowSahabat
@@ -144,7 +152,9 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
                     />
                     <Button
                       className="delBtn"
-                      onClick={() => deleteOutflowSahabat(outflowSahabatsData.id)}
+                      onClick={() =>
+                        deleteOutflowSahabat(outflowSahabatsData.id)
+                      }
                     >
                       Padam
                     </Button>{" "}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../sahabat.css";
+import "../../Sahabat.css";
 import CreateTrackingIsiRumah from "./Create";
 import EditTrackingIsiRumah from "./Edit";
 import IndexTrackingInflowIsiRumah from "./inflow/Index";
@@ -45,13 +45,16 @@ function IndexTrackingIsiRumah({ mingguId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, [mingguId, setIsiRumahSahabats]);
 
@@ -64,21 +67,26 @@ function IndexTrackingIsiRumah({ mingguId }) {
 
   const fetchHubungans = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/selenggara/hubungan/display-hubungan`);
-      
+      const response = await axiosCustom.get(
+        `/selenggara/hubungan/display-hubungan`
+      );
+
       if (Array.isArray(response.data) && response.data.length > 0) {
         setHubungansData(response.data); // Display all kod inflow data
       } else {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, [setHubungansData]);
 
@@ -92,7 +100,7 @@ function IndexTrackingIsiRumah({ mingguId }) {
         <h2>Maklumat Tracking Isi Rumah</h2>
 
         <div className="tambahBtnPlacement">
-          <CreateTrackingIsiRumah 
+          <CreateTrackingIsiRumah
             mingguId={mingguId}
             hubungansData={hubungansData}
           />
@@ -196,7 +204,10 @@ function IndexTrackingIsiRumah({ mingguId }) {
                         />
                       </Tab>
 
-                      <Tab eventKey="tracking-outflow-isi-rumah" title="Outflow">
+                      <Tab
+                        eventKey="tracking-outflow-isi-rumah"
+                        title="Outflow"
+                      >
                         <IndexTrackingOutflowIsiRumah
                           isiRumahId={isiRumahSahabatsData.id}
                         />

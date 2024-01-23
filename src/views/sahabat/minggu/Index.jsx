@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../sahabat.css";
+import "../Sahabat.css";
 import CreateMinggu from "./Create";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
@@ -25,7 +25,9 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
 
   const fetchMingguPembiayaanSahabats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
+      const response = await axiosCustom.get(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
+      );
 
       if (response.status === 200) {
         setMingguPembiayaanSahabats(response.data);
@@ -33,7 +35,10 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {

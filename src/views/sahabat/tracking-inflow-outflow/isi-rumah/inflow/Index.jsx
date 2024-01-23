@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../../../sahabat.css";
+import "../../../Sahabat.css";
 import CreateTrackingInflowIsiRumah from "./Create";
 import EditTrackingInflowIsiRumah from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -16,7 +16,9 @@ function IndexTrackingInflowIsiRumah({ isiRumahId }) {
 
   const fetchInflowIsiRumahs = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/sahabat/inflow-isi-rumah/${isiRumahId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/inflow-isi-rumah/${isiRumahId}`
+      );
 
       if (response.status === 200) {
         setInflowIsiRumahs(response.data);
@@ -46,7 +48,9 @@ function IndexTrackingInflowIsiRumah({ isiRumahId }) {
 
   const fetchKodInflows = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/selenggara/kod-inflow/display-kod-inflow`);
+      const response = await axiosCustom.get(
+        `/selenggara/kod-inflow/display-kod-inflow`
+      );
 
       if (Array.isArray(response.data) && response.data.length > 0) {
         setKodInflowsData(response.data); // Display all kod inflow data

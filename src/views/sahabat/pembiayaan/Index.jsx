@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../sahabat.css";
+import "../Sahabat.css";
 import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
@@ -9,7 +9,11 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { TfiArrowCircleDown, TfiArrowCircleUp,  TfiMoreAlt } from "react-icons/tfi";
+import {
+  TfiArrowCircleDown,
+  TfiArrowCircleUp,
+  TfiMoreAlt,
+} from "react-icons/tfi";
 import axiosCustom from "../../../axios";
 
 function IndexPembiayaan({ resultSahabat, sahabatId }) {
@@ -29,7 +33,9 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
 
   const fetchPembiayaanSahabats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/sahabat/pembiayaan/${sahabatId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/pembiayaan/${sahabatId}`
+      );
 
       if (response.status === 200) {
         setPembiayaanSahabats(response.data);
