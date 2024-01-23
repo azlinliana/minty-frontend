@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../sahabat.css";
+import "../Sahabat.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import EditMinggu from "../minggu/Edit";
 import Card from "react-bootstrap/Card";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../sahabat.css";
+import "../Sahabat.css";
 import { Stepper, Step, StepContent, StepLabel, Button, Typography, Box, Paper } from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";

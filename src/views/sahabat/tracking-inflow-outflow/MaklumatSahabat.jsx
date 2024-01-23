@@ -1,5 +1,5 @@
 import React from "react";
-import "../sahabat.css";
+import "../Sahabat.css";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
