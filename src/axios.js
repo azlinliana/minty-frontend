@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios instance
 const axiosCustom = axios.create({
-  baseURL: "http://10.10.1.230/api",
+  baseURL: "http://pbmrv2.aim.gov.my:8080/api",
   // timeout: 5000, // Request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
