@@ -1,5 +1,5 @@
 import React from "react";
-import "../sahabat.css";
+import "../Sahabat.css";
 import Stepper from "./Stepper.jsx";
 
 function BorangTrackingMingguanSahabat({sahabatId, pembiayaanId, mingguId}) {
