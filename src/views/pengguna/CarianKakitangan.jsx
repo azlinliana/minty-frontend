@@ -17,7 +17,6 @@ function CarianKakitangan() {
 
   return (
     <>
-      <div className="container-fluid searchSection">
         <Form className="searchBar" onSubmit="" onReset={reset}>
           <Row>
             <Form.Group className="col-md-10">
@@ -54,7 +53,6 @@ function CarianKakitangan() {
             </Form.Group>
           </Row>
         </Form>
-      </div>
     </>
   );
 }
