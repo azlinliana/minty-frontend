@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../../../Sahabat.css";
 import CreateTrackingOutflowIsiRumah from "./Create";
 import EditTrackingOutflowIsiRumah from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
+import "../../../../../assets/styles/styles_sahabat.css";
 
 function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
   // ----------BE----------
@@ -16,7 +15,9 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
 
   const fetchOutflowIsiRumahs = useCallback(async () => {
     try {
-      const response = await axiosCustom.get( `/sahabat/outflow-isi-rumah/${isiRumahId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/outflow-isi-rumah/${isiRumahId}`
+      );
 
       if (response.status === 200) {
         setOutflowIsiRumahs(response.data);
@@ -24,13 +25,16 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, [isiRumahId, setOutflowIsiRumahs]);
 
@@ -52,13 +56,16 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (error.response && (error.response.status === 503 || error.response.status === 429)) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
         // The server is not ready, ignore the error
         console.log("Server not ready, retry later.");
       } else {
         // Handle other errors
         ErrorAlert(error);
-      }  
+      }
     }
   }, []);
 
@@ -101,8 +108,8 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
     <>
       <div className="tableSection">
         <div className="tambahBtnPlacement">
-          <CreateTrackingOutflowIsiRumah 
-            isiRumahId={isiRumahId} 
+          <CreateTrackingOutflowIsiRumah
+            isiRumahId={isiRumahId}
             kodOutflowsData={kodOutflowsData}
           />
         </div>
@@ -133,7 +140,9 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
                 <tr key={key}>
                   <td>{key + 1}</td>
                   <td>{outflowIsiRumahsData.kod_outflow.kodOutflow}</td>
-                  <td>{outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}</td>
+                  <td>
+                    {outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}
+                  </td>
                   <td>{outflowIsiRumahsData.amaunOutflow}</td>
                   <td>
                     <EditTrackingOutflowIsiRumah

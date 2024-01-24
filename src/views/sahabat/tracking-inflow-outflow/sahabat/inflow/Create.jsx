@@ -2,17 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
 function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] = useState(false);
-  const openModalCreateInflowSahabat = () => setIsModalCreateInflowSahabat(true);
+  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] =
+    useState(false);
+  const openModalCreateInflowSahabat = () =>
+    setIsModalCreateInflowSahabat(true);
   const closeModalCreateTrackingInflowSahabat = () => {
     setIsModalCreateInflowSahabat(false);
     reset(); // Reset previous form input
@@ -78,7 +78,8 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
                       </option>
                       {kodInflowsData.map((kodInflow) => (
                         <option key={kodInflow.id} value={kodInflow.id}>
-                          {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
+                          {kodInflow.kodInflow} -{" "}
+                          {kodInflow.keteranganKodInflow}
                         </option>
                       ))}
                     </Form.Select>
@@ -128,7 +129,10 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
             >
               Batal
             </Button>
-            <Button variant="primary" onClick={handleSubmit(createInflowSahabat)}>
+            <Button
+              variant="primary"
+              onClick={handleSubmit(createInflowSahabat)}
+            >
               Simpan
             </Button>
           </Modal.Footer>

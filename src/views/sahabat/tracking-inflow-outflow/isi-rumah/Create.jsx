@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
@@ -146,7 +144,9 @@ function CreateTrackingIsiRumah({ mingguId, hubungansData }) {
                 )}
               />
               {errors.hubunganId && (
-                <small className="text-danger">{errors.hubunganId.message}</small>
+                <small className="text-danger">
+                  {errors.hubunganId.message}
+                </small>
               )}
             </Form.Group>
           </Modal.Body>

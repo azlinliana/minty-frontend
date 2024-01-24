@@ -1,14 +1,9 @@
 import React from "react";
-import "../Sahabat.css";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Card, Container, Row, Col, Form } from "react-bootstrap";
+import "../../../assets/styles/styles_sahabat.css";
 
-function MaklumatSahabat({dataSahabat}) {
-  return(
+function MaklumatSahabat({ dataSahabat }) {
+  return (
     <div className="sahabatTrackingContent">
       <h2>Maklumat Sahabat</h2>
 
@@ -19,7 +14,11 @@ function MaklumatSahabat({dataSahabat}) {
               <Col xs={12}>
                 <Form.Group>
                   <Form.Label>Nama</Form.Label>
-                  <Form.Control type="text" value={dataSahabat.namaSahabat} disabled />
+                  <Form.Control
+                    type="text"
+                    value={dataSahabat.namaSahabat}
+                    disabled
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -28,13 +27,21 @@ function MaklumatSahabat({dataSahabat}) {
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>No. Kad Pengenalan</Form.Label>
-                  <Form.Control type="text" value={dataSahabat.noKadPengenalanSahabat} disabled />
+                  <Form.Control
+                    type="text"
+                    value={dataSahabat.noKadPengenalanSahabat}
+                    disabled
+                  />
                 </Form.Group>
               </Col>
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>No. Sahabat</Form.Label>
-                  <Form.Control type="text" value={dataSahabat.noSahabat} disabled />
+                  <Form.Control
+                    type="text"
+                    value={dataSahabat.noSahabat}
+                    disabled
+                  />
                 </Form.Group>
               </Col>
             </Row>

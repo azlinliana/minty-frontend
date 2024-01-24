@@ -2,17 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
 function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
-  const openModalCreateInflowIsiRumah = () => setIsModalCreateInflowIsiRumah(true);
+  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] =
+    useState(false);
+  const openModalCreateInflowIsiRumah = () =>
+    setIsModalCreateInflowIsiRumah(true);
   const closeModalCreateInflowIsiRumah = () => {
     setIsModalCreateInflowIsiRumah(false);
     reset(); // Reset previous form input

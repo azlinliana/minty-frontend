@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import "../Laporan.css";
 import SearchResultPembiayaanSahabat from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import {
@@ -15,6 +13,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_laporan.css";
 
 function SearchProfilSahabat() {
   // --------- FE --------------

@@ -1,9 +1,8 @@
-import './Navbar.css'
-import Container from 'react-bootstrap/Container'
-import Navbar from 'react-bootstrap/Navbar'
+import { Navbar, Container } from "react-bootstrap";
+import "../../../assets/styles/styles_layout.css";
 
 function SecondNavbar() {
-  return(
+  return (
     <>
       <Navbar className="navbar-secondary">
         <Container>
@@ -11,7 +10,7 @@ function SecondNavbar() {
         </Container>
       </Navbar>
     </>
-  )
+  );
 }
 
-export default SecondNavbar
+export default SecondNavbar;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import "./Laporan.css";
 import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import { Table, Button, Form, Modal } from "react-bootstrap";
 import axiosCustom from "../../axios";
+import "../../assets/styles/styles_laporan.css";
 
 function IndexLaporan() {
   // ----------FE----------

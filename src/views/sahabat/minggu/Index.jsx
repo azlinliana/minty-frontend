@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Sahabat.css";
 import CreateMinggu from "./Create";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import Alert from "react-bootstrap/Alert";
+import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_sahabat.css";
 
 function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
   // ----------FE----------

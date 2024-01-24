@@ -2,17 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
 function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] = useState(false);
-  const openModalCreateOutflowSahabat = () => setIsModalCreateOutflowSahabat(true);
+  const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] =
+    useState(false);
+  const openModalCreateOutflowSahabat = () =>
+    setIsModalCreateOutflowSahabat(true);
   const closeModalCreateOutflow = () => {
     setIsModalCreateOutflowSahabat(false);
     reset(); // Reset previous form input
@@ -93,7 +93,9 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label htmlFor="amaunOutflow">Amaun Outflow (RM)</Form.Label>
+                <Form.Label htmlFor="amaunOutflow">
+                  Amaun Outflow (RM)
+                </Form.Label>
                 <Controller
                   id="amaunOutflow"
                   name="amaunOutflow"

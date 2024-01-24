@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import "../Sahabat.css";
-import { Stepper, Step, StepContent, StepLabel, Button, Typography, Box, Paper } from "@mui/material";
+import {
+  Stepper,
+  Step,
+  StepContent,
+  StepLabel,
+  Button,
+  Typography,
+  Box,
+  Paper,
+} from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import IndexTrackingSahabat from "./sahabat/Index";
+import "../../../assets/styles/styles_sahabat.css";
 
 const steps = [
   { label: "Langkah 1" },
@@ -17,11 +26,14 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => {
-      setExpandedSteps((prevExpandedSteps) => [...prevExpandedSteps, prevActiveStep]);
+      setExpandedSteps((prevExpandedSteps) => [
+        ...prevExpandedSteps,
+        prevActiveStep,
+      ]);
       return prevActiveStep + 1;
     });
   };
-  
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => {
       setExpandedSteps((prevExpandedSteps) =>
@@ -65,9 +77,18 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
             </StepLabel>
 
             <StepContent>
-              {index === 0 ? <IndexAktiviti sahabatId={sahabatId} pembiayaanId={pembiayaanId} /> : null}
-              {index === 1 ? <IndexTrackingSahabat mingguId={mingguId} /> : null}
-              {index === 2 ? <IndexTrackingIsiRumah mingguId={mingguId} /> : null}
+              {index === 0 ? (
+                <IndexAktiviti
+                  sahabatId={sahabatId}
+                  pembiayaanId={pembiayaanId}
+                />
+              ) : null}
+              {index === 1 ? (
+                <IndexTrackingSahabat mingguId={mingguId} />
+              ) : null}
+              {index === 2 ? (
+                <IndexTrackingIsiRumah mingguId={mingguId} />
+              ) : null}
 
               <Box sx={{ mb: 2 }}>
                 <div>

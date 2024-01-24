@@ -1,8 +1,7 @@
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import "../Laporan.css";
+import { Button, Table } from "react-bootstrap";
+import "../../../assets/styles/styles_laporan.css";
 
-function ResultTf02({resultTf02}) {
+function ResultTf02({ resultTf02 }) {
   return (
     <>
       <div className="searchResultContainer">
@@ -29,32 +28,38 @@ function ResultTf02({resultTf02}) {
             </thead>
             <tbody>
               {resultTf02.length === 0 ? (
-                <tr><td colSpan={14}><center>Tiada maklumat.</center></td></tr>
+                <tr>
+                  <td colSpan={14}>
+                    <center>Tiada maklumat.</center>
+                  </td>
+                </tr>
               ) : (
                 resultTf02.map((resultTf02Data, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{resultTf02Data.namaCawangan}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{resultTf02Data.namaCawangan}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 ))
               )}
             </tbody>
           </Table>
         </div>
 
-        <div className="downloadBtnPlacement"><Button className="downloadBtn">Muat Turun TF02</Button>{" "}</div>
+        <div className="downloadBtnPlacement">
+          <Button className="downloadBtn">Muat Turun TF02</Button>{" "}
+        </div>
       </div>
     </>
   );

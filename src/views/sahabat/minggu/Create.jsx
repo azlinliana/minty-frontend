@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../axios";
 
@@ -28,7 +26,9 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
   // ----------BE----------
   // Create minggu pembiayaan sahabat
-  const createMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+  const createMingguPembiayaanSahabat = async (
+    mingguPembiayaanSahabatInput
+  ) => {
     try {
       const response = await axiosCustom.post(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
@@ -52,7 +52,6 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
         <Button variant="primary" onClick={openModalCreateMinggu}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
         </Button>{" "}
-        
         <Modal
           show={isModalCreateMinggu}
           onHide={closeModalCreateMinggu}
@@ -69,7 +68,9 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
               onReset={reset}
             >
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
+                <Form.Label htmlFor="bilanganMinggu">
+                  Bilangan Minggu
+                </Form.Label>
                 <Controller
                   type="number"
                   id="bilanganMinggu"

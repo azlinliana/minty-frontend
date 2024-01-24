@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../Sahabat.css";
 import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Alert from "react-bootstrap/Alert";
-import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import { Card, Alert, Badge, Dropdown, DropdownButton } from "react-bootstrap";
 import {
   TfiArrowCircleDown,
   TfiArrowCircleUp,
   TfiMoreAlt,
 } from "react-icons/tfi";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_sahabat.css";
 
 function IndexPembiayaan({ resultSahabat, sahabatId }) {
   // ----------FE----------

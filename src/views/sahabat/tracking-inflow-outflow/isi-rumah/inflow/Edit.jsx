@@ -2,15 +2,19 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRumah, kodInflowsData }) {
+function EditTrackingInflowIsiRumah({
+  isiRumahId,
+  inflowIsiRumahId,
+  inflowIsiRumah,
+  kodInflowsData,
+}) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] = useState(false);
+  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] =
+    useState(false);
   const openModalEditInflowIsiRumah = () => setIsModalEditInflowIsiRumah(true);
   const closeModalEditInflowIsiRumah = () => {
     setIsModalEditInflowIsiRumah(false);

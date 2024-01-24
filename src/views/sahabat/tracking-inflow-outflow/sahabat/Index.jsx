@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../Sahabat.css";
 import IndexTrackingInflowSahabat from "../sahabat/inflow/Index";
 import IndexTrackingOutflowSahabat from "../sahabat/outflow/Index";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+import { Tab, Tabs } from "react-bootstrap";
+import "../../../../assets/styles/styles_sahabat.css";
 
 function IndexTrackingSahabat({ mingguId }) {
   // ----------FE----------

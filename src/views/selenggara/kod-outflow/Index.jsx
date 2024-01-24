@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Selenggara.css";
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import { Breadcrumb, Button, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_selenggara.css";
 
 function IndexKodOutflow() {
   // ----------FE----------

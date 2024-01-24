@@ -2,12 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function EditMinggu({ sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId }) {
+function EditMinggu({
+  sahabatId,
+  pembiayaanId,
+  mingguPembiayaanSahabat,
+  mingguId,
+}) {
   // ----------FE----------
   // Modal
   const [isModalEditMinggu, setIsModalEditMinggu] = useState(false);
@@ -27,7 +30,9 @@ function EditMinggu({ sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId
 
   // ----------BE----------
   // Update minggu pembiayaan sahabat
-  const updateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+  const updateMingguPembiayaanSahabat = async (
+    mingguPembiayaanSahabatInput
+  ) => {
     try {
       const response = await axiosCustom.put(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
@@ -50,7 +55,6 @@ function EditMinggu({ sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId
         <Button variant="primary" onClick={openModalEditMinggu}>
           Kemas Kini
         </Button>{" "}
-        
         <Modal
           show={isModalEditMinggu}
           onHide={closeModalEditMinggu}
@@ -67,7 +71,9 @@ function EditMinggu({ sahabatId, pembiayaanId, mingguPembiayaanSahabat, mingguId
               onReset={reset}
             >
               <Form.Group>
-                <Form.Label htmlFor="bilanganMinggu">Bilangan Minggu</Form.Label>
+                <Form.Label htmlFor="bilanganMinggu">
+                  Bilangan Minggu
+                </Form.Label>
                 <Controller
                   id="bilanganMinggu"
                   name="bilanganMinggu"

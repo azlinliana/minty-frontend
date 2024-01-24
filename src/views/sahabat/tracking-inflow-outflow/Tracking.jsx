@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../Sahabat.css";
 import MaklumatSahabat from "./MaklumatSahabat.jsx";
 import MaklumatMinggu from "./MaklumatMinggu.jsx";
 import BorangTrackingMingguanSahabat from "./BorangTrackingMingguanSahabat.jsx";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Button from "react-bootstrap/Button";
+import { Button, Breadcrumb } from "react-bootstrap";
+import "../../../assets/styles/styles_sahabat.css";
 
 function TrackingInflowOutflow() {
   // ----------FE----------

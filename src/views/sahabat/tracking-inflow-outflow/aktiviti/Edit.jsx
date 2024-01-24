@@ -3,12 +3,19 @@ import { useForm, Controller } from "react-hook-form";
 import "../../Sahabat.css";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 
-function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti, kegiatanOptions,keteranganKegiatanOptions, projekKegiatanOptions, kodDimensisData }) {
+function EditAktiviti({
+  sahabatId,
+  pembiayaanId,
+  aktivitiId,
+  aktiviti,
+  kegiatanOptions,
+  keteranganKegiatanOptions,
+  projekKegiatanOptions,
+  kodDimensisData,
+}) {
   // ----------FE----------
   // Modal
   const [isModalEditAktiviti, setIsModalEditAktiviti] = useState(false);
@@ -28,7 +35,8 @@ function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti, kegiatanO
   // ----------BE----------
   // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
   const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState("");
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
+    useState("");
   const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
 
   // Set initial values based on aktiviti prop
@@ -39,7 +47,7 @@ function EditAktiviti({ sahabatId, pembiayaanId, aktivitiId, aktiviti, kegiatanO
       setSelectedProjekKegiatan(aktiviti.projekKegiatanId.toString());
     }
   }, [aktiviti]);
-  
+
   const updateAktiviti = async (aktivitiInput) => {
     try {
       const response = await axiosCustom.put(

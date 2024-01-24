@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../Sahabat.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import EditMinggu from "../minggu/Edit";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
+import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_sahabat.css";
 
 function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
   // ----------BE----------

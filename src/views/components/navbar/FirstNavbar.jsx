@@ -1,13 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Navbar.css";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Image from "react-bootstrap/Image";
+import { Navbar, Container, Image } from "react-bootstrap";
 import aimLogo from "../../../assets/aim-logo.svg";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_layout.css";
 
 function FirstNavbar() {
   // ----------FE----------
@@ -20,9 +18,7 @@ function FirstNavbar() {
 
   const handleSignOut = async () => {
     try {
-      const response = await axiosCustom.post(
-        `/auth/logout`
-      );
+      const response = await axiosCustom.post(`/auth/logout`);
 
       if (response.status === 200) {
         localStorage.removeItem("token");

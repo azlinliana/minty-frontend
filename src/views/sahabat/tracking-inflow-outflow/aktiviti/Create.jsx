@@ -2,13 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
-function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions,keteranganKegiatanOptions, projekKegiatanOptions, kodDimensisData }) {
+function CreateAktiviti({
+  sahabatId,
+  pembiayaanId,
+  kegiatanOptions,
+  keteranganKegiatanOptions,
+  projekKegiatanOptions,
+  kodDimensisData,
+}) {
   // ----------FE----------
   // Modal
   const [isModalCreateAktiviti, setIsModalCreateAktiviti] = useState(false);
@@ -28,7 +33,8 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions,keteranganKeg
 
   // ----------BE----------
   const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState("");
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
+    useState("");
   const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
 
   // Create aktiviti

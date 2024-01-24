@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../axios";
 
 function CreatePembiayaan({ sahabatId }) {
   // ----------FE----------
   // Modal
-  const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] = useState(false);
-  const openModalCreatePembiayaanSahabat = () => setIsModalCreatePembiayaanSahabat(true);
+  const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
+    useState(false);
+  const openModalCreatePembiayaanSahabat = () =>
+    setIsModalCreatePembiayaanSahabat(true);
   const closeModalCreatePembiayaanSahabat = () => {
     setIsModalCreatePembiayaanSahabat(false);
     reset(); // Reset previous form input
@@ -67,7 +67,9 @@ function CreatePembiayaan({ sahabatId }) {
               onReset={reset}
             >
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="skimPembiayaan">Skim Pembiayaan</Form.Label>
+                <Form.Label htmlFor="skimPembiayaan">
+                  Skim Pembiayaan
+                </Form.Label>
                 <Controller
                   id="skimPembiayaan"
                   name="skimPembiayaan"

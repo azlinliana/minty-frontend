@@ -1,13 +1,8 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../Sahabat.css";
 import IndexPembiayaan from "../pembiayaan/Index";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Button, Col, Row, Container, Breadcrumb } from "react-bootstrap";
+import "../../../assets/styles/styles_sahabat.css";
 
 function SearchResultSahabat() {
   // ----------FE----------

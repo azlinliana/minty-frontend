@@ -4,7 +4,7 @@ import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import { BsPersonCircle } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
 import SidebarMenu from "./SidebarMenu";
-import "./Sidebar.css";
+import "../../../assets/styles/styles_layout.css";
 
 function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "../Laporan.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { Container } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
 import ResultTf02 from "./SearchResult";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_laporan.css";
 
 function SearchTf02() {
   // ------- FE ---------

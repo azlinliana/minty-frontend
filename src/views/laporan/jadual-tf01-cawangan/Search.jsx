@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "../Laporan.css";
 import ResultTf01ByCawangan from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { Container } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_laporan.css";
 
 function SearchTf01ByCawangan() {
   // -------- FE ---------

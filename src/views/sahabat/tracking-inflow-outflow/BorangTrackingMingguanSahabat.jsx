@@ -1,14 +1,18 @@
 import React from "react";
-import "../Sahabat.css";
 import Stepper from "./Stepper.jsx";
+import "../../../assets/styles/styles_sahabat.css";
 
-function BorangTrackingMingguanSahabat({sahabatId, pembiayaanId, mingguId}) {
-  return(
+function BorangTrackingMingguanSahabat({ sahabatId, pembiayaanId, mingguId }) {
+  return (
     <div className="sahabatTrackingContent">
       <div className="progressBarContainer">
         <h2>Borang Tracking Mingguan Sahabat</h2>
 
-        <Stepper sahabatId={sahabatId} pembiayaanId={pembiayaanId} mingguId={mingguId} />
+        <Stepper
+          sahabatId={sahabatId}
+          pembiayaanId={pembiayaanId}
+          mingguId={mingguId}
+        />
       </div>
     </div>
   );

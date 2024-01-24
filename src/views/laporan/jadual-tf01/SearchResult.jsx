@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import "../Laporan.css";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import React, { useState, useEffect } from "react";
+import { Button, Table } from "react-bootstrap";
+import "../../../assets/styles/styles_laporan.css";
 
-function SearchResultTF01({resultTF01}) {
+function SearchResultTF01({ resultTF01 }) {
   return (
     <>
       <div className="searchResultContainer">
-        <h3>Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat</h3>
+        <h3>
+          Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
+        </h3>
 
         <div>
           <Table responsive striped bordered>
@@ -39,7 +40,11 @@ function SearchResultTF01({resultTF01}) {
             </thead>
             <tbody>
               {resultTF01.length === 0 ? (
-                <tr><td colSpan={22}><center>Tiada maklumat.</center></td></tr>
+                <tr>
+                  <td colSpan={22}>
+                    <center>Tiada maklumat.</center>
+                  </td>
+                </tr>
               ) : (
                 resultTF01.map((resultTF01Data, index) => (
                   <tr key={index}>
@@ -73,7 +78,11 @@ function SearchResultTF01({resultTF01}) {
         </div>
       </div>
 
-      <div className="downloadBtnPlacement"><div className="downloadBtn"><Button variant="primary">Muat Turun TF01</Button>{" "}</div></div>
+      <div className="downloadBtnPlacement">
+        <div className="downloadBtn">
+          <Button variant="primary">Muat Turun TF01</Button>{" "}
+        </div>
+      </div>
     </>
   );
 }

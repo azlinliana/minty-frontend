@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import "../Laporan.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { Container } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
 import ResultTF01 from "./SearchResult";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_laporan.css";
 
 function SearchTf01() {
   // ----------FE----------
@@ -28,7 +23,7 @@ function SearchTf01() {
   const [selectedWilayah, setSelectedWilayah] = useState("");
   const [selectedCawangan, setSelectedCawangan] = useState("");
   const [selectedPusat, setSelectedPusat] = useState("");
-  
+
   const [wilayahOptions, setWilayahOptions] = useState([]);
   const [cawanganOptions, setCawanganOptions] = useState([]);
   const [pusatOptions, setPusatOptions] = useState([]);
@@ -91,9 +86,7 @@ function SearchTf01() {
   // Fetch pusat
   const fetchPusats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(
-        `/selenggara/pusat/display-pusat`
-      );
+      const response = await axiosCustom.get(`/selenggara/pusat/display-pusat`);
 
       if (Array.isArray(response.data) && response.data.length > 0) {
         setPusatOptions(

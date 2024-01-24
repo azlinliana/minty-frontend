@@ -1,22 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../Sahabat.css";
 import CreateTrackingIsiRumah from "./Create";
 import EditTrackingIsiRumah from "./Edit";
 import IndexTrackingInflowIsiRumah from "./inflow/Index";
 import IndexTrackingOutflowIsiRumah from "./outflow/Index";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import Alert from "react-bootstrap/Alert";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import {
+  Tab,
+  Tabs,
+  Alert,
+  Card,
+  Container,
+  Row,
+  Col,
+  Form,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import axiosCustom from "../../../../axios";
+import "../../../../assets/styles/styles_sahabat.css";
 
 function IndexTrackingIsiRumah({ mingguId }) {
   // ----------FE----------

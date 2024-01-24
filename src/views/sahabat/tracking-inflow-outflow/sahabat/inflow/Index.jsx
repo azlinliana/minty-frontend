@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "../../../Sahabat.css";
 import CreateTrackingInflowSahabat from "./Create";
 import EditTrackingInflowSahabat from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
+import "../../../../../assets/styles/styles_sahabat.css";
 
 function IndexTrackingInflowSahabat({ mingguId }) {
   // ----------BE----------

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../Laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";
 import RajahInflowOutflow from "./RajahInflowOutflow";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Button from "react-bootstrap/Button";
+import { Button, Breadcrumb, Dropdown, DropdownButton } from "react-bootstrap";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../../axios";
+import "../../../../assets/styles/styles_laporan.css";
 
 function ShowProfilSahabat() {
   // ------------ FE --------------

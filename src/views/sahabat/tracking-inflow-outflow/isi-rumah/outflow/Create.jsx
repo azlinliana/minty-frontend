@@ -2,17 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
 function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
   // ----------FE----------
   // Modal
-  const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] = useState(false);
-  const openModalCreateOutflowIsiRumah = () => setIsModalCreateOutflowIsiRumah(true);
+  const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] =
+    useState(false);
+  const openModalCreateOutflowIsiRumah = () =>
+    setIsModalCreateOutflowIsiRumah(true);
   const closeModalCreateOutflowIsiRumah = () => {
     setIsModalCreateOutflowIsiRumah(false);
     reset(); // Reset previous form input
@@ -93,7 +93,9 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label htmlFor="amaunOutflow">Amaun Outflow (RM)</Form.Label>
+                <Form.Label htmlFor="amaunOutflow">
+                  Amaun Outflow (RM)
+                </Form.Label>
                 <Controller
                   id="amaunOutflow"
                   name="amaunOutflow"
@@ -123,7 +125,10 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateOutflowIsiRumah}>
+            <Button
+              variant="secondary"
+              onClick={closeModalCreateOutflowIsiRumah}
+            >
               Batal
             </Button>
             <Button

@@ -2,15 +2,19 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, kodInflowsData }) {
+function EditTrackingInflowSahabat({
+  mingguId,
+  inflowSahabatId,
+  inflowSahabat,
+  kodInflowsData,
+}) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] = useState(false);
+  const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] =
+    useState(false);
   const openModalEditInflowSahabat = () => setIsModalEditInflowSahabat(true);
   const closeModalEditInflowSahabat = () => {
     setIsModalEditInflowSahabat(false);
@@ -48,7 +52,6 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
       <Button className="editBtn" onClick={openModalEditInflowSahabat}>
         Kemas Kini
       </Button>{" "}
-
       <Modal
         show={isModalEditInflowSahabat}
         onHide={closeModalEditInflowSahabat}

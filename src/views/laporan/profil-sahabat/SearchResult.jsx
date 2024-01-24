@@ -1,14 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import { Button, Table } from "react-bootstrap";
 
-function SearchResultPembiayaanSahabat({ resultSahabat, sahabatId, pembiayaanSahabats, selectedSkimPembiayaan }) {
+function SearchResultPembiayaanSahabat({
+  resultSahabat,
+  sahabatId,
+  pembiayaanSahabats,
+  selectedSkimPembiayaan,
+}) {
   // ----------FE----------
   // Navigate to profil sahabat along with sahabat and pembiayaan data
   const navigate = useNavigate();
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
-    navigate('/profil-sahabat/', { state: { resultSahabat, sahabatId, pembiayaanSahabatId } });
+    navigate("/profil-sahabat/", {
+      state: { resultSahabat, sahabatId, pembiayaanSahabatId },
+    });
   };
 
   // ------------ BE --------------
@@ -38,16 +44,39 @@ function SearchResultPembiayaanSahabat({ resultSahabat, sahabatId, pembiayaanSah
               </tr>
             </thead>
             <tbody>
-              {filteredPembiayaanSahabats.map((pembiayaanSahabatsData, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
-                  <td>{pembiayaanSahabatsData.skimPembiayaan}</td>
-                  <td><time dateTime={pembiayaanSahabatsData.created_at}>{new Date(pembiayaanSahabatsData.created_at).toLocaleDateString('en-GB')}</time></td>
-                  <td><time dateTime={pembiayaanSahabatsData.updated_at}>{new Date(pembiayaanSahabatsData.updated_at).toLocaleDateString('en-GB')}</time></td>
-                  <td><Button className='viewBtn' onClick={() => clickLihatPembiayaan(pembiayaanSahabatsData.id)}>Lihat</Button></td>
-                </tr>
-              ))}
+              {filteredPembiayaanSahabats.map(
+                (pembiayaanSahabatsData, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
+                    <td>{pembiayaanSahabatsData.skimPembiayaan}</td>
+                    <td>
+                      <time dateTime={pembiayaanSahabatsData.created_at}>
+                        {new Date(
+                          pembiayaanSahabatsData.created_at
+                        ).toLocaleDateString("en-GB")}
+                      </time>
+                    </td>
+                    <td>
+                      <time dateTime={pembiayaanSahabatsData.updated_at}>
+                        {new Date(
+                          pembiayaanSahabatsData.updated_at
+                        ).toLocaleDateString("en-GB")}
+                      </time>
+                    </td>
+                    <td>
+                      <Button
+                        className="viewBtn"
+                        onClick={() =>
+                          clickLihatPembiayaan(pembiayaanSahabatsData.id)
+                        }
+                      >
+                        Lihat
+                      </Button>
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </Table>
         </div>

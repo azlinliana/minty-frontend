@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
 function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat }) {
   // ----------FE----------
   // Modal
-  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
-  const openModalEditPembiayaanSahabat = () => setIsModalEditPembiayaanSahabat(true);
+  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
+    useState(false);
+  const openModalEditPembiayaanSahabat = () =>
+    setIsModalEditPembiayaanSahabat(true);
   const closeModalEditPembiayaanSahabat = () => {
     setIsModalEditPembiayaanSahabat(false);
   };
@@ -53,7 +53,6 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat }) {
         >
           Kemas Kini
         </span>{" "}
-        
         <Modal
           show={isModalEditPembiayaanSahabat}
           onHide={closeModalEditPembiayaanSahabat}
@@ -129,7 +128,10 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>
+            <Button
+              variant="secondary"
+              onClick={closeModalEditPembiayaanSahabat}
+            >
               Batal
             </Button>
             <Button

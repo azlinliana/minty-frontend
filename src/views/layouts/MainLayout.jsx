@@ -1,10 +1,8 @@
-import "./MainLayout.css";
-
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
 import FirstNavbar from "../components/navbar/FirstNavbar";
 import SecondNavbar from "../components/navbar/SecondNavbar";
-
-import { Outlet } from "react-router-dom";
+import "../../assets/styles/styles_layout.css";
 
 function MainLayout() {
   return (

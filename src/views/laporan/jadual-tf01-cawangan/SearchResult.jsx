@@ -1,13 +1,14 @@
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import "../Laporan.css";
+import { Button, Table } from "react-bootstrap";
+import "../../../assets/styles/styles_laporan.css";
 
-function ResultTf01ByCawangan({resultTf01ByCawangan}) {
+function ResultTf01ByCawangan({ resultTf01ByCawangan }) {
   console.log(resultTf01ByCawangan);
   return (
     <>
       <div className="searchResultContainer">
-        <h3>Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat</h3>
+        <h3>
+          Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
+        </h3>
 
         <div>
           <Table responsive striped bordered>
@@ -38,8 +39,12 @@ function ResultTf01ByCawangan({resultTf01ByCawangan}) {
             </thead>
             <tbody>
               {resultTf01ByCawangan.length === 0 ? (
-                <tr><td colSpan={21}><center>Tiada maklumat.</center></td></tr>
-              ): (
+                <tr>
+                  <td colSpan={21}>
+                    <center>Tiada maklumat.</center>
+                  </td>
+                </tr>
+              ) : (
                 resultTf01ByCawangan.map((resultTf01ByCawanganData, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
@@ -65,13 +70,14 @@ function ResultTf01ByCawangan({resultTf01ByCawangan}) {
                     <td></td>
                   </tr>
                 ))
-              )
-              }
+              )}
             </tbody>
           </Table>
         </div>
 
-        <div className="downloadBtnPlacement"><Button className="downloadBtn">Muat Turun TF01 - Cawangan</Button>{" "}</div>
+        <div className="downloadBtnPlacement">
+          <Button className="downloadBtn">Muat Turun TF01 - Cawangan</Button>{" "}
+        </div>
       </div>
     </>
   );

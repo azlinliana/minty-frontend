@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../Laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import PendapatanKumulatifKegiatan from "./PendapatanKumulatifKegiatan";
 import PendapatanKumulatifSumberPengusaha from "./PendapatanKumulatifSumberPengusaha";
 import PerbelanjaanKumulatifSumberPengusaha from "./PerbelanjaanKumulatifSumberPengusaha";
 import PendapatanVSPerbelanjaanSumberPengusaha from "./PendapatanVSPerbelanjaanSumberPengusaha";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Button from "react-bootstrap/Button";
+import { Breadcrumb, Button } from "react-bootstrap";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../../axios";
+import "../../../../assets/styles/styles_laporan.css";
 
 function ShowProfilSahabatTerperinci() {
   // ------------ FE --------------

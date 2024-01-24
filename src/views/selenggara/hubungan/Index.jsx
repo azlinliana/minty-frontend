@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Selenggara.css";
 import CreateHubungan from "./Create";
 import EditHubungan from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import { Breadcrumb, Button, Table } from "react-bootstrap";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../axios";
+import "../../../assets/styles/styles_selenggara.css";
 
 function IndexHubungan() {
   // ----------FE----------
