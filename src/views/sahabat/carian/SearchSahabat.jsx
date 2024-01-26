@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import "../Sahabat.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import axiosCustom from "../../../axios";
@@ -24,7 +25,7 @@ function SearchSahabat() {
         `/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
       );
       if (response.status === 200) {
-        navigate("/search-result-sahabat", {
+        navigate("/hasil-carian-sahabat", {
           state: { resultSahabat: response.data },
         }); // Set response data as a state
       } else {

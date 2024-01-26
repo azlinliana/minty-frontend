@@ -5,6 +5,7 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
+import Swal from "sweetalert2";
 import "../../../assets/styles/styles_sahabat.css";
 
 function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
@@ -26,6 +27,9 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
       const response = await axiosCustom.get(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
       );
+      const response = await axiosCustom.get(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
+      );
 
       if (response.status === 200) {
         setMingguPembiayaanSahabats(response.data);
@@ -33,6 +37,10 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
       if (
         error.response &&
         (error.response.status === 503 || error.response.status === 429)
@@ -49,6 +57,39 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
   useEffect(() => {
     fetchMingguPembiayaanSahabats();
   }, [fetchMingguPembiayaanSahabats]);
+
+  // Delete minggu
+  const deleteMingguPembiayaanSahabats = async (mingguPembiayaanSahabatId) => {
+    // Function to delete minggu
+    const performDeletion = async () => {
+      try {
+        const response = await axiosCustom.delete(
+          `/sahabat/minggu/${mingguPembiayaanSahabatId}`
+        );
+
+        if (response.status === 200) {
+          setMingguPembiayaanSahabats((prevMingguPembiayaanSahabats) =>
+            prevMingguPembiayaanSahabats.filter(
+              (mingguPembiayaanSahabat) =>
+                mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
+            )
+          );
+          // Show success message from the server
+          Swal.fire("Dipadam!", response.data.message, "success");
+        }
+      } catch (error) {
+        console.error("Ralat dalam memadam dimensi", error);
+      }
+    };
+
+    // Function to handle cancellation
+    const cancelDeletion = () => {
+      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
+    };
+
+    // Display the deletion confirmation dialog
+    DeletionAlert(performDeletion, cancelDeletion);
+  };
 
   return (
     <>
@@ -128,7 +169,16 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
                       >
                         Kemas Kini
                       </Button>{" "}
-                      <Button className="delBtn">Padam</Button>{" "}
+                      <Button
+                        className="delBtn"
+                        onClick={() =>
+                          deleteMingguPembiayaanSahabats(
+                            mingguPembiayaanSahabatsData.id
+                          )
+                        }
+                      >
+                        Padam
+                      </Button>{" "}
                     </td>
                   </tr>
                 )

@@ -6,14 +6,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
-function CreateAktiviti({
-  sahabatId,
-  pembiayaanId,
-  kegiatanOptions,
-  keteranganKegiatanOptions,
-  projekKegiatanOptions,
-  kodDimensisData,
-}) {
+function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKegiatanOptions, projekKegiatanOptions, kodDimensisData}) {
   // ----------FE----------
   // Modal
   const [isModalCreateAktiviti, setIsModalCreateAktiviti] = useState(false);
@@ -54,7 +47,6 @@ function CreateAktiviti({
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   };

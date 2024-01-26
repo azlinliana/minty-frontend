@@ -102,7 +102,10 @@ function IndexDimensi() {
             {dimensis.length === 0 ? (
               <tr>
                 <td colSpan="5">
-                  <center>Tiada maklumat</center>
+                  <center>
+                    Tiada maklumat. Sila klik butang "Tambah" untuk merekodkan
+                    dimensi baharu.
+                  </center>
                 </td>
               </tr>
             ) : (
