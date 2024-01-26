@@ -82,7 +82,7 @@ function Sidebar() {
         <div className="user-profile">
           <BsPersonCircle className="userIcon" />
           <h5>{userSidebarInfo.namaKakitangan}</h5>
-          <h6>{userSidebarInfo.unitKakitangan}</h6>
+          <h6>{userSidebarInfo.lokasiKakitangan}</h6>
         </div>
       )}
 
