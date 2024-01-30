@@ -28,16 +28,16 @@ function IndexTrackingInflowSahabat({ mingguId }) {
         error.response &&
         (error.response.status === 503 || error.response.status === 429)
       ) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+        if (
+          error.response &&
+          (error.response.status === 503 || error.response.status === 429)
+        ) {
+          // The server is not ready, ignore the error
+          console.log("Server not ready, retry later.");
+        } else {
+          // Handle other errors
+          ErrorAlert(error);
+        }
       }
     }
   }, [mingguId, setInflowSahabats]);
@@ -54,9 +54,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
       const response = await axiosCustom.get(
         `/selenggara/kod-inflow/display-kod-inflow`
       );
-      const response = await axiosCustom.get(
-        `/selenggara/kod-inflow/display-kod-inflow`
-      );
       if (Array.isArray(response.data) && response.data.length > 0) {
         setKodInflowsData(response.data); // Display all kod inflow data
       } else {
@@ -67,16 +64,16 @@ function IndexTrackingInflowSahabat({ mingguId }) {
         error.response &&
         (error.response.status === 503 || error.response.status === 429)
       ) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+        if (
+          error.response &&
+          (error.response.status === 503 || error.response.status === 429)
+        ) {
+          // The server is not ready, ignore the error
+          console.log("Server not ready, retry later.");
+        } else {
+          // Handle other errors
+          ErrorAlert(error);
+        }
       }
     }
   }, [setKodInflowsData]);
@@ -123,9 +120,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
           <CreateTrackingInflowSahabat
             mingguId={mingguId}
             kodInflowsData={kodInflowsData}
-          <CreateTrackingInflowSahabat
-            mingguId={mingguId}
-            kodInflowsData={kodInflowsData}
           />
         </div>
 
@@ -151,10 +145,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                     Tiada maklumat tracking inflow sahabat. Sila klik butang
                     "Tambah" untuk merekodkan inflow sahabat baharu.
                   </center>
-                  <center>
-                    Tiada maklumat tracking inflow sahabat. Sila klik butang
-                    "Tambah" untuk merekodkan inflow sahabat baharu.
-                  </center>
                 </td>
               </tr>
             ) : (
@@ -162,15 +152,10 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                 <React.Fragment key={index}>
                   {inflowSahabatsData.kod_inflow.kod_inflow_terperincis
                     .length === 0 ? (
-                  {inflowSahabatsData.kod_inflow.kod_inflow_terperincis
-                    .length === 0 ? (
                     // Render row for inflow sahabat without kod inflow terperinci
                     <tr>
                       <td>{index + 1}</td>
                       <td>{inflowSahabatsData.kod_inflow.kodInflow}</td>
-                      <td>
-                        {inflowSahabatsData.kod_inflow.keteranganKodInflow}
-                      </td>
                       <td>
                         {inflowSahabatsData.kod_inflow.keteranganKodInflow}
                       </td>
@@ -193,43 +178,11 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                         >
                           Padam
                         </Button>{" "}
-                        <Button
-                          className="delBtn"
-                          onClick={() =>
-                            deleteInflowSahabat(inflowSahabatsData.id)
-                          }
-                        >
-                          Padam
-                        </Button>{" "}
                       </td>
                     </tr>
                   ) : (
                     // Render row for inflow sahabat with kod inflow terperinci
                     <tr>
-                      <td
-                        rowSpan={
-                          inflowSahabatsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
-                        }
-                      >
-                        {index + 1}
-                      </td>
-                      <td
-                        rowSpan={
-                          inflowSahabatsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
-                        }
-                      >
-                        {inflowSahabatsData.kod_inflow.kodInflow}
-                      </td>
-                      <td
-                        rowSpan={
-                          inflowSahabatsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
-                        }
-                      >
-                        {inflowSahabatsData.kod_inflow.keteranganKodInflow}
-                      </td>
                       <td
                         rowSpan={
                           inflowSahabatsData.kod_inflow.kod_inflow_terperincis
@@ -286,43 +239,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                               ))}
                         </td>
 
-                        {/* Displaying Amaun and Tindakan for the first row only */}
-                        {subIndex === 0 && (
-                          <React.Fragment>
-                            <td
-                              rowSpan={
-                                inflowSahabatsData.kod_inflow
-                                  .kod_inflow_terperincis.length
-                              }
-                            >
-                              {inflowSahabatsData.amaunInflow}
-                            </td>
-                            <td
-                              rowSpan={
-                                inflowSahabatsData.kod_inflow
-                                  .kod_inflow_terperincis.length
-                              }
-                            >
-                              <EditTrackingInflowSahabat
-                                mingguId={mingguId}
-                                inflowSahabatId={inflowSahabatsData.id}
-                                inflowSahabat={inflowSahabatsData}
-                                kodInflowsData={kodInflowsData}
-                              />
-                              <Button
-                                className="delBtn"
-                                onClick={() =>
-                                  deleteInflowSahabat(inflowSahabatsData.id)
-                                }
-                              >
-                                Padam
-                              </Button>{" "}
-                            </td>
-                          </React.Fragment>
-                        )}
-                      </tr>
-                    )
-                  )}
                         {/* Displaying Amaun and Tindakan for the first row only */}
                         {subIndex === 0 && (
                           <React.Fragment>

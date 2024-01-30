@@ -27,20 +27,13 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
       const response = await axiosCustom.get(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
       );
-      const response = await axiosCustom.get(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
-      );
 
       if (response.status === 200) {
         setMingguPembiayaanSahabats(response.data);
       } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
+        ErrorAlert(response); // Error from the backend or unknown error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
       if (
         error.response &&
         (error.response.status === 503 || error.response.status === 429)
