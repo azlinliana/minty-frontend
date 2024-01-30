@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./views/layouts/MainLayout";
+import NotFound from "./views/error/NotFound";
 import SignIn from "./views/auth/SignIn";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
@@ -87,6 +88,7 @@ function App() {
             <Route path="senarai-admin" element={<IndexAdmin />} />
             <Route path="senarai-super-admin" element={<IndexSuperAdmin />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
