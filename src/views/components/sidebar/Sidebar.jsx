@@ -5,8 +5,8 @@ import { BsPersonCircle } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
 import SidebarMenu from "./SidebarMenu";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
-import "./Sidebar.css";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_layout.css";
 
 function Sidebar() {
   // ----------FE----------
@@ -39,9 +39,7 @@ function Sidebar() {
 
   const showUserSidebarInfo = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(
-        `profil/sidebar`
-      );
+      const response = await axiosCustom.get(`profil/sidebar`);
 
       if (response.status === 200) {
         setUserSidebarInfo(response.data);

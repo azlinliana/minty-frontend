@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import "../Sahabat.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import axiosCustom from "../../../axios";
