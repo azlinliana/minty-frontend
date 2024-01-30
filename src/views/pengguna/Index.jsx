@@ -1,8 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Pengguna.css";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
+import "../../assets/styles/styles_pengguna.css";
+import { Table, Button } from "react-bootstrap";
 
 function IndexPengguna() {
   // ----------FE----------
@@ -15,6 +14,7 @@ function IndexPengguna() {
 
   // Link pages
   const clickAdmin = () => navigate("/senarai-admin");
+  
   const clickSuperAdmin= () => navigate("/senarai-super-admin");
 
   return (

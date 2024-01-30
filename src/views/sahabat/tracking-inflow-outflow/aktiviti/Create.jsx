@@ -26,8 +26,7 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKe
 
   // ----------BE----------
   const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
-    useState("");
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState("");
   const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
 
   // Create aktiviti
@@ -56,6 +55,7 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKe
       <Button variant="primary" onClick={openModalCreateAktiviti}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+      
       <Modal
         show={isModalCreateAktiviti}
         onHide={closeModalCreateAktiviti}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../assets/styles/styles_selenggara.css";
 import CreateKodInflow from "./Create";
 import EditWithoutKodInflowTerperinci from "./Edit/EditWithoutKodInflowTerperinci";
 import EditWithKodInflowTerperinci from "./Edit/EditWithKodInflowTerperinci";
@@ -8,7 +9,6 @@ import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
-import "../../../assets/styles/styles_selenggara.css";
 
 function IndexKodInflow() {
   // ----------FE----------

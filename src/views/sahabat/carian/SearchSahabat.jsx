@@ -1,10 +1,10 @@
 import React from "react";
+import "../../../assets/styles/styles_sahabat.css";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import axiosCustom from "../../../axios";
-import "../../../assets/styles/styles_sahabat.css";
 
 function SearchSahabat() {
   // ----------FE----------
@@ -18,6 +18,7 @@ function SearchSahabat() {
 
   // ----------BE----------
   const navigate = useNavigate();
+  
   const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
     try {
       const response = await axiosCustom.get(

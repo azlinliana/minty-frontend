@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../assets/styles/styles_sahabat.css";
 import CreateMinggu from "./Create";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
-import "../../../assets/styles/styles_sahabat.css";
 
 function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
   // ----------FE----------
   // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
+  
   const clickKemasKiniMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
       state: { resultSahabat, sahabatId, pembiayaanId, mingguId },
@@ -34,8 +35,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
         ErrorAlert(response); // Error from the backend or unknown error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
+      if (error.response &&
         (error.response.status === 503 || error.response.status === 429)
       ) {
         // The server is not ready, ignore the error
@@ -88,7 +88,9 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
     <>
       <div className="tableSection">
         <div className="tambahBtnPlacement">
-          <CreateMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
+          <CreateMinggu 
+            sahabatId={sahabatId} 
+            pembiayaanId={pembiayaanId} />
         </div>
 
         {mingguPembiayaanSahabats.some(
@@ -98,6 +100,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
         ) && (
           <Alert variant="danger">
             Sila tambah maklumat untuk minggu{" "}
+
             <span className="trackingMinggu">
               {mingguPembiayaanSahabats
                 .filter(
@@ -123,6 +126,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
               <th>Tindakan</th>
             </tr>
           </thead>
+
           <tbody>
             {mingguPembiayaanSahabats.length === 0 ? (
               <tr>
@@ -162,6 +166,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
                       >
                         Kemas Kini
                       </Button>{" "}
+
                       <Button
                         className="delBtn"
                         onClick={() =>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import SidebarMenu from "./SidebarMenu";
+import ErrorAlert from "../sweet-alert/ErrorAlert";
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import { BsPersonCircle } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
-import SidebarMenu from "./SidebarMenu";
-import ErrorAlert from "../sweet-alert/ErrorAlert";
-import axiosCustom from "../../../axios";
 import "../../../assets/styles/styles_layout.css";
+import axiosCustom from "../../../axios";
 
 function Sidebar() {
   // ----------FE----------
@@ -89,6 +89,7 @@ function Sidebar() {
           <ListGroup.Item key={index}>
             <Link to={item.path}>
               <span className="sidebar-icon">{item.icon}</span>
+              
               {isSidebarOpen && (
                 <span className="sidebar-title">{item.title}</span>
               )}

@@ -46,9 +46,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
   // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
 
   const [kegiatanOptions, setKegiatanOptions] = useState([]);
-  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState(
-    []
-  );
+  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
   const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
 
   // Fetch kegiatan

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "../../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingInflowSahabat from "./Create";
 import EditTrackingInflowSahabat from "./Edit";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
@@ -6,7 +7,6 @@ import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
-import "../../../../../assets/styles/styles_sahabat.css";
 
 function IndexTrackingInflowSahabat({ mingguId }) {
   // ----------BE----------
@@ -15,9 +15,8 @@ function IndexTrackingInflowSahabat({ mingguId }) {
   // List inflow sahabat
   const fetchInflowSahabats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(
-        `/sahabat/inflow-sahabat/${mingguId}`
-      );
+      const response = await axiosCustom.get(`/sahabat/inflow-sahabat/${mingguId}`);
+
       if (response.status === 200) {
         setInflowSahabats(response.data);
       } else {
@@ -54,7 +53,8 @@ function IndexTrackingInflowSahabat({ mingguId }) {
       const response = await axiosCustom.get(
         `/selenggara/kod-inflow/display-kod-inflow`
       );
-      if (Array.isArray(response.data) && response.data.length > 0) {
+
+      if (Array.isArray(response.data)) {
         setKodInflowsData(response.data); // Display all kod inflow data
       } else {
         ErrorAlert(response.data);
@@ -90,6 +90,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
         const response = await axiosCustom.delete(
           `/sahabat/inflow-sahabat/${inflowSahabatId}`
         );
+
         if (response.status === 200) {
           setInflowSahabats((prevInflowSahabats) =>
             prevInflowSahabats.filter(
@@ -170,6 +171,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                           inflowSahabat={inflowSahabatsData}
                           kodInflowsData={kodInflowsData}
                         />
+
                         <Button
                           className="delBtn"
                           onClick={() =>
@@ -216,9 +218,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                       <tr key={subIndex}>
                         <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
                         <td>
-                          {
-                            kodInflowTerperincisData.keteranganKodInflowTerperinci
-                          }
+                          {kodInflowTerperincisData.keteranganKodInflowTerperinci}
                         </td>
                         <td>
                           {inflowSahabatsData.inflow_sahabat_terperincis &&
@@ -232,9 +232,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                               )
                               .map((inflowTerperinciData, innerIndex) => (
                                 <React.Fragment key={innerIndex}>
-                                  {
-                                    inflowTerperinciData.keteranganInflowTerperinci
-                                  }
+                                  {inflowTerperinciData.keteranganInflowTerperinci}
                                 </React.Fragment>
                               ))}
                         </td>
@@ -262,6 +260,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                                 inflowSahabat={inflowSahabatsData}
                                 kodInflowsData={kodInflowsData}
                               />
+                              
                               <Button
                                 className="delBtn"
                                 onClick={() =>
