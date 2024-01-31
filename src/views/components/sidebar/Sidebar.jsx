@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import "../../../assets/styles/styles_layout.css";
 import SidebarMenu from "./SidebarMenu";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import { BsPersonCircle } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
-import "../../../assets/styles/styles_layout.css";
 import axiosCustom from "../../../axios";
 
 function Sidebar() {
@@ -39,7 +39,7 @@ function Sidebar() {
 
   const showUserSidebarInfo = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`profil/sidebar`);
+      const response = await axiosCustom.get(`user`);
 
       if (response.status === 200) {
         setUserSidebarInfo(response.data);
@@ -47,22 +47,20 @@ function Sidebar() {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, []);
 
   useEffect(() => {
     showUserSidebarInfo();
   }, [showUserSidebarInfo]);
+
+  // Generate filtered sidebar menu based on user's roles
+  const filteredSidebarMenu = userSidebarInfo
+    ? SidebarMenu.filter((item) =>
+        item.roles.includes(userSidebarInfo.perananId)
+      )
+    : [];
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : "shrink"}`}>
@@ -79,17 +77,18 @@ function Sidebar() {
       {isSidebarOpen && userSidebarInfo && (
         <div className="user-profile">
           <BsPersonCircle className="userIcon" />
+
           <h5>{userSidebarInfo.namaKakitangan}</h5>
+          
           <h6>{userSidebarInfo.lokasiKakitangan}</h6>
         </div>
       )}
 
       <ListGroup variant="flush">
-        {SidebarMenu.map((item, index) => (
+        {filteredSidebarMenu.map((item, index) => (
           <ListGroup.Item key={index}>
             <Link to={item.path}>
               <span className="sidebar-icon">{item.icon}</span>
-              
               {isSidebarOpen && (
                 <span className="sidebar-title">{item.title}</span>
               )}

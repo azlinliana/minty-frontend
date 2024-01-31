@@ -3,7 +3,6 @@ import { BsBarChartLineFill } from "react-icons/bs";
 import { BsTools } from "react-icons/bs";
 import { BsPersonFillGear } from "react-icons/bs";
 
-
 const SidebarMenu = [
   {
     title: "Sahabat",
@@ -19,6 +18,7 @@ const SidebarMenu = [
         path: "/tracking-inflow-outflow",
       },
     ],
+    roles: [1, 2, 3],
   },
   {
     title: "Laporan",
@@ -54,6 +54,7 @@ const SidebarMenu = [
         path: "/search-tf02",
       },
     ],
+    roles: [1, 2, 3],
   },
   {
     title: "Selenggara",
@@ -81,6 +82,7 @@ const SidebarMenu = [
         path: "/hubungan",
       },
     ],
+    roles: [2, 3],
   },
   {
     title: "Pengguna",
@@ -95,7 +97,8 @@ const SidebarMenu = [
         title: "Pengguna",
         path: "/senarai-super-admin",
       },
-    ]
+    ],
+    roles: [3],
   }
 ];
 
