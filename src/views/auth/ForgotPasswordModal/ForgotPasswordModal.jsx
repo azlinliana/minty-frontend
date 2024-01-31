@@ -10,7 +10,9 @@ function ForgotPasswordModal(props) {
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>{content}</Modal.Body>
+        
         <Modal.Footer>
           {buttons.map((button, index) => (
             <button

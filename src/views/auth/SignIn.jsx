@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "./Auth.css";
-import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 import styled from "styled-components";
+import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
+import ErrorAlert from "../components/sweet-alert/ErrorAlert";
+import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
+import { RiEyeCloseLine } from "react-icons/ri";
+
+import { BsEyeFill } from "react-icons/bs";
 import backgroundImage from "../../assets/background-img.png";
 import aimLogo from "../../assets/aim-logo.svg";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../axios";
 
 // Background styling for this page route
@@ -50,28 +49,38 @@ function SignIn() {
 
   // Form validation
   const {
+    register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
   } = useForm();
 
+  // Show password
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   // ----------BE----------
   const navigate = useNavigate();
 
   const handleSignIn = async (signInInput) => {
     try {
-      const response = await axiosCustom.post(`/auth/login`, signInInput);
+      const response = await axiosCustom.post(
+        `/auth/login`, 
+        signInInput
+      );
+
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
+
         navigate("/carian-sahabat");
       } else {
-        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      console.log(error);
       ErrorAlert(error); // Error related to API response or client side
     }
   };
@@ -83,78 +92,65 @@ function SignIn() {
           <Row>
             <Col md={12} lg={6} className="signInHeader formHeader">
               <img src={aimLogo} alt="aim-logo" />
+
               <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
             </Col>
 
             <Col md={12} lg={6} className="formContent">
               <div className="formContentHeader">
                 <h3>PBMR</h3>
+
                 <h2>Selamat Datang</h2>
               </div>
 
               <Form onSubmit={handleSubmit(handleSignIn)} onReset={reset}>
                 <Form.Group className="mb-3">
-                  <Form.Label className="formLabel" htmlFor="idKakitangan">
-                    Id Kakitangan
-                  </Form.Label>
-                  <Controller
+                  <Form.Label className="form-label">Id Kakitangan</Form.Label>
+
+                  <Form.Control
                     type="text"
-                    id="idKakitangan"
-                    name="idKakitangan"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "ID kakitangan diperlukan." }}
-                    render={({ field: { onChange, value } }) => (
-                      <Form.Control
-                        type="text"
-                        onChange={onChange}
-                        value={value}
-                        placeholder="Masukkan id kakitangan"
-                        autoFocus
-                      />
-                    )}
+                    {...register("idKakitangan", { required: true })}
+                    aria-invalid={errors.staffId ? "true" : "false"}
+                    placeholder="Masukkan id kakitangan"
                   />
-                  {errors.idKakitangan && (
-                    <Form.Text className="text-danger">
-                      {errors.idKakitangan.message}
-                    </Form.Text>
+
+                  {errors.idKakitangan?.type === "required" && (
+                    <small className="text-danger">
+                      Id kakitangan diperlukan.
+                    </small>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label
-                    className="formLabel"
-                    htmlFor="passwordKakitangan"
-                  >
-                    Kata Laluan
-                  </Form.Label>
-                  <Controller
-                    type="password"
-                    id="kataLaluanKakitangan"
-                    name="kataLaluanKakitangan"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "Kata laluan diperlukan" }}
-                    render={({ field: { onChange, value } }) => (
-                      <Form.Control
-                        type="password"
-                        onChange={onChange}
-                        placeholder="Masukkan kata laluan"
-                        value={value}
-                        autoFocus
-                      />
-                    )}
-                  />
-                  {errors.kataLaluanKakitangan && (
-                    <Form.Text className="text-danger">
-                      {errors.kataLaluanKakitangan.message}
-                    </Form.Text>
+                  <Form.Label className="form-label">Kata Laluan Kakitangan</Form.Label>
+
+                  <InputGroup>
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      {...register("kataLaluanKakitangan", { required: true })}
+                      aria-invalid={errors.password ? "true" : "false"}
+                      placeholder="Masukkan kata laluan"
+                    />
+
+                    <InputGroup.Text
+                      className="showPasswordButton"
+                      style={{ cursor: "pointer" }}
+                      onClick={toggleShowPassword}
+                    >
+                      {showPassword ? <BsEyeFill /> : <RiEyeCloseLine />}
+                    </InputGroup.Text>
+                  </InputGroup>
+
+                  {errors.kataLaluanKakitangan?.type === "required" && (
+                    <small className="text-danger">
+                      Kata laluan diperlukan.
+                    </small>
                   )}
                 </Form.Group>
 
                 <Button
                   className="submitButton"
-                  variant="primary"
+                  variant="outline-primary"
                   onClick={handleSubmit(handleSignIn)}
                 >
                   Log Masuk

@@ -83,6 +83,10 @@
 /* *********************** */
 /* BUTTONS */
 /* *********************** */
+.showPasswordButton {
+  background-color: none;
+}
+
 .submitButton {
   width: 100%;
   font-size: 1.15em;
