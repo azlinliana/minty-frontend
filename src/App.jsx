@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./views/layouts/MainLayout";
-import NotFound from "./views/error/NotFound";
 import SignIn from "./views/auth/SignIn";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
@@ -26,6 +25,15 @@ import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
 import IndexPengguna from "./views/pengguna/Index";
 import IndexAdmin from "./views/pengguna/admin/Index";
 import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
+import BadRequest from "./views/http_requests/BadRequest";
+import Unauthorized from "./views/http_requests/Unauthorized";
+import Forbidden from "./views/http_requests/Forbidden";
+import NotFound from "./views/http_requests/NotFound";
+import UnprocessableEntity from "./views/http_requests/UnprocessableEntity";
+import TooManyRequests from "./views/http_requests/TooManyRequests";
+import InternalServer from "./views/http_requests/InternalServer";
+import ServiceUnavailable from "./views/http_requests/ServiceUnavailable";
+import UnknownError from "./views/http_requests/UnknownError";
 
 function App() {
   return (
@@ -88,6 +96,7 @@ function App() {
             <Route path="senarai-admin" element={<IndexAdmin />} />
             <Route path="senarai-super-admin" element={<IndexSuperAdmin />} />
           </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
