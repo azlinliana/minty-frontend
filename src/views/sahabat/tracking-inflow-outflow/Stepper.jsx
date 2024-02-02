@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Stepper,
-  Step,
-  StepContent,
-  StepLabel,
-  Button,
-  Typography,
-  Box,
-  Paper,
-} from "@mui/material";
+import { Stepper, Step, StepContent, StepLabel, Button, Typography, Box, Paper } from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import IndexTrackingSahabat from "./sahabat/Index";
@@ -22,14 +13,23 @@ const steps = [
 
 const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
   const [activeStep, setActiveStep] = useState(0);
+
   const [expandedSteps, setExpandedSteps] = useState([]);
 
+  const [aktivitiDataAvailable, setAktivitiDataAvailable] = useState(true);
+
   const handleNext = () => {
+    // Check if aktivitiData is available before proceeding
+    if (activeStep === 0 && !aktivitiDataAvailable) {
+      return;
+    }
+
     setActiveStep((prevActiveStep) => {
       setExpandedSteps((prevExpandedSteps) => [
         ...prevExpandedSteps,
         prevActiveStep,
       ]);
+
       return prevActiveStep + 1;
     });
   };
@@ -39,6 +39,7 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
       setExpandedSteps((prevExpandedSteps) =>
         prevExpandedSteps.filter((step) => step !== prevActiveStep - 1)
       );
+
       return Math.max(0, prevActiveStep - 1);
     });
   };
@@ -81,11 +82,14 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
                 <IndexAktiviti
                   sahabatId={sahabatId}
                   pembiayaanId={pembiayaanId}
+                  onDataAvailableChange={setAktivitiDataAvailable}  // Pass the function to IndexAktiviti
                 />
               ) : null}
+
               {index === 1 ? (
                 <IndexTrackingSahabat mingguId={mingguId} />
               ) : null}
+              
               {index === 2 ? (
                 <IndexTrackingIsiRumah mingguId={mingguId} />
               ) : null}
@@ -95,10 +99,12 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
                   <Button
                     variant="contained"
                     onClick={handleNext}
+                    disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
                     sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
                   >
                     {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
                   </Button>
+
                   <Button
                     disabled={index === 0}
                     onClick={handleBack}
@@ -118,6 +124,7 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
           <Typography>
             Maklumat tracking minggu ini telah selesai diisi.
           </Typography>
+
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
             Isi Semula
           </Button>

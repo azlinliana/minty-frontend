@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "../../../../assets/styles/styles_sahabat.css";
 import CreateAktiviti from "./Create";
 import EditAktiviti from "./Edit";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
@@ -6,9 +7,8 @@ import DeletionAlert from "../../../components/sweet-alert/DeletionAlert";
 import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 import Swal from "sweetalert2";
-import "../../../../assets/styles/styles_sahabat.css";
 
-function IndexAktiviti({ sahabatId, pembiayaanId }) {
+function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
   // ----------BE----------
   // List aktiviti
   const [aktivitis, setAktivitis] = useState([]);
@@ -21,32 +21,26 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
 
       if (response.status === 200) {
         setAktivitis(response.data);
+
+        // Update onDataAvailableChange based on the length of aktivitis
+        onDataAvailableChange(response.data.length > 0);
       } else {
-        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
-  }, [sahabatId, pembiayaanId, setAktivitis]);
+  }, [sahabatId, pembiayaanId, setAktivitis, onDataAvailableChange]);
 
   useEffect(() => {
     fetchAktivitis();
   }, [fetchAktivitis]);
 
   // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
-
   const [kegiatanOptions, setKegiatanOptions] = useState([]);
+
   const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
+
   const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
 
   // Fetch kegiatan
@@ -172,16 +166,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, [setKodDimensisData]);
 
@@ -233,6 +218,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
               keteranganKegiatanOptions={keteranganKegiatanOptions}
               projekKegiatanOptions={projekKegiatanOptions}
               kodDimensisData={kodDimensisData}
+              onDataAvailableChange={onDataAvailableChange}
             />
           </div>
 
@@ -266,12 +252,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
                   <tr key={key}>
                     <td>{key + 1}</td>
                     <td>{aktivitisData.kegiatan.jenisKegiatan}</td>
-                    <td>
-                      {
-                        aktivitisData.keterangan_kegiatan
-                          .jenisKeteranganKegiatan
-                      }
-                    </td>
+                    <td>{aktivitisData.keterangan_kegiatan.jenisKeteranganKegiatan}</td>
                     <td>{aktivitisData.projek_kegiatan.jenisProjekKegiatan}</td>
                     <td>{aktivitisData.dimensi.kodDimensi}</td>
                     <td>{aktivitisData.pengurusDanaAktiviti}</td>
@@ -288,6 +269,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId }) {
                         projekKegiatanOptions={projekKegiatanOptions}
                         kodDimensisData={kodDimensisData}
                       />
+
                       <Button
                         className="delBtn"
                         onClick={() => deleteAktiviti(aktivitisData.id)}
