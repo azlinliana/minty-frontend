@@ -5,12 +5,7 @@ import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowSahabat({
-  mingguId,
-  inflowSahabatId,
-  inflowSahabat,
-  kodInflowsData,
-}) {
+function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, kodInflowsData }) {
   // ----------FE----------
   // Modal
   const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] = useState(false);
@@ -34,32 +29,7 @@ function EditTrackingInflowSahabat({
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
   const [previousKodInflow, setPreviousKodInflow] = useState(null);
 
-  // State to get back previous inflow terperinci
-  const [kodInflowTerperinci, setKodInflowTerperinci] = useState({});
-
   // Set default values when the kemas kini admin modal is opened
-  useEffect(() => {
-    if (inflowSahabat) {
-      // Populate form data
-      setValue("kodInflowId", inflowSahabat.kod_inflow.id);
-      setValue("amaunInflow", inflowSahabat.amaunInflow);
-
-      // Set selected kod inflow and terperinci data
-      setSelectedKodInflow(inflowSahabat.kod_inflow.kodInflow);
-      setShowKodInflowTerperinci(
-        inflowSahabat.kod_inflow.kod_inflow_terperincis
-      );
-
-      // Set terperinci values
-      inflowSahabat.inflow_sahabat_terperincis.forEach((terperinci) => {
-        setValue(
-          `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
-          terperinci.keteranganInflowTerperinci
-        );
-      });
-    }
-  }, [inflowSahabat, setValue]);
-
   const [formData, setFormData] = useState({
     kodInflowId: "",
     amaunInflow: "",
@@ -68,26 +38,38 @@ function EditTrackingInflowSahabat({
 
   useEffect(() => {
     if (inflowSahabat) {
+      // Populate form data
       setValue("kodInflowId", inflowSahabat.kod_inflow.id);
       setValue("amaunInflow", inflowSahabat.amaunInflow);
-
+  
+      // Set selected kod inflow and terperinci data
       setSelectedKodInflow(inflowSahabat.kod_inflow.kodInflow);
       setShowKodInflowTerperinci(inflowSahabat.kod_inflow.kod_inflow_terperincis);
-      setPreviousKodInflow(inflowSahabat.kod_inflow.id);
-
-      const terperinciValues = {};
-
+  
+      // Set terperinci values
       inflowSahabat.inflow_sahabat_terperincis.forEach((terperinci) => {
-        terperinciValues[
-          `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
-        ] = terperinci.keteranganInflowTerperinci;
+        setValue(
+          `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
+          terperinci.keteranganInflowTerperinci
+        );
       });
-
-      setFormData({
+  
+      // Set default values for formData
+      setFormData((prevData) => ({
+        ...prevData,
         kodInflowId: inflowSahabat.kod_inflow.id,
         amaunInflow: inflowSahabat.amaunInflow,
-        kodInflowTerperinci: terperinciValues,
-      });
+        kodInflowTerperinci: inflowSahabat.inflow_sahabat_terperincis.reduce(
+          (item, terperinci) => {
+            item[
+              `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
+            ] = terperinci.keteranganInflowTerperinci;
+            
+            return item;
+          },
+          {}
+        ),
+      }));
     }
   }, [inflowSahabat, setValue]);
 
@@ -176,9 +158,7 @@ function EditTrackingInflowSahabat({
                 }}
                 aria-invalid={errors.kodInflowId ? "true" : "false"}
               >
-                <option value="" disabled>
-                  --Pilih Kod Inflow--
-                </option>
+                <option value="" disabled>--Pilih Kod Inflow--</option>
                 {kodInflowsData.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
@@ -247,7 +227,9 @@ function EditTrackingInflowSahabat({
               />
 
               {errors.amaunInflow?.type === "required" && (
-                <small className="text-danger">Amaun inflow diperlukan.</small>
+                <small className="text-danger">
+                  Amaun inflow diperlukan.
+                </small>
               )}
             </Form.Group>
           </Modal.Body>
