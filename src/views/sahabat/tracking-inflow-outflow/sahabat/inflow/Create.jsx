@@ -28,7 +28,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
   // ----------BE----------
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
-  const [showKodInflowTerperinci, setshowKodInflowTerperinci] = useState([]);
+  const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
     const selectedKodInflowData = kodInflowsData.find(
@@ -36,7 +36,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
     );
 
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
-    setshowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
+    setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
 
     // Reset other form data and save selected inflow id
     setFormData((prevData) => ({
