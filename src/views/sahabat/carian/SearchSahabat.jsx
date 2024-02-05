@@ -1,7 +1,7 @@
 import React from "react";
-import "../../../assets/styles/styles_sahabat.css";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import "../../../assets/styles/styles_sahabat.css";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import axiosCustom from "../../../axios";
@@ -24,6 +24,7 @@ function SearchSahabat() {
       const response = await axiosCustom.get(
         `/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
       );
+      
       if (response.status === 200) {
         navigate("/hasil-carian-sahabat", {
           state: { resultSahabat: response.data },
@@ -37,7 +38,7 @@ function SearchSahabat() {
   };
 
   return (
-    <div>
+    <>
       <div className="pageTitle">
         <h1>Carian Sahabat</h1>
       </div>
@@ -87,7 +88,7 @@ function SearchSahabat() {
           </Row>
         </Form>
       </div>
-    </div>
+    </>
   );
 }
 

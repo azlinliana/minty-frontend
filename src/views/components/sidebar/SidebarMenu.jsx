@@ -1,7 +1,5 @@
 import { FaUsers } from "react-icons/fa";
-import { BsBarChartLineFill } from "react-icons/bs";
-import { BsTools } from "react-icons/bs";
-import { BsPersonFillGear } from "react-icons/bs";
+import { BsBarChartLineFill, BsTools, BsPersonFillGear } from "react-icons/bs";
 
 const SidebarMenu = [
   {

@@ -60,19 +60,11 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
 
         // fetchKegiatans();
       } else {
+        console.log(response.data);
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, [setKegiatanOptions]);
 
@@ -99,16 +91,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, [setKeteranganKegiatanOptions]);
 
@@ -136,16 +119,7 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, [setProjekKegiatanOptions]);
 
