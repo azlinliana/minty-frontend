@@ -15,7 +15,9 @@ function IndexTrackingInflowSahabat({ mingguId }) {
   // List inflow sahabat
   const fetchInflowSahabats = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/sahabat/inflow-sahabat/${mingguId}`);
+      const response = await axiosCustom.get(
+        `/sahabat/inflow-sahabat/${mingguId}`
+      );
 
       if (response.status === 200) {
         setInflowSahabats(response.data);
@@ -60,21 +62,7 @@ function IndexTrackingInflowSahabat({ mingguId }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        if (
-          error.response &&
-          (error.response.status === 503 || error.response.status === 429)
-        ) {
-          // The server is not ready, ignore the error
-          console.log("Server not ready, retry later.");
-        } else {
-          // Handle other errors
-          ErrorAlert(error);
-        }
-      }
+      ErrorAlert(error);
     }
   }, [setKodInflowsData]);
 
@@ -171,7 +159,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                           inflowSahabat={inflowSahabatsData}
                           kodInflowsData={kodInflowsData}
                         />
-
                         <Button
                           className="delBtn"
                           onClick={() =>
@@ -218,7 +205,9 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                       <tr key={subIndex}>
                         <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
                         <td>
-                          {kodInflowTerperincisData.keteranganKodInflowTerperinci}
+                          {
+                            kodInflowTerperincisData.keteranganKodInflowTerperinci
+                          }
                         </td>
                         <td>
                           {inflowSahabatsData.inflow_sahabat_terperincis &&
@@ -232,7 +221,9 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                               )
                               .map((inflowTerperinciData, innerIndex) => (
                                 <React.Fragment key={innerIndex}>
-                                  {inflowTerperinciData.keteranganInflowTerperinci}
+                                  {
+                                    inflowTerperinciData.keteranganInflowTerperinci
+                                  }
                                 </React.Fragment>
                               ))}
                         </td>
@@ -260,7 +251,6 @@ function IndexTrackingInflowSahabat({ mingguId }) {
                                 inflowSahabat={inflowSahabatsData}
                                 kodInflowsData={kodInflowsData}
                               />
-                              
                               <Button
                                 className="delBtn"
                                 onClick={() =>
