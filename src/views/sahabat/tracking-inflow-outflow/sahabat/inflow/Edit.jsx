@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -12,15 +12,27 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
   const openModalEditInflowSahabat = () => setIsModalEditInflowSahabat(true);
   const closeModalEditInflowSahabat = () => {
     setIsModalEditInflowSahabat(false);
+
+    // Reset previous form input
+    const resetFields = {
+      kodInflowId: inflowSahabat.kod_inflow.id,
+      amaunInflow: inflowSahabat.amaunInflow,
+    };
+  
+    inflowSahabat.inflow_sahabat_terperincis.forEach((terperinci) => {
+      resetFields[`keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`] = terperinci.keteranganInflowTerperinci;
+    });
+  
+    reset(resetFields);
   };
 
   // Form validation
   const {
     register,
-    reset,
     handleSubmit,
     setValue,
     formState: { errors },
+    reset
   } = useForm();
 
   // ----------BE----------
@@ -111,21 +123,37 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
 
   // Update inflow sahabat
   const updateInflowSahabat = async (inflowSahabatInput) => {
-    console.log(inflowSahabatInput);
-    // try {
-    //   const response = await axiosCustom.put(
-    //     `/sahabat/inflow-sahabat/${mingguId}/${inflowSahabatId}`,
-    //     inflowSahabatInput
-    //   );
-    //   if (response.status === 200) {
-    //     SuccessAlert(response.data.message);
-    //     closeModalEditInflowSahabat();
-    //   } else {
-    //     ErrorAlert(response); // Error from the backend or unknow error from the server side
-    //   }
-    // } catch (error) {
-    //   ErrorAlert(error);
-    // }
+    // Filter out unnecessary fields - Only submit current data with their respective kod inflow id
+    const filteredData = {
+      kodInflowId: inflowSahabatInput.kodInflowId,
+      amaunInflow: inflowSahabatInput.amaunInflow,
+    };
+
+    // Add terperinci fields to filteredData
+    showKodInflowTerperinci.forEach((terperinci) => {
+      const terperinciField = `keteranganInflowTerperinci_${terperinci.id}`;
+      filteredData[terperinciField] = inflowSahabatInput[terperinciField];
+    });
+
+    console.log(filteredData);
+
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/inflow-sahabat/${mingguId}/${inflowSahabatId}`,
+        inflowSahabatInput
+      );
+
+      if (response.status === 200) {
+        SuccessAlert(response.data.message);
+        closeModalEditInflowSahabat();
+      } else {
+        console.log(response);
+        ErrorAlert(response); // Error from the backend or unknow error from the server side
+      }
+    } catch (error) {
+      console.log(error);
+      ErrorAlert(error);
+    }
   };
 
   return (
@@ -167,7 +195,9 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
               </Form.Control>
 
               {errors.kodInflowId?.type === "required" && (
-                <small className="text-danger">Kod inflow diperlukan.</small>
+                <small className="text-danger">
+                  Kod inflow diperlukan.
+                </small>
               )}
             </Form.Group>
 
