@@ -11,7 +11,7 @@ import axiosCustom from "../../../axios";
 function IndexPembiayaan({ resultSahabat, sahabatId }) {
   // ----------FE----------
   // Collapsible pembiayaan card
-  const [isCardCollapsed, setIsCardCollapsed] = useState(false);
+  const [isCardCollapsed, setIsCardCollapsed] = useState({});
 
   const toggleCardCollapse = (pembiayaanId) => {
     setIsCardCollapsed((prev) => ({
@@ -44,6 +44,20 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
     fetchPembiayaanSahabats();
   }, [fetchPembiayaanSahabats]);
 
+  // ----------BE & FE-------------------------------
+  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
+  // | Hidden status pembiayaan case                |
+  // ------------------------------------------------
+  // Pass state to IndexMinggu to check conditions for hiding status pembiayaan section
+  const [checkIndexMingguCondition, setCheckIndexMingguCondition] = useState({});
+
+  const handleCheckIndexMingguCondition = (pembiayaanId, indexMingguCondition) => {
+    setCheckIndexMingguCondition((prev) => ({
+      ...prev,
+      [pembiayaanId]: indexMingguCondition,
+    }));
+  };
+
   return (
     <>
       <div>
@@ -51,13 +65,13 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
 
         {/* Hide tambah button */}
         {pembiayaanSahabats.length === 0 ||
-          (pembiayaanSahabats.length > 0 &&
-            pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
-              "SELESAI") ? (
-                <div className="tambahBtnPlacement">
-                  <CreatePembiayaan sahabatId={sahabatId} />
-                </div>
-          ) : null}
+        (pembiayaanSahabats.length > 0 &&
+          pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
+            "SELESAI") ? (
+          <div className="tambahBtnPlacement">
+            <CreatePembiayaan sahabatId={sahabatId} />
+          </div>
+        ) : null}
 
         {/* Display pembiayaan sahabat list */}
         {pembiayaanSahabats.length === 0 ? (
@@ -78,9 +92,11 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                     <Badge
                       pill
                       bg={
-                        pembiayaanSahabatsData.statusPembiayaan === "SELESAI" ? "secondary" :
-                        pembiayaanSahabatsData.statusPembiayaan === "AKTIF" ? "primary" :
-                        undefined
+                        pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
+                          ? "secondary"
+                          : pembiayaanSahabatsData.statusPembiayaan === "AKTIF"
+                          ? "primary"
+                          : undefined
                       }
                     >
                       {pembiayaanSahabatsData.statusPembiayaan}
@@ -99,6 +115,9 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                           sahabatId={sahabatId}
                           pembiayaanId={pembiayaanSahabatsData.id}
                           pembiayaanSahabat={pembiayaanSahabatsData}
+                          toggleCardCollapse={toggleCardCollapse}
+                          checkIndexMingguCondition={checkIndexMingguCondition}
+                          handleCheckIndexMingguCondition={handleCheckIndexMingguCondition}
                         />
                       </Dropdown.Item>
 
@@ -127,15 +146,23 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                 {isCardCollapsed[pembiayaanSahabatsData.id] ? null : (
                   <>
                     {/* Senarai minggu pembiayaan */}
-                    <Card.Body className={`${
-                      pembiayaanSahabatsData.statusPembiayaan === "SELESAI" ? "disabledContent" : ""
-                    }`}>
+                    <Card.Body
+                      className={`${
+                        pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
+                          ? "disabledContent"
+                          : ""
+                      }`}
+                    >
                       <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
 
                       <IndexMinggu
                         sahabatId={sahabatId}
                         pembiayaanId={pembiayaanSahabatsData.id}
+                        pembiayaanSahabatsData={pembiayaanSahabatsData}
                         resultSahabat={resultSahabat}
+                        handleCheckIndexMingguCondition={(condition) =>
+                          handleCheckIndexMingguCondition(pembiayaanSahabatsData.id, condition)
+                        }
                       />
                     </Card.Body>
                   </>

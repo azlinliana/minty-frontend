@@ -8,7 +8,7 @@ import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
 
-function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
+function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexMingguCondition }) {
   // ----------FE----------
   // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
@@ -84,6 +84,29 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
     DeletionAlert(performDeletion, cancelDeletion);
   };
 
+  // ----------BE & FE-------------------------------
+  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
+  // | Hidden status pembiayaan case                |
+  // ------------------------------------------------
+  // Check condition for minggu pembiayaan sahabat
+  useEffect(() => {
+    const checkCondition = () => {
+      const checkIncompleteMingguPembiayaanSahabat = mingguPembiayaanSahabats.some(
+        (minggu) =>
+          minggu.totalInflow === "Tiada maklumat" ||
+          minggu.totalOutflow === "Tiada maklumat"
+      );
+
+      const checkMingguPembiayaanSahabatLength = mingguPembiayaanSahabats.length === 0;
+
+      const conditionResult = checkMingguPembiayaanSahabatLength || checkIncompleteMingguPembiayaanSahabat;
+
+      handleCheckIndexMingguCondition(conditionResult);
+    };
+  
+    checkCondition();
+  }, [mingguPembiayaanSahabats, handleCheckIndexMingguCondition]);
+
   return (
     <>
       <div className="tableSection">
@@ -100,7 +123,6 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
         ) && (
           <Alert variant="danger">
             Sila tambah maklumat untuk minggu{" "}
-
             <span className="trackingMinggu">
               {mingguPembiayaanSahabats
                 .filter(
@@ -109,7 +131,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId }) {
                     minggu.totalOutflow === "Tiada maklumat"
                 )
                 .map((minggu) => minggu.bilanganMinggu)
-                .sort((a, b) => a - b) // Add this line for sorting in ascending order
+                .sort((a, b) => a - b)
                 .join(", ")}
             </span>
             . Klik butang "Kemas Kini" bagi minggu berkenaan.
