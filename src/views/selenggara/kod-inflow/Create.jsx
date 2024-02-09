@@ -105,9 +105,9 @@ function CreateKodInflow() {
                   </Form.Select>
                 )}
               />
-              {errors.kodInflow && (
+              {errors.kodInflowId && (
                 <small className="text-danger">
-                  {errors.kodInflow.message}
+                  {errors.kodInflowId.message}
                 </small>
               )}
             </Form.Group>

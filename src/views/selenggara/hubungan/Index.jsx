@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../assets/styles/styles_selenggara.css";
 import CreateHubungan from "./Create";
 import EditHubungan from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Swal from "sweetalert2";
-import axiosInstance from "../../../axios";
-import "../../../assets/styles/styles_selenggara.css";
+import axiosCustom from "../../../axios";
 
 function IndexHubungan() {
   // ----------FE----------
@@ -22,14 +22,16 @@ function IndexHubungan() {
   const [hubungans, setHubungans] = useState([]);
   const fetchHubungans = async () => {
     try {
-      const response = await axiosInstance.get("/selenggara/hubungan");
+      const response = await axiosCustom.get("/selenggara/hubungan");
 
       if (response.status === 200) {
         setHubungans(response.data);
       } else {
+        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
+      console.log(error);
       ErrorAlert(error);
     }
   };
@@ -40,7 +42,7 @@ function IndexHubungan() {
 
   // Delete hubungan
   const deleteHubungan = async (hubunganId) => {
-    // Function to delete hubungan
+    // Function to delete dimensi
     const performDeletion = async () => {
       try {
         const response = await axiosCustom.delete(
