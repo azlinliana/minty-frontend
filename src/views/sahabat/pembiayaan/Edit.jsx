@@ -5,8 +5,7 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Modal, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndexMingguCondition, handleCheckIndexMingguCondition, toggleCardCollapse }) {
-  console.log(checkIndexMingguCondition);
+function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndexMingguConditionEachPembiayaan }) {
   // ----------FE----------
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
@@ -63,7 +62,17 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
     }
   };
 
-  const hideStatusPembiayaan = checkIndexMingguCondition;
+  // ----------BE & FE-------------------------------
+  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
+  // | Hidden status pembiayaan case                |
+  // ------------------------------------------------
+  const conditionResult = checkIndexMingguConditionEachPembiayaan.find(
+    (condition) => condition.pembiayaanId === pembiayaanId
+  )?.conditionsResults;
+
+
+  // Get the result from props
+  const hideStatusPembiayaan = conditionResult;
 
   return (
     <>

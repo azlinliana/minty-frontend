@@ -8,7 +8,7 @@ import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
 
-function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexMingguCondition }) {
+function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexMingguConditionEachPembiayaan }) {
   // ----------FE----------
   // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
@@ -88,32 +88,57 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexM
   // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
   // | Hidden status pembiayaan case                |
   // ------------------------------------------------
-  // Check condition for minggu pembiayaan sahabat
+  // // State to store condition
+  const [checkMingguPembiayaanSahabatLength, setCheckMingguPembiayaanSahabatLength] = useState(false); // Condition 1
+  const [checkIncompleteMingguPembiayaanSahabats, setCheckIncompleteMingguPembiayaanSahabats] = useState(false); // Condition 2
+  const [conditionsByPembiayaan, setConditionsByPembiayaan] = useState({});
+  
   useEffect(() => {
-    const checkCondition = () => {
-      const checkIncompleteMingguPembiayaanSahabat = mingguPembiayaanSahabats.some(
-        (minggu) =>
-          minggu.totalInflow === "Tiada maklumat" ||
-          minggu.totalOutflow === "Tiada maklumat"
+    let isMounted = true;
+  
+    const checkConditions = () => {
+      setCheckMingguPembiayaanSahabatLength(
+        mingguPembiayaanSahabats.length === 0
       );
-
-      const checkMingguPembiayaanSahabatLength = mingguPembiayaanSahabats.length === 0;
-
-      const conditionResult = checkMingguPembiayaanSahabatLength || checkIncompleteMingguPembiayaanSahabat;
-
-      handleCheckIndexMingguCondition(conditionResult);
+  
+      setCheckIncompleteMingguPembiayaanSahabats(
+        mingguPembiayaanSahabats.some(
+          (minggu) =>
+            minggu.totalInflow === "Tiada maklumat" ||
+            minggu.totalOutflow === "Tiada maklumat"
+        )
+      );
     };
   
-    checkCondition();
-  }, [mingguPembiayaanSahabats, handleCheckIndexMingguCondition]);
+    checkConditions();
+  
+    const conditionsResults = checkMingguPembiayaanSahabatLength || checkIncompleteMingguPembiayaanSahabats;
+  
+    // Update conditionsByPembiayaan with the conditions for the current pembiayaanId
+    setConditionsByPembiayaan((prevConditions) => {
+      return {
+        ...prevConditions,
+        [pembiayaanId]: conditionsResults,
+      };
+    });
+  
+    // Pass back the conditionsResults to the IndexPembiayaan (Parent)
+    handleCheckIndexMingguConditionEachPembiayaan(pembiayaanId, conditionsResults);
 
+    return () => {
+      // Cleanup function to set isMounted to false when the component is unmounted
+      isMounted = false;
+    };
+  }, [mingguPembiayaanSahabats, pembiayaanId]);
+  
   return (
     <>
       <div className="tableSection">
         <div className="tambahBtnPlacement">
           <CreateMinggu 
             sahabatId={sahabatId} 
-            pembiayaanId={pembiayaanId} />
+            pembiayaanId={pembiayaanId} 
+          />
         </div>
 
         {mingguPembiayaanSahabats.some(

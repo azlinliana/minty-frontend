@@ -48,16 +48,23 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
   // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
   // | Hidden status pembiayaan case                |
   // ------------------------------------------------
-  // Pass state to IndexMinggu to check conditions for hiding status pembiayaan section
-  const [checkIndexMingguCondition, setCheckIndexMingguCondition] = useState({});
+  // Pass state to IndexMinggu (Child) as a props for all pembiayaan sahabat data - Expecting the boolean data
+  const [checkIndexMingguConditionEachPembiayaan, setCheckIndexMingguConditionEachPembiayaan] = useState([]);
 
-  const handleCheckIndexMingguCondition = (pembiayaanId, indexMingguCondition) => {
-    setCheckIndexMingguCondition((prev) => ({
-      ...prev,
-      [pembiayaanId]: indexMingguCondition,
-    }));
-  };
+  const handleCheckIndexMingguConditionEachPembiayaan = (pembiayaanId, indexMingguCondition) => {
+    setCheckIndexMingguConditionEachPembiayaan((prev) => {
+      const updatedConditions = prev.filter((condition) => condition.pembiayaanId !== pembiayaanId);
 
+      return [
+        ...updatedConditions, 
+        { 
+          pembiayaanId, 
+          conditionsResults: indexMingguCondition 
+        }
+      ];
+    });
+  }; 
+  
   return (
     <>
       <div>
@@ -115,9 +122,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                           sahabatId={sahabatId}
                           pembiayaanId={pembiayaanSahabatsData.id}
                           pembiayaanSahabat={pembiayaanSahabatsData}
-                          toggleCardCollapse={toggleCardCollapse}
-                          checkIndexMingguCondition={checkIndexMingguCondition}
-                          handleCheckIndexMingguCondition={handleCheckIndexMingguCondition}
+                          checkIndexMingguConditionEachPembiayaan={checkIndexMingguConditionEachPembiayaan}
                         />
                       </Dropdown.Item>
 
@@ -131,13 +136,9 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       className="arrowPositioning"
                     >
                       {isCardCollapsed[pembiayaanSahabatsData.id] ? (
-                        <span>
-                          <TfiArrowCircleDown size={40} />
-                        </span>
+                        <span><TfiArrowCircleDown size={40} /></span>
                       ) : (
-                        <span>
-                          <TfiArrowCircleUp size={40} />
-                        </span>
+                        <span><TfiArrowCircleUp size={40} /></span>
                       )}
                     </div>
                   </div>
@@ -160,9 +161,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                         pembiayaanId={pembiayaanSahabatsData.id}
                         pembiayaanSahabatsData={pembiayaanSahabatsData}
                         resultSahabat={resultSahabat}
-                        handleCheckIndexMingguCondition={(condition) =>
-                          handleCheckIndexMingguCondition(pembiayaanSahabatsData.id, condition)
-                        }
+                        handleCheckIndexMingguConditionEachPembiayaan={handleCheckIndexMingguConditionEachPembiayaan}
                       />
                     </Card.Body>
                   </>
