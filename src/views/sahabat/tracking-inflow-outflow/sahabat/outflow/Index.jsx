@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingOutflowSahabat({ mingguId }) {
+function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData }) {
   // ----------BE----------
   const [outflowSahabats, setOutflowSahabats] = useState([]);
 
@@ -18,6 +18,7 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
       const response = await axiosCustom.get(
         `/sahabat/outflow-sahabat/${mingguId}`
       );
+
       if (response.status === 200) {
         setOutflowSahabats(response.data);
       } else {
@@ -49,6 +50,7 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
       const response = await axiosCustom.get(
         `/selenggara/kod-outflow/display-kod-outflow`
       );
+
       if (Array.isArray(response.data) && response.data.length > 0) {
         setKodOutflowsData(response.data); // Display all kod inflow data
       } else {
@@ -80,6 +82,7 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
         const response = await axiosCustom.delete(
           `/sahabat/outflow-sahabat/${outflowSahabatId}`
         );
+
         if (response.status === 200) {
           setOutflowSahabats((prevOutflowSahabats) =>
             prevOutflowSahabats.filter(
@@ -106,12 +109,14 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
   return (
     <>
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateTrackingOutflowSahabat
-            mingguId={mingguId}
-            kodOutflowsData={kodOutflowsData}
-          />
-        </div>
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          <div className="tambahBtnPlacement">
+            <CreateTrackingOutflowSahabat
+              mingguId={mingguId}
+              kodOutflowsData={kodOutflowsData}
+            />
+          </div>
+        ) : null}
 
         <Table responsive>
           <thead>
@@ -120,7 +125,9 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
               <th>Kod Outflow</th>
               <th>Keterangan Kod Outflow</th>
               <th>Amaun (RM)</th>
-              <th>Tindakan</th>
+              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                <th>Tindakan</th>
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -142,22 +149,24 @@ function IndexTrackingOutflowSahabat({ mingguId }) {
                     {outflowSahabatsData.kod_outflow.keteranganKodOutflow}
                   </td>
                   <td>{outflowSahabatsData.amaunOutflow}</td>
-                  <td>
-                    <EditTrackingOutflowSahabat
-                      mingguId={mingguId}
-                      outflowSahabatId={outflowSahabatsData.id}
-                      outflowSahabat={outflowSahabatsData}
-                      kodOutflowsData={kodOutflowsData}
-                    />
-                    <Button
-                      className="delBtn"
-                      onClick={() =>
-                        deleteOutflowSahabat(outflowSahabatsData.id)
-                      }
-                    >
-                      Padam
-                    </Button>{" "}
-                  </td>
+                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                    <td>
+                      <EditTrackingOutflowSahabat
+                        mingguId={mingguId}
+                        outflowSahabatId={outflowSahabatsData.id}
+                        outflowSahabat={outflowSahabatsData}
+                        kodOutflowsData={kodOutflowsData}
+                      />
+                      <Button
+                        className="delBtn"
+                        onClick={() =>
+                          deleteOutflowSahabat(outflowSahabatsData.id)
+                        }
+                      >
+                        Padam
+                      </Button>{" "}
+                    </td>
+                  ) : null}
                 </tr>
               ))
             )}

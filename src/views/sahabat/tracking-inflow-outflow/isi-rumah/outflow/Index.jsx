@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
+function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
   // ----------BE----------
   // List outflow isi rumah sahabat
   const [outflowIsiRumahs, setOutflowIsiRumahs] = useState([]);
@@ -107,12 +107,14 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
   return (
     <>
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateTrackingOutflowIsiRumah
-            isiRumahId={isiRumahId}
-            kodOutflowsData={kodOutflowsData}
-          />
-        </div>
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          <div className="tambahBtnPlacement">
+            <CreateTrackingOutflowIsiRumah
+              isiRumahId={isiRumahId}
+              kodOutflowsData={kodOutflowsData}
+            />
+          </div>
+        ) : null}
 
         <Table responsive>
           <thead>
@@ -121,7 +123,9 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
               <th>Kod Outflow</th>
               <th>Keterangan Kod Outflow</th>
               <th>Amaun (RM)</th>
-              <th>Tindakan</th>
+              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                <th>Tindakan</th>
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -144,22 +148,24 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId }) {
                     {outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}
                   </td>
                   <td>{outflowIsiRumahsData.amaunOutflow}</td>
-                  <td>
-                    <EditTrackingOutflowIsiRumah
-                      isiRumahId={isiRumahId}
-                      outflowIsiRumahId={outflowIsiRumahsData.id}
-                      outflowIsiRumah={outflowIsiRumahsData}
-                      kodOutflowsData={kodOutflowsData}
-                    />
-                    <Button
-                      className="delBtn"
-                      onClick={() =>
-                        deleteOutflowIsiRumah(outflowIsiRumahsData.id)
-                      }
-                    >
-                      Padam
-                    </Button>{" "}
-                  </td>
+                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                    <td>
+                      <EditTrackingOutflowIsiRumah
+                        isiRumahId={isiRumahId}
+                        outflowIsiRumahId={outflowIsiRumahsData.id}
+                        outflowIsiRumah={outflowIsiRumahsData}
+                        kodOutflowsData={kodOutflowsData}
+                      />
+                      <Button
+                        className="delBtn"
+                        onClick={() =>
+                          deleteOutflowIsiRumah(outflowIsiRumahsData.id)
+                        }
+                      >
+                        Padam
+                      </Button>{" "}
+                    </td>
+                  ) : null}
                 </tr>
               ))
             )}

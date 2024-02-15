@@ -70,7 +70,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
       <div>
         <h2>Maklumat Pembiayaan Sahabat</h2>
 
-        {/* Hide tambah button */}
+        {/* Hide tambah pembiayaan button */}
         {pembiayaanSahabats.length === 0 ||
         (pembiayaanSahabats.length > 0 &&
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
@@ -157,10 +157,10 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
 
                       <IndexMinggu
+                        resultSahabat={resultSahabat}
                         sahabatId={sahabatId}
                         pembiayaanId={pembiayaanSahabatsData.id}
                         pembiayaanSahabatsData={pembiayaanSahabatsData}
-                        resultSahabat={resultSahabat}
                         handleCheckIndexMingguConditionEachPembiayaan={handleCheckIndexMingguConditionEachPembiayaan}
                       />
                     </Card.Body>

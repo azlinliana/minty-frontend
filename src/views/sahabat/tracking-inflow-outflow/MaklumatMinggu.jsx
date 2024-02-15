@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import "../../../assets/styles/styles_sahabat.css";
 import EditMinggu from "../minggu/Edit";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
-import "../../../assets/styles/styles_sahabat.css";
 
-function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
+function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }) {
   // ----------BE----------
   // Show minggu pembiayaan sahabat
-  const [showMingguPembiayaanSahabat, setshowMingguPembiayaanSahabat] =
-    useState([]);
+  const [showMingguPembiayaanSahabat, setshowMingguPembiayaanSahabat] = useState([]);
+
   const getMingguPembiayaanSahabat = async () => {
     try {
       const response = await axiosCustom.get(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
       );
+
       if (response.status === 200) {
         setshowMingguPembiayaanSahabat(response.data);
       } else {
@@ -27,13 +28,6 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
 
   useEffect(() => {
     getMingguPembiayaanSahabat();
-    // const interval = setInterval(() => { // Set up recurring fetch every 5 second
-    //   getMingguPembiayaanSahabat();
-    // }, 5000);
-    // // Cleanup the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
   }, []);
 
   return (
@@ -42,14 +36,17 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
 
       {showMingguPembiayaanSahabat.id ? (
         <>
-          <div className="editMingguBtnPlacement">
-            <EditMinggu
-              sahabatId={sahabatId}
-              pembiayaanId={pembiayaanId}
-              mingguPembiayaanSahabat={showMingguPembiayaanSahabat}
-              mingguId={showMingguPembiayaanSahabat.id}
-            />
-          </div>
+          {/* Hide edit minggu button */}
+          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            <div className="editMingguBtnPlacement">
+              <EditMinggu
+                sahabatId={sahabatId}
+                pembiayaanId={pembiayaanId}
+                mingguPembiayaanSahabat={showMingguPembiayaanSahabat}
+                mingguId={showMingguPembiayaanSahabat.id}
+              />
+            </div>
+          ) : null}
 
           <Card>
             <Card.Body>
@@ -60,6 +57,7 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
                       <Form.Label className="trackWeek">
                         Bilangan Minggu
                       </Form.Label>
+
                       <Form.Control
                         type="text"
                         defaultValue={
@@ -69,11 +67,13 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId }) {
                       />
                     </Form.Group>
                   </Col>
+
                   <Col xs={6}>
                     <Form.Group>
                       <Form.Label className="trackWeek">
                         Tarikh Borang Minggu
                       </Form.Label>
+
                       <Form.Control
                         type="text"
                         defaultValue={new Date(

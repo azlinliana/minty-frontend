@@ -8,14 +8,21 @@ import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
 
-function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexMingguConditionEachPembiayaan }) {
+function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabatsData, handleCheckIndexMingguConditionEachPembiayaan }) {
   // ----------FE----------
-  // Navigate to tracking pages along with sahabat, pembiayaan and minggu data
   const navigate = useNavigate();
   
+  // Click Kemas Kini button
   const clickKemasKiniMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
-      state: { resultSahabat, sahabatId, pembiayaanId, mingguId },
+      state: { resultSahabat, sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }
+    });
+  };
+
+  // Click Lihat button
+  const clickLihatMinggu = (mingguId) => {
+    navigate("/tracking-inflow-outflow", {
+      state: { resultSahabat, sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }
     });
   };
 
@@ -134,34 +141,38 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexM
   return (
     <>
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateMinggu 
-            sahabatId={sahabatId} 
-            pembiayaanId={pembiayaanId} 
-          />
-        </div>
+        {/* Hide tambah minggu button */}
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" && (
+          <div className="tambahBtnPlacement">
+            <CreateMinggu 
+              sahabatId={sahabatId} 
+              pembiayaanId={pembiayaanId}
+            />
+          </div>
+        )}
 
         {mingguPembiayaanSahabats.some(
           (minggu) =>
             minggu.totalInflow === "Tiada maklumat" ||
             minggu.totalOutflow === "Tiada maklumat"
-        ) && (
-          <Alert variant="danger">
-            Sila tambah maklumat untuk minggu{" "}
-            <span className="trackingMinggu">
-              {mingguPembiayaanSahabats
-                .filter(
-                  (minggu) =>
-                    minggu.totalInflow === "Tiada maklumat" ||
-                    minggu.totalOutflow === "Tiada maklumat"
-                )
-                .map((minggu) => minggu.bilanganMinggu)
-                .sort((a, b) => a - b)
-                .join(", ")}
-            </span>
-            . Klik butang "Kemas Kini" bagi minggu berkenaan.
-          </Alert>
-        )}
+          ) && (
+            <Alert variant="danger">
+              Sila tambah maklumat untuk minggu{" "}
+              <span className="trackingMinggu">
+                {mingguPembiayaanSahabats
+                  .filter(
+                    (minggu) =>
+                      minggu.totalInflow === "Tiada maklumat" ||
+                      minggu.totalOutflow === "Tiada maklumat"
+                  )
+                  .map((minggu) => minggu.bilanganMinggu)
+                  .sort((a, b) => a - b)
+                  .join(", ")}
+              </span>
+              . Klik butang "Kemas Kini" bagi minggu berkenaan.
+            </Alert>
+          )
+        }
 
         <Table responsive>
           <thead>
@@ -205,26 +216,44 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, handleCheckIndexM
                       ).toLocaleDateString("en-GB")}
                     </td>
                     <td>
-                      <Button
-                        className="editBtn"
-                        onClick={() =>
-                          clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)
-                        }
-                      >
-                        Kemas Kini
-                      </Button>{" "}
+                      {/* Conditionally render buttons based on pembiayaan status */}
+                      {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                        <>
+                          {/* Render Kemas Kini button */}
+                          <Button
+                            className="editBtn"
+                            onClick={() =>
+                              clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)
+                            }
+                          >
+                            Kemas Kini
+                          </Button>{" "}
 
-                      <Button
-                        className="delBtn"
-                        onClick={() =>
-                          deleteMingguPembiayaanSahabats(
-                            mingguPembiayaanSahabatsData.id
-                          )
-                        }
-                      >
-                        Padam
-                      </Button>{" "}
+                          {/* Render Padam button */}
+                          <Button
+                            className="delBtn"
+                            onClick={() =>
+                              deleteMingguPembiayaanSahabats(
+                                mingguPembiayaanSahabatsData.id
+                              )
+                            }
+                          >
+                            Padam
+                          </Button>{" "}
+                        </>
+                      ) : (
+                        // Render Lihat button when pembiayaan status is SELESAI
+                        <Button
+                          className="showBtn"
+                          onClick={() =>
+                            clickLihatMinggu(mingguPembiayaanSahabatsData.id)
+                          }
+                        >
+                          Lihat
+                        </Button>
+                      )}
                     </td>
+
                   </tr>
                 )
               )

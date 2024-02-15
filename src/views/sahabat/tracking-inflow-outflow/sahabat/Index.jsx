@@ -5,13 +5,14 @@ import IndexTrackingOutflowSahabat from "../sahabat/outflow/Index";
 import { Tab, Tabs } from "react-bootstrap";
 import "../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingSahabat({ mingguId }) {
+function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
   // ----------FE----------
   // Tab tracking sahabat
   const [activeTab, setActiveTab] = useState({
     key: "tracking-inflow-sahabat",
     title: "Inflow",
   });
+
   const handleTabInflowOutflowSahabatChange = (key, title) => {
     setActiveTab({ key, title });
   };
@@ -32,11 +33,17 @@ function IndexTrackingSahabat({ mingguId }) {
         }
       >
         <Tab eventKey="tracking-inflow-sahabat" title="Inflow">
-          <IndexTrackingInflowSahabat mingguId={mingguId} />
+          <IndexTrackingInflowSahabat
+            mingguId={mingguId}
+            pembiayaanSahabatsData={pembiayaanSahabatsData}
+          />
         </Tab>
 
         <Tab eventKey="tracking-outflow-sahabat" title="Outflow">
-          <IndexTrackingOutflowSahabat mingguId={mingguId} />
+          <IndexTrackingOutflowSahabat
+            mingguId={mingguId}
+            pembiayaanSahabatsData={pembiayaanSahabatsData}
+          />
         </Tab>
       </Tabs>
     </div>

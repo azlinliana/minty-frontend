@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingIsiRumah from "./Create";
 import EditTrackingIsiRumah from "./Edit";
 import IndexTrackingInflowIsiRumah from "./inflow/Index";
@@ -18,9 +19,8 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
-import "../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingIsiRumah({ mingguId }) {
+function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
   // ----------FE----------
   // Dynamic tab title
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ function IndexTrackingIsiRumah({ mingguId }) {
     key: "tracking-inflow-isi-rumah",
     title: "Inflow",
   });
+
   const handleTabInflowOutflowIsiRumahChange = (key, title) => {
     setActiveTab({ key, title });
   };
@@ -41,6 +42,7 @@ function IndexTrackingIsiRumah({ mingguId }) {
   const fetchIsiRumahSahabats = useCallback(async () => {
     try {
       const response = await axiosCustom.get(`/sahabat/isi-rumah/${mingguId}`);
+
       if (response.status === 200) {
         setIsiRumahSahabats(response.data);
       } else {
@@ -101,12 +103,14 @@ function IndexTrackingIsiRumah({ mingguId }) {
       <div className="inputStepsContainer">
         <h2>Maklumat Tracking Isi Rumah</h2>
 
-        <div className="tambahBtnPlacement">
-          <CreateTrackingIsiRumah
-            mingguId={mingguId}
-            hubungansData={hubungansData}
-          />
-        </div>
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          <div className="tambahBtnPlacement">
+            <CreateTrackingIsiRumah
+              mingguId={mingguId}
+              hubungansData={hubungansData}
+            />
+          </div>
+        ) : null}
 
         {isiRumahSahabats.length === 0 ? (
           <Alert variant="secondary">
@@ -118,22 +122,24 @@ function IndexTrackingIsiRumah({ mingguId }) {
             {isiRumahSahabats.map((isiRumahSahabatsData, key) => (
               <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}>
                 <div>
-                  <div className="isiRumahActionsPlacement">
-                    <DropdownButton
-                      align="end"
-                      title="Status Isi Rumah"
-                      id="dropdown-menu-align-end"
-                    >
-                      <Dropdown.Item eventKey="1">
-                        <EditTrackingIsiRumah
-                          mingguId={mingguId}
-                          isiRumahSahabat={isiRumahSahabatsData}
-                          hubungansData={hubungansData}
-                        />
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
+                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                    <div className="isiRumahActionsPlacement">
+                      <DropdownButton
+                        align="end"
+                        title="Status Isi Rumah"
+                        id="dropdown-menu-align-end"
+                      >
+                        <Dropdown.Item eventKey="1">
+                          <EditTrackingIsiRumah
+                            mingguId={mingguId}
+                            isiRumahSahabat={isiRumahSahabatsData}
+                            hubungansData={hubungansData}
+                          />
+                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+                      </DropdownButton>
+                    </div>
+                  ) : null}
 
                   <Card>
                     <Card.Body>
@@ -203,6 +209,7 @@ function IndexTrackingIsiRumah({ mingguId }) {
                       <Tab eventKey="tracking-inflow-isi-rumah" title="Inflow">
                         <IndexTrackingInflowIsiRumah
                           isiRumahId={isiRumahSahabatsData.id}
+                          pembiayaanSahabatsData={pembiayaanSahabatsData}
                         />
                       </Tab>
 
@@ -212,6 +219,7 @@ function IndexTrackingIsiRumah({ mingguId }) {
                       >
                         <IndexTrackingOutflowIsiRumah
                           isiRumahId={isiRumahSahabatsData.id}
+                          pembiayaanSahabatsData={pembiayaanSahabatsData}
                         />
                       </Tab>
                     </Tabs>

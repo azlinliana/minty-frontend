@@ -9,27 +9,45 @@ import "../../../assets/styles/styles_sahabat.css";
 function TrackingInflowOutflow() {
   // ----------FE----------
   const navigate = useNavigate();
+
   const goBack = () => {
     navigate(-1);
   }; // Back button
 
   // Get sahabat, minggu and pembiayaan information
   const location = useLocation();
-  const { resultSahabat, sahabatId, pembiayaanId, mingguId } = location.state;
+  const {
+    resultSahabat,
+    sahabatId,
+    pembiayaanId,
+    mingguId,
+    pembiayaanSahabatsData,
+  } = location.state;
 
   return (
     <div>
       <div className="pageTitle">
-        <h1>Kemas Kini Tracking Sahabat</h1>
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          <h1>Kemas Kini Tracking Sahabat</h1>
+        ) : (
+          <h1>Lihat Tracking Sahabat</h1>
+        )}
 
         <Breadcrumb>
           <Breadcrumb.Item className="previousLink" href="#">
             Carian Sahabat
           </Breadcrumb.Item>
+
           <Breadcrumb.Item className="previousLink" href="#">
             Hasil Carian Sahabat
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Kemas Kini Tracking Sahabat</Breadcrumb.Item>
+          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            <Breadcrumb.Item active>
+              Kemas Kini Tracking Sahabat
+            </Breadcrumb.Item>
+          ) : (
+            <Breadcrumb.Item active>Lihat Tracking Sahabat</Breadcrumb.Item>
+          )}
         </Breadcrumb>
       </div>
 
@@ -41,12 +59,14 @@ function TrackingInflowOutflow() {
         sahabatId={sahabatId}
         pembiayaanId={pembiayaanId}
         mingguId={mingguId}
+        pembiayaanSahabatsData={pembiayaanSahabatsData}
       />
 
       <BorangTrackingMingguanSahabat
         sahabatId={sahabatId}
         pembiayaanId={pembiayaanId}
         mingguId={mingguId}
+        pembiayaanSahabatsData={pembiayaanSahabatsData}
       />
 
       <div className="kembaliBtnPlacement">

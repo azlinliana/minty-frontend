@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingInflowIsiRumah({ isiRumahId }) {
+function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
   // ----------BE----------
   // List inflow isi rumah sahabat
   const [inflowIsiRumahs, setInflowIsiRumahs] = useState([]);
@@ -108,12 +108,14 @@ function IndexTrackingInflowIsiRumah({ isiRumahId }) {
   return (
     <>
       <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateTrackingInflowIsiRumah
-            isiRumahId={isiRumahId}
-            kodInflowsData={kodInflowsData}
-          />
-        </div>
+        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          <div className="tambahBtnPlacement">
+            <CreateTrackingInflowIsiRumah
+              isiRumahId={isiRumahId}
+              kodInflowsData={kodInflowsData}
+            />
+          </div>
+        ) : null}
 
         <Table responsive>
           <thead>
@@ -124,7 +126,9 @@ function IndexTrackingInflowIsiRumah({ isiRumahId }) {
               <th>Kod Inflow Terperinci</th>
               <th>Maklumat Terperinci</th>
               <th>Amaun (RM)</th>
-              <th>Tindakan</th>
+              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                <th>Tindakan</th>
+              ) : null}
             </tr>
           </thead>
 
@@ -148,22 +152,24 @@ function IndexTrackingInflowIsiRumah({ isiRumahId }) {
                   <td></td>
                   <td>{inflowIsiRumahsData.keteranganKodInflow}</td>
                   <td>{inflowIsiRumahsData.amaunInflow}</td>
-                  <td>
-                    <EditTrackingInflowIsiRumah
-                      isiRumahId={isiRumahId}
-                      inflowIsiRumahId={inflowIsiRumahsData.id}
-                      inflowIsiRumah={inflowIsiRumahsData}
-                      kodInflowsData={kodInflowsData}
-                    />
-                    <Button
-                      className="delBtn"
-                      onClick={() =>
-                        deleteInflowIsiRumah(inflowIsiRumahsData.id)
-                      }
-                    >
-                      Padam
-                    </Button>{" "}
-                  </td>
+                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                    <td>
+                      <EditTrackingInflowIsiRumah
+                        isiRumahId={isiRumahId}
+                        inflowIsiRumahId={inflowIsiRumahsData.id}
+                        inflowIsiRumah={inflowIsiRumahsData}
+                        kodInflowsData={kodInflowsData}
+                      />
+                      <Button
+                        className="delBtn"
+                        onClick={() =>
+                          deleteInflowIsiRumah(inflowIsiRumahsData.id)
+                        }
+                      >
+                        Padam
+                      </Button>{" "}
+                    </td>
+                  ) : null}
                 </tr>
               ))
             )}

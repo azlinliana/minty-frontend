@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Stepper, Step, StepContent, StepLabel, Button, Typography, Box, Paper } from "@mui/material";
+import {
+  Stepper,
+  Step,
+  StepContent,
+  StepLabel,
+  Button,
+  Typography,
+  Box,
+  Paper,
+} from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import IndexTrackingSahabat from "./sahabat/Index";
@@ -11,11 +20,20 @@ const steps = [
   { label: "Langkah 3" },
 ];
 
-const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
+const VerticalStepper = ({
+  sahabatId,
+  pembiayaanId,
+  mingguId,
+  pembiayaanSahabatsData,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [expandedSteps, setExpandedSteps] = useState([]);
-
+  // Expand the stepper when statusPembiayaan is SELESAI
+  const [expandedSteps, setExpandedSteps] = useState(
+    pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
+      ? steps.map((_, index) => index)
+      : []
+  );
   const [aktivitiDataAvailable, setAktivitiDataAvailable] = useState(true);
 
   const handleNext = () => {
@@ -82,54 +100,64 @@ const VerticalStepper = ({ sahabatId, pembiayaanId, mingguId }) => {
                 <IndexAktiviti
                   sahabatId={sahabatId}
                   pembiayaanId={pembiayaanId}
-                  onDataAvailableChange={setAktivitiDataAvailable}  // Pass the function to IndexAktiviti
+                  pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  onDataAvailableChange={setAktivitiDataAvailable} // Pass the function to IndexAktiviti
                 />
               ) : null}
 
               {index === 1 ? (
-                <IndexTrackingSahabat mingguId={mingguId} />
+                <IndexTrackingSahabat
+                  mingguId={mingguId}
+                  pembiayaanSahabatsData={pembiayaanSahabatsData}
+                />
               ) : null}
-              
+
               {index === 2 ? (
-                <IndexTrackingIsiRumah mingguId={mingguId} />
+                <IndexTrackingIsiRumah
+                  mingguId={mingguId}
+                  pembiayaanSahabatsData={pembiayaanSahabatsData}
+                />
               ) : null}
 
               <Box sx={{ mb: 2 }}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
-                    sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
-                  >
-                    {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
-                  </Button>
+                {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                  <div>
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
+                      sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
+                    >
+                      {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
+                    </Button>
 
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
-                  >
-                    Kembali
-                  </Button>
-                </div>
+                    <Button
+                      disabled={index === 0}
+                      onClick={handleBack}
+                      sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
+                    >
+                      Kembali
+                    </Button>
+                  </div>
+                ) : null}
               </Box>
             </StepContent>
           </Step>
         ))}
       </Stepper>
 
-      {activeStep === steps.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>
-            Maklumat tracking minggu ini telah selesai diisi.
-          </Typography>
+      {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" &&
+        activeStep === steps.length && (
+          <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>
+              Maklumat tracking minggu ini telah selesai diisi.
+            </Typography>
 
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Isi Semula
-          </Button>
-        </Paper>
-      )}
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+              Isi Semula
+            </Button>
+          </Paper>
+        )}
     </Box>
   );
 };

@@ -8,7 +8,12 @@ import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 import Swal from "sweetalert2";
 
-function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
+function IndexAktiviti({
+  sahabatId,
+  pembiayaanId,
+  pembiayaanSahabatsData,
+  onDataAvailableChange,
+}) {
   // ----------BE----------
   // List aktiviti
   const [aktivitis, setAktivitis] = useState([]);
@@ -132,8 +137,10 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
 
   const fetchKodDimensi = useCallback(async () => {
     try {
-      const response = await axiosCustom.get(`/selenggara/dimensi/display-dimensi`);
-      
+      const response = await axiosCustom.get(
+        `/selenggara/dimensi/display-dimensi`
+      );
+
       if (Array.isArray(response.data)) {
         setKodDimensisData(response.data); // Display all kod inflow data
       } else {
@@ -184,17 +191,19 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
         <h2>Maklumat Aktiviti Sahabat</h2>
 
         <div className="tableSection">
-          <div className="tambahBtnPlacement">
-            <CreateAktiviti
-              sahabatId={sahabatId}
-              pembiayaanId={pembiayaanId}
-              kegiatanOptions={kegiatanOptions}
-              keteranganKegiatanOptions={keteranganKegiatanOptions}
-              projekKegiatanOptions={projekKegiatanOptions}
-              kodDimensisData={kodDimensisData}
-              onDataAvailableChange={onDataAvailableChange}
-            />
-          </div>
+          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            <div className="tambahBtnPlacement">
+              <CreateAktiviti
+                sahabatId={sahabatId}
+                pembiayaanId={pembiayaanId}
+                kegiatanOptions={kegiatanOptions}
+                keteranganKegiatanOptions={keteranganKegiatanOptions}
+                projekKegiatanOptions={projekKegiatanOptions}
+                kodDimensisData={kodDimensisData}
+                onDataAvailableChange={onDataAvailableChange}
+              />
+            </div>
+          ) : null}
 
           <Table responsive>
             <thead>
@@ -207,7 +216,9 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
                 <th>Pengurus Dana</th>
                 <th>Keterangan Lain-lain</th>
                 <th>Jumlah Pinjaman</th>
-                <th>Tindakan</th>
+                {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                  <th>Tindakan</th>
+                ) : null}
               </tr>
             </thead>
 
@@ -226,31 +237,38 @@ function IndexAktiviti({ sahabatId, pembiayaanId, onDataAvailableChange }) {
                   <tr key={key}>
                     <td>{key + 1}</td>
                     <td>{aktivitisData.kegiatan.jenisKegiatan}</td>
-                    <td>{aktivitisData.keterangan_kegiatan.jenisKeteranganKegiatan}</td>
+                    <td>
+                      {
+                        aktivitisData.keterangan_kegiatan
+                          .jenisKeteranganKegiatan
+                      }
+                    </td>
                     <td>{aktivitisData.projek_kegiatan.jenisProjekKegiatan}</td>
                     <td>{aktivitisData.dimensi.kodDimensi}</td>
                     <td>{aktivitisData.pengurusDanaAktiviti}</td>
                     <td>{aktivitisData.keteranganLainAktiviti || "-"}</td>
                     <td>{aktivitisData.jumlahPinjamanAktiviti}</td>
-                    <td>
-                      <EditAktiviti
-                        sahabatId={sahabatId}
-                        pembiayaanId={pembiayaanId}
-                        aktivitiId={aktivitisData.id}
-                        aktiviti={aktivitisData}
-                        kegiatanOptions={kegiatanOptions}
-                        keteranganKegiatanOptions={keteranganKegiatanOptions}
-                        projekKegiatanOptions={projekKegiatanOptions}
-                        kodDimensisData={kodDimensisData}
-                      />
+                    {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                      <td>
+                        <EditAktiviti
+                          sahabatId={sahabatId}
+                          pembiayaanId={pembiayaanId}
+                          aktivitiId={aktivitisData.id}
+                          aktiviti={aktivitisData}
+                          kegiatanOptions={kegiatanOptions}
+                          keteranganKegiatanOptions={keteranganKegiatanOptions}
+                          projekKegiatanOptions={projekKegiatanOptions}
+                          kodDimensisData={kodDimensisData}
+                        />
 
-                      <Button
-                        className="delBtn"
-                        onClick={() => deleteAktiviti(aktivitisData.id)}
-                      >
-                        Padam
-                      </Button>
-                    </td>
+                        <Button
+                          className="delBtn"
+                          onClick={() => deleteAktiviti(aktivitisData.id)}
+                        >
+                          Padam
+                        </Button>
+                      </td>
+                    ) : null}
                   </tr>
                 ))
               )}
