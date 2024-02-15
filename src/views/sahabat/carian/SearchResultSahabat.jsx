@@ -46,6 +46,7 @@ function SearchResultSahabat() {
                   <Col xs={12}>
                     <Form.Group>
                       <Form.Label>Nama</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.namaSahabat}
@@ -55,10 +56,11 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row>
-                  <Col xs={12}>
-                    <Form.Group className="carianSpacing">
+                <Row className="sahabatInfoSpacing">
+                  <Col xs={6}>
+                    <Form.Group>
                       <Form.Label>No. Kad Pengenalan</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.noKadPengenalanSahabat}
@@ -66,12 +68,11 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
 
-                <Row>
-                  <Col xs={12}>
-                    <Form.Group className="carianSpacing">
+                  <Col xs={6}>
+                    <Form.Group>
                       <Form.Label>No. Sahabat</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.noSahabat}
@@ -81,10 +82,11 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row>
-                  <Col xs={12}>
+                <Row className="sahabatInfoSpacing">
+                  <Col xs={6}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Wilayah</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.wilayahId}
@@ -92,12 +94,10 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
-
-                <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Cawangan</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.cawanganId}
@@ -107,10 +107,11 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row>
-                  <Col xs={12}>
+                <Row className="sahabatInfoSpacing">
+                  <Col xs={6}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Pusat</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.pusatId}
@@ -118,12 +119,10 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
-
-                <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="carianSpacing">
                       <Form.Label>Kumpulan</Form.Label>
+
                       <Form.Control
                         type="text"
                         value={dataSahabat.kumpulanSahabat}
