@@ -75,7 +75,7 @@ function IndexDimensi() {
         <h1>Dimensi</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="previousLink" href="selenggara">
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Dimensi</Breadcrumb.Item>

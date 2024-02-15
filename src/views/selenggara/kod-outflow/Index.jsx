@@ -75,7 +75,7 @@ function IndexKodOutflow() {
         <h1>Kod Outflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="previousLink" href="selenggara">
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Outflow</Breadcrumb.Item>

@@ -11,8 +11,9 @@ import axiosCustom from "../../../axios";
 
 function IndexHubungan() {
   // ----------FE----------
-  // Back button
   const navigate = useNavigate();
+
+  // Back button
   const goBack = () => {
     navigate(-1);
   };
@@ -20,6 +21,7 @@ function IndexHubungan() {
   // ----------BE----------
   // List hubungan
   const [hubungans, setHubungans] = useState([]);
+
   const fetchHubungans = async () => {
     try {
       const response = await axiosCustom.get("/selenggara/hubungan");
@@ -27,11 +29,9 @@ function IndexHubungan() {
       if (response.status === 200) {
         setHubungans(response.data);
       } else {
-        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   };
@@ -76,7 +76,7 @@ function IndexHubungan() {
         <h1>Hubungan</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="previousLink" href="selenggara">
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Hubungan</Breadcrumb.Item>
