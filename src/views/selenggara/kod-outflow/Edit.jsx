@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -16,13 +16,36 @@ function EditKodOutflow({ kodOutflow }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   // ----------BE----------
+  // Set default values when the kemas kini kod outflow modal is opened
+  const [formData, setFormData] = useState({
+    kodOutflow: "",
+    keteranganKodOutflow: "",
+    statusKodOutflow: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("kodOutflow", kodOutflow.kodOutflow);
+    setValue("keteranganKodOutflow", kodOutflow.keteranganKodOutflow);
+    setValue("statusKodOutflow", kodOutflow.statusKodOutflow);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kodOutflow: kodOutflow.kodOutflow,
+      keteranganKodOutflow: kodOutflow.keteranganKodOutflow,
+      statusKodOutflow: kodOutflow.statusKodOutflow,
+    }));
+  }, [kodOutflow, setValue]);
+
   const updateKodOutflow = async (kodOutflowInput) => {
     try {
       const response = await axiosCustom.put(
@@ -46,6 +69,7 @@ function EditKodOutflow({ kodOutflow }) {
       <Button className="editBtn" onClick={openModalEditKodOutflow}>
         Kemas Kini
       </Button>{" "}
+
       <Modal
         show={isModalEditKodOutflow}
         onHide={closeModalEditKodOutflow}
@@ -56,94 +80,77 @@ function EditKodOutflow({ kodOutflow }) {
           <Modal.Title>Kemas Kini Kod Outflow</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(updateKodOutflow)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodOutflow" className="mb-3">
+              <Form.Label className="form-label">Kod Outflow</Form.Label>
 
-              <Controller
-                name="kodOutflow"
-                id="kodOutflow"
-                control={control}
-                defaultValue={kodOutflow.kodOutflow}
-                rules={{ required: "Kod outflow diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod outflow"
-                    autoFocus
-                  />
-                )}
+              <Form.Control
+                type="text"
+                {...register("kodOutflow", { required: true })}
+                aria-invalid={errors.kodOutflow ? "true" : "false"}
+                placeholder="Masukkan kod outflow"
               />
-              {errors.kodOutflow && (
+
+              {errors.kodOutflow?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodOutflow.message}
+                  Kod outflow diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganKodOutflow">
-                Keterangan Kod Outflow
-              </Form.Label>
+            <Form.Group controlId="keteranganKodOutflow" className="mb-3">
+              <Form.Label className="form-label">Keterangan Kod Outflow</Form.Label>
 
-              <Controller
-                name="keteranganKodOutflow"
-                id="keteranganKodOutflow"
-                control={control}
-                defaultValue={kodOutflow.keteranganKodOutflow}
-                rules={{ required: "Keterangan kod outflow diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan kod outflow"
-                  />
-                )}
+              <Form.Control
+                as="textarea"
+                {...register("keteranganKodOutflow", { required: true })}
+                aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
+                placeholder="Masukkan keterangan kod outflow"
               />
-              {errors.keteranganKodOutflow && (
+
+              {errors.keteranganKodOutflow?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganKodOutflow.message}
+                  Keterangan kod outflow diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Status Kod Outflow</Form.Label>
+            <Form.Group controlId="statusKodOutflow" className="mb-3">
+              <Form.Label className="form-label">Status Kod Outflow</Form.Label>
 
-              <Controller
-                name="statusKodOutflow"
-                control={control}
-                defaultValue={kodOutflow.statusKodOutflow}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={kodOutflow.statusKodOutflow}
-                  >
-                    <option value="" disabled>
-                      --Pilih Kod Outflow--
-                    </option>
-                    <option value="AKTIF">AKTIF</option>
-                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
-                  </Form.Select>
-                )}
-              />
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("statusKodOutflow", { required: true })}
+                aria-invalid={errors.statusKodOutflow ? "true" : "false"}
+                placeholder="Masukkan status kod outflow"
+              >
+                <option value="" disabled>
+                  --Pilih Status Kod Outflow--
+                </option>
+                <option value="AKTIF">AKTIF</option>
+                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+              </Form.Control>
+
+              {errors.statusKodOutflow?.type === "required" && (
+                <small className="text-danger">
+                  Status kod outflow diperlukan.
+                </small>
+              )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditKodOutflow}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalEditKodOutflow}>
+              Batal
+            </Button>
+            
+            <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

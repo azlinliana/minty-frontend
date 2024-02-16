@@ -12,12 +12,10 @@ import Swal from "sweetalert2";
 
 function IndexKodInflow() {
   // ----------FE----------
-  // Back button
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate(-1);
-  };
+  // Back button
+  const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List kod inflow
@@ -106,135 +104,71 @@ function IndexKodInflow() {
   };
 
   return (
-    <div>
-      <div className="pageTitle">
-        <h1>Kod Inflow</h1>
+    <>
+      <div>
+        <div className="pageTitle">
+          <h1>Kod Inflow</h1>
 
-        <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="selenggara">
-            Senarai Selenggara
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
-        </Breadcrumb>
-      </div>
-
-      <div className="tableSection">
-        <div className="tambahBtnPlacement">
-          <CreateKodInflow />
+          <Breadcrumb>
+            <Breadcrumb.Item className="previousLink" href="selenggara">
+              Senarai Selenggara
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
+          </Breadcrumb>
         </div>
 
-        <Table bordered responsive>
-          <thead>
-            <tr>
-              <th>Bil.</th>
-              <th>Kod Inflow</th>
-              <th>Keterangan Kod Inflow</th>
-              <th>Status Kod Inflow</th>
-              <th>Kod Inflow Terperinci</th>
-              <th>Keterangan Kod Inflow Terperinci</th>
-              <th>Status Kod Inflow Terperinci</th>
-              <th>Tindakan</th>
-            </tr>
-          </thead>
+        <div className="tableSection">
+          <div className="tambahBtnPlacement">
+            <CreateKodInflow />
+          </div>
 
-          <tbody>
-            {kodInflows.length === 0 ? (
+          <Table bordered responsive>
+            <thead>
               <tr>
-                <td colSpan="8">
-                  <center>
-                    Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk
-                    merekodkan kod inflow baharu.
-                  </center>
-                </td>
+                <th>Bil.</th>
+                <th>Kod Inflow</th>
+                <th>Keterangan Kod Inflow</th>
+                <th>Status Kod Inflow</th>
+                <th>Kod Inflow Terperinci</th>
+                <th>Keterangan Kod Inflow Terperinci</th>
+                <th>Status Kod Inflow Terperinci</th>
+                <th>Tindakan</th>
               </tr>
-            ) : (
-              kodInflows.map((kodInflowsData, index) => (
-                <React.Fragment key={index}>
-                  {kodInflowsData.kod_inflow_terperincis.length === 0 ? (
-                    // Render row for kod inflow without kod inflow terperinci
-                    <tr>
-                      <td>{index + 1}</td>
-                      <td>{kodInflowsData.kodInflow}</td>
-                      <td>{kodInflowsData.keteranganKodInflow}</td>
-                      <td>{kodInflowsData.statusKodInflow}</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>
-                        <EditWithoutKodInflowTerperinci
-                          kodInflow={kodInflowsData}
-                        />
-                        <Button
-                          className="delBtn"
-                          variant="danger"
-                          onClick={() =>
-                            deleteKodInflowWithoutKodInflowTerperinci(
-                              kodInflowsData.id
-                            )
-                          }
-                        >
-                          Padam
-                        </Button>{" "}
-                      </td>
-                    </tr>
-                  ) : (
-                    // Render row for kod inflow with kod inflow terperinci
-                    <tr>
-                      <td
-                        rowSpan={
-                          kodInflowsData.kod_inflow_terperincis.length + 1
-                        }
-                      >
-                        {index + 1}
-                      </td>
-                      <td
-                        rowSpan={
-                          kodInflowsData.kod_inflow_terperincis.length + 1
-                        }
-                      >
-                        {kodInflowsData.kodInflow}
-                      </td>
-                      <td
-                        rowSpan={
-                          kodInflowsData.kod_inflow_terperincis.length + 1
-                        }
-                      >
-                        {kodInflowsData.keteranganKodInflow}
-                      </td>
-                      <td
-                        rowSpan={
-                          kodInflowsData.kod_inflow_terperincis.length + 1
-                        }
-                      >
-                        {kodInflowsData.statusKodInflow}
-                      </td>
-                    </tr>
-                  )}
+            </thead>
 
-                  {/* Displaying kod inflow terperinci */}
-                  {kodInflowsData.kod_inflow_terperincis.map(
-                    (kodInflowTerperincisData, subIndex) => (
-                      <tr key={subIndex}>
-                        <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+            <tbody>
+              {kodInflows.length === 0 ? (
+                <tr>
+                  <td colSpan="8">
+                    <center>
+                      Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk
+                      merekodkan kod inflow baharu.
+                    </center>
+                  </td>
+                </tr>
+              ) : (
+                kodInflows.map((kodInflowsData, index) => (
+                  <React.Fragment key={index}>
+                    {kodInflowsData.kod_inflow_terperincis.length === 0 ? (
+                      // Render row for kod inflow without kod inflow terperinci
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>{kodInflowsData.kodInflow}</td>
+                        <td>{kodInflowsData.keteranganKodInflow}</td>
+                        <td>{kodInflowsData.statusKodInflow}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                         <td>
-                          {
-                            kodInflowTerperincisData.keteranganKodInflowTerperinci
-                          }
-                        </td>
-                        <td>
-                          {kodInflowTerperincisData.statusKodInflowTerperinci}
-                        </td>
-                        <td>
-                          <EditWithKodInflowTerperinci
+                          <EditWithoutKodInflowTerperinci
                             kodInflow={kodInflowsData}
-                            kodInflowTerperinci={kodInflowTerperincisData}
                           />
                           <Button
                             className="delBtn"
                             variant="danger"
                             onClick={() =>
-                              deleteKodInflowWithKodInflowTerperinci(
-                                kodInflowTerperincisData.id
+                              deleteKodInflowWithoutKodInflowTerperinci(
+                                kodInflowsData.id
                               )
                             }
                           >
@@ -242,21 +176,87 @@ function IndexKodInflow() {
                           </Button>{" "}
                         </td>
                       </tr>
-                    )
-                  )}
-                </React.Fragment>
-              ))
-            )}
-          </tbody>
-        </Table>
+                    ) : (
+                      // Render row for kod inflow with kod inflow terperinci
+                      <tr>
+                        <td
+                          rowSpan={
+                            kodInflowsData.kod_inflow_terperincis.length + 1
+                          }
+                        >
+                          {index + 1}
+                        </td>
+                        <td
+                          rowSpan={
+                            kodInflowsData.kod_inflow_terperincis.length + 1
+                          }
+                        >
+                          {kodInflowsData.kodInflow}
+                        </td>
+                        <td
+                          rowSpan={
+                            kodInflowsData.kod_inflow_terperincis.length + 1
+                          }
+                        >
+                          {kodInflowsData.keteranganKodInflow}
+                        </td>
+                        <td
+                          rowSpan={
+                            kodInflowsData.kod_inflow_terperincis.length + 1
+                          }
+                        >
+                          {kodInflowsData.statusKodInflow}
+                        </td>
+                      </tr>
+                    )}
 
-        <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
-            Kembali
-          </Button>{" "}
+                    {/* Displaying kod inflow terperinci */}
+                    {kodInflowsData.kod_inflow_terperincis.map(
+                      (kodInflowTerperincisData, subIndex) => (
+                        <tr key={subIndex}>
+                          <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                          <td>
+                            {
+                              kodInflowTerperincisData.keteranganKodInflowTerperinci
+                            }
+                          </td>
+                          <td>
+                            {kodInflowTerperincisData.statusKodInflowTerperinci}
+                          </td>
+                          <td>
+                            <EditWithKodInflowTerperinci
+                              kodInflow={kodInflowsData}
+                              kodInflowTerperinci={kodInflowTerperincisData}
+                            />
+                            <Button
+                              className="delBtn"
+                              variant="danger"
+                              onClick={() =>
+                                deleteKodInflowWithKodInflowTerperinci(
+                                  kodInflowTerperincisData.id
+                                )
+                              }
+                            >
+                              Padam
+                            </Button>{" "}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </React.Fragment>
+                ))
+              )}
+            </tbody>
+          </Table>
+
+          <div className="kembaliBtnPlacement">
+            <Button className="kembaliBtn" onClick={goBack}>
+              Kembali
+            </Button>{" "}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,37 +1,52 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 
 function EditWithoutKodInflowTerperinci({ kodInflow }) {
   // ----------FE----------
   // Modal
-  const [
-    isModalEditKodInflowWithoutKodInflowTerperinci,
-    setIsModalEditKodInflowWithoutKodInflowTerperinci,
-  ] = useState(false);
-
-  const openModalEditKodInflowWithoutKodInflowTerperinci = () =>
-    setIsModalEditKodInflowWithoutKodInflowTerperinci(true);
+  const [isModalEditKodInflowWithoutKodInflowTerperinci, setIsModalEditKodInflowWithoutKodInflowTerperinci] = useState(false);
+  const openModalEditKodInflowWithoutKodInflowTerperinci = () => setIsModalEditKodInflowWithoutKodInflowTerperinci(true);
   const closeModalEditKodInflowWithoutKodInflowTerperinci = () => {
     setIsModalEditKodInflowWithoutKodInflowTerperinci(false);
   };
 
   // Form validation
   const {
+    register,
     handleSubmit: handleFormSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   // ----------BE----------
+  // Set default values when the kemas kini kod inflow modal is opened
+  const [formData, setFormData] = useState({
+    kodInflow: "",
+    keteranganKodInflow: "",
+    statusKodInflow: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("kodInflow", kodInflow.kodInflow);
+    setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
+    setValue("statusKodInflow", kodInflow.statusKodInflow);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kodInflow: kodInflow.kodInflow,
+      keteranganKodInflow: kodInflow.keteranganKodInflow,
+      statusKodInflow: kodInflow.statusKodInflow,
+    }));
+  }, [kodInflow, setValue]);
+
   const updateKodInflowWithoutKodInflowTerperinci = async (kodInflowWithoutKodInflowTerperinciInput) => {
-    console.log(kodInflowWithoutKodInflowTerperinciInput);
     try {
       const response = await axiosCustom.put(
         `/selenggara/kod-inflow/${kodInflow.id}`,
@@ -58,6 +73,7 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
         >
           Kemas Kini
         </Button>{" "}
+
         <Modal
           show={isModalEditKodInflowWithoutKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithoutKodInflowTerperinci}
@@ -68,98 +84,77 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
             <Modal.Title>Kemas Kini Kod Inflow</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
-            <Form onSubmit={handleFormSubmit(updateKodInflowWithoutKodInflowTerperinci)} onReset={reset}>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="kodInflow">Kod Inflow</Form.Label>
-                
-                <Controller
-                  name="kodInflow"
-                  id="kodInflow"
-                  control={control}
-                  defaultValue={kodInflow.kodInflow}
-                  rules={{ required: "Kod inflow diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="text"
-                      onChange={onChange}
-                      value={value}
-                      placeholder="Masukkan kod inflow"
-                      autoFocus
-                    />
-                  )}
+          <Form onReset={reset}>
+            <Modal.Body>
+              <Form.Group controlId="kodInflow" className="mb-3">
+                <Form.Label className="form-label">Kod Inflow</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("kodInflow", { required: true })}
+                  aria-invalid={errors.kodInflow ? "true" : "false"}
+                  placeholder="Masukkan kod inflow"
                 />
-                {errors.kodInflow && (
+
+                {errors.kodInflow?.type === "required" && (
                   <small className="text-danger">
-                    {errors.kodInflow.message}
+                    Kod inflow diperlukan.
                   </small>
                 )}
               </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="kodInflow">
-                  Keterangan Kod Inflow
-                </Form.Label>
+              <Form.Group controlId="keteranganKodInflow" className="mb-3">
+                <Form.Label className="form-label">Keterangan Kod Inflow</Form.Label>
 
-                <Controller
-                  name="keteranganKodInflow"
-                  id="keteranganKodInflow"
-                  control={control}
-                  defaultValue={kodInflow.keteranganKodInflow}
-                  rules={{ required: "Keterangan kod inflow diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      as="textarea"
-                      onChange={onChange}
-                      value={value}
-                      rows={3}
-                      placeholder="Masukkan keterangan kod inflow"
-                      autoFocus
-                    />
-                  )}
+                <Form.Control
+                  as="textarea"
+                  {...register("keteranganKodInflow", { required: true })}
+                  aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
+                  placeholder="Masukkan keterangan kod inflow"
                 />
-                {errors.keteranganKodInflow && (
+
+                {errors.keteranganKodInflow?.type === "required" && (
                   <small className="text-danger">
-                    {errors.keteranganKodInflow.message}
+                    Keterangan kod inflow diperlukan.
                   </small>
                 )}
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Status Kod Inflow</Form.Label>
+              <Form.Group controlId="statusKodInflow" className="mb-3">
+                <Form.Label className="form-label">Status Kod Inflow</Form.Label>
 
-                <Controller
-                  name="statusKodInflow"
-                  control={control}
-                  defaultValue={kodInflow.statusKodInflow}
-                  render={({ field: { onChange } }) => (
-                    <Form.Select
-                      onChange={onChange}
-                      defaultValue={kodInflow.statusKodInflow}
-                    >
-                      <option value="" disabled>
-                        --Pilih Status Kod Inflow--
-                      </option>
-                      <option value="AKTIF">AKTIF</option>
-                      <option value="TIDAK AKTIF">TIDAK AKTIF</option>
-                    </Form.Select>
-                  )}
-                />
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("statusKodInflow", { required: true })}
+                  aria-invalid={errors.statusKodInflow ? "true" : "false"}
+                  placeholder="Masukkan status kod inflow"
+                >
+                  <option value="" disabled>
+                    --Pilih Status Kod Inflow--
+                  </option>
+                  <option value="AKTIF">AKTIF</option>
+                  <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                </Form.Control>
+
+                {errors.statusKodInflow?.type === "required" && (
+                  <small className="text-danger">
+                    Status kod inflow diperlukan.
+                  </small>
+                )}
               </Form.Group>
-            </Form>
-          </Modal.Body>
+            </Modal.Body>
 
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}
-            >
-              Batal
-            </Button>
-            <Button variant="primary" onClick={handleFormSubmit(updateKodInflowWithoutKodInflowTerperinci)}>
-              Simpan
-            </Button>
-          </Modal.Footer>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}>
+                Batal
+              </Button>
+
+              <Button variant="primary" onClick={handleFormSubmit(updateKodInflowWithoutKodInflowTerperinci)}>
+                Simpan
+              </Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     </>

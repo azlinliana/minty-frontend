@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../assets/styles/styles_selenggara.css";
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import axiosCustom from "../../../axios";
-import "../../../assets/styles/styles_selenggara.css";
 
 function IndexKodOutflow() {
   // ----------FE----------
-  // Back button
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+
+  // Back button
+  const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List kod outflow
   const [kodOutflows, setKodOutflows] = useState([]);
+  
   const fetchKodOutflows = async () => {
     try {
       const response = await axiosCustom.get(`/selenggara/kod-outflow`);
@@ -117,6 +117,7 @@ function IndexKodOutflow() {
                   <td>{kodOutflowsData.statusKodOutflow}</td>
                   <td>
                     <EditKodOutflow kodOutflow={kodOutflowsData} />
+                    
                     <Button
                       className="delBtn"
                       variant="danger"

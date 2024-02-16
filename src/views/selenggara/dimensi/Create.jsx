@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -18,8 +18,8 @@ function CreateDimensi() {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -47,6 +47,7 @@ function CreateDimensi() {
       <Button variant="primary" onClick={openModalCreateDimensi}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+
       <Modal
         show={isModalCreateDimensi}
         onHide={closeModalCreateDimensi}
@@ -57,72 +58,53 @@ function CreateDimensi() {
           <Modal.Title>Tambah Dimensi</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(createDimensi)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodDimensi">Kod Dimensi</Form.Label>
-
-              <Controller
-                name="kodDimensi"
-                id="kodDimensi"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Kod dimensi diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod dimensi"
-                    autoFocus
-                  />
-                )}
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodDimensi" className="mb-3">
+              <Form.Label className="form-label">Kod Dimensi</Form.Label>
+              
+              <Form.Control
+                type="text"
+                {...register("kodDimensi", { required: true })}
+                aria-invalid={errors.kodDimensi ? "true" : "false"}
+                placeholder="Masukkan kod dimensi"
               />
-              {errors.kodDimensi && (
+
+              {errors.kodDimensi?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodDimensi.message}
+                  Kod dimensi diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganDimensi">
-                Keterangan Dimensi
-              </Form.Label>
+            <Form.Group controlId="keteranganDimensi" className="mb-3">
+              <Form.Label className="form-label">Keterangan Dimensi</Form.Label>
 
-              <Controller
-                name="keteranganDimensi"
-                id="keteranganDimensi"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Keterangan dimensi diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan dimensi"
-                  />
-                )}
+              <Form.Control
+                as="textarea"
+                {...register("keteranganDimensi", { required: true })}
+                aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                placeholder="Masukkan keterangan dimensi"
               />
-              {errors.keteranganDimensi && (
+
+              {errors.keteranganDimensi?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganDimensi.message}
+                  Keterangan dimensi diperlukan.
                 </small>
               )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateDimensi}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(createDimensi)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalCreateDimensi}>
+              Batal
+            </Button>
+
+            <Button variant="primary" onClick={handleSubmit(createDimensi)} >
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

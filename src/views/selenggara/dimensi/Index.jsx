@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import "../../../assets/styles/styles_selenggara.css";
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import axiosCustom from "../../../axios";
-import "../../../assets/styles/styles_selenggara.css";
 
 function IndexDimensi() {
   // ----------FE----------
-  // Back button
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+  
+  // Back button
+  const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List dimensi
   const [dimensis, setDimensis] = useState([]);
+
   const fetchDimensis = async () => {
     try {
       const response = await axiosCustom.get("/selenggara/dimensi");
@@ -27,7 +27,6 @@ function IndexDimensi() {
       if (response.status === 200) {
         setDimensis(response.data);
       } else {
-        console.log(response);
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
@@ -117,6 +116,7 @@ function IndexDimensi() {
                   <td>{dimensisData.statusDimensi}</td>
                   <td>
                     <EditDimensi dimensi={dimensisData} />
+                    
                     <Button
                       className="delBtn"
                       onClick={() => deleteDimensi(dimensisData.id)}

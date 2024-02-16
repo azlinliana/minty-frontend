@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_selenggara.css";
 import CreateHubungan from "./Create";
 import EditHubungan from "./Edit";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import Swal from "sweetalert2";
 import axiosCustom from "../../../axios";
 
@@ -14,15 +14,13 @@ function IndexHubungan() {
   const navigate = useNavigate();
 
   // Back button
-  const goBack = () => {
-    navigate(-1);
-  };
+  const goBack = () => {navigate(-1);};
 
   // ----------BE----------
   // List hubungan
   const [hubungans, setHubungans] = useState([]);
 
-  const fetchHubungans = async () => {
+  const fetchHubungans = useCallback(async () => {
     try {
       const response = await axiosCustom.get("/selenggara/hubungan");
 
@@ -34,11 +32,11 @@ function IndexHubungan() {
     } catch (error) {
       ErrorAlert(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchHubungans();
-  }, []);
+  }, [fetchHubungans]);
 
   // Delete hubungan
   const deleteHubungan = async (hubunganId) => {
@@ -118,6 +116,7 @@ function IndexHubungan() {
                   <td>{hubungansData.statusHubungan}</td>
                   <td>
                     <EditHubungan hubungan={hubungansData} />
+
                     <Button
                       className="delBtn"
                       onClick={() => deleteHubungan(hubungansData.id)}

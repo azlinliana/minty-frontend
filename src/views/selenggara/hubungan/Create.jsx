@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -18,8 +18,8 @@ function CreateHubungan() {
 
   // Form validation
   const {
+    register, 
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -49,6 +49,7 @@ function CreateHubungan() {
       <Button variant="primary" onClick={openModalCreateHubungan}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+
       <Modal
         show={isModalCreateHubungan}
         onHide={closeModalCreateHubungan}
@@ -59,72 +60,53 @@ function CreateHubungan() {
           <Modal.Title>Tambah Hubungan</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(createHubungan)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodHubungan">Kod Hubungan</Form.Label>
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodHubungan" className="mb-3">
+              <Form.Label className="form-label">Kod Hubungan</Form.Label>
 
-              <Controller
-                name="kodHubungan"
-                id="kodHubungan"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Kod hubungan diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod hubungan"
-                    autoFocus
-                  />
-                )}
+              <Form.Control
+                type="text"
+                {...register("kodHubungan", { required: true })}
+                aria-invalid={errors.kodHubungan ? "true" : "false"}
+                placeholder="Masukkan kod hubungan"
               />
-              {errors.kodHubungan && (
+
+              {errors.kodHubungan?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodHubungan.message}
+                  Kod hubungan diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganHubungan">
-                Keterangan Hubungan
-              </Form.Label>
-
-              <Controller
-                name="keteranganHubungan"
-                id="keteranganHubungan"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Keterangan hubunngan diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan hubungan"
-                  />
-                )}
+            <Form.Group controlId="keteranganHubungan" className="mb-3">
+              <Form.Label className="form-label">Keterangan Hubungan</Form.Label>
+              
+              <Form.Control
+                as="textarea"
+                {...register("keteranganHubungan", { required: true })}
+                aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                placeholder="Masukkan keterangan hubungan"
               />
-              {errors.keteranganHubungan && (
+
+              {errors.keteranganHubungan?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganHubungan.message}
+                  Keterangan hubungan diperlukan.
                 </small>
               )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateHubungan}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(createHubungan)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalCreateHubungan}>
+              Batal
+            </Button>
+
+            <Button variant="primary" onClick={handleSubmit(createHubungan)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

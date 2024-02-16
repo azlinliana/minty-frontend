@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -16,13 +16,36 @@ function EditDimensi({ dimensi }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   // ----------BE----------
+  // Set default values when the kemas kini dimensi modal is opened
+  const [formData, setFormData] = useState({
+    kodDimensi: "",
+    keteranganDimensi: "",
+    statusDimensi: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("kodDimensi", dimensi.kodDimensi);
+    setValue("keteranganDimensi", dimensi.keteranganDimensi);
+    setValue("statusDimensi", dimensi.statusDimensi);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kodDimensi: dimensi.kodDimensi,
+      keteranganDimensi: dimensi.keteranganDimensi,
+      statusDimensi: dimensi.statusDimensi,
+    }));
+  }, [dimensi, setValue]);
+
   const updateDimensi = async (dimensiInput) => {
     try {
       const response = await axiosCustom.put(
@@ -46,6 +69,7 @@ function EditDimensi({ dimensi }) {
       <Button className="editBtn" onClick={openModalEditDimensi}>
         Kemas Kini
       </Button>{" "}
+
       <Modal
         show={isModalEditDimensi}
         onHide={closeModalEditDimensi}
@@ -56,93 +80,77 @@ function EditDimensi({ dimensi }) {
           <Modal.Title>Kemas Kini Dimensi</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(updateDimensi)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodDimensi">Kod Dimensi</Form.Label>
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodDimensi" className="mb-3">
+              <Form.Label className="form-label">Kod Dimensi</Form.Label>
 
-              <Controller
-                name="kodDimensi"
-                id="kodDimensi"
-                control={control}
-                defaultValue={dimensi.kodDimensi}
-                rules={{ required: "Kod dimensi diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod dimensi"
-                    autoFocus
-                  />
-                )}
+              <Form.Control
+                type="text"
+                {...register("kodDimensi", { required: true })}
+                aria-invalid={errors.kodDimensi ? "true" : "false"}
+                placeholder="Masukkan kod dimensi"
               />
-              {errors.kodDimensi && (
+
+              {errors.kodDimensi?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodDimensi.message}
+                  Kod dimensi diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganDimensi">
-                Keterangan Dimensi
-              </Form.Label>
-              <Controller
-                name="keteranganDimensi"
-                id="keteranganDimensi"
-                control={control}
-                defaultValue={dimensi.keteranganDimensi}
-                rules={{ required: "Keterangan dimensi diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan dimensi"
-                  />
-                )}
+            <Form.Group controlId="keteranganDimensi" className="mb-3">
+              <Form.Label className="form-label">Keterangan Dimensi</Form.Label>
+
+              <Form.Control
+                as="textarea"
+                {...register("keteranganDimensi", { required: true })}
+                aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                placeholder="Masukkan keterangan dimensi"
               />
-              {errors.keteranganDimensi && (
+
+              {errors.keteranganDimensi?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganDimensi.message}
+                  Keterangan dimensi diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Status Dimensi</Form.Label>
+            <Form.Group controlId="statusDimensi" className="mb-3">
+              <Form.Label className="form-label">Status Dimensi</Form.Label>
 
-              <Controller
-                name="statusDimensi"
-                control={control}
-                defaultValue={dimensi.statusDimensi}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={dimensi.statusDimensi}
-                  >
-                    <option value="" disabled>
-                      --Pilih Status Dimensi--
-                    </option>
-                    <option value="AKTIF">AKTIF</option>
-                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
-                  </Form.Select>
-                )}
-              />
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("statusDimensi", { required: true })}
+                aria-invalid={errors.statusDimensi ? "true" : "false"}
+                placeholder="Masukkan status dimensi"
+              >
+                <option value="" disabled>
+                  --Pilih Status Dimensi--
+                </option>
+                <option value="AKTIF">AKTIF</option>
+                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+              </Form.Control>
+
+              {errors.statusDimensi?.type === "required" && (
+                <small className="text-danger">
+                  Status dimensi diperlukan.
+                </small>
+              )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditDimensi}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(updateDimensi)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalEditDimensi}>
+              Batal
+            </Button>
+
+            <Button variant="primary" onClick={handleSubmit(updateDimensi)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </div>
   );

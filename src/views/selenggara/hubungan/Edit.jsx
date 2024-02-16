@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -16,13 +16,37 @@ function EditHubungan({ hubungan }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   // ----------BE----------
+  // Set default values when the kemas kini hubungan modal is opened
+  const [formData, setFormData] = useState({
+    kodHubungan: "",
+    keteranganHubungan: "",
+    statusHubungan: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("kodHubungan", hubungan.kodHubungan);
+    setValue("keteranganHubungan", hubungan.keteranganHubungan);
+    setValue("statusHubungan", hubungan.statusHubungan);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kodHubungan: hubungan.kodHubungan,
+      keteranganHubungan: hubungan.keteranganHubungan,
+      statusHubungan: hubungan.statusHubungan,
+    }));
+  }, [hubungan, setValue]);
+
+  // Update hubungan
   const updateHubungan = async (hubunganInput) => {
     try {
       const response = await axiosCustom.put(
@@ -46,6 +70,7 @@ function EditHubungan({ hubungan }) {
       <Button className="editBtn" onClick={openModalEditHubungan}>
         Kemas Kini
       </Button>{" "}
+
       <Modal
         show={isModalEditHubungan}
         onHide={closeModalEditHubungan}
@@ -56,91 +81,76 @@ function EditHubungan({ hubungan }) {
           <Modal.Title>Kemas Kini Hubungan</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(updateHubungan)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodHubungan">Kod Hubungan</Form.Label>
-              <Controller
-                name="kodHubungan"
-                id="kodHubungan"
-                control={control}
-                defaultValue={hubungan.kodHubungan}
-                rules={{ required: "Kod hubungan diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod hubungan"
-                    autoFocus
-                  />
-                )}
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodHubungan" className="mb-3">
+              <Form.Label className="form-label">Kod Hubungan</Form.Label>
+
+              <Form.Control
+                type="text"
+                {...register("kodHubungan", { required: true })}
+                aria-invalid={errors.kodHubungan ? "true" : "false"}
+                placeholder="Masukkan kod hubungan"
               />
-              {errors.kodHubungan && (
+
+              {errors.kodHubungan?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodHubungan.message}
+                  Kod hubungan diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganHubungan">
-                Keterangan Hubungan
-              </Form.Label>
-              <Controller
-                name="keteranganHubungan"
-                id="keteranganHubungan"
-                control={control}
-                defaultValue={hubungan.keteranganHubungan}
-                rules={{ required: "Keterangan hubungan diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan hubungan"
-                  />
-                )}
+            <Form.Group controlId="keteranganHubungan" className="mb-3">
+              <Form.Label className="form-label">Keterangan Hubungan</Form.Label>
+              
+              <Form.Control
+                as="textarea"
+                {...register("keteranganHubungan", { required: true })}
+                aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                placeholder="Masukkan keterangan hubungan"
               />
-              {errors.keteranganHubungan && (
+
+              {errors.keteranganHubungan?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganHubungan.message}
+                  Keterangan hubungan diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Status Hubungan</Form.Label>
-              <Controller
-                name="statusHubungan"
-                control={control}
-                defaultValue={hubungan.statusHubungan}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={hubungan.statusHubungan}
-                  >
-                    <option value="" disabled>
-                      --Pilih Hubungan--
-                    </option>
-                    <option value="AKTIF">AKTIF</option>
-                    <option value="TIDAK AKTIF">TIDAK AKTIF</option>
-                  </Form.Select>
-                )}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
+            <Form.Group controlId="statusHubungan" className="mb-3">
+              <Form.Label className="form-label">Status Hubungan</Form.Label>
+              
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("statusHubungan", { required: true })}
+                aria-invalid={errors.statusHubungan ? "true" : "false"}
+                placeholder="Masukkan status hubungan"
+              >
+                  <option value="" disabled>--Pilih Status Hubungan--</option>
+                  <option value="AKTIF">AKTIF</option>
+                  <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+              </Form.Control>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditHubungan}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(updateHubungan)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+              {errors.statusHubungan?.type === "required" && (
+                <small className="text-danger">
+                  Status hubungan diperlukan.
+                </small>
+              )}
+            </Form.Group>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalEditHubungan}>
+              Batal
+            </Button>
+
+            <Button variant="primary" onClick={handleSubmit(updateHubungan)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
+
       </Modal>
     </>
   );

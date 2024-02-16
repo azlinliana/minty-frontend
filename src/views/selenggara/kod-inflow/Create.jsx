@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -18,8 +18,8 @@ function CreateKodInflow() {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
     watch,
@@ -46,6 +46,7 @@ function CreateKodInflow() {
 
   // Fetch kod inflow data
   const [kodInflowsData, setKodInflowsData] = useState([]);
+
   useEffect(() => {
     const fetchKodInflow = async () => {
       try {
@@ -66,183 +67,142 @@ function CreateKodInflow() {
   }, []);
 
   return (
-    <div>
-      <Button variant="primary" onClick={openModalCreateKodInflow}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
-      </Button>{" "}
-      <Modal
-        show={isModalCreateKodInflow}
-        onHide={closeModalCreateKodInflow}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Tambah Kod Inflow</Modal.Title>
-        </Modal.Header>
+    <>
+      <div>
+        <Button variant="primary" onClick={openModalCreateKodInflow}>
+          <FaPlus style={{ fontSize: "10px" }} /> Tambah
+        </Button>{" "}
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(createKodInflow)} onReset={reset}>
-            {/* Existing kod inflow */}
-            <Form.Group>
-              <Form.Label htmlFor="kodInflowId">Kod Inflow</Form.Label>
-              <Controller
-                id="kodInflowId"
-                name="kodInflowId"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Kod inflow diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>
-                      --Pilih Kod Inflow--
+        <Modal
+          show={isModalCreateKodInflow}
+          onHide={closeModalCreateKodInflow}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Tambah Kod Inflow</Modal.Title>
+          </Modal.Header>
+
+          <Form onReset={reset}>
+            <Modal.Body>
+              {/* Existing kod inflow */}
+              <Form.Group controlId="kodInflowId" className="mb-3">
+                <Form.Label className="form-label">Kod Inflow</Form.Label>
+                
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("kodInflowId", { required: true })}
+                  aria-invalid={errors.kodInflowId ? "true" : "false"}
+                  placeholder="Masukkan kod inflow"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    --Pilih Kod Inflow--
+                  </option>
+
+                  {kodInflowsData.map((kodInflow) => (
+                    <option key={kodInflow.id} value={kodInflow.id}>
+                      {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                     </option>
-                    {kodInflowsData.map((kodInflow) => (
-                      <option key={kodInflow.id} value={kodInflow.id}>
-                        {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
-                      </option>
-                    ))}
-                    <option value="KOD INFLOW BAHARU">KOD INFLOW BAHARU</option>
-                  </Form.Select>
-                )}
-              />
-              {errors.kodInflowId && (
-                <small className="text-danger">
-                  {errors.kodInflowId.message}
-                </small>
-              )}
-            </Form.Group>
+                  ))}
+                  <option value="KOD INFLOW BAHARU">KOD INFLOW BAHARU</option>
+                </Form.Control>
 
-            {/* New kod inflow - If choosing KOD INFLOW BAHARU from kod inflow option*/}
-            {watch("kodInflowId") === "KOD INFLOW BAHARU" && (
-              <>
-                <Form.Group>
-                  <Form.Label htmlFor="kodInflowBaharu">
-                    Kod Inflow Baharu
-                  </Form.Label>
-                  <Controller
-                    type="text"
-                    id="kodInflowBaharu"
-                    name="kodInflowBaharu"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "Kod inflow baharu diperlukan." }}
-                    render={({ field: { onChange, value } }) => (
-                      <Form.Control
-                        type="text"
-                        onChange={onChange}
-                        value={value}
-                        placeholder="Masukkan kod inflow baharu"
-                        autoFocus
-                      />
+                {errors.kodInflowId?.type === "required" && (
+                  <small className="text-danger">
+                    Kod inflow diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+              
+              {/* New kod inflow - If choosing KOD INFLOW BAHARU from kod inflow option*/}
+              {watch("kodInflowId") === "KOD INFLOW BAHARU" && (
+                <>
+                  <Form.Group controlId="kodInflowBaharu" className="mb-3">
+                    <Form.Label className="form-label">Kod Inflow Baharu</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      {...register("kodInflowBaharu", { required: true })}
+                      aria-invalid={errors.kodInflowBaharu ? "true" : "false"}
+                      placeholder="Masukkan kod inflow baharu"
+                    />
+
+                    {errors.kodInflowBaharu?.type === "required" && (
+                      <small className="text-danger">
+                        Kod inflow baharu diperlukan.
+                      </small>
                     )}
-                  />
-                  {errors.kodInflowBaharu && (
-                    <small className="text-danger">
-                      {errors.kodInflowBaharu.message}
-                    </small>
-                  )}
-                </Form.Group>
+                  </Form.Group>
 
-                <Form.Group>
-                  <Form.Label htmlFor="keteranganKodInflowBaharu">
-                    Keterangan Kod Inflow Baharu
-                  </Form.Label>
-                  <Controller
-                    type="text"
-                    id="keteranganKodInflowBaharu"
-                    name="keteranganKodInflowBaharu"
-                    control={control}
-                    defaultValue=""
-                    rules={{
-                      required: "Keterangan kod inflow baharu diperlukan.",
-                    }}
-                    render={({ field: { onChange, value } }) => (
-                      <Form.Control
-                        type="text"
-                        onChange={onChange}
-                        value={value}
-                        placeholder="Masukkan keterangan kod inflow baharu"
-                        autoFocus
-                      />
+                  <Form.Group controlId="keteranganKodInflowBaharu" className="mb-3">
+                    <Form.Label className="form-label">Keterangan Kod Inflow Baharu</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      {...register("keteranganKodInflowBaharu", { required: true })}
+                      aria-invalid={errors.keteranganKodInflowBaharu ? "true" : "false"}
+                      placeholder="Masukkan keterangan kod inflow baharu"
+                    />
+
+                    {errors.keteranganKodInflowBaharu?.type === "required" && (
+                      <small className="text-danger">
+                        Keterangan kod inflow baharu diperlukan.
+                      </small>
                     )}
-                  />
-                  {errors.keteranganKodInflowBaharu && (
-                    <small className="text-danger">
-                      {errors.keteranganKodInflowBaharu.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </>
-            )}
-
-            <Form.Group>
-              <Form.Label htmlFor="kodInflow">Kod Inflow Terperinci</Form.Label>
-              <Controller
-                type="text"
-                id="kodInflowTerperinci"
-                name="kodInflowTerperinci"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Kod inflow terperinci diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod inflow terperinci"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.kodInflowTerperinci && (
-                <small className="text-danger">
-                  {errors.kodInflowTerperinci.message}
-                </small>
+                  </Form.Group>
+                </>
               )}
-            </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="kodInflow">
-                Keterangan Kod Inflow Terperinci
-              </Form.Label>
-              <Controller
-                type="text"
-                id="keteranganKodInflowTerperinci"
-                name="keteranganKodInflowTerperinci"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Keterangan kod inflow terperinci diperlukan.",
-                }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan kod inflow terperinci"
-                    autoFocus
-                  />
+              <Form.Group controlId="kodInflowTerperinci" className="mb-3">
+                <Form.Label className="form-label">Kod Inflow Terperinci</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("kodInflowTerperinci", { required: true })}
+                  aria-invalid={errors.kodInflowTerperinci ? "true" : "false"}
+                  placeholder="Masukkan kod inflow terperinci"
+                />
+
+                {errors.kodInflowTerperinci?.type === "required" && (
+                  <small className="text-danger">
+                    Kod inflow terperinci diperlukan.
+                  </small>
                 )}
-              />
-              {errors.keteranganKodInflowTerperinci && (
-                <small className="text-danger">
-                  {errors.keteranganKodInflowTerperinci.message}
-                </small>
-              )}
-            </Form.Group>
+              </Form.Group>
+
+              <Form.Group controlId="keteranganKodInflowTerperinci" className="mb-3">
+                <Form.Label className="form-label">Keterangan Kod Inflow Terperinci</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("keteranganKodInflowTerperinci", { required: true })}
+                  aria-invalid={errors.keteranganKodInflowTerperinci ? "true" : "false"}
+                  placeholder="Masukkan keterangan kod inflow terperinci"
+                />
+
+                {errors.keteranganKodInflowTerperinci?.type === "required" && (
+                  <small className="text-danger">
+                    Keterangan kod inflow terperinci diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button variant="secondary" onClick={closeModalCreateKodInflow}>
+                Batal
+              </Button>
+
+              <Button variant="primary" onClick={handleSubmit(createKodInflow)}>
+                Simpan
+              </Button>
+            </Modal.Footer>
           </Form>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateKodInflow}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(createKodInflow)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+        </Modal>
+      </div>
+    </>
   );
 }
 

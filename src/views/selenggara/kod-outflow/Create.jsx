@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -18,8 +18,8 @@ function CreateKodOutflow() {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -49,6 +49,7 @@ function CreateKodOutflow() {
       <Button variant="primary" onClick={openModalCreateKodOutflow}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+
       <Modal
         show={isModalCreateKodOutflow}
         onHide={closeModalCreateKodOutflow}
@@ -59,72 +60,53 @@ function CreateKodOutflow() {
           <Modal.Title>Tambah Kod Outflow</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(createKodOutflow)} onReset={reset}>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="kodOutflow">Kod Outflow</Form.Label>
+        <Form onReset={reset}>
+          <Modal.Body>
+            <Form.Group controlId="kodOutflow" className="mb-3">
+              <Form.Label className="form-label">Kod Outflow</Form.Label>
 
-              <Controller
-                name="kodOutflow"
-                id="kodOutflow"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Kod outflow diperlukan" }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan kod outflow"
-                    autoFocus
-                  />
-                )}
+              <Form.Control
+                type="text"
+                {...register("kodOutflow", { required: true })}
+                aria-invalid={errors.kodOutflow ? "true" : "false"}
+                placeholder="Masukkan kod outflow"
               />
-              {errors.kodOutflow && (
+
+              {errors.kodOutflow?.type === "required" && (
                 <small className="text-danger">
-                  {errors.kodOutflow.message}
+                  Kod outflow diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="keteranganKodOutflow">
-                Keterangan Kod Outflow
-              </Form.Label>
-
-              <Controller
-                name="keteranganKodOutflow"
-                id="keteranganKodOutflow"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Keterangan kod outflow diperlukan" }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    as="textarea"
-                    onChange={onChange}
-                    value={value}
-                    rows={3}
-                    placeholder="Masukkan keterangan kod outflow"
-                  />
-                )}
+            <Form.Group controlId="keteranganKodOutflow" className="mb-3">
+              <Form.Label className="form-label">Keterangan Kod Outflow</Form.Label>
+              
+              <Form.Control
+                type="text"
+                {...register("keteranganKodOutflow", { required: true })}
+                aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
+                placeholder="Masukkan keterangan kod outflow"
               />
-              {errors.keteranganKodOutflow && (
+
+              {errors.keteranganKodOutflow?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganKodOutflow.message}
+                  Keterangan kod outflow diperlukan.
                 </small>
               )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateKodOutflow}>
-            Batal
-          </Button>
-          <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeModalCreateKodOutflow}>
+              Batal
+            </Button>
+            
+            <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
