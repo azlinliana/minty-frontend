@@ -1,5 +1,4 @@
 import Modal from "react-bootstrap/Modal";
-import "./ForgotPasswordModal.css";
 
 function ForgotPasswordModal(props) {
   const { show, handleClose, title, content, buttons } = props;
@@ -12,7 +11,7 @@ function ForgotPasswordModal(props) {
         </Modal.Header>
 
         <Modal.Body>{content}</Modal.Body>
-        
+
         <Modal.Footer>
           {buttons.map((button, index) => (
             <button

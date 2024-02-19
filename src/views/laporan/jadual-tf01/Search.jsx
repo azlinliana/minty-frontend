@@ -132,7 +132,7 @@ function SearchTf01() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Jadual TF01</h1>
         <Breadcrumb>
           <Breadcrumb.Item className="previousLink">
@@ -147,8 +147,8 @@ function SearchTf01() {
           <h2>Senarai Sahabat Mengikut Cawangan, Blok, Pusat dan Pulangan</h2>
         </div>
 
-        <div className="searchBarSection">
-          <Container className="container-fluid searchBar">
+        <div className="jadual-search-bar-section">
+          <Container fluid className="jadual-search-bar">
             <Form onSubmit={handleSubmit} onReset={reset}>
               <Row>
                 <Col xs={12} md={4}>

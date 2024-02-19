@@ -1,31 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import "./Auth.css";
-import styled from "styled-components";
+import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 import ErrorAlert from "../components/sweet-alert/ErrorAlert";
-import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import { RiEyeCloseLine } from "react-icons/ri";
-
 import { BsEyeFill } from "react-icons/bs";
-import backgroundImage from "../../assets/background-img.png";
 import aimLogo from "../../assets/aim-logo.svg";
+import "../../assets/styles/styles_auth.css";
 import axiosCustom from "../../axios";
-
-// Background styling for this page route
-const PageContainer = styled.div`
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-position: center center;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 
 function SignIn() {
   // ----------FE----------
@@ -51,7 +34,6 @@ function SignIn() {
   const {
     register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -68,10 +50,7 @@ function SignIn() {
 
   const handleSignIn = async (signInInput) => {
     try {
-      const response = await axiosCustom.post(
-        `/auth/login`, 
-        signInInput
-      );
+      const response = await axiosCustom.post(`/auth/login`, signInInput);
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
@@ -87,19 +66,17 @@ function SignIn() {
 
   return (
     <>
-      <PageContainer>
-        <Container fluid="md" className="signInContainer">
+      <div className="pg-container">
+        <Container fluid="md" className="signin-container">
           <Row>
-            <Col md={12} lg={6} className="signInHeader formHeader">
+            <Col md={12} lg={6} className="signin-header">
               <img src={aimLogo} alt="aim-logo" />
-
               <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
             </Col>
 
-            <Col md={12} lg={6} className="formContent">
-              <div className="formContentHeader">
+            <Col md={12} lg={6} className="signin-form-container">
+              <div className="signin-form-header">
                 <h3>PBMR</h3>
-
                 <h2>Selamat Datang</h2>
               </div>
 
@@ -122,7 +99,9 @@ function SignIn() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label className="form-label">Kata Laluan Kakitangan</Form.Label>
+                  <Form.Label className="form-label">
+                    Kata Laluan Kakitangan
+                  </Form.Label>
 
                   <InputGroup>
                     <Form.Control
@@ -133,7 +112,6 @@ function SignIn() {
                     />
 
                     <InputGroup.Text
-                      className="showPasswordButton"
                       style={{ cursor: "pointer" }}
                       onClick={toggleShowPassword}
                     >
@@ -149,8 +127,7 @@ function SignIn() {
                 </Form.Group>
 
                 <Button
-                  className="submitButton"
-                  variant="outline-primary"
+                  className="signin-submit-button"
                   onClick={handleSubmit(handleSignIn)}
                 >
                   Log Masuk
@@ -158,12 +135,12 @@ function SignIn() {
               </Form>
 
               {/* Forgot password */}
-              <div className="callToAction">
+              <div className="signin-cta">
                 <p>
                   Terlupa kata laluan?{" "}
                   <Link
                     to="#"
-                    className="forgotPasswordLink"
+                    className="forgot-password-anchor"
                     onClick={handleIsModalForgotPassword}
                   >
                     Klik di sini.
@@ -187,7 +164,7 @@ function SignIn() {
             </Col>
           </Row>
         </Container>
-      </PageContainer>
+      </div>
     </>
   );
 }

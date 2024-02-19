@@ -1,0 +1,93 @@
+/* ********************************** */
+/* *******FOR PAGE'S BACKGROUND****** */
+/* ********************************** */
+
+.pg-container {
+  background-image: url("../background-img.png");
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ****************************** */
+/* *******SIGN IN PAGE ********* */
+/* **************************** */
+
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-header {
+  text-align: left;
+  color: var(--white);
+}
+
+.signin-form-container {
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.signin-form-header {
+  margin: 20px 4px;
+  color: var(--white);
+  text-align: center;
+}
+
+.signin-submit-button {
+  width: 100%;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--darkcyanblue);
+}
+
+.signin-submit-button:hover {
+  background-color: var(--white);
+}
+
+.signin-cta p {
+  margin-top: 12px;
+  color: var(--white);
+  text-align: center;
+}
+
+.forgot-password-anchor {
+  font-weight: 500;
+  color: var(--white);
+  text-decoration:underline;
+}
+
+.forgot-password-anchor:hover {
+  color: var(--darkcyanblue);
+}
+
+@media (max-width: 768px) {
+    .signin-container {
+      width: 80%;
+    }
+
+    .signin-header h1 {
+      text-align: center;
+      font-size: 20px; 
+    }
+  
+    .signin-header img {
+      display: block;
+      margin: 0 auto 10px;
+      width: 70%;
+    }
+  
+    .signin-form-container {
+      font-size: 14px; 
+      padding: 20px 20px;
+      margin: 0 auto;
+      width: 85%;
+    }
+  }

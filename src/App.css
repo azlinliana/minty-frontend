@@ -9,7 +9,7 @@
 }
 
 /* *********************** */
-/* VARIABLES */
+/********* VARIABLES *******/
 /* *********************** */
 
 #root {
@@ -25,10 +25,59 @@ a {
   text-decoration: none;
 }
 
+/* ********************** */
+/* ****** BUTTONS ****** */
+/* ******************** */
+
+.btn {
+  font-weight: 700;
+  border-color: #134074;
+  background-color: #134074;
+}
+  
+.btn:hover {
+ color: #134074;
+ background-color: #FFFFFF;
+}
+
 .btn:focus {
   background-color: #fff;
   border-color: #000;
   color: #000;
 }
 
+.kembali-btn-container, .tambahBtnPlacement {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px auto;
+}
+
+.kembali-btn {
+  border-color: var(--white);
+  background-color: var(--white);
+  color: var(--black);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ************************** */
+/* ****** PAGE HEADER ****** */
+/* *********************** */
+
+.page-title {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+/* ********************************* */
+/************ BREADCRUMBS ************/
+/* ******************************* */
+
+.previousLink a {
+  color: #13315C;
+  text-decoration: underline;
+}
+
+.active {
+  font-weight: 700;
+}
 
