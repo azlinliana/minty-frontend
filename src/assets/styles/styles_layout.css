@@ -1,192 +1,169 @@
-/***************/
-/*** LAYOUT ***/
-/***************/
-
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+/********************/
+/*** PAGE LAYOUT ***/
+/*******************/
+.main {
+  display: flex;
+  flex-direction: row;
+  grid-template-columns: auto 1fr;
+}
   
-  .main {
-    display: flex;
-    flex-direction: row;
-    grid-template-columns: auto 1fr;
-  }
-  
-  .content {
-    background-color: #F1F3F4;
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-  }
+.content {
+  background-color: #F1F3F4;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
   
 /***************/
 /*** NAVBAR ***/
 /***************/
-  .container {
-    /* Ensure the navbar brand item is aligned to the left  */
-    margin-left: 0;
-    max-width: 2560px;
-  }
+
+/* Navbar that expands at the top of the screen */
+.navbar-primary{
+  background-color: white;
+}
+
+.logout-icon {
+  margin-right: 5px;
+  margin-bottom: 3px;
+}
   
-  .navbar-primary{
-    background-color: white;
-  }
+.page-title-strip-container {
+  background-color: #13315C;
+  font-weight: 500;
+  padding: 12px 0 12px 0;
+}
+
+.page-title-strip {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-left: 12px;
+  color: var(--white);
+}
   
-  .navbar-secondary{
-    background-color: #13315C;
-    font-weight: 500;
-  }
+.navbar-title {
+  margin-top: 7px;
+  font-weight: 900;
+  font-size: 26px;
+  text-transform: uppercase;
+}
   
-  .titleAim {
-    margin-top: 7px;
-    font-weight: 900;
-    font-size: 26px;
-    color: var(--black);
-  }
+.logout-btn {
+  background-color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+}
   
-  .log-keluar-btn {
-    background-color: white;
-    border: none;
-    font-size: 14px;
-    font-weight: bold;
+.logout-icon-container {
+  border: 1px solid transparent;
+  padding: 3px 0 4px 4px;
+  margin-right: 4px;
+  border-radius: 50%;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.55);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  background-color: #fff;
+}
+
+@media (max-width: 768px) {
+  .logout-text-visibility {
+    display: none;
   }
-  
-  .icon-container {
-    border: 1px solid transparent;
-    padding: 3px 0 4px 4px;
-    margin-right: 4px;
-    border-radius: 50%;
-    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.55);
-    transition: background-color 0.3s, box-shadow 0.3s;
-    background-color: #fff;
-  }
-  
-  /* *********************** */
-  /* MOBILE VIEW */
-  /* *********************** */
-  @media (max-width: 767px) {
-    /* Ensure text "Log Keluar" is not displayed on mobile screen */
-    .mobile-visibility {
-      display: none;
-    }
-  }
+}
+
   
 /***************/
 /*** SIDEBAR ***/
 /***************/
 
 .sidebar {
-    width: 250px;
-    padding-top: 30px;
-    position: relative;
-    transition: width 0.3s ease; /* Add a transition for a smoother effect */
-  }
+  width: 250px;
+  padding-top: 30px;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.sidebar a {
+  color: var(--black);
+}
   
-  .sidebar a {
-    color: var(--black);
-  }
+.sidebar a:hover {
+  text-decoration: underline;
+}
   
-  .sidebar a:hover {
-    text-decoration: underline;
-  }
+.sidebar-icon {
+  margin-left: 2px;
+  margin-right: 5px;
+}
   
-  .sidebar-icon {
-    margin-left: 2px;
-    margin-right: 5px;
-  }
+.sidebar-title {
+  font-size: 14px;
+  text-decoration: none;
+}
   
-  .sidebar-title {
-    font-size: 14px;
-    text-decoration: none;
-  }
+/* *********************** */
+/* **** TOGGLE SIDEBAR *** */
+/* ********************** */
+
+.sidebar.open {
+  width: 250px;
+}
   
-  /* *********************** */
-  /* TOGGLE SIDEBAR */
-  /* *********************** */
-  .toggle-button svg {
-    border-radius: 100%;
-    background-color: #13315C;
-    fill: white;
-  }
+.sidebar.shrink {
+  width: 50px;
+}
+
+.sidebar-toggle-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: -13px;
+  z-index: 1;
+}
   
-  .sidebar-container {
-    position: relative;
-  }
+.toggle-button {
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.toggle-button svg {
+  border-radius: 100%;
+  background-color: #13315C;
+  fill: white;
+}
   
-  .sidebar-toggle-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: -13px;
-    z-index: 1;
-  }
+.sidebar-user-profile {
+  text-align: center;
+}
   
-  .sidebar.open {
-    width: 250px;
-  }
+.sidebar-user-icon {
+  font-size: 100px;
+}
   
+.sidebar-user-profile h5 {
+  font-size: 1.25em;
+  padding: 10px 10px 2px 5px;
+}
+  
+.sidebar-user-profile h6 {
+  font-size: 0.85em;
+  color: lightslategray;
+  padding: 0 10px 2px 5px;
+}
+  
+@media (max-width: 767px) {
+  .sidebar-user-icon {
+    font-size: 50px;
+  }
+}
+  
+@media (min-width: 768px) {
   .sidebar.shrink {
-    width: 50px;
+    width: 50px !important;
   }
-  
-  .toggle-button {
-    /* background: none; */
-    border-radius: 100%;
-    border: none;
-    outline: none;
-    padding: 3px;
-    cursor: pointer;
-  }
-  
-  /* toggle sidebar viewpoint */
-  @media (min-width:1024px) {
-    .sidebar-toggle-button {
-      margin-top: 11px;
-      margin-right: -16px;
-    }
-  }
-  
-  /* *********************** */
-  /* SECOND NAVBAR */
-  /* *********************** */
-  .user-profile {
-    text-align: center;
-  }
-  
-  .userIcon {
-    font-size: 100px;
-  }
-  
-  .user-profile h5 {
-    font-size: 1.25em;
-    padding: 10px 10px 2px 5px;
-  }
-  
-  .user-profile h6 {
-    font-size: 0.85em;
-    color: lightslategray;
-    padding: 0 10px 2px 5px;
-  }
-  
-  @media (max-width: 767px) {
-    .userIcon {
-      font-size: 50px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .sidebar.shrink {
-      width: 50px !important; /* Add !important if necessary */
-    }
-  }
-  
-  /* *********************** */
-  /* SECOND NAVBAR */
-  /* *********************** */
-  .text-white {
-    margin-left: 7px;
-  }
+}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import "../../../assets/styles/styles_layout.css";
-import SidebarMenu from "./SidebarMenu";
+import { ListGroup } from "react-bootstrap";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
-import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
+import SidebarMenu from "./SidebarMenu";
 import { BsPersonCircle } from "react-icons/bs";
-import ListGroup from "react-bootstrap/ListGroup";
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import axiosCustom from "../../../axios";
+import "../../../assets/styles/styles_layout.css";
 
 function Sidebar() {
   // ----------FE----------
@@ -75,11 +75,11 @@ function Sidebar() {
       </div>
 
       {isSidebarOpen && userSidebarInfo && (
-        <div className="user-profile">
-          <BsPersonCircle className="userIcon" />
+        <div className="sidebar-user-profile">
+          <BsPersonCircle className="sidebar-user-icon" />
 
           <h5>{userSidebarInfo.namaKakitangan}</h5>
-          
+
           <h6>{userSidebarInfo.lokasiKakitangan}</h6>
         </div>
       )}

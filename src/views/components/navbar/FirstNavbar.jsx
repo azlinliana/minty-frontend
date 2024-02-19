@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Image } from "react-bootstrap";
-import aimLogo from "../../../assets/aim-logo.svg";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
-import axiosCustom from "../../../axios";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
+import aimLogo from "../../../assets/aim-logo.svg";
 import "../../../assets/styles/styles_layout.css";
+import axiosCustom from "../../../axios";
 
 function FirstNavbar() {
   // ----------FE----------
@@ -35,10 +35,9 @@ function FirstNavbar() {
 
   return (
     <>
-      <Navbar className="navbar-primary shadow">
-        <Container>
+      <Navbar className="navbar-primary">
+        <Container fluid>
           <Navbar.Brand onClick={clickAIMLogo}>
-            {/* This is the left column of the navbar */}
             <Image
               src={aimLogo}
               height="40"
@@ -47,23 +46,17 @@ function FirstNavbar() {
           </Navbar.Brand>
 
           <Navbar.Collapse className="justify-content-center">
-            {/* This is the middle column of the navbar */}
             <div className="d-flex justify-content-center align-items-center">
-              <h5 className="titleAim">PBMR</h5>
+              <h5 className="navbar-title">pbmr</h5>
             </div>
           </Navbar.Collapse>
 
-          {/* Logout button */}
           <div className="ml-auto">
-            {/* This is the right column of the navbar */}
-            <button className="log-keluar-btn" onClick={handleSignOut}>
-              <span className="icon-container">
-                <FaArrowRightFromBracket
-                  size={16}
-                  style={{ marginRight: "5px", marginBottom: "3px" }}
-                />
+            <button className="logout-btn" onClick={handleSignOut}>
+              <span className="logout-icon-container">
+                <FaArrowRightFromBracket className="logout-icon" size={16} />
               </span>
-              <span className="mobile-visibility">Log Keluar</span>
+              <span className="logout-text-visibility">Log Keluar</span>
             </button>
           </div>
         </Container>
