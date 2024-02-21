@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import CreateAdmin from "./Create";
-import { Form, Row } from "react-bootstrap";
+import { Form, Row, Container } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
 function SearchAdmin() {
@@ -19,7 +19,7 @@ function SearchAdmin() {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     reset,
   } = useForm();
 
@@ -31,7 +31,7 @@ function SearchAdmin() {
     try {
       const response = await axiosCustom.post(
         "pengguna/carian-pengguna",
-        {idKakitangan: searchKakitanganInput.idKakitangan} // Destructuring the object to send only relevant properties to the backend
+        { idKakitangan: searchKakitanganInput.idKakitangan } // Destructuring the object to send only relevant properties to the backend
       );
 
       if (response.status === 200) {
@@ -47,14 +47,19 @@ function SearchAdmin() {
 
   return (
     <>
-      <div className="container-fluid searchSection">
-        <Form className="searchBar" onSubmit={handleSubmit(searchAdmin)} onReset={reset}>
+      <Container fluid className="pengguna-search-bar-container">
+        <Form
+          className="pengguna-search-bar"
+          onSubmit={handleSubmit(searchAdmin)}
+          onReset={reset}
+        >
           <Row>
             <Form.Group controlId="idKakitangan" className="col-md-10">
               <Form.Control
+                className="pengguna-carian-input-field"
                 type="text"
                 {...register("idKakitangan", { required: true })}
-                aria-invalid={ errors.idKakitangan ? "true" : "false" }
+                aria-invalid={errors.idKakitangan ? "true" : "false"}
                 placeholder="Masukkan no. id kakitangan"
               />
 
@@ -67,14 +72,14 @@ function SearchAdmin() {
 
             <Form.Group className="col-md-2">
               <CreateAdmin
-                isModalCreateAdmin = {isModalCreateAdmin}
-                closeModalCreateAdmin = {closeModalCreateAdmin}
-                searchStaffResult = {searchStaffResult}
+                isModalCreateAdmin={isModalCreateAdmin}
+                closeModalCreateAdmin={closeModalCreateAdmin}
+                searchStaffResult={searchStaffResult}
               />
             </Form.Group>
           </Row>
         </Form>
-      </div>
+      </Container>
     </>
   );
 }

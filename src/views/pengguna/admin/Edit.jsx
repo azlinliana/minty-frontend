@@ -51,10 +51,9 @@ function EditAdmin({ admin }) {
   return (
     <>
       <div>
-        <Button className="editBtn" onClick={openModalEditAdmin}>
-          Kemas Kini
+        <Button className="edit-btn" onClick={openModalEditAdmin}>
+          Edit
         </Button>{" "}
-
         <Modal
           show={isModalEditAdmin}
           onHide={closeModalEditAdmin}
@@ -62,7 +61,7 @@ function EditAdmin({ admin }) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Admin</Modal.Title>
+            <Modal.Title>Edit Admin</Modal.Title>
           </Modal.Header>
 
           <Form onSubmit={handleSubmit(updateAdmin)} onReset={reset}>
@@ -76,7 +75,9 @@ function EditAdmin({ admin }) {
                   {...register("statusAdmin", { required: true })}
                   aria-invalid={errors.statusAdmin ? "true" : "false"}
                 >
-                  <option value="" disabled>--Pilih Status Admin--</option>
+                  <option value="" disabled>
+                    --Pilih Status Admin--
+                  </option>
                   <option value="DIBENARKAN">DIBENARKAN</option>
                   <option value="DISEKAT">DISEKAT</option>
                 </Form.Control>
@@ -90,13 +91,11 @@ function EditAdmin({ admin }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalEditAdmin}>
+              <Button className="batal-btn" onClick={closeModalEditAdmin}>
                 Batal
               </Button>
 
-              <Button variant="primary" type="submit">
-                Simpan
-              </Button>
+              <Button type="submit">Simpan</Button>
             </Modal.Footer>
           </Form>
         </Modal>

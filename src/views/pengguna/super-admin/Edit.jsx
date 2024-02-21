@@ -51,10 +51,9 @@ function EditSuperAdmin({ superAdmin }) {
   return (
     <>
       <div>
-        <Button className="editBtn" onClick={openModalEditSuperAdmin}>
-          Kemas Kini
+        <Button className="edit-btn" onClick={openModalEditSuperAdmin}>
+          Edit
         </Button>{" "}
-
         <Modal
           show={isModalEditSuperAdmin}
           onHide={closeModalEditSuperAdmin}
@@ -62,13 +61,15 @@ function EditSuperAdmin({ superAdmin }) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Super Admin</Modal.Title>
+            <Modal.Title>Edit Super Admin</Modal.Title>
           </Modal.Header>
 
           <Form onSubmit={handleSubmit(updateSuperAdmin)} onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="statusSuperAdmin" className="mb-3">
-                <Form.Label className="form-label">Status Super Admin</Form.Label>
+                <Form.Label className="form-label">
+                  Status Super Admin
+                </Form.Label>
 
                 <Form.Control
                   as="select"
@@ -76,7 +77,9 @@ function EditSuperAdmin({ superAdmin }) {
                   {...register("statusSuperAdmin", { required: true })}
                   aria-invalid={errors.statusSuperAdmin ? "true" : "false"}
                 >
-                  <option value="" disabled>--Pilih Status Super Admin--</option>
+                  <option value="" disabled>
+                    --Pilih Status Super Admin--
+                  </option>
                   <option value="DIBENARKAN">DIBENARKAN</option>
                   <option value="DISEKAT">DISEKAT</option>
                 </Form.Control>
@@ -90,13 +93,11 @@ function EditSuperAdmin({ superAdmin }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalEditSuperAdmin}>
+              <Button className="batal-btn" onClick={closeModalEditSuperAdmin}>
                 Batal
               </Button>
 
-              <Button variant="primary" type="submit">
-                Simpan
-              </Button>
+              <Button type="submit">Simpan</Button>
             </Modal.Footer>
           </Form>
         </Modal>

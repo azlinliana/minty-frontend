@@ -5,14 +5,14 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Form, Button } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function CreateSuperAdmin({ isModalCreateSuperAdmin, closeModalCreateSuperAdmin, searchStaffResult }) {
+function CreateSuperAdmin({
+  isModalCreateSuperAdmin,
+  closeModalCreateSuperAdmin,
+  searchStaffResult,
+}) {
   // ----------FE----------
   // Form validation
-  const { 
-    register, 
-    handleSubmit, 
-    setValue 
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   // ----------BE----------
   // Set default values when searchStaffResult changes for each field
@@ -30,7 +30,7 @@ function CreateSuperAdmin({ isModalCreateSuperAdmin, closeModalCreateSuperAdmin,
   const createSuperAdmin = async (superAdminInput) => {
     try {
       const response = await axiosCustom.post(
-        "pengguna/super-admin", 
+        "pengguna/super-admin",
         superAdminInput
       );
 
@@ -44,10 +44,10 @@ function CreateSuperAdmin({ isModalCreateSuperAdmin, closeModalCreateSuperAdmin,
       ErrorAlert(error);
     }
   };
-  
+
   return (
     <>
-      <Button className="CarianSearchBarBtn" type="submit">
+      <Button className="pengguna-carian-search-btn" type="submit">
         Cari
       </Button>
 
@@ -110,13 +110,11 @@ function CreateSuperAdmin({ isModalCreateSuperAdmin, closeModalCreateSuperAdmin,
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateSuperAdmin}>
+            <Button className="batal-btn" onClick={closeModalCreateSuperAdmin}>
               Batal
             </Button>
 
-            <Button variant="primary" type="submit">
-              Tambah
-            </Button>
+            <Button type="submit">Tambah</Button>
           </Modal.Footer>
         </Form>
       </Modal>

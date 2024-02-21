@@ -73,33 +73,29 @@ function IndexSuperAdmin() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Super Admin</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
+          <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Pengguna
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Super Admin
-          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Super Admin</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div>
-        <div className="pageSubTitle">
+        <div className="pengguna-search-pg-header">
           <h2>Cari & Tambah Super Admin</h2>
 
           <SearchSuperAdmin />
-
-          <hr />
         </div>
 
-        <div className="pageSubTitle">
+        <div className="pengguna-search-result-container">
           <h2>Senarai Super Admin</h2>
 
           <div>
-            <Table responsive>
+            <Table responsive striped bordered>
               <thead>
                 <tr>
                   <th>Bil.</th>
@@ -117,8 +113,8 @@ function IndexSuperAdmin() {
                   <tr>
                     <td colSpan={7}>
                       <center>
-                        Tiada maklumat. Sila klik "Cari & Tambah Super Admin" untuk
-                        merekodkan super admin baharu.
+                        Tiada maklumat. Sila klik "Cari & Tambah Super Admin"
+                        untuk merekodkan super admin baharu.
                       </center>
                     </td>
                   </tr>
@@ -133,9 +129,8 @@ function IndexSuperAdmin() {
                       <td>{superAdminsData.statusSuperAdmin}</td>
                       <td>
                         <EditSuperAdmin superAdmin={superAdminsData} />
-
                         <Button
-                          className="delBtn"
+                          className="delete-btn"
                           onClick={() => deleteSuperAdmin(superAdminsData.id)}
                         >
                           Padam
@@ -147,8 +142,8 @@ function IndexSuperAdmin() {
               </tbody>
             </Table>
 
-            <div className="kembaliBtnPlacement">
-              <Button className="kembaliBtn" onClick={goBack}>
+            <div className="kembali-btn-container">
+              <Button className="kembali-btn" onClick={goBack}>
                 Kembali
               </Button>{" "}
             </div>

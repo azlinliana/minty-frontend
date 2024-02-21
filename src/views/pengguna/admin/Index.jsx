@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_pengguna.css";
+import { Breadcrumb, Button, Table } from "react-bootstrap";
 import SearchAdmin from "./Search";
 import EditAdmin from "./Edit";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import { Breadcrumb, Button, Table } from "react-bootstrap";
+import "../../../assets/styles/styles_pengguna.css";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
 
@@ -69,33 +69,28 @@ function IndexAdmin() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Admin</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
+          <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Pengguna
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Admin
-          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Admin</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div>
-        <div className="pageSubTitle">
+        <div className="pengguna-search-pg-header">
           <h2>Cari & Tambah Admin</h2>
-
           <SearchAdmin />
-
-          <hr />
         </div>
 
-        <div className="pageSubTitle">
+        <div className="pengguna-search-result-container">
           <h2>Senarai Admin</h2>
 
           <div>
-            <Table responsive>
+            <Table responsive striped bordered>
               <thead>
                 <tr>
                   <th>Bil.</th>
@@ -129,9 +124,8 @@ function IndexAdmin() {
                       <td>{adminsData.statusAdmin}</td>
                       <td>
                         <EditAdmin admin={adminsData} />
-                        
                         <Button
-                          className="delBtn"
+                          className="delete-btn"
                           onClick={() => deleteAdmin(adminsData.id)}
                         >
                           Padam
@@ -143,8 +137,8 @@ function IndexAdmin() {
               </tbody>
             </Table>
 
-            <div className="kembaliBtnPlacement">
-              <Button className="kembaliBtn" onClick={goBack}>
+            <div className="kembali-btn-container">
+              <Button className="kembali-btn" onClick={goBack}>
                 Kembali
               </Button>{" "}
             </div>

@@ -5,14 +5,14 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Form, Button } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function CreateAdmin({ isModalCreateAdmin, closeModalCreateAdmin, searchStaffResult }) {
+function CreateAdmin({
+  isModalCreateAdmin,
+  closeModalCreateAdmin,
+  searchStaffResult,
+}) {
   // ----------FE----------
   // Form validation
-  const { 
-    register, 
-    handleSubmit, 
-    setValue 
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   // ----------BE----------
   // Set default values when searchStaffResult changes for each field
@@ -29,10 +29,7 @@ function CreateAdmin({ isModalCreateAdmin, closeModalCreateAdmin, searchStaffRes
   // Create admin
   const createAdmin = async (adminInput) => {
     try {
-      const response = await axiosCustom.post(
-        "pengguna/admin", 
-        adminInput
-      );
+      const response = await axiosCustom.post("pengguna/admin", adminInput);
 
       if (response.status === 200) {
         SuccessAlert(response.data.message);
@@ -47,7 +44,7 @@ function CreateAdmin({ isModalCreateAdmin, closeModalCreateAdmin, searchStaffRes
 
   return (
     <>
-      <Button className="CarianSearchBarBtn" type="submit">
+      <Button className="pengguna-carian-search-btn" type="submit">
         Cari
       </Button>
 
@@ -110,13 +107,11 @@ function CreateAdmin({ isModalCreateAdmin, closeModalCreateAdmin, searchStaffRes
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateAdmin}>
+            <Button className="batal-btn" onClick={closeModalCreateAdmin}>
               Batal
             </Button>
 
-            <Button variant="primary" type="submit">
-              Tambah
-            </Button>
+            <Button type="submit">Tambah</Button>
           </Modal.Footer>
         </Form>
       </Modal>

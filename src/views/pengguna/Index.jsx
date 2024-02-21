@@ -14,47 +14,42 @@ function IndexPengguna() {
 
   // Link pages
   const clickAdmin = () => navigate("/senarai-admin");
-  
-  const clickSuperAdmin= () => navigate("/senarai-super-admin");
+
+  const clickSuperAdmin = () => navigate("/senarai-super-admin");
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Senarai Pengguna</h1>
       </div>
 
-      <div className="tableSection">
+      <div className="pengguna-table-container">
         <Table responsive>
           <thead>
             <tr>
-              <th className="tableBil">Bil.</th>
+              <th className="pengguna-table-index">Bil.</th>
               <th>Jenis Pengguna</th>
-              <th className="tableTindakan">Tindakan</th>
+              <th className="pengguna-table-cta">Tindakan</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td className="tableBil">1</td>
+              <td className="pengguna-table-index">1</td>
               <td>Admin</td>
               <td>
-                <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
-                  onClick={clickAdmin}
-                >
+                <Button className="pengguna-index-pg-btn" onClick={clickAdmin}>
                   Lihat
                 </Button>{" "}
               </td>
             </tr>
 
             <tr>
-              <td className="tableBil">2</td>
+              <td className="pengguna-table-index">2</td>
               <td>Super Admin</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="pengguna-index-pg-btn"
                   onClick={clickSuperAdmin}
                 >
                   Lihat
@@ -65,8 +60,8 @@ function IndexPengguna() {
         </Table>
       </div>
 
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
+      <div className="kembali-btn-container">
+        <Button className="kembali-btn" onClick={goBack}>
           Kembali
         </Button>{" "}
       </div>
