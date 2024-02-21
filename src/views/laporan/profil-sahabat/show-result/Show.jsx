@@ -43,20 +43,20 @@ function ShowProfilSahabat() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Profil Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Senarai Laporan
           </Breadcrumb.Item>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Carian Pembiayaan Sahabat
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Laporan Profil Sahabat</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="hasilCarian">
+        <div className="laporan-profil-sahabat-details">
           <p>
             <strong>
               Hasil Carian:{" "}
@@ -68,7 +68,7 @@ function ShowProfilSahabat() {
         </div>
       </div>
 
-      <div className="buttonContainer">
+      <div className="laporan-profil-sahabat-action-bts-container">
         <DropdownButton id="dropdown-basic-button" title="Pilih Eksport">
           <Dropdown.Item href="#/action-1">Eksport Inflow</Dropdown.Item>
           <Dropdown.Item href="#/action-2">Eksport Outflow</Dropdown.Item>
@@ -98,8 +98,8 @@ function ShowProfilSahabat() {
         }
       />
 
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
+      <div className="kembali-btn-container sc-kembali-btn-sahabat">
+        <Button className="kembali-btn" onClick={goBack}>
           Kembali
         </Button>{" "}
       </div>

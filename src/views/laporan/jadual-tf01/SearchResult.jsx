@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Container } from "react-bootstrap";
 import "../../../assets/styles/styles_laporan.css";
 
 function SearchResultTF01({ resultTF01 }) {
   return (
     <>
-      <div className="searchResultContainer">
+      <div className="laporan-search-result-container">
         <h3>
           Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
         </h3>
@@ -78,11 +78,11 @@ function SearchResultTF01({ resultTF01 }) {
         </div>
       </div>
 
-      <div className="downloadBtnPlacement">
-        <div className="downloadBtn">
-          <Button variant="primary">Muat Turun TF01</Button>{" "}
+      <Container fluid className="download-btn-container">
+        <div>
+          <Button>Muat Turun TF01</Button>{" "}
         </div>
-      </div>
+      </Container>
     </>
   );
 }

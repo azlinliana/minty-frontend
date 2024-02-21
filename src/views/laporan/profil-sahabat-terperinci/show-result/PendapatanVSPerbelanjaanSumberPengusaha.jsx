@@ -9,13 +9,18 @@ const renderCell = (data) => {
   return data || "0";
 };
 
-function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData }) {
+function PendapatanVSPerbelanjaanSumberPengusaha({
+  pendapatanVSPerbelanjaanData,
+}) {
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {
     return value !== null && !isNaN(value)
-      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-      : '-';
+      ? parseFloat(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : "-";
   };
 
   // ------------ BE --------------
@@ -24,11 +29,18 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
 
   // Combine keys from "pendapatan" and "perbelanjaan" within "isiRumah"
   const isiRumahKeys = isiRumah
-    ? Array.from(new Set([...Object.keys(isiRumah.pendapatan), ...Object.keys(isiRumah.perbelanjaan)]))
+    ? Array.from(
+        new Set([
+          ...Object.keys(isiRumah.pendapatan),
+          ...Object.keys(isiRumah.perbelanjaan),
+        ])
+      )
     : [];
 
   // Dynamic header keys for "Kod," "Sahabat," and combined keys from "pendapatan" and "perbelanjaan" within "isiRumah"
-  const allKeys = Array.from(new Set(["Kod", ...(sahabat ? ["Sahabat"] : []), ...isiRumahKeys]));
+  const allKeys = Array.from(
+    new Set(["Kod", ...(sahabat ? ["Sahabat"] : []), ...isiRumahKeys])
+  );
 
   // Extract pendapatan and perbelanjaan values for Sahabat
   const sahabatPendapatan = sahabat ? sahabat.pendapatan : {};
@@ -45,12 +57,12 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
 
   return (
     <>
-      <div className="tableSection">
-        <div className="sectionHeader">
+      <div className="laporan-table-container">
+        <div className="laporan-table-header">
           <h1>Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan</h1>
         </div>
 
-        <Table responsive striped bordered className="laporanTable">
+        <Table responsive striped bordered className="laporan-table-styling">
           <thead>
             <tr>
               {allKeys.map((key) => (
@@ -59,14 +71,16 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
               <th>Jumlah (RM)</th>
             </tr>
           </thead>
-          
+
           <tbody>
             <tr>
               <td>PENDAPATAN</td>
               <td>{renderCell(formatMoney(sahabatPendapatan))}</td>
               {/* Loop through isiRumah for Pendapatan */}
               {isiRumahKeys.map((key) => (
-                <td key={key}>{renderCell(formatMoney(isiRumah.pendapatan[key]))}</td>
+                <td key={key}>
+                  {renderCell(formatMoney(isiRumah.pendapatan[key]))}
+                </td>
               ))}
               <td>{renderCell(formatMoney(totalPendapatan))}</td>
             </tr>
@@ -75,7 +89,9 @@ function PendapatanVSPerbelanjaanSumberPengusaha({ pendapatanVSPerbelanjaanData 
               <td>{renderCell(formatMoney(sahabatPerbelanjaan))}</td>
               {/* Loop through isiRumah for Perbelanjaan */}
               {isiRumahKeys.map((key) => (
-                <td key={key}>{renderCell(formatMoney(isiRumah.perbelanjaan[key]))}</td>
+                <td key={key}>
+                  {renderCell(formatMoney(isiRumah.perbelanjaan[key]))}
+                </td>
               ))}
               <td>{renderCell(formatMoney(totalPerbelanjaan))}</td>
             </tr>

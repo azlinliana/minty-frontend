@@ -23,8 +23,8 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
 
   return (
     <>
-      <div className="tableSection">
-        <div className="sectionHeader">
+      <div className="laporan-table-container">
+        <div className="laporan-table-header">
           <h1>Bahagian C: Maklumat Inflow/Outflow Sahabat</h1>
         </div>
 
@@ -42,7 +42,12 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                 <Col md={6}>
                   <h2>Rekod Mingguan Inflow/Outflow Sahabat</h2>
 
-                  <Table responsive striped bordered className="laporanTable">
+                  <Table
+                    responsive
+                    striped
+                    bordered
+                    className="laporan-table-styling"
+                  >
                     <thead>
                       <tr>
                         <th>Minggu</th>
@@ -101,7 +106,7 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                 <Col md={6}>
                   <h2>Rekod Kumulatif Inflow/Outflow Sahabat</h2>
 
-                  <Table striped bordered className="laporanTable">
+                  <Table striped bordered className="laporan-table-styling">
                     <thead>
                       <tr>
                         <th>Bil. Minggu</th>

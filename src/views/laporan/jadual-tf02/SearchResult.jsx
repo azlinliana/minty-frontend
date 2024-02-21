@@ -1,10 +1,10 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Container } from "react-bootstrap";
 import "../../../assets/styles/styles_laporan.css";
 
 function ResultTf02({ resultTf02 }) {
   return (
     <>
-      <div className="searchResultContainer">
+      <div className="laporan-search-result-container">
         <h3>Hasil Carian: Cawangan - Ipoh</h3>
         <div>
           <Table responsive striped bordered>
@@ -56,11 +56,13 @@ function ResultTf02({ resultTf02 }) {
             </tbody>
           </Table>
         </div>
-
-        <div className="downloadBtnPlacement">
-          <Button className="downloadBtn">Muat Turun TF02</Button>{" "}
-        </div>
       </div>
+
+      <Container fluid className="download-btn-container">
+        <div>
+          <Button>Muat Turun TF02</Button>{" "}
+        </div>
+      </Container>
     </>
   );
 }

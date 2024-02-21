@@ -70,11 +70,11 @@ function SearchProfilSahabat() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Carian Pembiayaan Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
+          <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Laporan
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Carian Pembiayaan Sahabat</Breadcrumb.Item>
@@ -83,57 +83,59 @@ function SearchProfilSahabat() {
 
       {resultSahabat.map((dataSahabat) => (
         <React.Fragment key={dataSahabat.id}>
-          <div className="hasilCarianContent">
-            <div className="hasilCarianSahabatTitle">
+          <div>
+            <div className="laporan-search-pg-header">
               <h2>Maklumat Sahabat</h2>
             </div>
 
-            <Container>
-              <Row>
-                <Col xs={12}>
-                  <Form.Group>
-                    <Form.Label>Nama</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={dataSahabat.namaSahabat}
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+            <div className="laporan-maklumat-sahabat-details-container">
+              <Container fluid className="laporan-maklumat-sahabat-details">
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group>
+                      <Form.Label>Nama</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={dataSahabat.namaSahabat}
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row className="sahabatInfoSpacing">
-                <Col xs={6}>
-                  <Form.Group>
-                    <Form.Label>No. Kad Pengenalan</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={dataSahabat.noKadPengenalanSahabat}
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
+                <Row className="sc-laporan-profil-sahabat-terperinci-spacing">
+                  <Col xs={6}>
+                    <Form.Group>
+                      <Form.Label>No. Kad Pengenalan</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={dataSahabat.noKadPengenalanSahabat}
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
 
-                <Col xs={6}>
-                  <Form.Group>
-                    <Form.Label>No. Sahabat</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={dataSahabat.noSahabat}
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-            </Container>
+                  <Col xs={6}>
+                    <Form.Group>
+                      <Form.Label>No. Sahabat</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={dataSahabat.noSahabat}
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
           </div>
 
-          <div className="carianPembiayaanSahabat">
-            <div className="hasilCarianSahabatTitle">
+          <div className="laporan-carian-skim-pembiayaan-sahabat-container">
+            <div>
               <h3>Pilih Skim Pembiayaan</h3>
             </div>
 
-            <Container>
+            <Container fluid>
               {pembiayaanSahabats.length === 0 ? (
                 <Alert variant="secondary">
                   Tiada maklumat pembiayaan untuk sahabat ini. Sila isi maklumat
@@ -186,7 +188,7 @@ function SearchProfilSahabat() {
                   <Col xs={12} xl={2}>
                     <Button
                       onClick={handleSearchResultPembiayaanVisibility}
-                      className="cariPembiayaanBtn"
+                      className="laporan-carian-skim-pembiayaan-sahabat-btn"
                     >
                       Cari
                     </Button>
@@ -197,7 +199,7 @@ function SearchProfilSahabat() {
           </div>
 
           {isSearchResultVisible && (
-            <div className="hasilCarianPembiayaan">
+            <div className="laporan-hasil-carian-skim-pembiayaan-container">
               <SearchResultPembiayaanSahabat
                 resultSahabat={resultSahabat}
                 sahabatId={dataSahabat.id}
@@ -209,8 +211,8 @@ function SearchProfilSahabat() {
         </React.Fragment>
       ))}
 
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
+      <div className="sc-kembali-btn-sahabat kembali-btn-container">
+        <Button className="kembali-btn" onClick={goBack}>
           Kembali
         </Button>{" "}
       </div>

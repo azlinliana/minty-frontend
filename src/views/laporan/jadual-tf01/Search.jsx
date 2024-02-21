@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import ResultTF01 from "./SearchResult";
-import axiosCustom from "../../../axios";
 import "../../../assets/styles/styles_laporan.css";
+import axiosCustom from "../../../axios";
 
 function SearchTf01() {
   // ----------FE----------
@@ -135,15 +135,15 @@ function SearchTf01() {
       <div className="page-title">
         <h1>Jadual TF01</h1>
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink">
+          <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Laporan
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Jadual TF01</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div className="searchSection">
-        <div className="searchHeader">
+      <div>
+        <div className="laporan-search-pg-header">
           <h2>Senarai Sahabat Mengikut Cawangan, Blok, Pusat dan Pulangan</h2>
         </div>
 
@@ -282,9 +282,9 @@ function SearchTf01() {
               </Row>
             </Form>
 
-            <div className="cariBtnPlacement">
+            <div className="laporan-jadual-carian-btn-container">
               <Button
-                className="cariBtn"
+                className="laporan-jadual-carian-btn"
                 onClick={handleSubmit(searchJadualTF01)}
               >
                 Cari
@@ -293,13 +293,13 @@ function SearchTf01() {
           </Container>
 
           {isSearchResultTf01Visible && (
-            <div className="searchResultContainer">
+            <div className="laporan-search-result-container">
               <ResultTF01 resultTF01={resultTF01} />
             </div>
           )}
 
-          <div className="kembaliBtnPlacement">
-            <Button className="kembaliBtn">Kembali</Button>{" "}
+          <div className="kembali-btn-container">
+            <Button className="kembali-btn">Kembali</Button>{" "}
           </div>
         </div>
       </div>

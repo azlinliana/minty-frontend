@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import ResultTf02 from "./SearchResult";
-import axiosCustom from "../../../axios";
 import "../../../assets/styles/styles_laporan.css";
+import axiosCustom from "../../../axios";
 
 function SearchTf02() {
   // ------- FE ---------
@@ -73,24 +73,24 @@ function SearchTf02() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Jadual TF02</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Senarai Laporan
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Jadual TF02</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div className="searchSection">
-        <div className="searchHeader">
+      <div>
+        <div className="laporan-search-pg-header">
           <h2>Analisa Penghantaran Per RM - Bulanan</h2>
         </div>
 
-        <div className="searchBarSection">
-          <Container className="container-fluid searchBar">
+        <div className="jadual-search-bar-section">
+          <Container fluid className="jadual-search-bar">
             <Row>
               {/* Cawangan */}
               <Col xs={12} md={12}>
@@ -132,9 +132,9 @@ function SearchTf02() {
               </Col>
             </Row>
 
-            <div className="cariBtnPlacement">
+            <div className="laporan-jadual-carian-btn-container">
               <Button
-                className="cariBtn"
+                className="laporan-jadual-carian-btn"
                 onClick={handleSubmit(searchJadualTF02)}
               >
                 Cari
@@ -143,13 +143,13 @@ function SearchTf02() {
           </Container>
 
           {isSearchResultJadualTf02Visible && (
-            <div className="searchResultContainer">
+            <div className="laporan-search-result-container">
               <ResultTf02 resultTf02={resultTf02} />
             </div>
           )}
 
-          <div className="kembaliBtnPlacement">
-            <Button className="kembaliBtn">Kembali</Button>{" "}
+          <div className="kembali-btn-container">
+            <Button className="kembali-btn">Kembali</Button>{" "}
           </div>
         </div>
       </div>

@@ -87,27 +87,26 @@ function IndexLaporan() {
 
   return (
     <div>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Senarai Laporan</h1>
       </div>
 
-      <div className="tableSection">
+      <div className="laporan-table-container">
         <Table responsive>
           <thead>
             <tr>
-              <th className="tableBil">Bil.</th>
+              <th className="laporan-table-index">Bil.</th>
               <th>Keterangan</th>
-              <th className="tableTindakan">Tindakan</th>
+              <th className="laporan-table-cta">Tindakan</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="tableBil">1</td>
+              <td className="laporan-table-index">1</td>
               <td>Laporan Profil Sahabat</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="laporan-index-pg-btn"
                   onClick={openModalCarianLaporanProfilSahabat}
                 >
                   Cari
@@ -160,13 +159,12 @@ function IndexLaporan() {
 
                   <Modal.Footer>
                     <Button
-                      variant="secondary"
+                      className="batal-btn"
                       onClick={closeModalCarianLaporanProfilSahabat}
                     >
                       Batal
                     </Button>
                     <Button
-                      variant="primary"
                       onClick={handleSubmit(
                         searchNoKadPengenalanSahabatProfilSahabat
                       )}
@@ -179,12 +177,11 @@ function IndexLaporan() {
             </tr>
 
             <tr>
-              <td className="tableBil">2</td>
+              <td className="laporan-table-index">2</td>
               <td>Laporan Profil Sahabat Terperinci</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="laporan-index-pg-btn"
                   onClick={openModalCarianLaporanProfilSahabatTerperinci}
                 >
                   Cari
@@ -239,13 +236,12 @@ function IndexLaporan() {
 
                   <Modal.Footer>
                     <Button
-                      variant="secondary"
+                      className="batal-btn"
                       onClick={closeModalCarianLaporanProfilSahabatTerperinci}
                     >
                       Batal
                     </Button>
                     <Button
-                      variant="primary"
                       onClick={handleSubmit(
                         searchNoKadPengenalanSahabatProfilSahabatTerperinci
                       )}
@@ -258,12 +254,11 @@ function IndexLaporan() {
             </tr>
 
             <tr>
-              <td className="tableBil">3</td>
+              <td className="laporan-table-index">3</td>
               <td>Jadual TF01</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="laporan-index-pg-btn"
                   onClick={clickJadualTF01}
                 >
                   Lihat
@@ -272,12 +267,11 @@ function IndexLaporan() {
             </tr>
 
             <tr>
-              <td className="tableBil">4</td>
+              <td className="laporan-table-index">4</td>
               <td>Jadual TF01 Mengikut Cawangan</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="laporan-index-pg-btn"
                   onClick={clickJadualTF01Cawangan}
                 >
                   Lihat
@@ -286,12 +280,11 @@ function IndexLaporan() {
             </tr>
 
             <tr>
-              <td className="tableBil">5</td>
+              <td className="laporan-table-index">5</td>
               <td>Jadual TF02</td>
               <td>
                 <Button
-                  className="indexLaporanBtn"
-                  variant="primary"
+                  className="laporan-index-pg-btn"
                   onClick={clickJadualTF02}
                 >
                   Lihat

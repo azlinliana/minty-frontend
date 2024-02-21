@@ -25,13 +25,13 @@ function SearchResultPembiayaanSahabat({
 
   return (
     <>
-      <div className="hasilCarianPembiayaan ">
-        <div className="hasilCarianSahabatTitle">
+      <div>
+        <div>
           <h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3>
           <hr />
         </div>
 
-        <div className="searchResultContainer">
+        <div>
           <Table responsive striped bordered>
             <thead>
               <tr>
@@ -66,7 +66,7 @@ function SearchResultPembiayaanSahabat({
                     </td>
                     <td>
                       <Button
-                        className="viewBtn"
+                        className="view-skim-pembiayaan-sahabat-btn"
                         onClick={() =>
                           clickLihatPembiayaan(pembiayaanSahabatsData.id)
                         }

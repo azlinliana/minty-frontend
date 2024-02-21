@@ -1,23 +1,28 @@
-import React from 'react';
+import React from "react";
 import Table from "react-bootstrap/Table";
 
-function PendapatanKumulatifKegiatan({ maklumatPendapatanKumulatifKegiatanData }) {
+function PendapatanKumulatifKegiatan({
+  maklumatPendapatanKumulatifKegiatanData,
+}) {
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {
     return value !== null && !isNaN(value)
-      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-      : '-';
+      ? parseFloat(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : "-";
   };
 
-  return(
+  return (
     <>
-      <div className="tableSection">
-        <div className="sectionHeader">
+      <div className="laporan-table-container">
+        <div className="laporan-table-header">
           <h1>Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan</h1>
         </div>
 
-        <Table responsive striped bordered className="laporanTable">
+        <Table responsive striped bordered className="laporan-table-styling">
           <thead>
             <tr>
               <th>Bil.</th>
@@ -28,35 +33,49 @@ function PendapatanKumulatifKegiatan({ maklumatPendapatanKumulatifKegiatanData }
               <th>Kegiatan</th>
             </tr>
           </thead>
-          
+
           <tbody>
             {/* Sahabat */}
-            {maklumatPendapatanKumulatifKegiatanData?.sahabat && maklumatPendapatanKumulatifKegiatanData.sahabat.map((sahabatData, sahabatIndex) => (
-              <tr key={sahabatIndex}>
-                <td>{sahabatIndex + 1}</td>
-                <td>{sahabatData.namaSahabat}</td>
-                <td>{sahabatData.kodInflow}</td>
-                <td>{formatMoney(sahabatData.cumulativeTotalInflow)}</td>
-                <td>{sahabatData.pengusaha}</td>
-                <td>{sahabatData.kegiatan}</td>
-              </tr>
-            ))}
+            {maklumatPendapatanKumulatifKegiatanData?.sahabat &&
+              maklumatPendapatanKumulatifKegiatanData.sahabat.map(
+                (sahabatData, sahabatIndex) => (
+                  <tr key={sahabatIndex}>
+                    <td>{sahabatIndex + 1}</td>
+                    <td>{sahabatData.namaSahabat}</td>
+                    <td>{sahabatData.kodInflow}</td>
+                    <td>{formatMoney(sahabatData.cumulativeTotalInflow)}</td>
+                    <td>{sahabatData.pengusaha}</td>
+                    <td>{sahabatData.kegiatan}</td>
+                  </tr>
+                )
+              )}
 
             {/* Isi Rumah */}
-            {maklumatPendapatanKumulatifKegiatanData?.isiRumah && maklumatPendapatanKumulatifKegiatanData.isiRumah.map((isiRumahData, isiRumahIndex) => (
-              <tr key={isiRumahIndex}>
-                <td>{maklumatPendapatanKumulatifKegiatanData.sahabat.length + isiRumahIndex + 1}</td>
-                <td>{isiRumahData[0].namaIsiRumah}</td>
-                <td>{isiRumahData[0].kodInflow}</td>
-                <td>{formatMoney(isiRumahData[0].cumulativeTotalInflow)}</td>
-                <td>{isiRumahData[0].pengusaha}</td>
-                <td>{isiRumahData[0].kegiatan}</td>
-              </tr>
-            ))}
+            {maklumatPendapatanKumulatifKegiatanData?.isiRumah &&
+              maklumatPendapatanKumulatifKegiatanData.isiRumah.map(
+                (isiRumahData, isiRumahIndex) => (
+                  <tr key={isiRumahIndex}>
+                    <td>
+                      {maklumatPendapatanKumulatifKegiatanData.sahabat.length +
+                        isiRumahIndex +
+                        1}
+                    </td>
+                    <td>{isiRumahData[0].namaIsiRumah}</td>
+                    <td>{isiRumahData[0].kodInflow}</td>
+                    <td>
+                      {formatMoney(isiRumahData[0].cumulativeTotalInflow)}
+                    </td>
+                    <td>{isiRumahData[0].pengusaha}</td>
+                    <td>{isiRumahData[0].kegiatan}</td>
+                  </tr>
+                )
+              )}
           </tbody>
         </Table>
 
-        <p>**Kod yang terlibat hanya A1 hingga A6 sahaja</p>
+        <div className="sc-laporan-penerangan-kod">
+          <p>**Kod yang terlibat hanya A1 hingga A6 sahaja</p>
+        </div>
       </div>
     </>
   );

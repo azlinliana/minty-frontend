@@ -6,8 +6,11 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
   // Format money value
   const formatMoney = (value) => {
     return value !== null && !isNaN(value)
-      ? parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-      : '-';
+      ? parseFloat(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : "-";
   };
 
   // ------------ BE --------------
@@ -15,7 +18,13 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
   const { sahabat, isiRumah, jumlah } = pendapatanKumulatifSumberData;
 
   // Dynamic header key for sumber, sahabat, and isi rumah
-  const allKeys = Array.from(new Set(["Sumber", ...(sahabat ? ["Sahabat"] : []), ...(isiRumah ? Object.keys(isiRumah.data) : [])]));
+  const allKeys = Array.from(
+    new Set([
+      "Sumber",
+      ...(sahabat ? ["Sahabat"] : []),
+      ...(isiRumah ? Object.keys(isiRumah.data) : []),
+    ])
+  );
 
   // Dynamic sumber key based on kod inflow available in sahabat and isi rumah
   // Extract key from Sahabat
@@ -54,12 +63,15 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
 
   return (
     <>
-      <div className="tableSection">
-        <div className="sectionHeader">
-          <h1>Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha</h1>
+      <div className="laporan-table-container">
+        <div className="laporan-table-header">
+          <h1>
+            Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan
+            Pengusaha
+          </h1>
         </div>
-        
-        <Table responsive striped bordered className="laporanTable">
+
+        <Table responsive striped bordered className="laporan-table-styling">
           <thead>
             <tr>
               {allKeys.map((key) => (
@@ -68,30 +80,68 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
               <th>Jumlah (RM)</th>
             </tr>
           </thead>
-          
+
           <tbody>
             {sortedKeys.map((sumberKey) => (
               <tr key={sumberKey}>
                 <td>{sumberKey}</td>
-                <td>{formatMoney(sahabat && sahabat.data[sumberKey] !== undefined ? sahabat.data[sumberKey] : "-")}</td>
+                <td>
+                  {formatMoney(
+                    sahabat && sahabat.data[sumberKey] !== undefined
+                      ? sahabat.data[sumberKey]
+                      : "-"
+                  )}
+                </td>
                 {isiRumahKeys.map((category) => (
-                  <td key={category}>{formatMoney(isiRumah && isiRumah.data[category] && isiRumah.data[category][sumberKey] !== undefined ? isiRumah.data[category][sumberKey] : "-")}</td>
+                  <td key={category}>
+                    {formatMoney(
+                      isiRumah &&
+                        isiRumah.data[category] &&
+                        isiRumah.data[category][sumberKey] !== undefined
+                        ? isiRumah.data[category][sumberKey]
+                        : "-"
+                    )}
+                  </td>
                 ))}
-                <td>{formatMoney(jumlah && jumlah.totalByKodInflow && jumlah.totalByKodInflow[sumberKey] !== undefined ? jumlah.totalByKodInflow[sumberKey] : "-")}</td>
+                <td>
+                  {formatMoney(
+                    jumlah &&
+                      jumlah.totalByKodInflow &&
+                      jumlah.totalByKodInflow[sumberKey] !== undefined
+                      ? jumlah.totalByKodInflow[sumberKey]
+                      : "-"
+                  )}
+                </td>
               </tr>
             ))}
 
             <tr>
               <td>Jumlah (RM)</td>
-              <td>{formatMoney(sahabat && sahabat.totalInflowSahabat !== undefined ? sahabat.totalInflowSahabat : "-")}</td>
+              <td>
+                {formatMoney(
+                  sahabat && sahabat.totalInflowSahabat !== undefined
+                    ? sahabat.totalInflowSahabat
+                    : "-"
+                )}
+              </td>
               {isiRumahKeys.map((category) => (
                 <td key={category}>
-                  {formatMoney(isiRumah && isiRumah.totalInflowIsiRumah && isiRumah.totalInflowIsiRumah[category] !== undefined
-                    ? isiRumah.totalInflowIsiRumah[category]
-                    : "-")}
+                  {formatMoney(
+                    isiRumah &&
+                      isiRumah.totalInflowIsiRumah &&
+                      isiRumah.totalInflowIsiRumah[category] !== undefined
+                      ? isiRumah.totalInflowIsiRumah[category]
+                      : "-"
+                  )}
                 </td>
               ))}
-              <td>{formatMoney(jumlah && jumlah.overallTotalInflow !== undefined ? jumlah.overallTotalInflow : "-")}</td>
+              <td>
+                {formatMoney(
+                  jumlah && jumlah.overallTotalInflow !== undefined
+                    ? jumlah.overallTotalInflow
+                    : "-"
+                )}
+              </td>
             </tr>
           </tbody>
         </Table>

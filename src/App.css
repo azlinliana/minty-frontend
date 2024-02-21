@@ -59,6 +59,20 @@ a {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
+.batal-btn {
+  background-color: var(--lightgray);
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.download-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+}
+
 /* ************************** */
 /* ****** PAGE HEADER ****** */
 /* *********************** */
@@ -72,7 +86,7 @@ a {
 /************ BREADCRUMBS ************/
 /* ******************************* */
 
-.previousLink a {
+.breadcrumb-previous-link a {
   color: #13315C;
   text-decoration: underline;
 }

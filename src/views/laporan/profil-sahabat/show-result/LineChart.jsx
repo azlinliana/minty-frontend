@@ -15,7 +15,7 @@ const LineChart = ({ selectedChart, data }) => {
     const ctx = chartRef.current.getContext("2d");
 
     let chartData;
-    
+
     if (selectedChart === "Graf Inflow") {
       chartData = createChartData(data, "Inflow", "rgba(60, 179, 113)");
     } else if (selectedChart === "Graf Outflow") {
@@ -50,9 +50,7 @@ const LineChart = ({ selectedChart, data }) => {
   const createChartData = (data, label, borderColor) => {
     return {
       labels: data ? data.map((entry) => entry.minggu) : [],
-      datasets: [
-        createDataset(data, label, borderColor),
-      ],
+      datasets: [createDataset(data, label, borderColor)],
     };
   };
 
@@ -66,7 +64,9 @@ const LineChart = ({ selectedChart, data }) => {
     };
   };
 
-  return <canvas ref={chartRef} className="chartCanvas" />;
+  return (
+    <canvas ref={chartRef} className="laporan-profil-sahabat-bhgn-c-styling" />
+  );
 };
 
 export default LineChart;

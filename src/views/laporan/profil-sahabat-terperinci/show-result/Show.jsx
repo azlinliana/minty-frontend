@@ -47,14 +47,14 @@ function ShowProfilSahabatTerperinci() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Profil Sahabat Terperinci</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Senarai Laporan
           </Breadcrumb.Item>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Carian Pembiayaan Sahabat Terperinci
           </Breadcrumb.Item>
           <Breadcrumb.Item active>
@@ -62,7 +62,7 @@ function ShowProfilSahabatTerperinci() {
           </Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="hasilCarian">
+        <div className="laporan-profil-sahabat-details">
           <p>
             <strong>
               Hasil Carian:{" "}
@@ -74,8 +74,8 @@ function ShowProfilSahabatTerperinci() {
         </div>
       </div>
 
-      <div className="buttonContainer">
-        <Button variant="primary">Cetak</Button>{" "}
+      <div className="laporan-profil-sahabat-action-bts-container">
+        <Button>Cetak</Button>{" "}
       </div>
 
       {/* Bahagian A: Maklumat Asas */}
@@ -121,8 +121,8 @@ function ShowProfilSahabatTerperinci() {
         }
       />
 
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
+      <div className="kembali-btn-container">
+        <Button className="kembali-btn sc-kembali-btn-sahabat" onClick={goBack}>
           Kembali
         </Button>{" "}
       </div>

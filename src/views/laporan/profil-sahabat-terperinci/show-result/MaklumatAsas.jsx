@@ -1,40 +1,47 @@
-import React from 'react';
+import React from "react";
 import Table from "react-bootstrap/Table";
 
 function MaklumatAsas({ maklumatAsasData }) {
   return (
     <>
-      <div className="tableSection">
-        <div className="sectionHeader">
+      <div className="laporan-table-container">
+        <div className="laporan-table-header">
           <h1>Bahagian A: Maklumat Asas</h1>
         </div>
 
-        <Table responsive striped bordered className="laporanTable">
+        <Table responsive striped bordered className="laporan-table-styling">
           <tbody>
             <tr>
               <th>1.</th>
               <th>Perkara</th>
-              <td>: {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || '-'} - JULAT SEDERHANA</td>
+              <td>
+                : {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || "-"} -
+                JULAT SEDERHANA
+              </td>
             </tr>
             <tr>
               <th>2.</th>
               <th>No IC</th>
-              <td>: {maklumatAsasData?.sahabat?.noKadPengenalanSahabat || '-'}</td>
+              <td>
+                : {maklumatAsasData?.sahabat?.noKadPengenalanSahabat || "-"}
+              </td>
             </tr>
             <tr>
               <th>3.</th>
               <th>Nama Sahabat</th>
-              <td>: {maklumatAsasData?.sahabat?.namaSahabat || '-'}</td>
+              <td>: {maklumatAsasData?.sahabat?.namaSahabat || "-"}</td>
             </tr>
             <tr>
               <th>4.</th>
               <th>Nama Suami</th>
-              <td>: {maklumatAsasData?.suamiSahabat || '-'}</td>
+              <td>: {maklumatAsasData?.suamiSahabat || "-"}</td>
             </tr>
             <tr>
               <th>5.</th>
               <th>Cawangan</th>
-              <td>: {maklumatAsasData?.sahabat?.cawangan?.namaCawangan || '-'}</td>
+              <td>
+                : {maklumatAsasData?.sahabat?.cawangan?.namaCawangan || "-"}
+              </td>
             </tr>
             <tr>
               <th>6.</th>
@@ -44,7 +51,7 @@ function MaklumatAsas({ maklumatAsasData }) {
             <tr>
               <th>7.</th>
               <th>Pusat</th>
-              <td>: {maklumatAsasData?.sahabat?.pusat?.namaPusat || '-'}</td>
+              <td>: {maklumatAsasData?.sahabat?.pusat?.namaPusat || "-"}</td>
             </tr>
             <tr>
               <th>8.</th>
