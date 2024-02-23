@@ -1,23 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import { Form, Button, Row, Col, Container } from "react-bootstrap";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_sahabat.css";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../axios";
 
 function SearchSahabat() {
+  const navigate = useNavigate();
+
   // ----------FE----------
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
   // ----------BE----------
-  const navigate = useNavigate();
 
   const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
     try {
@@ -51,32 +52,25 @@ function SearchSahabat() {
         >
           <Row>
             <Col xs={12} lg={10}>
-              <Form.Group>
-                <Controller
-                  id="noKadPengenalanSahabat"
-                  name="noKadPengenalanSahabat"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: "No. kad pengenalan sahabat diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      className="carian-sahabat-input-field"
-                      type="text"
-                      maxLength={12}
-                      onChange={onChange}
-                      value={value}
-                      placeholder="Masukkan no. kad pengenalan sahabat"
-                      autoFocus
-                    />
-                  )}
+              <Form.Group controlId="noKadPengenalanSahabat">
+                <Form.Control
+                  type="text"
+                  maxLength={12}
+                  placeholder="Masukkan no. kad pengenalan sahabat"
+                  {...register("noKadPengenalanSahabat", { required: true })}
+                  aria-invalid={
+                    errors.noKadPengenalanSahabat ? "true" : "false"
+                  }
                 />
-                {errors.noKadPengenalanSahabat && (
+
+                {errors.noKadPengenalanSahabat?.type === "required" && (
                   <small className="text-danger">
-                    {errors.noKadPengenalanSahabat.message}
+                    No. kad pengenalan sahabat diperlukan.
                   </small>
                 )}
               </Form.Group>
             </Col>
+
             <Col xs={12} lg={2} className="sahabat-search-button">
               <Form.Group>
                 <div>
