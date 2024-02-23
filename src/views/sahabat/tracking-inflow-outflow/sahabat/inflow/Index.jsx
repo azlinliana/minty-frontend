@@ -8,7 +8,7 @@ import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 
-function IndexTrackingInflowSahabat({ mingguId, pembiayaanSahabatsData }) {
+function IndexTrackingInflowSahabat({ mingguId, pembiayaanSahabatsData, kodInflowsData }) {
   // ----------BE----------
   const [inflowSahabats, setInflowSahabats] = useState([]);
 
@@ -46,29 +46,6 @@ function IndexTrackingInflowSahabat({ mingguId, pembiayaanSahabatsData }) {
   useEffect(() => {
     fetchInflowSahabats();
   }, [fetchInflowSahabats]);
-
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
-
-  const fetchKodInflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-inflow/display-kod-inflow`
-      );
-
-      if (Array.isArray(response.data)) {
-        setKodInflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setKodInflowsData]);
-
-  useEffect(() => {
-    fetchKodInflows();
-  }, [fetchKodInflows]);
 
   // Delete inflow sahabat
   const deleteInflowSahabat = async (inflowSahabatId) => {

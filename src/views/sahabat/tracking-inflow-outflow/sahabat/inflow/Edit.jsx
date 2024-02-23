@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -49,7 +49,7 @@ function EditTrackingInflowSahabat({
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
   const [previousKodInflow, setPreviousKodInflow] = useState(null);
 
-  // Set default values when the kemas kini admin modal is opened
+  // Set default values when the kemas kini inflow sahabat modal is opened
   const [formData, setFormData] = useState({
     kodInflowId: "",
     amaunInflow: "",

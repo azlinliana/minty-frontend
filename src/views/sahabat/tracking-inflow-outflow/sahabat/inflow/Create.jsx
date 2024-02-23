@@ -38,6 +38,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
     );
 
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
+
     setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
 
     // Reset other form data and save selected inflow id
@@ -50,8 +51,10 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
 
     // Reset keteranganInflowTerperinci values
     const resetTerperinciValues = {};
+
     selectedKodInflowData.kod_inflow_terperincis.forEach((terperinci) => {
       const fieldName = `kodInflowTerperinci[${terperinci.id}]`;
+      
       resetTerperinciValues[fieldName] = "";
     });
 
