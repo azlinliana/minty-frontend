@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
+function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodOutflowsData }) {
   // ----------BE----------
   // List outflow isi rumah sahabat
   const [outflowIsiRumahs, setOutflowIsiRumahs] = useState([]);
@@ -42,36 +42,36 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
     fetchOutflowIsiRumahs();
   }, [fetchOutflowIsiRumahs]);
 
-  // Fetch kod outflow data
-  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+  // // Fetch kod outflow data
+  // const [kodOutflowsData, setKodOutflowsData] = useState([]);
 
-  const fetchKodOutflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-outflow/display-kod-outflow`
-      );
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setKodOutflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
-    }
-  }, []);
+  // const fetchKodOutflows = useCallback(async () => {
+  //   try {
+  //     const response = await axiosCustom.get(
+  //       `/selenggara/kod-outflow/display-kod-outflow`
+  //     );
+  //     if (Array.isArray(response.data) && response.data.length > 0) {
+  //       setKodOutflowsData(response.data); // Display all kod inflow data
+  //     } else {
+  //       ErrorAlert(response.data);
+  //     }
+  //   } catch (error) {
+  //     if (
+  //       error.response &&
+  //       (error.response.status === 503 || error.response.status === 429)
+  //     ) {
+  //       // The server is not ready, ignore the error
+  //       console.log("Server not ready, retry later.");
+  //     } else {
+  //       // Handle other errors
+  //       ErrorAlert(error);
+  //     }
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    fetchKodOutflows();
-  }, [fetchKodOutflows]);
+  // useEffect(() => {
+  //   fetchKodOutflows();
+  // }, [fetchKodOutflows]);
 
   // Delete outflow isi rumah
   const deleteOutflowIsiRumah = async (outflowIsiRumahId) => {

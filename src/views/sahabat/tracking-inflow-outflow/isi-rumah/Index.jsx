@@ -1,30 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingIsiRumah from "./Create";
 import EditTrackingIsiRumah from "./Edit";
 import IndexTrackingInflowIsiRumah from "./inflow/Index";
 import IndexTrackingOutflowIsiRumah from "./outflow/Index";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import {
-  Tab,
-  Tabs,
-  Alert,
-  Card,
-  Container,
-  Row,
-  Col,
-  Form,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
+import { Tab, Tabs, Alert, Card, Container, Row, Col, Form, Dropdown, DropdownButton } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 
 function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
   // ----------FE----------
-  // Dynamic tab title
-  const navigate = useNavigate();
-
   // Tab tracking isi rumah
   const [activeTab, setActiveTab] = useState({
     key: "tracking-inflow-isi-rumah",
@@ -98,6 +83,60 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
     fetchHubungans();
   }, [fetchHubungans]);
 
+  // Fetch kod inflow data
+  const [kodInflowsData, setKodInflowsData] = useState([]);
+
+  const fetchKodInflows = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/kod-inflow/display-kod-inflow`
+      );
+
+      if (Array.isArray(response.data)) {
+        setKodInflowsData(response.data); // Display all kod inflow data
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }, [setKodInflowsData]);
+
+  useEffect(() => {
+    fetchKodInflows();
+  }, [fetchKodInflows]);
+
+  // Fetch kod outflow data
+  const [kodOutflowsData, setKodOutflowsData] = useState([]);
+
+  const fetchKodOutflows = useCallback(async () => {
+    try {
+      const response = await axiosCustom.get(
+        `/selenggara/kod-outflow/display-kod-outflow`
+      );
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setKodOutflowsData(response.data); // Display all kod inflow data
+      } else {
+        ErrorAlert(response.data);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        (error.response.status === 503 || error.response.status === 429)
+      ) {
+        // The server is not ready, ignore the error
+        console.log("Server not ready, retry later.");
+      } else {
+        // Handle other errors
+        ErrorAlert(error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchKodOutflows();
+  }, [fetchKodOutflows]);
+  
   return (
     <>
       <div className="inputStepsContainer">
@@ -210,6 +249,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                         <IndexTrackingInflowIsiRumah
                           isiRumahId={isiRumahSahabatsData.id}
                           pembiayaanSahabatsData={pembiayaanSahabatsData}
+                          kodInflowsData={kodInflowsData}
                         />
                       </Tab>
 
@@ -220,6 +260,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                         <IndexTrackingOutflowIsiRumah
                           isiRumahId={isiRumahSahabatsData.id}
                           pembiayaanSahabatsData={pembiayaanSahabatsData}
+                          kodOutflowsData={kodOutflowsData}
                         />
                       </Tab>
                     </Tabs>

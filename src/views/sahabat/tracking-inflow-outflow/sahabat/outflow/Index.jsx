@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData }) {
+function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData, kodOutflowsData }) {
   // ----------BE----------
   const [outflowSahabats, setOutflowSahabats] = useState([]);
 
@@ -41,38 +41,6 @@ function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData }) {
   useEffect(() => {
     fetchOutflowSahabats();
   }, [fetchOutflowSahabats]);
-
-  // Fetch kod outflow data
-  const [kodOutflowsData, setKodOutflowsData] = useState([]);
-
-  const fetchKodOutflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-outflow/display-kod-outflow`
-      );
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setKodOutflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
-    }
-  }, [setKodOutflowsData]);
-
-  useEffect(() => {
-    fetchKodOutflows();
-  }, [fetchKodOutflows]);
 
   // Delete outflow sahabat
   const deleteOutflowSahabat = async (outflowSahabatId) => {
