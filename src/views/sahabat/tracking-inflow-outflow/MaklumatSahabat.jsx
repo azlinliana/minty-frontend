@@ -4,12 +4,12 @@ import "../../../assets/styles/styles_sahabat.css";
 
 function MaklumatSahabat({ dataSahabat }) {
   return (
-    <div className="sahabatTrackingContent">
+    <div className="card-tambah-minggu-sahabat-content">
       <h2>Maklumat Sahabat</h2>
 
-      <Card className="sahabatInfoCard">
+      <Card className="card-tambah-minggu-sahabat-more-content">
         <Card.Body>
-          <Container>
+          <Container fluid>
             <Row>
               <Col xs={12}>
                 <Form.Group>
@@ -23,7 +23,7 @@ function MaklumatSahabat({ dataSahabat }) {
               </Col>
             </Row>
 
-            <Row className="sahabatInfoSpacing">
+            <Row className="sahabat-carian-spacing">
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>No. Kad Pengenalan</Form.Label>

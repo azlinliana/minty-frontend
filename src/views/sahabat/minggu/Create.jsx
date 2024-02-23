@@ -49,7 +49,7 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreateMinggu}>
+        <Button onClick={openModalCreateMinggu}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
         </Button>{" "}
         <Modal
@@ -125,13 +125,10 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateMinggu}>
+            <Button className="batal-btn" onClick={closeModalCreateMinggu}>
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(createMingguPembiayaanSahabat)}
-            >
+            <Button onClick={handleSubmit(createMingguPembiayaanSahabat)}>
               Simpan
             </Button>
           </Modal.Footer>

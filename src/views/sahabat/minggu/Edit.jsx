@@ -52,9 +52,7 @@ function EditMinggu({
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalEditMinggu}>
-          Kemas Kini
-        </Button>{" "}
+        <Button onClick={openModalEditMinggu}>Edit Minggu</Button>{" "}
         <Modal
           show={isModalEditMinggu}
           onHide={closeModalEditMinggu}
@@ -62,7 +60,7 @@ function EditMinggu({
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Minggu</Modal.Title>
+            <Modal.Title>Edit Minggu</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -128,13 +126,10 @@ function EditMinggu({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditMinggu}>
+            <Button className="batal-btn" onClick={closeModalEditMinggu}>
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(updateMingguPembiayaanSahabat)}
-            >
+            <Button onClick={handleSubmit(updateMingguPembiayaanSahabat)}>
               Simpan
             </Button>
           </Modal.Footer>

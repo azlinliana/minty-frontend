@@ -5,11 +5,18 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Modal, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndexMingguConditionEachPembiayaan }) {
+function EditPembiayaan({
+  sahabatId,
+  pembiayaanId,
+  pembiayaanSahabat,
+  checkIndexMingguConditionEachPembiayaan,
+}) {
   // ----------FE----------
   // Modal
-  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] = useState(false);
-  const openModalEditPembiayaanSahabat = () => setIsModalEditPembiayaanSahabat(true);
+  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
+    useState(false);
+  const openModalEditPembiayaanSahabat = () =>
+    setIsModalEditPembiayaanSahabat(true);
   const closeModalEditPembiayaanSahabat = () => {
     setIsModalEditPembiayaanSahabat(false);
   };
@@ -70,21 +77,15 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
     (condition) => condition.pembiayaanId === pembiayaanId
   )?.conditionsResults;
 
-
   // Get the result from props
   const hideStatusPembiayaan = conditionResult;
 
   return (
     <>
       <div>
-        <span
-          href="#"
-          className="statusLink"
-          onClick={openModalEditPembiayaanSahabat}
-        >
-          Kemas Kini
+        <span href="#" onClick={openModalEditPembiayaanSahabat}>
+          Edit
         </span>{" "}
-
         <Modal
           show={isModalEditPembiayaanSahabat}
           onHide={closeModalEditPembiayaanSahabat}
@@ -92,7 +93,7 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Pembiayaan Sahabat</Modal.Title>
+            <Modal.Title>Edit Pembiayaan Sahabat</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
@@ -106,7 +107,9 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
                   {...register("skimPembiayaan", { required: true })}
                   aria-invalid={errors.skimPembiayaan ? "true" : "false"}
                 >
-                  <option value="" disabled>--Pilih Skim Pembiayaan--</option>
+                  <option value="" disabled>
+                    --Pilih Skim Pembiayaan--
+                  </option>
                   <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
                   <option value="I-MUDA">I-MUDA</option>
                   <option value="I-MESRA">I-MESRA</option>
@@ -131,7 +134,9 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
                     {...register("statusPembiayaan", { required: true })}
                     aria-invalid={errors.statusPembiayaan ? "true" : "false"}
                   >
-                    <option value="" disabled>--Pilih Status Pembiayaan--</option>
+                    <option value="" disabled>
+                      --Pilih Status Pembiayaan--
+                    </option>
                     <option value="AKTIF">AKTIF</option>
                     <option value="SELESAI">SELESAI</option>
                   </Form.Control>
@@ -146,11 +151,14 @@ function EditPembiayaan({ sahabatId, pembiayaanId, pembiayaanSahabat, checkIndex
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalEditPembiayaanSahabat}>
+              <Button
+                className="batal-btn"
+                onClick={closeModalEditPembiayaanSahabat}
+              >
                 Batal
               </Button>
 
-              <Button variant="primary" onClick={handleSubmit(updatePembiayaanSahabat)}>
+              <Button onClick={handleSubmit(updatePembiayaanSahabat)}>
                 Simpan
               </Button>
             </Modal.Footer>

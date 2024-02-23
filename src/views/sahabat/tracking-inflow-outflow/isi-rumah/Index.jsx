@@ -100,135 +100,141 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
 
   return (
     <>
-      <div className="inputStepsContainer">
+      <div>
         <h2>Maklumat Tracking Isi Rumah</h2>
+        <div className="sahabat-pembiayaan-table-container">
+          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            <div className="tambah-baru-btn-container">
+              <CreateTrackingIsiRumah
+                mingguId={mingguId}
+                hubungansData={hubungansData}
+              />
+            </div>
+          ) : null}
 
-        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
-          <div className="tambahBtnPlacement">
-            <CreateTrackingIsiRumah
-              mingguId={mingguId}
-              hubungansData={hubungansData}
-            />
-          </div>
-        ) : null}
+          {isiRumahSahabats.length === 0 ? (
+            <Alert variant="secondary">
+              Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila
+              tambah isi rumah.
+            </Alert>
+          ) : (
+            <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
+              {isiRumahSahabats.map((isiRumahSahabatsData, key) => (
+                <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}>
+                  <div>
+                    {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                      <div className="tabs-isi-rumah-actions-container">
+                        <DropdownButton
+                          align="end"
+                          title="Status Isi Rumah"
+                          id="dropdown-menu-align-end"
+                        >
+                          <Dropdown.Item eventKey="1">
+                            <EditTrackingIsiRumah
+                              mingguId={mingguId}
+                              isiRumahSahabat={isiRumahSahabatsData}
+                              hubungansData={hubungansData}
+                            />
+                          </Dropdown.Item>
+                          <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+                        </DropdownButton>
+                      </div>
+                    ) : null}
 
-        {isiRumahSahabats.length === 0 ? (
-          <Alert variant="secondary">
-            Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila tambah
-            isi rumah.
-          </Alert>
-        ) : (
-          <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
-            {isiRumahSahabats.map((isiRumahSahabatsData, key) => (
-              <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}>
-                <div>
-                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
-                    <div className="isiRumahActionsPlacement">
-                      <DropdownButton
-                        align="end"
-                        title="Status Isi Rumah"
-                        id="dropdown-menu-align-end"
-                      >
-                        <Dropdown.Item eventKey="1">
-                          <EditTrackingIsiRumah
-                            mingguId={mingguId}
-                            isiRumahSahabat={isiRumahSahabatsData}
-                            hubungansData={hubungansData}
-                          />
-                        </Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
-                      </DropdownButton>
-                    </div>
-                  ) : null}
+                    <Card>
+                      <Card.Body>
+                        <Container>
+                          <Row>
+                            <Col xs={12}>
+                              <Form.Group>
+                                <Form.Label>Nama</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  defaultValue={
+                                    isiRumahSahabatsData.namaIsiRumah
+                                  }
+                                  disabled
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
 
-                  <Card>
-                    <Card.Body>
-                      <Container>
-                        <Row>
-                          <Col xs={12}>
-                            <Form.Group>
-                              <Form.Label>Nama</Form.Label>
-                              <Form.Control
-                                type="text"
-                                defaultValue={isiRumahSahabatsData.namaIsiRumah}
-                                disabled
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
+                          <Row>
+                            <Col xs={12}>
+                              <Form.Group>
+                                <Form.Label>No. Kad Pengenalan</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  defaultValue={
+                                    isiRumahSahabatsData.noKadPengenalanIsiRumah
+                                  }
+                                  disabled
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
 
-                        <Row>
-                          <Col xs={12}>
-                            <Form.Group>
-                              <Form.Label>No. Kad Pengenalan</Form.Label>
-                              <Form.Control
-                                type="text"
-                                defaultValue={
-                                  isiRumahSahabatsData.noKadPengenalanIsiRumah
-                                }
-                                disabled
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-
-                        <Row>
-                          <Col xs={12}>
-                            <Form.Group>
-                              <Form.Label>Hubungan</Form.Label>
-                              <Form.Control
-                                type="text"
-                                defaultValue={
-                                  isiRumahSahabatsData.hubungan.kodHubungan
-                                }
-                                disabled
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                      </Container>
-                    </Card.Body>
-                  </Card>
-                </div>
-
-                <div>
-                  <div className="tableInflowOutflowMargin">
-                    <Tabs
-                      id="tracking-inflow-outflow-isi-rumah"
-                      className="mb-3"
-                      activeKey={activeTab.key}
-                      onSelect={(key) =>
-                        handleTabInflowOutflowIsiRumahChange(
-                          key,
-                          key === "tracking-inflow-isi-rumah"
-                            ? "Inflow"
-                            : "Outflow"
-                        )
-                      }
-                    >
-                      <Tab eventKey="tracking-inflow-isi-rumah" title="Inflow">
-                        <IndexTrackingInflowIsiRumah
-                          isiRumahId={isiRumahSahabatsData.id}
-                          pembiayaanSahabatsData={pembiayaanSahabatsData}
-                        />
-                      </Tab>
-
-                      <Tab
-                        eventKey="tracking-outflow-isi-rumah"
-                        title="Outflow"
-                      >
-                        <IndexTrackingOutflowIsiRumah
-                          isiRumahId={isiRumahSahabatsData.id}
-                          pembiayaanSahabatsData={pembiayaanSahabatsData}
-                        />
-                      </Tab>
-                    </Tabs>
+                          <Row>
+                            <Col xs={12}>
+                              <Form.Group>
+                                <Form.Label>Hubungan</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  defaultValue={
+                                    isiRumahSahabatsData.hubungan.kodHubungan
+                                  }
+                                  disabled
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                        </Container>
+                      </Card.Body>
+                    </Card>
                   </div>
-                </div>
-              </Tab>
-            ))}
-          </Tabs>
-        )}
+
+                  <div>
+                    <div className="sc-tabs-table-inflow-outflow-margins">
+                      <Tabs
+                        id="tracking-inflow-outflow-isi-rumah"
+                        className="mb-3"
+                        activeKey={activeTab.key}
+                        onSelect={(key) =>
+                          handleTabInflowOutflowIsiRumahChange(
+                            key,
+                            key === "tracking-inflow-isi-rumah"
+                              ? "Inflow"
+                              : "Outflow"
+                          )
+                        }
+                      >
+                        <Tab
+                          eventKey="tracking-inflow-isi-rumah"
+                          title="Inflow"
+                        >
+                          <IndexTrackingInflowIsiRumah
+                            isiRumahId={isiRumahSahabatsData.id}
+                            pembiayaanSahabatsData={pembiayaanSahabatsData}
+                          />
+                        </Tab>
+
+                        <Tab
+                          eventKey="tracking-outflow-isi-rumah"
+                          title="Outflow"
+                        >
+                          <IndexTrackingOutflowIsiRumah
+                            isiRumahId={isiRumahSahabatsData.id}
+                            pembiayaanSahabatsData={pembiayaanSahabatsData}
+                          />
+                        </Tab>
+                      </Tabs>
+                    </div>
+                  </div>
+                </Tab>
+              ))}
+            </Tabs>
+          )}
+        </div>
       </div>
     </>
   );

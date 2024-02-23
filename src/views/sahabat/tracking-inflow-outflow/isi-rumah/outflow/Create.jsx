@@ -48,7 +48,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreateOutflowIsiRumah}>
+        <Button onClick={openModalCreateOutflowIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
         <Modal
@@ -126,15 +126,12 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
 
           <Modal.Footer>
             <Button
-              variant="secondary"
+              className="batal-btn"
               onClick={closeModalCreateOutflowIsiRumah}
             >
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(createOutflowIsiRumah)}
-            >
+            <Button onClick={handleSubmit(createOutflowIsiRumah)}>
               Simpan
             </Button>
           </Modal.Footer>

@@ -18,7 +18,7 @@ function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
   };
 
   return (
-    <div className="inputStepsContainer">
+    <div>
       <h2>Maklumat Tracking {activeTab.title} Sahabat</h2>
 
       <Tabs

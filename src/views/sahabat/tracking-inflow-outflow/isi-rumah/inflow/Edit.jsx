@@ -49,8 +49,8 @@ function EditTrackingInflowIsiRumah({
 
   return (
     <>
-      <Button className="editBtn" onClick={openModalEditInflowIsiRumah}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
+        Edit
       </Button>{" "}
       <Modal
         show={isModalEditInflowIsiRumah}
@@ -59,7 +59,7 @@ function EditTrackingInflowIsiRumah({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Inflow Isi Rumah</Modal.Title>
+          <Modal.Title>Edit Inflow Isi Rumah</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -126,15 +126,10 @@ function EditTrackingInflowIsiRumah({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditInflowIsiRumah}>
+          <Button className="batal-btn" onClick={closeModalEditInflowIsiRumah}>
             Batal
           </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit(updateInflowIsiRumah)}
-          >
-            Simpan
-          </Button>
+          <Button onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </>

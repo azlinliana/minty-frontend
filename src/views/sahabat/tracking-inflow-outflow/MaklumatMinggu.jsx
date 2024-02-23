@@ -5,10 +5,16 @@ import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 
-function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }) {
+function MaklumatMinggu({
+  sahabatId,
+  pembiayaanId,
+  mingguId,
+  pembiayaanSahabatsData,
+}) {
   // ----------BE----------
   // Show minggu pembiayaan sahabat
-  const [showMingguPembiayaanSahabat, setshowMingguPembiayaanSahabat] = useState([]);
+  const [showMingguPembiayaanSahabat, setshowMingguPembiayaanSahabat] =
+    useState([]);
 
   const getMingguPembiayaanSahabat = async () => {
     try {
@@ -31,14 +37,14 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsD
   }, []);
 
   return (
-    <div className="sahabatTrackingContent">
+    <div className="card-tambah-minggu-sahabat-content">
       <h2>Maklumat Minggu</h2>
 
       {showMingguPembiayaanSahabat.id ? (
         <>
           {/* Hide edit minggu button */}
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
-            <div className="editMingguBtnPlacement">
+            <div className="card-edit-minggu-btn">
               <EditMinggu
                 sahabatId={sahabatId}
                 pembiayaanId={pembiayaanId}
@@ -50,11 +56,11 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsD
 
           <Card>
             <Card.Body>
-              <Container>
+              <Container fluid>
                 <Row>
                   <Col xs={6}>
                     <Form.Group>
-                      <Form.Label className="trackWeek">
+                      <Form.Label className="card-track-minggu-simple">
                         Bilangan Minggu
                       </Form.Label>
 
@@ -70,7 +76,7 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsD
 
                   <Col xs={6}>
                     <Form.Group>
-                      <Form.Label className="trackWeek">
+                      <Form.Label className="card-track-minggu-simple">
                         Tarikh Borang Minggu
                       </Form.Label>
 
@@ -89,7 +95,7 @@ function MaklumatMinggu({ sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsD
           </Card>
         </>
       ) : (
-        <Container>
+        <Container fluid>
           <p>Tiada maklumat minggu pembiayaan sahabat ini.</p>
         </Container>
       )}

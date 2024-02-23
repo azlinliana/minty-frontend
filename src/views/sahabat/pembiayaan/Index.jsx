@@ -49,22 +49,30 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
   // | Hidden status pembiayaan case                |
   // ------------------------------------------------
   // Pass state to IndexMinggu (Child) as a props for all pembiayaan sahabat data - Expecting the boolean data
-  const [checkIndexMingguConditionEachPembiayaan, setCheckIndexMingguConditionEachPembiayaan] = useState([]);
+  const [
+    checkIndexMingguConditionEachPembiayaan,
+    setCheckIndexMingguConditionEachPembiayaan,
+  ] = useState([]);
 
-  const handleCheckIndexMingguConditionEachPembiayaan = (pembiayaanId, indexMingguCondition) => {
+  const handleCheckIndexMingguConditionEachPembiayaan = (
+    pembiayaanId,
+    indexMingguCondition
+  ) => {
     setCheckIndexMingguConditionEachPembiayaan((prev) => {
-      const updatedConditions = prev.filter((condition) => condition.pembiayaanId !== pembiayaanId);
+      const updatedConditions = prev.filter(
+        (condition) => condition.pembiayaanId !== pembiayaanId
+      );
 
       return [
-        ...updatedConditions, 
-        { 
-          pembiayaanId, 
-          conditionsResults: indexMingguCondition 
-        }
+        ...updatedConditions,
+        {
+          pembiayaanId,
+          conditionsResults: indexMingguCondition,
+        },
       ];
     });
-  }; 
-  
+  };
+
   return (
     <>
       <div>
@@ -75,7 +83,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
         (pembiayaanSahabats.length > 0 &&
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
             "SELESAI") ? (
-          <div className="tambahBtnPlacement">
+          <div className="tambah-baru-btn-container">
             <CreatePembiayaan sahabatId={sahabatId} />
           </div>
         ) : null}
@@ -88,11 +96,14 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
           </Alert>
         ) : (
           pembiayaanSahabats.map((pembiayaanSahabatsData, key) => (
-            <div className="cardSection" key={pembiayaanSahabatsData.id}>
+            <div
+              className="card-pembiayaan-sahabat-container"
+              key={pembiayaanSahabatsData.id}
+            >
               <Card key={key}>
-                <Card.Header as="h5" className="cardHeader">
-                  <div className="cardBody">
-                    <div className="cardSkim">
+                <Card.Header as="h5" className="card-pembiayaan-sahabat-header">
+                  <div className="card-pembiayaan-sahabat-content">
+                    <div className="card-skim-pembiayaan-header">
                       {pembiayaanSahabatsData.skimPembiayaan}
                     </div>
 
@@ -105,24 +116,26 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                           ? "primary"
                           : undefined
                       }
+                      className="card-badge-status"
                     >
                       {pembiayaanSahabatsData.statusPembiayaan}
                     </Badge>
                   </div>
 
-                  <div className="cardActions">
+                  <div>
                     <DropdownButton
                       align="end"
                       title="Status"
                       id="dropdown-menu-align-end"
-                      className="editLoanBtn"
                     >
                       <Dropdown.Item eventKey="1">
                         <EditPembiayaan
                           sahabatId={sahabatId}
                           pembiayaanId={pembiayaanSahabatsData.id}
                           pembiayaanSahabat={pembiayaanSahabatsData}
-                          checkIndexMingguConditionEachPembiayaan={checkIndexMingguConditionEachPembiayaan}
+                          checkIndexMingguConditionEachPembiayaan={
+                            checkIndexMingguConditionEachPembiayaan
+                          }
                         />
                       </Dropdown.Item>
 
@@ -133,12 +146,16 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       onClick={() =>
                         toggleCardCollapse(pembiayaanSahabatsData.id)
                       }
-                      className="arrowPositioning"
+                      className="card-skim-pembiayaan-arrow-position"
                     >
                       {isCardCollapsed[pembiayaanSahabatsData.id] ? (
-                        <span><TfiArrowCircleDown size={40} /></span>
+                        <span>
+                          <TfiArrowCircleDown size={40} />
+                        </span>
                       ) : (
-                        <span><TfiArrowCircleUp size={40} /></span>
+                        <span>
+                          <TfiArrowCircleUp size={40} />
+                        </span>
                       )}
                     </div>
                   </div>
@@ -150,7 +167,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                     <Card.Body
                       className={`${
                         pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
-                          ? "disabledContent"
+                          ? "sc-skim-pembiayaan-completed-indicator sc-completion-indicator"
                           : ""
                       }`}
                     >
@@ -161,7 +178,9 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                         sahabatId={sahabatId}
                         pembiayaanId={pembiayaanSahabatsData.id}
                         pembiayaanSahabatsData={pembiayaanSahabatsData}
-                        handleCheckIndexMingguConditionEachPembiayaan={handleCheckIndexMingguConditionEachPembiayaan}
+                        handleCheckIndexMingguConditionEachPembiayaan={
+                          handleCheckIndexMingguConditionEachPembiayaan
+                        }
                       />
                     </Card.Body>
                   </>

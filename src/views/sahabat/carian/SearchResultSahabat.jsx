@@ -18,11 +18,11 @@ function SearchResultSahabat() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Hasil Carian Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Carian Sahabat
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Hasil Carian Sahabat</Breadcrumb.Item>
@@ -31,17 +31,17 @@ function SearchResultSahabat() {
 
       {resultSahabat.map((dataSahabat) => (
         <div key={dataSahabat.id}>
-          <div className="searchResultId">
+          <div className="search-result-id">
             <p>Hasil Carian: {dataSahabat.noKadPengenalanSahabat}</p>
           </div>
 
-          <div className="hasilCarianContent">
-            <div className="hasilCarianSahabat">
-              <div className="hasilCarianSahabatTitle">
+          <div className="hasil-carian-sahabat-content">
+            <div>
+              <div className="hasil-carian-sahabat-title">
                 <h2>Maklumat Sahabat</h2>
               </div>
 
-              <Container>
+              <Container fluid>
                 <Row>
                   <Col xs={12}>
                     <Form.Group>
@@ -56,9 +56,9 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row className="sahabatInfoSpacing">
-                  <Col xs={6}>
-                    <Form.Group>
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>No. Kad Pengenalan</Form.Label>
 
                       <Form.Control
@@ -68,9 +68,11 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
+                </Row>
 
-                  <Col xs={6}>
-                    <Form.Group>
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>No. Sahabat</Form.Label>
 
                       <Form.Control
@@ -82,9 +84,9 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row className="sahabatInfoSpacing">
-                  <Col xs={6}>
-                    <Form.Group className="carianSpacing">
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Wilayah</Form.Label>
 
                       <Form.Control
@@ -94,8 +96,11 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                  <Col xs={6}>
-                    <Form.Group className="carianSpacing">
+                </Row>
+
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Cawangan</Form.Label>
 
                       <Form.Control
@@ -107,9 +112,9 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
-                <Row className="sahabatInfoSpacing">
-                  <Col xs={6}>
-                    <Form.Group className="carianSpacing">
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Pusat</Form.Label>
 
                       <Form.Control
@@ -119,8 +124,11 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                  <Col xs={6}>
-                    <Form.Group className="carianSpacing">
+                </Row>
+
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Kumpulan</Form.Label>
 
                       <Form.Control
@@ -134,7 +142,7 @@ function SearchResultSahabat() {
               </Container>
             </div>
 
-            <div className="contentDiv">
+            <div className="page-content-div">
               <hr />
             </div>
 
@@ -143,14 +151,14 @@ function SearchResultSahabat() {
               sahabatId={dataSahabat.id}
             />
           </div>
+
+          <div className="kembali-btn-container">
+            <Button className="kembali-btn" onClick={goBack}>
+              Kembali
+            </Button>{" "}
+          </div>
         </div>
       ))}
-
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
-          Kembali
-        </Button>{" "}
-      </div>
     </>
   );
 }

@@ -6,7 +6,14 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
-function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKegiatanOptions, projekKegiatanOptions, kodDimensisData}) {
+function CreateAktiviti({
+  sahabatId,
+  pembiayaanId,
+  kegiatanOptions,
+  keteranganKegiatanOptions,
+  projekKegiatanOptions,
+  kodDimensisData,
+}) {
   // ----------FE----------
   // Modal
   const [isModalCreateAktiviti, setIsModalCreateAktiviti] = useState(false);
@@ -26,7 +33,8 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKe
 
   // ----------BE----------
   const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] = useState("");
+  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
+    useState("");
   const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
 
   // Create aktiviti
@@ -55,7 +63,6 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKe
       <Button variant="primary" onClick={openModalCreateAktiviti}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-      
       <Modal
         show={isModalCreateAktiviti}
         onHide={closeModalCreateAktiviti}
@@ -301,12 +308,10 @@ function CreateAktiviti({ sahabatId, pembiayaanId, kegiatanOptions, keteranganKe
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalCreateAktiviti}>
+          <Button className="batal-btn" onClick={closeModalCreateAktiviti}>
             Batal
           </Button>
-          <Button variant="primary" onClick={handleSubmit(createAktiviti)}>
-            Simpan
-          </Button>
+          <Button onClick={handleSubmit(createAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </>

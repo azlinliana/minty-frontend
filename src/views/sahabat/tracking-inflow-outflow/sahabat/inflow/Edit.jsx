@@ -5,10 +5,16 @@ import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, kodInflowsData }) {
+function EditTrackingInflowSahabat({
+  mingguId,
+  inflowSahabatId,
+  inflowSahabat,
+  kodInflowsData,
+}) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] = useState(false);
+  const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] =
+    useState(false);
   const openModalEditInflowSahabat = () => setIsModalEditInflowSahabat(true);
   const closeModalEditInflowSahabat = () => {
     setIsModalEditInflowSahabat(false);
@@ -18,11 +24,13 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
       kodInflowId: inflowSahabat.kod_inflow.id,
       amaunInflow: inflowSahabat.amaunInflow,
     };
-  
+
     inflowSahabat.inflow_sahabat_terperincis.forEach((terperinci) => {
-      resetFields[`keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`] = terperinci.keteranganInflowTerperinci;
+      resetFields[
+        `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
+      ] = terperinci.keteranganInflowTerperinci;
     });
-  
+
     reset(resetFields);
   };
 
@@ -32,7 +40,7 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
     handleSubmit,
     setValue,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   // ----------BE----------
@@ -53,11 +61,13 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
       // Populate form data
       setValue("kodInflowId", inflowSahabat.kod_inflow.id);
       setValue("amaunInflow", inflowSahabat.amaunInflow);
-  
+
       // Set selected kod inflow and terperinci data
       setSelectedKodInflow(inflowSahabat.kod_inflow.kodInflow);
-      setShowKodInflowTerperinci(inflowSahabat.kod_inflow.kod_inflow_terperincis);
-  
+      setShowKodInflowTerperinci(
+        inflowSahabat.kod_inflow.kod_inflow_terperincis
+      );
+
       // Set terperinci values
       inflowSahabat.inflow_sahabat_terperincis.forEach((terperinci) => {
         setValue(
@@ -65,7 +75,7 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
           terperinci.keteranganInflowTerperinci
         );
       });
-  
+
       // Set default values for formData
       setFormData((prevData) => ({
         ...prevData,
@@ -76,7 +86,7 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
             item[
               `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
             ] = terperinci.keteranganInflowTerperinci;
-            
+
             return item;
           },
           {}
@@ -158,10 +168,9 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
 
   return (
     <div>
-      <Button className="editBtn" onClick={openModalEditInflowSahabat}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditInflowSahabat}>
+        Edit
       </Button>{" "}
-
       <Modal
         show={isModalEditInflowSahabat}
         onHide={closeModalEditInflowSahabat}
@@ -169,7 +178,7 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Inflow Sahabat</Modal.Title>
+          <Modal.Title>Edit Inflow Sahabat</Modal.Title>
         </Modal.Header>
 
         <Form onSubmit={handleSubmit(updateInflowSahabat)} onReset={reset}>
@@ -186,7 +195,9 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
                 }}
                 aria-invalid={errors.kodInflowId ? "true" : "false"}
               >
-                <option value="" disabled>--Pilih Kod Inflow--</option>
+                <option value="" disabled>
+                  --Pilih Kod Inflow--
+                </option>
                 {kodInflowsData.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
@@ -195,9 +206,7 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
               </Form.Control>
 
               {errors.kodInflowId?.type === "required" && (
-                <small className="text-danger">
-                  Kod inflow diperlukan.
-                </small>
+                <small className="text-danger">Kod inflow diperlukan.</small>
               )}
             </Form.Group>
 
@@ -257,21 +266,17 @@ function EditTrackingInflowSahabat({ mingguId, inflowSahabatId, inflowSahabat, k
               />
 
               {errors.amaunInflow?.type === "required" && (
-                <small className="text-danger">
-                  Amaun inflow diperlukan.
-                </small>
+                <small className="text-danger">Amaun inflow diperlukan.</small>
               )}
             </Form.Group>
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditInflowSahabat}>
+            <Button className="batal-btn" onClick={closeModalEditInflowSahabat}>
               Batal
             </Button>
 
-            <Button variant="primary" type="submit">
-              Simpan
-            </Button>
+            <Button type="submit">Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

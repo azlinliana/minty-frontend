@@ -1,119 +1,127 @@
-.pageTitle {
-  margin-left: 20px;
-  margin-top: 10px;
+/* **************************** */
+/* **** PAGE CARIAN SAHABAT ****/
+/* ************************** */
+.sahabat-search-container {
+    width: 100%;
+    border-radius: 10px;
 }
 
-/* *************** */
-/* Cari Sahabat Page */
-/* *************** */
-.searchSection {
+.sahabat-search-bar {
+  margin: 20px auto;
   width: 100%;
-  border-radius: 10px;
-}
-
-.searchBar {
-  padding: 15px 0 5px;
+  background-color: #fff;
+  border: 1px solid #dedede;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  padding: 15px 20px 10px 10px;
   width:100%;
 }
 
-.buttonContainer {
-  display: flex;
-  align-items: center; 
-  gap: 10px;
-  justify-content: flex-end;
-  margin-right: 20px;
-  margin-bottom:-10px;
+.carian-sahabat-input-field {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.col-md-2 {
+.sahabat-search-button {
   padding-left: 0%;
   padding-right: 0%;
 }
 
-.searchBarBtn {
-  width: 100%;
-  font-size: 1.15em;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.CarianSearchBarBtn {
+.carian-sahabat-search-btn {
   width: 100%;
 }
 
 @media(max-width: 767px) {
-  .CarianSearchBarBtn {
+  .carian-sahabat-search-btn {
     margin: 10px auto 10px 12px;
     width: 95%;
   }
 }
 
 
-/* *************************** */
-/* Hasil carian Sahabat Page */
-/* ************************ */
-.hasilCarianContent {
+/* ********************************* */
+/*** PAGE HASIL CARIAN SAHABAT ******/
+/* ******************************* */
+.hasil-carian-sahabat-content {
   margin: 0 15px;
   padding: 15px;
   background-color: var(--white);
 }
 
-.hasilCarian {
-  margin: 30px auto;
-  padding: 15px;
-  background-color: var(--white);
-}
-
-.searchResultId {
-  margin-left: 20px;
-}
-
-.searchResultId p {
-  font-weight: bold;
-}
-
-.hasilCarianSahabatTitle {
+.hasil-carian-sahabat-title {
   margin: 10px 10px;
 }
 
-.contentDiv {
+.search-result-id {
+  margin-left: 20px;
+}
+
+.search-result-id p {
+  font-weight: bold;
+}
+
+.page-content-div {
   margin: 30px auto;
 }
 
-.carianSpacing, .sahabatInfoSpacing {
+.sahabat-carian-spacing {
   margin-top: 10px;
 }
 
+.sahabat-pembiayaan-table-container {
+  margin: auto 20px;
+  font-size: 14px;
+}
 
-/* Card section */
-.cardSection {
+.sahabat-pembiayaan-table-container th {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.sahabat-track-minggu-entry {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.sahabat-pembiayaan-tab-container {
+  background-color: var(--white);
+}
+
+.sc-tracking-minggu-warning td {
+  color: #FF0000;
+}
+
+/* ************************************ */
+/*** PAGE HASIL CARIAN SAHABAT *********/
+/*** MAKLUMAT PEMBIAYAAN SAHABAT ******/
+/*********** CARD SECTION ************/
+/* ******************************** */
+
+.card-pembiayaan-sahabat-container {
   position: relative;
   margin-bottom: 30px;
 }
 
-.cardHeader {
+.card-pembiayaan-sahabat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cardBody {
+.card-pembiayaan-sahabat-content {
   display: flex;
   align-items: center;
 }
 
-.cardSkim {
+.card-skim-pembiayaan-header {
   margin-left: 10px;
   font-weight: 500;
 }
 
-.cardActions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+.card-badge-status {
+  margin-left: 5px;
 }
 
-.arrowPositioning {
+.card-skim-pembiayaan-arrow-position {
   cursor: pointer;
   position: absolute;
   left: -2%;
@@ -121,99 +129,64 @@
   transform: translateY(-120%);
 }
 
-.arrowPositioning svg {
+.card-skim-pembiayaan-arrow-position svg {
   box-shadow: 1px 2px #cfcece;
   border-radius: 100%;
   background-color: #13315C;
-  fill: white;
+  fill: var(--white);
 }
 
-.editLoanBtn {
-  font-size: 14px;
-}
-
-.statusLink {
-  color: #000;
-}
-
-/* Disable content when statusPembiayaan === "SELESAI" */
-.cardSection .disabledContent {
-  opacity: 0.7;
-}
-
-/* Minggu section */
-/* Tables CSS */
-.editBtn {
-  font-size: 0.75em;
-  font-weight: 700;
-  border-color: #FFAE42;
-  background-color: #FFAE42;
-  margin-bottom: 10px;
-}
-
-.delBtn {
-  font-size: 0.75em;
-  font-weight: 700;
-  border-color: #FF0000;
-  background-color: #FF0000;
-  margin-bottom: 10px;
-}
-
-.showBtn {
-  font-size: 0.75em;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.trackingMinggu {
-  text-decoration: underline;
+.sc-skim-pembiayaan-completed-indicator .sc-completion-indicator {
+  color: var(--darkgray);
   font-weight: bold;
+  opacity: 0.6;
 }
 
-/* Warning row in Minggu section */
-.warningRow td {
-  color: #FF0000;
+@media (max-width: 768px) {
+  .card-skim-pembiayaan-arrow-position {
+    left: -5%;
+  }
 }
 
-.maklumatPembiayaanSahabat {
-  margin-top: 10px;
+@media (min-width:1281px) {
+  .card-skim-pembiayaan-arrow-position {
+    left: -1.3%;
+  }
 }
 
+/* ************************************ */
+/*** PAGE HASIL CARIAN SAHABAT *********/
+/*** MAKLUMAT PEMBIAYAAN SAHABAT ******/
+/*********** CARD SECTION ************/
 /* ******************************** */
-/* Kemaskini Tracking Sahabat Page */
-/* ****************************** */
-.progressBarContainer {
-  margin-top: 50px;
-}
 
-.sahabatTrackingContent {
+.card-tambah-minggu-sahabat-content {
   margin: 0 15px;
   padding: 15px;
 }
 
-.sahabatInfoCard {
+.card-tambah-minggu-sahabat-more-content  {
   padding-bottom: 20px;
 }
 
-.editMingguBtnPlacement {
+.card-edit-minggu-btn {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 5px;
   font-size: 14px;
 }
 
-.trackWeek {
+.card-track-minggu-simple {
   font-weight: 500;
 }
 
-/* Index Aktiviti Page */
-.inputStepsContainer {
-  background-color: var(--white);
-  padding: 20px;
-}
+/* ************************************ */
+/*** PAGE HASIL CARIAN SAHABAT *********/
+/*** MAKLUMAT PEMBIAYAAN SAHABAT ******/
+/*********** TABS SECTION ************/
+/* ******************************** */
 
-/* Isi Rumah Tabs section */
-.isiRumahActionsPlacement {
+.tabs-isi-rumah-actions-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -221,21 +194,21 @@
   font-size: 14px;
 }
 
-.tableInflowOutflowMargin {
+.sc-tabs-table-inflow-outflow-margins {
   margin-top: 15px;
 }
 
-/* Stepper section */
+/* ************************************ */
+/*** PAGE HASIL CARIAN SAHABAT *********/
+/********* THE DREADED STEPPER *********/
+/* ************************************ */
 .MuiButton {
   background-color: #13315C;
 }
 
-/* *************** */
-/* Responsiveness */
-/* *************** */
-/* To fix the position of the arrow on the card */
-@media (max-width: 768px) {
-  .arrowPositioning {
-    left: -5%;
-  }
+.css-0 {
+  /* This represents the Box */
+  margin: 10px;
 }
+
+

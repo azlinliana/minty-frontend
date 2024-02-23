@@ -48,7 +48,7 @@ function CreatePembiayaan({ sahabatId }) {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreatePembiayaanSahabat}>
+        <Button onClick={openModalCreatePembiayaanSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Pembiayaan
         </Button>{" "}
         <Modal
@@ -98,15 +98,12 @@ function CreatePembiayaan({ sahabatId }) {
 
           <Modal.Footer>
             <Button
-              variant="secondary"
+              className="batal-btn"
               onClick={closeModalCreatePembiayaanSahabat}
             >
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(createPembiayaanSahabat)}
-            >
+            <Button onClick={handleSubmit(createPembiayaanSahabat)}>
               Tambah
             </Button>
           </Modal.Footer>

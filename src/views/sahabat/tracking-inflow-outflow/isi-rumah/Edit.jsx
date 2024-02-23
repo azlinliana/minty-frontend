@@ -44,9 +44,7 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubungansData }) {
   return (
     <>
       <div>
-        <span className="statusLink" onClick={openModalEditIsiRumah}>
-          Kemas Kini
-        </span>{" "}
+        <span onClick={openModalEditIsiRumah}>Edit</span>{" "}
         <Modal
           show={isModalEditIsiRumah}
           onHide={closeModalEditIsiRumah}
@@ -54,7 +52,7 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubungansData }) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Isi Rumah</Modal.Title>
+            <Modal.Title>Edit Isi Rumah</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -152,12 +150,10 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubungansData }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditIsiRumah}>
+            <Button className="batal-btn" onClick={closeModalEditIsiRumah}>
               Batal
             </Button>
-            <Button variant="primary" onClick={handleSubmit(updateIsiRumah)}>
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(updateIsiRumah)}>Simpan</Button>
           </Modal.Footer>
         </Modal>
       </div>

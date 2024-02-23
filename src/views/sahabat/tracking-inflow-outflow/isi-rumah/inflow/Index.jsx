@@ -107,9 +107,9 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
 
   return (
     <>
-      <div className="tableSection">
+      <div className="sahabat-pembiayaan-table-container">
         {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
-          <div className="tambahBtnPlacement">
+          <div className="tambah-baru-btn-container">
             <CreateTrackingInflowIsiRumah
               isiRumahId={isiRumahId}
               kodInflowsData={kodInflowsData}
@@ -161,7 +161,7 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData }) {
                         kodInflowsData={kodInflowsData}
                       />
                       <Button
-                        className="delBtn"
+                        className="delete-btn"
                         onClick={() =>
                           deleteInflowIsiRumah(inflowIsiRumahsData.id)
                         }

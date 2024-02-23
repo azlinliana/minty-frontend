@@ -26,7 +26,7 @@ function TrackingInflowOutflow() {
 
   return (
     <div>
-      <div className="pageTitle">
+      <div className="page-title">
         {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
           <h1>Kemas Kini Tracking Sahabat</h1>
         ) : (
@@ -34,11 +34,11 @@ function TrackingInflowOutflow() {
         )}
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Carian Sahabat
           </Breadcrumb.Item>
 
-          <Breadcrumb.Item className="previousLink" href="#">
+          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Hasil Carian Sahabat
           </Breadcrumb.Item>
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
@@ -69,8 +69,8 @@ function TrackingInflowOutflow() {
         pembiayaanSahabatsData={pembiayaanSahabatsData}
       />
 
-      <div className="kembaliBtnPlacement">
-        <Button className="kembaliBtn" onClick={goBack}>
+      <div className="kembali-btn-container">
+        <Button className="kembali-btn" onClick={goBack}>
           Kembali
         </Button>{" "}
       </div>

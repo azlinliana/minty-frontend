@@ -52,8 +52,8 @@ function EditTrackingOutflowSahabat({
   return (
     <>
       <div>
-        <Button className="editBtn" onClick={openModalEditOutflowSahabat}>
-          Kemas Kini
+        <Button className="edit-btn" onClick={openModalEditOutflowSahabat}>
+          Edit
         </Button>{" "}
         <Modal
           show={isModalEditOutflowSahabat}
@@ -62,7 +62,7 @@ function EditTrackingOutflowSahabat({
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Outflow Sahabat</Modal.Title>
+            <Modal.Title>Edit Outflow Sahabat</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -132,15 +132,13 @@ function EditTrackingOutflowSahabat({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditOutflowSahabat}>
+            <Button
+              className="batal-btn"
+              onClick={closeModalEditOutflowSahabat}
+            >
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(updateOutflowSahabat)}
-            >
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(updateOutflowSahabat)}>Simpan</Button>
           </Modal.Footer>
         </Modal>
       </div>

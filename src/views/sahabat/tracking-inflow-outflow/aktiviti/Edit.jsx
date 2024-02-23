@@ -67,8 +67,8 @@ function EditAktiviti({
 
   return (
     <>
-      <Button className="editBtn" onClick={openModalEditAktiviti}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditAktiviti}>
+        Edit
       </Button>{" "}
       <Modal
         show={isModalEditAktiviti}
@@ -77,7 +77,7 @@ function EditAktiviti({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Aktiviti Sahabat</Modal.Title>
+          <Modal.Title>Edit Aktiviti Sahabat</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -321,12 +321,10 @@ function EditAktiviti({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalEditAktiviti}>
+          <Button className="batal-btn" onClick={closeModalEditAktiviti}>
             Batal
           </Button>
-          <Button variant="primary" onClick={handleSubmit(updateAktiviti)}>
-            Simpan
-          </Button>
+          <Button onClick={handleSubmit(updateAktiviti)}>Simpan</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -46,7 +46,7 @@ function CreateTrackingIsiRumah({ mingguId, hubungansData }) {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreateIsiRumah}>
+        <Button onClick={openModalCreateIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
         <Modal
@@ -152,12 +152,10 @@ function CreateTrackingIsiRumah({ mingguId, hubungansData }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateIsiRumah}>
+            <Button className="batal-btn" onClick={closeModalCreateIsiRumah}>
               Batal
             </Button>
-            <Button variant="primary" onClick={handleSubmit(createIsiRumah)}>
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(createIsiRumah)}>Simpan</Button>
           </Modal.Footer>
         </Modal>
       </div>

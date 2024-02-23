@@ -48,7 +48,7 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreateOutflowSahabat}>
+        <Button onClick={openModalCreateOutflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
         <Modal
@@ -125,15 +125,10 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateOutflow}>
+            <Button className="batal-btn" onClick={closeModalCreateOutflow}>
               Batal
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleSubmit(createOutflowSahabat)}
-            >
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(createOutflowSahabat)}>Simpan</Button>
           </Modal.Footer>
         </Modal>
       </div>

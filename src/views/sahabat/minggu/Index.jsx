@@ -8,21 +8,39 @@ import { Button, Table, Alert } from "react-bootstrap";
 import axiosCustom from "../../../axios";
 import Swal from "sweetalert2";
 
-function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabatsData, handleCheckIndexMingguConditionEachPembiayaan }) {
+function IndexMinggu({
+  resultSahabat,
+  sahabatId,
+  pembiayaanId,
+  pembiayaanSahabatsData,
+  handleCheckIndexMingguConditionEachPembiayaan,
+}) {
   // ----------FE----------
   const navigate = useNavigate();
-  
+
   // Click Kemas Kini button
   const clickKemasKiniMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
-      state: { resultSahabat, sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }
+      state: {
+        resultSahabat,
+        sahabatId,
+        pembiayaanId,
+        mingguId,
+        pembiayaanSahabatsData,
+      },
     });
   };
 
   // Click Lihat button
   const clickLihatMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
-      state: { resultSahabat, sahabatId, pembiayaanId, mingguId, pembiayaanSahabatsData }
+      state: {
+        resultSahabat,
+        sahabatId,
+        pembiayaanId,
+        mingguId,
+        pembiayaanSahabatsData,
+      },
     });
   };
 
@@ -42,7 +60,8 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
         ErrorAlert(response); // Error from the backend or unknown error from the server side
       }
     } catch (error) {
-      if (error.response &&
+      if (
+        error.response &&
         (error.response.status === 503 || error.response.status === 429)
       ) {
         // The server is not ready, ignore the error
@@ -95,19 +114,24 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
   // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
   // | Hidden status pembiayaan case                |
   // ------------------------------------------------
-  // // State to store condition
-  const [checkMingguPembiayaanSahabatLength, setCheckMingguPembiayaanSahabatLength] = useState(false); // Condition 1
-  const [checkIncompleteMingguPembiayaanSahabats, setCheckIncompleteMingguPembiayaanSahabats] = useState(false); // Condition 2
+  const [
+    checkMingguPembiayaanSahabatLength,
+    setCheckMingguPembiayaanSahabatLength,
+  ] = useState(false); // Condition 1
+  const [
+    checkIncompleteMingguPembiayaanSahabats,
+    setCheckIncompleteMingguPembiayaanSahabats,
+  ] = useState(false); // Condition 2
   const [conditionsByPembiayaan, setConditionsByPembiayaan] = useState({});
-  
+
   useEffect(() => {
     let isMounted = true;
-  
+
     const checkConditions = () => {
       setCheckMingguPembiayaanSahabatLength(
         mingguPembiayaanSahabats.length === 0
       );
-  
+
       setCheckIncompleteMingguPembiayaanSahabats(
         mingguPembiayaanSahabats.some(
           (minggu) =>
@@ -116,11 +140,13 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
         )
       );
     };
-  
+
     checkConditions();
-  
-    const conditionsResults = checkMingguPembiayaanSahabatLength || checkIncompleteMingguPembiayaanSahabats;
-  
+
+    const conditionsResults =
+      checkMingguPembiayaanSahabatLength ||
+      checkIncompleteMingguPembiayaanSahabats;
+
     // Update conditionsByPembiayaan with the conditions for the current pembiayaanId
     setConditionsByPembiayaan((prevConditions) => {
       return {
@@ -128,26 +154,26 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
         [pembiayaanId]: conditionsResults,
       };
     });
-  
+
     // Pass back the conditionsResults to the IndexPembiayaan (Parent)
-    handleCheckIndexMingguConditionEachPembiayaan(pembiayaanId, conditionsResults);
+    handleCheckIndexMingguConditionEachPembiayaan(
+      pembiayaanId,
+      conditionsResults
+    );
 
     return () => {
       // Cleanup function to set isMounted to false when the component is unmounted
       isMounted = false;
     };
   }, [mingguPembiayaanSahabats, pembiayaanId]);
-  
+
   return (
     <>
-      <div className="tableSection">
+      <div className="sahabat-pembiayaan-table-container">
         {/* Hide tambah minggu button */}
         {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" && (
-          <div className="tambahBtnPlacement">
-            <CreateMinggu 
-              sahabatId={sahabatId} 
-              pembiayaanId={pembiayaanId}
-            />
+          <div className="tambah-baru-btn-container">
+            <CreateMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
           </div>
         )}
 
@@ -155,24 +181,23 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
           (minggu) =>
             minggu.totalInflow === "Tiada maklumat" ||
             minggu.totalOutflow === "Tiada maklumat"
-          ) && (
-            <Alert variant="danger">
-              Sila tambah maklumat untuk minggu{" "}
-              <span className="trackingMinggu">
-                {mingguPembiayaanSahabats
-                  .filter(
-                    (minggu) =>
-                      minggu.totalInflow === "Tiada maklumat" ||
-                      minggu.totalOutflow === "Tiada maklumat"
-                  )
-                  .map((minggu) => minggu.bilanganMinggu)
-                  .sort((a, b) => a - b)
-                  .join(", ")}
-              </span>
-              . Klik butang "Kemas Kini" bagi minggu berkenaan.
-            </Alert>
-          )
-        }
+        ) && (
+          <Alert variant="danger">
+            Sila tambah maklumat untuk minggu{" "}
+            <span className="sahabat-track-minggu-entry">
+              {mingguPembiayaanSahabats
+                .filter(
+                  (minggu) =>
+                    minggu.totalInflow === "Tiada maklumat" ||
+                    minggu.totalOutflow === "Tiada maklumat"
+                )
+                .map((minggu) => minggu.bilanganMinggu)
+                .sort((a, b) => a - b)
+                .join(", ")}
+            </span>
+            . Klik butang "Kemas Kini" bagi minggu berkenaan.
+          </Alert>
+        )}
 
         <Table responsive>
           <thead>
@@ -203,14 +228,20 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
                     className={
                       mingguPembiayaanSahabatsData.totalOutflow ===
                       "Tiada maklumat"
-                        ? "warningRow"
+                        ? "sc-tracking-minggu-warning"
                         : ""
                     }
                   >
-                    <td>{mingguPembiayaanSahabatsData.bilanganMinggu}</td>
-                    <td>{mingguPembiayaanSahabatsData.totalInflow}</td>
-                    <td>{mingguPembiayaanSahabatsData.totalOutflow}</td>
-                    <td>
+                    <td className="sc-completion-indicator">
+                      {mingguPembiayaanSahabatsData.bilanganMinggu}
+                    </td>
+                    <td className="sc-completion-indicator">
+                      {mingguPembiayaanSahabatsData.totalInflow}
+                    </td>
+                    <td className="sc-completion-indicator">
+                      {mingguPembiayaanSahabatsData.totalOutflow}
+                    </td>
+                    <td className="sc-completion-indicator">
                       {new Date(
                         mingguPembiayaanSahabatsData.tarikhBorangMinggu
                       ).toLocaleDateString("en-GB")}
@@ -219,19 +250,20 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
                       {/* Conditionally render buttons based on pembiayaan status */}
                       {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                         <>
-                          {/* Render Kemas Kini button */}
+                          {/* Render Edit button */}
                           <Button
-                            className="editBtn"
+                            className="edit-btn"
                             onClick={() =>
-                              clickKemasKiniMinggu(mingguPembiayaanSahabatsData.id)
+                              clickKemasKiniMinggu(
+                                mingguPembiayaanSahabatsData.id
+                              )
                             }
                           >
-                            Kemas Kini
+                            Edit
                           </Button>{" "}
-
                           {/* Render Padam button */}
                           <Button
-                            className="delBtn"
+                            className="delete-btn"
                             onClick={() =>
                               deleteMingguPembiayaanSahabats(
                                 mingguPembiayaanSahabatsData.id
@@ -244,7 +276,7 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
                       ) : (
                         // Render Lihat button when pembiayaan status is SELESAI
                         <Button
-                          className="showBtn"
+                          className="show-btn sc-show-btn-completed-pembiayaan"
                           onClick={() =>
                             clickLihatMinggu(mingguPembiayaanSahabatsData.id)
                           }
@@ -253,7 +285,6 @@ function IndexMinggu({ resultSahabat, sahabatId, pembiayaanId, pembiayaanSahabat
                         </Button>
                       )}
                     </td>
-
                   </tr>
                 )
               )

@@ -44,7 +44,9 @@ function IndexAktiviti({
   // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
   const [kegiatanOptions, setKegiatanOptions] = useState([]);
 
-  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState([]);
+  const [keteranganKegiatanOptions, setKeteranganKegiatanOptions] = useState(
+    []
+  );
 
   const [projekKegiatanOptions, setProjekKegiatanOptions] = useState([]);
 
@@ -187,12 +189,12 @@ function IndexAktiviti({
 
   return (
     <>
-      <div className="inputStepsContainer">
+      <div>
         <h2>Maklumat Aktiviti Sahabat</h2>
 
-        <div className="tableSection">
+        <div className="sahabat-pembiayaan-table-container">
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
-            <div className="tambahBtnPlacement">
+            <div className="tambah-baru-btn-container">
               <CreateAktiviti
                 sahabatId={sahabatId}
                 pembiayaanId={pembiayaanId}
@@ -262,7 +264,7 @@ function IndexAktiviti({
                         />
 
                         <Button
-                          className="delBtn"
+                          className="delete-btn"
                           onClick={() => deleteAktiviti(aktivitisData.id)}
                         >
                           Padam

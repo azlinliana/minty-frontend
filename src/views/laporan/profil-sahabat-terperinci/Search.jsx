@@ -91,7 +91,7 @@ function SearchProfilSahabatTerperinci() {
             </div>
 
             <div className="laporan-maklumat-sahabat-details-container">
-              <Container className="laporan-maklumat-sahabat-details">
+              <Container fluid className="laporan-maklumat-sahabat-details">
                 <Row>
                   <Col xs={12}>
                     <Form.Group>
@@ -137,7 +137,7 @@ function SearchProfilSahabatTerperinci() {
               <h3>Pilih Skim Pembiayaan</h3>
             </div>
 
-            <Container>
+            <Container fluid>
               {pembiayaanSahabats.length === 0 ? (
                 <Alert variant="secondary">
                   Tiada maklumat pembiayaan untuk sahabat ini. Sila isi maklumat

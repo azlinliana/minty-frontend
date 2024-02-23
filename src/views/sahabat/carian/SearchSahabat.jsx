@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import "../../../assets/styles/styles_sahabat.css";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import { Form, Button, Row } from "react-bootstrap";
+import "../../../assets/styles/styles_sahabat.css";
 import axiosCustom from "../../../axios";
 
 function SearchSahabat() {
@@ -18,13 +18,13 @@ function SearchSahabat() {
 
   // ----------BE----------
   const navigate = useNavigate();
-  
+
   const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
     try {
       const response = await axiosCustom.get(
         `/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
       );
-      
+
       if (response.status === 200) {
         navigate("/hasil-carian-sahabat", {
           state: { resultSahabat: response.data },
@@ -39,55 +39,59 @@ function SearchSahabat() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Carian Sahabat</h1>
       </div>
 
-      <div className="container-fluid searchSection">
+      <Container fluid className="sahabat-search-container">
         <Form
-          className="searchBar"
+          className="sahabat-search-bar"
           onSubmit={handleSubmit(searchNoKadPengenalanSahabat)}
           onReset={reset}
         >
           <Row>
-            <Form.Group className="col-md-10">
-              <Controller
-                id="noKadPengenalanSahabat"
-                name="noKadPengenalanSahabat"
-                control={control}
-                defaultValue=""
-                rules={{ required: "No. kad pengenalan sahabat diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    maxLength={12}
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan no. kad pengenalan sahabat"
-                    autoFocus
-                  />
+            <Col xs={12} lg={10}>
+              <Form.Group>
+                <Controller
+                  id="noKadPengenalanSahabat"
+                  name="noKadPengenalanSahabat"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "No. kad pengenalan sahabat diperlukan." }}
+                  render={({ field: { onChange, value } }) => (
+                    <Form.Control
+                      className="carian-sahabat-input-field"
+                      type="text"
+                      maxLength={12}
+                      onChange={onChange}
+                      value={value}
+                      placeholder="Masukkan no. kad pengenalan sahabat"
+                      autoFocus
+                    />
+                  )}
+                />
+                {errors.noKadPengenalanSahabat && (
+                  <small className="text-danger">
+                    {errors.noKadPengenalanSahabat.message}
+                  </small>
                 )}
-              />
-              {errors.noKadPengenalanSahabat && (
-                <small className="text-danger">
-                  {errors.noKadPengenalanSahabat.message}
-                </small>
-              )}
-            </Form.Group>
-
-            <Form.Group className="col-md-2">
-              <div>
-                <Button
-                  className="CarianSearchBarBtn"
-                  onClick={handleSubmit(searchNoKadPengenalanSahabat)}
-                >
-                  Cari
-                </Button>
-              </div>
-            </Form.Group>
+              </Form.Group>
+            </Col>
+            <Col xs={12} lg={2} className="sahabat-search-button">
+              <Form.Group>
+                <div>
+                  <Button
+                    className="carian-sahabat-search-btn"
+                    onClick={handleSubmit(searchNoKadPengenalanSahabat)}
+                  >
+                    Cari
+                  </Button>
+                </div>
+              </Form.Group>
+            </Col>
           </Row>
         </Form>
-      </div>
+      </Container>
     </>
   );
 }

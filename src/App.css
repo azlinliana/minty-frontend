@@ -17,6 +17,7 @@
   --black: #000000;
   --darkcyanblue: #13315C;
   --lightgray: #D9D9D9;
+  --darkgray: #808080;
   --activegreen: #008000;
   --noticeyellow: #ffae42;
   --error_red: #FF0000;
@@ -32,22 +33,12 @@ a {
 
 .btn {
   font-weight: 700;
-  border-color: #134074;
-  background-color: #134074;
-}
-  
-.btn:hover {
- color: #134074;
- background-color: #FFFFFF;
+  border-color: #13315C;
+  background-color: #13315C;
+  --bs-btn-hover-bg: #07459c;
 }
 
-.btn:focus {
-  background-color: #fff;
-  border-color: #000;
-  color: #000;
-}
-
-.kembali-btn-container, .tambahBtnPlacement {
+.kembali-btn-container, .tambah-baru-btn-container {
   display: flex;
   justify-content: flex-end;
   margin: 10px 20px;
@@ -90,6 +81,12 @@ a {
   margin-bottom: 10px;
 }
 
+.show-btn {
+  font-size: 0.75em;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
 /* ************************** */
 /* ****** PAGE HEADER ****** */
 /* *********************** */
@@ -104,7 +101,7 @@ a {
 /* ******************************* */
 
 .breadcrumb-previous-link a {
-  color: #13315C;
+  color: var(--darkcyanblue);
   text-decoration: underline;
 }
 
@@ -112,3 +109,12 @@ a {
   font-weight: 700;
 }
 
+/* ******************** */
+/* ****** MODAL ****** */
+/* ****************** */
+
+/* .modal-primary-btn {
+  font-weight: 700;
+  border-color: var(--darkcyanblue) !important;
+  background-color: var(--darkcyanblue) !important;
+} */
