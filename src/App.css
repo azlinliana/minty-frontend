@@ -71,6 +71,7 @@ a {
   border-color: var(--noticeyellow);
   background-color: var(--noticeyellow);
   margin-bottom: 10px;
+  --bs-btn-hover-bg: #808080;
 }
 
 .delete-btn {
@@ -79,6 +80,7 @@ a {
   border-color: var(--error_red);
   background-color: var(--error_red);
   margin-bottom: 10px;
+  --bs-btn-hover-bg: #000000;
 }
 
 .show-btn {

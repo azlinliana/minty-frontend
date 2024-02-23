@@ -66,10 +66,9 @@ function EditKodOutflow({ kodOutflow }) {
 
   return (
     <>
-      <Button className="editBtn" onClick={openModalEditKodOutflow}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditKodOutflow}>
+        Edit
       </Button>{" "}
-
       <Modal
         show={isModalEditKodOutflow}
         onHide={closeModalEditKodOutflow}
@@ -77,7 +76,7 @@ function EditKodOutflow({ kodOutflow }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Kod Outflow</Modal.Title>
+          <Modal.Title>Edit Kod Outflow</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
@@ -93,14 +92,14 @@ function EditKodOutflow({ kodOutflow }) {
               />
 
               {errors.kodOutflow?.type === "required" && (
-                <small className="text-danger">
-                  Kod outflow diperlukan.
-                </small>
+                <small className="text-danger">Kod outflow diperlukan.</small>
               )}
             </Form.Group>
 
             <Form.Group controlId="keteranganKodOutflow" className="mb-3">
-              <Form.Label className="form-label">Keterangan Kod Outflow</Form.Label>
+              <Form.Label className="form-label">
+                Keterangan Kod Outflow
+              </Form.Label>
 
               <Form.Control
                 as="textarea"
@@ -142,13 +141,11 @@ function EditKodOutflow({ kodOutflow }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditKodOutflow}>
+            <Button className="batal-btn" onClick={closeModalEditKodOutflow}>
               Batal
             </Button>
-            
-            <Button variant="primary" onClick={handleSubmit(updateKodOutflow)}>
-              Simpan
-            </Button>
+
+            <Button onClick={handleSubmit(updateKodOutflow)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

@@ -8,8 +8,12 @@ import axiosCustom from "../../../../axios";
 function EditWithoutKodInflowTerperinci({ kodInflow }) {
   // ----------FE----------
   // Modal
-  const [isModalEditKodInflowWithoutKodInflowTerperinci, setIsModalEditKodInflowWithoutKodInflowTerperinci] = useState(false);
-  const openModalEditKodInflowWithoutKodInflowTerperinci = () => setIsModalEditKodInflowWithoutKodInflowTerperinci(true);
+  const [
+    isModalEditKodInflowWithoutKodInflowTerperinci,
+    setIsModalEditKodInflowWithoutKodInflowTerperinci,
+  ] = useState(false);
+  const openModalEditKodInflowWithoutKodInflowTerperinci = () =>
+    setIsModalEditKodInflowWithoutKodInflowTerperinci(true);
   const closeModalEditKodInflowWithoutKodInflowTerperinci = () => {
     setIsModalEditKodInflowWithoutKodInflowTerperinci(false);
   };
@@ -46,7 +50,9 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
     }));
   }, [kodInflow, setValue]);
 
-  const updateKodInflowWithoutKodInflowTerperinci = async (kodInflowWithoutKodInflowTerperinciInput) => {
+  const updateKodInflowWithoutKodInflowTerperinci = async (
+    kodInflowWithoutKodInflowTerperinciInput
+  ) => {
     try {
       const response = await axiosCustom.put(
         `/selenggara/kod-inflow/${kodInflow.id}`,
@@ -68,12 +74,11 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
     <>
       <div>
         <Button
-          className="editBtn"
+          className="edit-btn"
           onClick={openModalEditKodInflowWithoutKodInflowTerperinci}
         >
-          Kemas Kini
+          Edit
         </Button>{" "}
-
         <Modal
           show={isModalEditKodInflowWithoutKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithoutKodInflowTerperinci}
@@ -81,7 +86,7 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Kod Inflow</Modal.Title>
+            <Modal.Title>Edit Kod Inflow</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
@@ -97,14 +102,14 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
                 />
 
                 {errors.kodInflow?.type === "required" && (
-                  <small className="text-danger">
-                    Kod inflow diperlukan.
-                  </small>
+                  <small className="text-danger">Kod inflow diperlukan.</small>
                 )}
               </Form.Group>
 
               <Form.Group controlId="keteranganKodInflow" className="mb-3">
-                <Form.Label className="form-label">Keterangan Kod Inflow</Form.Label>
+                <Form.Label className="form-label">
+                  Keterangan Kod Inflow
+                </Form.Label>
 
                 <Form.Control
                   as="textarea"
@@ -121,7 +126,9 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
               </Form.Group>
 
               <Form.Group controlId="statusKodInflow" className="mb-3">
-                <Form.Label className="form-label">Status Kod Inflow</Form.Label>
+                <Form.Label className="form-label">
+                  Status Kod Inflow
+                </Form.Label>
 
                 <Form.Control
                   as="select"
@@ -146,11 +153,18 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}>
+              <Button
+                className="batal-btn"
+                onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}
+              >
                 Batal
               </Button>
 
-              <Button variant="primary" onClick={handleFormSubmit(updateKodInflowWithoutKodInflowTerperinci)}>
+              <Button
+                onClick={handleFormSubmit(
+                  updateKodInflowWithoutKodInflowTerperinci
+                )}
+              >
                 Simpan
               </Button>
             </Modal.Footer>

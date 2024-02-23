@@ -17,7 +17,7 @@ function PinjamanAktiviti() {
         <Breadcrumb.Item active>Pinjaman Aktiviti</Breadcrumb.Item>
       </Breadcrumb>
       <p>Perlu kenal pasti keperluan page ini</p>
-      <Button variant="secondary" onClick={goBack}>
+      <Button className="batal-btn" onClick={goBack}>
         Kembali
       </Button>{" "}
     </>

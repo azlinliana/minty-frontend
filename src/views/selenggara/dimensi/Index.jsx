@@ -12,9 +12,11 @@ import axiosCustom from "../../../axios";
 function IndexDimensi() {
   // ----------FE----------
   const navigate = useNavigate();
-  
+
   // Back button
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // ----------BE----------
   // List dimensi
@@ -70,19 +72,22 @@ function IndexDimensi() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Dimensi</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="selenggara">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="selenggara"
+          >
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Dimensi</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div className="tableSection">
-        <div className="tambahBtnPlacement">
+      <div className="selenggara-table-container">
+        <div className="tambah-baru-btn-container">
           <CreateDimensi />
         </div>
 
@@ -116,9 +121,8 @@ function IndexDimensi() {
                   <td>{dimensisData.statusDimensi}</td>
                   <td>
                     <EditDimensi dimensi={dimensisData} />
-                    
                     <Button
-                      className="delBtn"
+                      className="delete-btn"
                       onClick={() => deleteDimensi(dimensisData.id)}
                     >
                       Padam
@@ -130,8 +134,8 @@ function IndexDimensi() {
           </tbody>
         </Table>
 
-        <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
+        <div className="kembali-btn-container">
+          <Button className="kembali-btn" onClick={goBack}>
             Kembali
           </Button>{" "}
         </div>

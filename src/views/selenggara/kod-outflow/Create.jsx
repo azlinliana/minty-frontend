@@ -46,10 +46,9 @@ function CreateKodOutflow() {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateKodOutflow}>
+      <Button onClick={openModalCreateKodOutflow}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
       <Modal
         show={isModalCreateKodOutflow}
         onHide={closeModalCreateKodOutflow}
@@ -73,15 +72,15 @@ function CreateKodOutflow() {
               />
 
               {errors.kodOutflow?.type === "required" && (
-                <small className="text-danger">
-                  Kod outflow diperlukan.
-                </small>
+                <small className="text-danger">Kod outflow diperlukan.</small>
               )}
             </Form.Group>
 
             <Form.Group controlId="keteranganKodOutflow" className="mb-3">
-              <Form.Label className="form-label">Keterangan Kod Outflow</Form.Label>
-              
+              <Form.Label className="form-label">
+                Keterangan Kod Outflow
+              </Form.Label>
+
               <Form.Control
                 type="text"
                 {...register("keteranganKodOutflow", { required: true })}
@@ -98,13 +97,11 @@ function CreateKodOutflow() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateKodOutflow}>
+            <Button className="batal-btn" onClick={closeModalCreateKodOutflow}>
               Batal
             </Button>
-            
-            <Button variant="primary" onClick={handleSubmit(createKodOutflow)}>
-              Simpan
-            </Button>
+
+            <Button onClick={handleSubmit(createKodOutflow)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

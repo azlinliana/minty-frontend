@@ -5,27 +5,27 @@
 
 /* Index Selenggara */
 
-.tableSection {
+.selenggara-table-container {
     margin: auto 20px;
     font-size: 14px;
 }
 
-.tableSection th {
+.selenggara-table-container th {
     font-size: 1em;
     font-weight: 700;
 }
 
-.tableBil {
+.selenggara-table-index {
     width: 5%;
     text-align: center;
 }
 
-.tableTindakan {
+.selenggara-table-action-btn-container {
     width: 15%;
     text-align: center;
 }
 
-.indexSelenggaraBtn {
+.selenggara-table-action-btn {
     width: 100%;
 }
 

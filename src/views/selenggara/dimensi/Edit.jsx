@@ -66,10 +66,9 @@ function EditDimensi({ dimensi }) {
 
   return (
     <div>
-      <Button className="editBtn" onClick={openModalEditDimensi}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditDimensi}>
+        Edit
       </Button>{" "}
-
       <Modal
         show={isModalEditDimensi}
         onHide={closeModalEditDimensi}
@@ -77,7 +76,7 @@ function EditDimensi({ dimensi }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Dimensi</Modal.Title>
+          <Modal.Title>Edit Dimensi</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
@@ -93,9 +92,7 @@ function EditDimensi({ dimensi }) {
               />
 
               {errors.kodDimensi?.type === "required" && (
-                <small className="text-danger">
-                  Kod dimensi diperlukan.
-                </small>
+                <small className="text-danger">Kod dimensi diperlukan.</small>
               )}
             </Form.Group>
 
@@ -142,13 +139,11 @@ function EditDimensi({ dimensi }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditDimensi}>
+            <Button className="batal-btn" onClick={closeModalEditDimensi}>
               Batal
             </Button>
 
-            <Button variant="primary" onClick={handleSubmit(updateDimensi)}>
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(updateDimensi)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

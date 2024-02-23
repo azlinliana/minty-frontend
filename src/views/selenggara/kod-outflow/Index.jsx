@@ -13,12 +13,14 @@ function IndexKodOutflow() {
   const navigate = useNavigate();
 
   // Back button
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // ----------BE----------
   // List kod outflow
   const [kodOutflows, setKodOutflows] = useState([]);
-  
+
   const fetchKodOutflows = async () => {
     try {
       const response = await axiosCustom.get(`/selenggara/kod-outflow`);
@@ -71,19 +73,22 @@ function IndexKodOutflow() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Kod Outflow</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="selenggara">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="selenggara"
+          >
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Kod Outflow</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div className="tableSection">
-        <div className="tambahBtnPlacement">
+      <div className="selenggara-table-container">
+        <div className="tambah-baru-btn-container">
           <CreateKodOutflow />
         </div>
 
@@ -117,9 +122,8 @@ function IndexKodOutflow() {
                   <td>{kodOutflowsData.statusKodOutflow}</td>
                   <td>
                     <EditKodOutflow kodOutflow={kodOutflowsData} />
-                    
                     <Button
-                      className="delBtn"
+                      className="delete-btn"
                       variant="danger"
                       onClick={() => deleteKodOutflow(kodOutflowsData.id)}
                     >
@@ -132,8 +136,8 @@ function IndexKodOutflow() {
           </tbody>
         </Table>
 
-        <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
+        <div className="kembali-btn-container">
+          <Button className="kembali-btn" onClick={goBack}>
             Kembali
           </Button>{" "}
         </div>

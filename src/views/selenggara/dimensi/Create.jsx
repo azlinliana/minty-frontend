@@ -44,10 +44,9 @@ function CreateDimensi() {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateDimensi}>
+      <Button onClick={openModalCreateDimensi}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
       <Modal
         show={isModalCreateDimensi}
         onHide={closeModalCreateDimensi}
@@ -62,7 +61,7 @@ function CreateDimensi() {
           <Modal.Body>
             <Form.Group controlId="kodDimensi" className="mb-3">
               <Form.Label className="form-label">Kod Dimensi</Form.Label>
-              
+
               <Form.Control
                 type="text"
                 {...register("kodDimensi", { required: true })}
@@ -71,9 +70,7 @@ function CreateDimensi() {
               />
 
               {errors.kodDimensi?.type === "required" && (
-                <small className="text-danger">
-                  Kod dimensi diperlukan.
-                </small>
+                <small className="text-danger">Kod dimensi diperlukan.</small>
               )}
             </Form.Group>
 
@@ -96,13 +93,11 @@ function CreateDimensi() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateDimensi}>
+            <Button className="batal-btn" onClick={closeModalCreateDimensi}>
               Batal
             </Button>
 
-            <Button variant="primary" onClick={handleSubmit(createDimensi)} >
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(createDimensi)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

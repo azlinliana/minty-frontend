@@ -14,7 +14,9 @@ function IndexHubungan() {
   const navigate = useNavigate();
 
   // Back button
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // ----------BE----------
   // List hubungan
@@ -70,19 +72,22 @@ function IndexHubungan() {
 
   return (
     <>
-      <div className="pageTitle">
+      <div className="page-title">
         <h1>Hubungan</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="previousLink" href="selenggara">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="selenggara"
+          >
             Senarai Selenggara
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Hubungan</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
-      <div className="tableSection">
-        <div className="tambahBtnPlacement">
+      <div className="selenggara-table-container">
+        <div className="tambah-baru-btn-container">
           <CreateHubungan />
         </div>
 
@@ -116,9 +121,8 @@ function IndexHubungan() {
                   <td>{hubungansData.statusHubungan}</td>
                   <td>
                     <EditHubungan hubungan={hubungansData} />
-
                     <Button
-                      className="delBtn"
+                      className="delete-btn"
                       onClick={() => deleteHubungan(hubungansData.id)}
                     >
                       Padam
@@ -130,8 +134,8 @@ function IndexHubungan() {
           </tbody>
         </Table>
 
-        <div className="kembaliBtnPlacement">
-          <Button className="kembaliBtn" onClick={goBack}>
+        <div className="kembali-btn-container">
+          <Button className="kembali-btn" onClick={goBack}>
             Kembali
           </Button>{" "}
         </div>
