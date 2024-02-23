@@ -8,8 +8,12 @@ import axiosCustom from "../../../../axios";
 function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
   // ----------FE----------
   // Modal
-  const [isModalEditKodInflowWithKodInflowTerperinci, setIsModalEditKodInflowWithKodInflowTerperinci] = useState(false);
-  const openModalEditKodInflowWithKodInflowTerperinci = () => setIsModalEditKodInflowWithKodInflowTerperinci(true);
+  const [
+    isModalEditKodInflowWithKodInflowTerperinci,
+    setIsModalEditKodInflowWithKodInflowTerperinci,
+  ] = useState(false);
+  const openModalEditKodInflowWithKodInflowTerperinci = () =>
+    setIsModalEditKodInflowWithKodInflowTerperinci(true);
   const closeModalEditKodInflowWithKodInflowTerperinci = () => {
     setIsModalEditKodInflowWithKodInflowTerperinci(false);
   };
@@ -40,8 +44,14 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
     setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
     setValue("statusKodInflow", kodInflow.statusKodInflow);
     setValue("kodInflowTerperinci", kodInflowTerperinci.kodInflowTerperinci);
-    setValue("keteranganKodInflowTerperinci", kodInflowTerperinci.keteranganKodInflowTerperinci);
-    setValue("statusKodInflowTerperinci", kodInflowTerperinci.statusKodInflowTerperinci);
+    setValue(
+      "keteranganKodInflowTerperinci",
+      kodInflowTerperinci.keteranganKodInflowTerperinci
+    );
+    setValue(
+      "statusKodInflowTerperinci",
+      kodInflowTerperinci.statusKodInflowTerperinci
+    );
 
     // Set default values for formData
     setFormData((prevData) => ({
@@ -50,12 +60,15 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
       keteranganKodInflow: kodInflow.keteranganKodInflow,
       statusKodInflow: kodInflow.statusKodInflow,
       kodInflowTerperinci: kodInflowTerperinci.kodInflowTerperinci,
-      keteranganKodInflowTerperinci: kodInflowTerperinci.keteranganKodInflowTerperinci,
+      keteranganKodInflowTerperinci:
+        kodInflowTerperinci.keteranganKodInflowTerperinci,
       statusKodInflowTerperinci: kodInflowTerperinci.statusKodInflowTerperinci,
     }));
   }, [kodInflow, kodInflowTerperinci, setValue]);
 
-  const updateKodInflowWithKodInflowTerperinci = async (kodInflowWithKodInflowTerperinciInput) => {
+  const updateKodInflowWithKodInflowTerperinci = async (
+    kodInflowWithKodInflowTerperinciInput
+  ) => {
     try {
       const response = await axiosCustom.put(
         `/selenggara/kod-inflow/${kodInflow.id}/kod-inflow-terperinci/${kodInflowTerperinci.id}`,
@@ -77,12 +90,11 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
     <>
       <div>
         <Button
-          className="editBtn"
+          className="edit-btn"
           onClick={openModalEditKodInflowWithKodInflowTerperinci}
         >
-          Kemas Kini
+          Edit
         </Button>{" "}
-
         <Modal
           show={isModalEditKodInflowWithKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithKodInflowTerperinci}
@@ -90,7 +102,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Kemas Kini Kod Inflow</Modal.Title>
+            <Modal.Title>Edit Kod Inflow</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
@@ -106,14 +118,14 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                 />
 
                 {errors.kodInflow?.type === "required" && (
-                  <small className="text-danger">
-                    Kod inflow diperlukan.
-                  </small>
+                  <small className="text-danger">Kod inflow diperlukan.</small>
                 )}
               </Form.Group>
 
               <Form.Group controlId="keteranganKodInflow" className="mb-3">
-                <Form.Label className="form-label">Keterangan Kod Inflow</Form.Label>
+                <Form.Label className="form-label">
+                  Keterangan Kod Inflow
+                </Form.Label>
 
                 <Form.Control
                   as="textarea"
@@ -130,7 +142,9 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
               </Form.Group>
 
               <Form.Group controlId="statusKodInflow" className="mb-3">
-                <Form.Label className="form-label">Status Kod Inflow</Form.Label>
+                <Form.Label className="form-label">
+                  Status Kod Inflow
+                </Form.Label>
 
                 <Form.Control
                   as="select"
@@ -154,7 +168,9 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
               </Form.Group>
 
               <Form.Group controlId="kodInflowTerperinci" className="mb-3">
-                <Form.Label className="form-label">Kod Inflow Terperinci</Form.Label>
+                <Form.Label className="form-label">
+                  Kod Inflow Terperinci
+                </Form.Label>
 
                 <Form.Control
                   type="text"
@@ -170,13 +186,22 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                 )}
               </Form.Group>
 
-              <Form.Group controlId="keteranganKodInflowTerperinci" className="mb-3">
-                <Form.Label className="form-label">Keterangan Kod Inflow Terperinci</Form.Label>
+              <Form.Group
+                controlId="keteranganKodInflowTerperinci"
+                className="mb-3"
+              >
+                <Form.Label className="form-label">
+                  Keterangan Kod Inflow Terperinci
+                </Form.Label>
 
                 <Form.Control
                   as="textarea"
-                  {...register("keteranganKodInflowTerperinci", { required: true })}
-                  aria-invalid={errors.keteranganKodInflowTerperinci ? "true" : "false"}
+                  {...register("keteranganKodInflowTerperinci", {
+                    required: true,
+                  })}
+                  aria-invalid={
+                    errors.keteranganKodInflowTerperinci ? "true" : "false"
+                  }
                   placeholder="Masukkan keterangan kod inflow terperinci"
                 />
 
@@ -187,14 +212,21 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
                 )}
               </Form.Group>
 
-              <Form.Group controlId="statusKodInflowTerperinci" className="mb-3">
-                <Form.Label className="form-label">Status Kod Inflow Terperinci</Form.Label>
+              <Form.Group
+                controlId="statusKodInflowTerperinci"
+                className="mb-3"
+              >
+                <Form.Label className="form-label">
+                  Status Kod Inflow Terperinci
+                </Form.Label>
 
                 <Form.Control
                   as="select"
                   className="form-select"
                   {...register("statusKodInflowTerperinci", { required: true })}
-                  aria-invalid={errors.statusKodInflowTerperinci ? "true" : "false"}
+                  aria-invalid={
+                    errors.statusKodInflowTerperinci ? "true" : "false"
+                  }
                   placeholder="Masukkan status kod inflow terperinci"
                 >
                   <option value="" disabled>
@@ -213,11 +245,19 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalEditKodInflowWithKodInflowTerperinci}>
+              <Button
+                variant="secondary"
+                onClick={closeModalEditKodInflowWithKodInflowTerperinci}
+              >
                 Batal
               </Button>
 
-              <Button variant="primary" onClick={handleFormSubmit(updateKodInflowWithKodInflowTerperinci)}>
+              <Button
+                variant="primary"
+                onClick={handleFormSubmit(
+                  updateKodInflowWithKodInflowTerperinci
+                )}
+              >
                 Simpan
               </Button>
             </Modal.Footer>

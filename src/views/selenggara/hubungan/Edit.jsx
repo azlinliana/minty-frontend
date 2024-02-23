@@ -67,10 +67,9 @@ function EditHubungan({ hubungan }) {
 
   return (
     <>
-      <Button className="editBtn" onClick={openModalEditHubungan}>
-        Kemas Kini
+      <Button className="edit-btn" onClick={openModalEditHubungan}>
+        Edit
       </Button>{" "}
-
       <Modal
         show={isModalEditHubungan}
         onHide={closeModalEditHubungan}
@@ -78,7 +77,7 @@ function EditHubungan({ hubungan }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Kemas Kini Hubungan</Modal.Title>
+          <Modal.Title>Edit Hubungan</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
@@ -94,15 +93,15 @@ function EditHubungan({ hubungan }) {
               />
 
               {errors.kodHubungan?.type === "required" && (
-                <small className="text-danger">
-                  Kod hubungan diperlukan.
-                </small>
+                <small className="text-danger">Kod hubungan diperlukan.</small>
               )}
             </Form.Group>
 
             <Form.Group controlId="keteranganHubungan" className="mb-3">
-              <Form.Label className="form-label">Keterangan Hubungan</Form.Label>
-              
+              <Form.Label className="form-label">
+                Keterangan Hubungan
+              </Form.Label>
+
               <Form.Control
                 as="textarea"
                 {...register("keteranganHubungan", { required: true })}
@@ -119,7 +118,7 @@ function EditHubungan({ hubungan }) {
 
             <Form.Group controlId="statusHubungan" className="mb-3">
               <Form.Label className="form-label">Status Hubungan</Form.Label>
-              
+
               <Form.Control
                 as="select"
                 className="form-select"
@@ -127,9 +126,11 @@ function EditHubungan({ hubungan }) {
                 aria-invalid={errors.statusHubungan ? "true" : "false"}
                 placeholder="Masukkan status hubungan"
               >
-                  <option value="" disabled>--Pilih Status Hubungan--</option>
-                  <option value="AKTIF">AKTIF</option>
-                  <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                <option value="" disabled>
+                  --Pilih Status Hubungan--
+                </option>
+                <option value="AKTIF">AKTIF</option>
+                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
               </Form.Control>
 
               {errors.statusHubungan?.type === "required" && (
@@ -141,16 +142,13 @@ function EditHubungan({ hubungan }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditHubungan}>
+            <Button className="batal-btn" onClick={closeModalEditHubungan}>
               Batal
             </Button>
 
-            <Button variant="primary" onClick={handleSubmit(updateHubungan)}>
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(updateHubungan)}>Simpan</Button>
           </Modal.Footer>
         </Form>
-
       </Modal>
     </>
   );

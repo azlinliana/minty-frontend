@@ -18,7 +18,7 @@ function CreateHubungan() {
 
   // Form validation
   const {
-    register, 
+    register,
     handleSubmit,
     reset,
     formState: { errors },
@@ -46,10 +46,9 @@ function CreateHubungan() {
 
   return (
     <>
-      <Button variant="primary" onClick={openModalCreateHubungan}>
+      <Button onClick={openModalCreateHubungan}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
       <Modal
         show={isModalCreateHubungan}
         onHide={closeModalCreateHubungan}
@@ -73,15 +72,15 @@ function CreateHubungan() {
               />
 
               {errors.kodHubungan?.type === "required" && (
-                <small className="text-danger">
-                  Kod hubungan diperlukan.
-                </small>
+                <small className="text-danger">Kod hubungan diperlukan.</small>
               )}
             </Form.Group>
 
             <Form.Group controlId="keteranganHubungan" className="mb-3">
-              <Form.Label className="form-label">Keterangan Hubungan</Form.Label>
-              
+              <Form.Label className="form-label">
+                Keterangan Hubungan
+              </Form.Label>
+
               <Form.Control
                 as="textarea"
                 {...register("keteranganHubungan", { required: true })}
@@ -98,13 +97,11 @@ function CreateHubungan() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateHubungan}>
+            <Button className="batal-btn" onClick={closeModalCreateHubungan}>
               Batal
             </Button>
 
-            <Button variant="primary" onClick={handleSubmit(createHubungan)}>
-              Simpan
-            </Button>
+            <Button onClick={handleSubmit(createHubungan)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

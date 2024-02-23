@@ -15,7 +15,9 @@ function IndexKodInflow() {
   const navigate = useNavigate();
 
   // Back button
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // ----------BE----------
   // List kod inflow
@@ -70,7 +72,9 @@ function IndexKodInflow() {
   };
 
   // Delete kod inflow with kod inflow terperinci
-  const deleteKodInflowWithKodInflowTerperinci = async (kodInflowTerperinciId) => {
+  const deleteKodInflowWithKodInflowTerperinci = async (
+    kodInflowTerperinciId
+  ) => {
     console.log(kodInflowTerperinciId);
     // Function to delete dimensi
     const performDeletion = async () => {
@@ -106,19 +110,22 @@ function IndexKodInflow() {
   return (
     <>
       <div>
-        <div className="pageTitle">
+        <div className="page-title">
           <h1>Kod Inflow</h1>
 
           <Breadcrumb>
-            <Breadcrumb.Item className="previousLink" href="selenggara">
+            <Breadcrumb.Item
+              className="breadcrumb-previous-link"
+              href="selenggara"
+            >
               Senarai Selenggara
             </Breadcrumb.Item>
             <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
           </Breadcrumb>
         </div>
 
-        <div className="tableSection">
-          <div className="tambahBtnPlacement">
+        <div className="selenggara-table-container">
+          <div className="tambah-baru-btn-container">
             <CreateKodInflow />
           </div>
 
@@ -164,7 +171,7 @@ function IndexKodInflow() {
                             kodInflow={kodInflowsData}
                           />
                           <Button
-                            className="delBtn"
+                            className="delete-btn"
                             variant="danger"
                             onClick={() =>
                               deleteKodInflowWithoutKodInflowTerperinci(
@@ -214,7 +221,9 @@ function IndexKodInflow() {
                     {kodInflowsData.kod_inflow_terperincis.map(
                       (kodInflowTerperincisData, subIndex) => (
                         <tr key={subIndex}>
-                          <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                          <td>
+                            {kodInflowTerperincisData.kodInflowTerperinci}
+                          </td>
                           <td>
                             {
                               kodInflowTerperincisData.keteranganKodInflowTerperinci
@@ -229,7 +238,7 @@ function IndexKodInflow() {
                               kodInflowTerperinci={kodInflowTerperincisData}
                             />
                             <Button
-                              className="delBtn"
+                              className="delete-btn"
                               variant="danger"
                               onClick={() =>
                                 deleteKodInflowWithKodInflowTerperinci(
@@ -249,8 +258,8 @@ function IndexKodInflow() {
             </tbody>
           </Table>
 
-          <div className="kembaliBtnPlacement">
-            <Button className="kembaliBtn" onClick={goBack}>
+          <div className="kembali-btn-container">
+            <Button className="kembali-btn" onClick={goBack}>
               Kembali
             </Button>{" "}
           </div>

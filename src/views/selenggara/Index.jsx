@@ -16,33 +16,36 @@ function IndexSelenggara() {
   // const clickLihatPinjamanAktiviti = () => navigate('/pinjaman-aktiviti');
 
   // Back button
-  const goBack = () => {navigate(-1);};
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
       <div>
-        <div className="pageTitle">
+        <div className="page-title">
           <h1>Senarai Selenggara</h1>
         </div>
 
-        <div className="tableSection">
+        <div className="selenggara-table-container">
           <Table responsive>
             <thead>
               <tr>
-                <th className="tableBil">Bil.</th>
+                <th className="selenggara-table-index">Bil.</th>
                 <th>Keterangan</th>
-                <th className="tableTindakan">Tindakan</th>
+                <th className="selenggara-table-action-btn-container">
+                  Tindakan
+                </th>
               </tr>
             </thead>
-            
+
             <tbody>
               <tr>
-                <td className="tableBil">1</td>
+                <td className="selenggara-table-index">1</td>
                 <td>Kod Inflow</td>
                 <td>
                   <Button
-                    className="indexSelenggaraBtn"
-                    variant="primary"
+                    className="selenggara-table-action-btn"
                     onClick={clickLihatKodInflow}
                   >
                     Lihat
@@ -51,12 +54,11 @@ function IndexSelenggara() {
               </tr>
 
               <tr>
-                <td className="tableBil">2</td>
+                <td className="selenggara-table-index">2</td>
                 <td>Kod Outflow</td>
                 <td>
                   <Button
-                    className="indexSelenggaraBtn"
-                    variant="primary"
+                    className="selenggara-table-action-btn"
                     onClick={clickLihatKodOutflow}
                   >
                     Lihat
@@ -65,12 +67,11 @@ function IndexSelenggara() {
               </tr>
 
               <tr>
-                <td className="tableBil">3</td>
+                <td className="selenggara-table-index">3</td>
                 <td>Dimensi</td>
                 <td>
                   <Button
-                    className="indexSelenggaraBtn"
-                    variant="primary"
+                    className="selenggara-table-action-btn"
                     onClick={clickLihatDimensi}
                   >
                     Lihat
@@ -79,12 +80,11 @@ function IndexSelenggara() {
               </tr>
 
               <tr>
-                <td className="tableBil">4</td>
+                <td className="selenggara-table-index">4</td>
                 <td>Hubungan</td>
                 <td>
                   <Button
-                    className="indexSelenggaraBtn"
-                    variant="primary"
+                    className="selenggara-table-action-btn"
                     onClick={clickLihatHubungan}
                   >
                     Lihat
@@ -94,8 +94,8 @@ function IndexSelenggara() {
             </tbody>
           </Table>
 
-          <div className="kembaliBtnPlacement">
-            <Button className="kembaliBtn" onClick={goBack}>
+          <div className="kembali-btn-container">
+            <Button className="kembali-btn" onClick={goBack}>
               Kembali
             </Button>{" "}
           </div>

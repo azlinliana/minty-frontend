@@ -69,10 +69,9 @@ function CreateKodInflow() {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={openModalCreateKodInflow}>
+        <Button onClick={openModalCreateKodInflow}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
-
         <Modal
           show={isModalCreateKodInflow}
           onHide={closeModalCreateKodInflow}
@@ -88,7 +87,7 @@ function CreateKodInflow() {
               {/* Existing kod inflow */}
               <Form.Group controlId="kodInflowId" className="mb-3">
                 <Form.Label className="form-label">Kod Inflow</Form.Label>
-                
+
                 <Form.Control
                   as="select"
                   className="form-select"
@@ -110,17 +109,17 @@ function CreateKodInflow() {
                 </Form.Control>
 
                 {errors.kodInflowId?.type === "required" && (
-                  <small className="text-danger">
-                    Kod inflow diperlukan.
-                  </small>
+                  <small className="text-danger">Kod inflow diperlukan.</small>
                 )}
               </Form.Group>
-              
+
               {/* New kod inflow - If choosing KOD INFLOW BAHARU from kod inflow option*/}
               {watch("kodInflowId") === "KOD INFLOW BAHARU" && (
                 <>
                   <Form.Group controlId="kodInflowBaharu" className="mb-3">
-                    <Form.Label className="form-label">Kod Inflow Baharu</Form.Label>
+                    <Form.Label className="form-label">
+                      Kod Inflow Baharu
+                    </Form.Label>
 
                     <Form.Control
                       type="text"
@@ -136,13 +135,22 @@ function CreateKodInflow() {
                     )}
                   </Form.Group>
 
-                  <Form.Group controlId="keteranganKodInflowBaharu" className="mb-3">
-                    <Form.Label className="form-label">Keterangan Kod Inflow Baharu</Form.Label>
+                  <Form.Group
+                    controlId="keteranganKodInflowBaharu"
+                    className="mb-3"
+                  >
+                    <Form.Label className="form-label">
+                      Keterangan Kod Inflow Baharu
+                    </Form.Label>
 
                     <Form.Control
                       type="text"
-                      {...register("keteranganKodInflowBaharu", { required: true })}
-                      aria-invalid={errors.keteranganKodInflowBaharu ? "true" : "false"}
+                      {...register("keteranganKodInflowBaharu", {
+                        required: true,
+                      })}
+                      aria-invalid={
+                        errors.keteranganKodInflowBaharu ? "true" : "false"
+                      }
                       placeholder="Masukkan keterangan kod inflow baharu"
                     />
 
@@ -156,7 +164,9 @@ function CreateKodInflow() {
               )}
 
               <Form.Group controlId="kodInflowTerperinci" className="mb-3">
-                <Form.Label className="form-label">Kod Inflow Terperinci</Form.Label>
+                <Form.Label className="form-label">
+                  Kod Inflow Terperinci
+                </Form.Label>
 
                 <Form.Control
                   type="text"
@@ -172,13 +182,22 @@ function CreateKodInflow() {
                 )}
               </Form.Group>
 
-              <Form.Group controlId="keteranganKodInflowTerperinci" className="mb-3">
-                <Form.Label className="form-label">Keterangan Kod Inflow Terperinci</Form.Label>
+              <Form.Group
+                controlId="keteranganKodInflowTerperinci"
+                className="mb-3"
+              >
+                <Form.Label className="form-label">
+                  Keterangan Kod Inflow Terperinci
+                </Form.Label>
 
                 <Form.Control
                   type="text"
-                  {...register("keteranganKodInflowTerperinci", { required: true })}
-                  aria-invalid={errors.keteranganKodInflowTerperinci ? "true" : "false"}
+                  {...register("keteranganKodInflowTerperinci", {
+                    required: true,
+                  })}
+                  aria-invalid={
+                    errors.keteranganKodInflowTerperinci ? "true" : "false"
+                  }
                   placeholder="Masukkan keterangan kod inflow terperinci"
                 />
 
@@ -191,13 +210,11 @@ function CreateKodInflow() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={closeModalCreateKodInflow}>
+              <Button className="batal-btn" onClick={closeModalCreateKodInflow}>
                 Batal
               </Button>
 
-              <Button variant="primary" onClick={handleSubmit(createKodInflow)}>
-                Simpan
-              </Button>
+              <Button onClick={handleSubmit(createKodInflow)}>Simpan</Button>
             </Modal.Footer>
           </Form>
         </Modal>
