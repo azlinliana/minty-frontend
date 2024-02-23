@@ -1,20 +1,18 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import IndexPembiayaan from "../pembiayaan/Index";
-import { Form, Button, Col, Row, Container, Breadcrumb } from "react-bootstrap";
 import "../../../assets/styles/styles_sahabat.css";
+import IndexPembiayaan from "../pembiayaan/Index";
+import { Breadcrumb, Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function SearchResultSahabat() {
-  // ----------FE----------
-  // Display sahabat search result
   const location = useLocation();
-  const resultSahabat = location.state.resultSahabat || [];
 
-  // Back button
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  }; // Back button
+
+  // ----------FE----------
+  const resultSahabat = location.state.resultSahabat || []; // Display sahabat search result
+
+  const goBack = () => { navigate(-1); }; // Back button
 
   return (
     <>
@@ -22,9 +20,13 @@ function SearchResultSahabat() {
         <h1>Hasil Carian Sahabat</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="/carian-sahabat"
+          >
             Carian Sahabat
           </Breadcrumb.Item>
+
           <Breadcrumb.Item active>Hasil Carian Sahabat</Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -57,7 +59,7 @@ function SearchResultSahabat() {
                 </Row>
 
                 <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>No. Kad Pengenalan</Form.Label>
 
@@ -68,10 +70,8 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
 
-                <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>No. Sahabat</Form.Label>
 
@@ -85,7 +85,7 @@ function SearchResultSahabat() {
                 </Row>
 
                 <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Wilayah</Form.Label>
 
@@ -96,10 +96,8 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
 
-                <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Cawangan</Form.Label>
 
@@ -113,7 +111,7 @@ function SearchResultSahabat() {
                 </Row>
 
                 <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Pusat</Form.Label>
 
@@ -124,10 +122,8 @@ function SearchResultSahabat() {
                       />
                     </Form.Group>
                   </Col>
-                </Row>
 
-                <Row>
-                  <Col xs={12}>
+                  <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Kumpulan</Form.Label>
 
