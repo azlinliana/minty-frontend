@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Form, Modal, Button } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 
-function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRumah, kodInflowsData }) {
+function EditTrackingInflowIsiRumah({
+  isiRumahId,
+  inflowIsiRumahId,
+  inflowIsiRumah,
+  kodInflowsData,
+}) {
   // ----------FE----------
   // Modal
   const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] = useState(false);
+
   const openModalEditInflowIsiRumah = () => setIsModalEditInflowIsiRumah(true);
+
   const closeModalEditInflowIsiRumah = () => {
     setIsModalEditInflowIsiRumah(false);
   };
@@ -20,15 +27,17 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
     handleSubmit,
     setValue,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   // ----------BE----------
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
+
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
+
   const [previousKodInflow, setPreviousKodInflow] = useState(null);
-  
+
   // Set default values when the kemas kini inflow isi rumah modal is opened
   const [formData, setFormData] = useState({
     kodInflowId: "",
@@ -38,14 +47,16 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
 
   useEffect(() => {
     if (inflowIsiRumah) {
-      // Populate form data
-      setValue("kodInflowId", inflowIsiRumah.kod_inflow.id);
+      setValue("kodInflowId", inflowIsiRumah.kod_inflow.id); // Populate form data
+
       setValue("amaunInflow", inflowIsiRumah.amaunInflow);
-  
-      // Set selected kod inflow and terperinci data
-      setSelectedKodInflow(inflowIsiRumah.kod_inflow.kodInflow);
-      setShowKodInflowTerperinci(inflowIsiRumah.kod_inflow.kod_inflow_terperincis);
-  
+
+      setSelectedKodInflow(inflowIsiRumah.kod_inflow.kodInflow); // Set selected kod inflow and terperinci data
+
+      setShowKodInflowTerperinci(
+        inflowIsiRumah.kod_inflow.kod_inflow_terperincis
+      );
+
       // Set terperinci values
       inflowIsiRumah.inflow_isi_rumah_terperincis.forEach((terperinci) => {
         setValue(
@@ -53,7 +64,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
           terperinci.keteranganInflowTerperinci
         );
       });
-  
+
       // Set default values for formData
       setFormData((prevData) => ({
         ...prevData,
@@ -64,7 +75,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
             item[
               `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
             ] = terperinci.keteranganInflowTerperinci;
-            
+
             return item;
           },
           {}
@@ -81,8 +92,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
 
     if (selectedValue === previousKodInflow) {
-      // User selected the previous Kod Inflow, restore the previous data
-      setValue("kodInflowId", previousKodInflow);
+      setValue("kodInflowId", previousKodInflow); // User selected the previous Kod Inflow, restore the previous data
 
       // Restore terperinci values
       inflowIsiRumah.inflow_isi_rumah_terperincis.forEach((terperinci) => {
@@ -92,8 +102,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
         );
       });
     } else {
-      // User selected a new Kod Inflow, set the associated terperinci fields
-      setPreviousKodInflow(selectedValue);
+      setPreviousKodInflow(selectedValue); // User selected a new Kod Inflow, set the associated terperinci fields
 
       setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
     }
@@ -116,8 +125,10 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
         `/sahabat/inflow-isi-rumah/${isiRumahId}/${inflowIsiRumahId}`,
         inflowIsiRumahInput
       );
+
       if (response.status === 200) {
         SuccessAlert(response.data.message);
+
         closeModalEditInflowIsiRumah();
       } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
@@ -132,7 +143,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
-
+      
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -157,7 +168,9 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
                 }}
                 aria-invalid={errors.kodInflowId ? "true" : "false"}
               >
-                <option value="" disabled>--Pilih Kod Inflow--</option>
+                <option value="" disabled>
+                  --Pilih Kod Inflow--
+                </option>
                 {kodInflowsData.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
@@ -166,9 +179,7 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
               </Form.Control>
 
               {errors.kodInflowId?.type === "required" && (
-                <small className="text-danger">
-                  Kod inflow diperlukan.
-                </small>
+                <small className="text-danger">Kod inflow diperlukan.</small>
               )}
             </Form.Group>
 
@@ -228,29 +239,20 @@ function EditTrackingInflowIsiRumah({ isiRumahId, inflowIsiRumahId, inflowIsiRum
               />
 
               {errors.amaunInflow?.type === "required" && (
-                <small className="text-danger">
-                  Amaun inflow diperlukan.
-                </small>
+                <small className="text-danger">Amaun inflow diperlukan.</small>
               )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button className="batal-btn" onClick={closeModalEditInflowIsiRumah}>
-            Batal
-          </Button>
-          <Button onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>
-        </Modal.Footer>
           </Modal.Body>
+
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalEditInflowIsiRumah}>
+            <Button
+              className="batal-btn"
+              onClick={closeModalEditInflowIsiRumah}
+            >
               Batal
             </Button>
 
-            <Button variant="primary" type="submit">
-              Simpan
-            </Button>
+            <Button type="submit">Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

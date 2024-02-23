@@ -10,9 +10,12 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
   // ----------FE----------
   // Modal
   const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
+
   const openModalCreateInflowIsiRumah = () => setIsModalCreateInflowIsiRumah(true);
+
   const closeModalCreateInflowIsiRumah = () => {
     setIsModalCreateInflowIsiRumah(false);
+
     reset(); // Reset previous form input
   };
 
@@ -28,6 +31,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
   // ----------BE----------
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
+  
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
@@ -36,6 +40,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
     );
 
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
+
     setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
 
     // Reset other form data and save selected inflow id
@@ -46,18 +51,17 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
       kodInflowTerperinci: [], // Reset the array
     }));
 
-    // Reset keteranganInflowTerperinci values
-    const resetTerperinciValues = {};
+    const resetTerperinciValues = {}; // Reset keteranganInflowTerperinci values
+
     selectedKodInflowData.kod_inflow_terperincis.forEach((terperinci) => {
       const fieldName = `kodInflowTerperinci[${terperinci.id}]`;
+
       resetTerperinciValues[fieldName] = "";
     });
 
-    // Reset the form with the new values
-    reset(resetTerperinciValues);
+    reset(resetTerperinciValues); // Reset the form with the new values
 
-    // Set the value directly in the form data
-    setValue("kodInflowId", selectedValue);
+    setValue("kodInflowId", selectedValue); // Set the value directly in the form data
   };
 
   const [formData, setFormData] = useState({});
@@ -76,8 +80,10 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
         `/sahabat/inflow-isi-rumah/${isiRumahId}`,
         inflowIsiRumahInput
       );
+
       if (response.status === 200) {
         SuccessAlert(response.data.message);
+
         closeModalCreateInflowIsiRumah();
       } else {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
@@ -107,7 +113,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
           <Modal.Body>
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
-              
+
               <Form.Control
                 as="select"
                 className="form-select"
@@ -118,7 +124,9 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
                 aria-invalid={errors.kodInflowId ? "true" : "false"}
                 defaultValue=""
               >
-                <option value="" disabled>--Pilih Kod Inflow--</option>
+                <option value="" disabled>
+                  --Pilih Kod Inflow--
+                </option>
                 {kodInflowsData.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
@@ -127,47 +135,55 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
               </Form.Control>
 
               {errors.kodInflowId?.type === "required" && (
-                <small className="text-danger">
-                  Kod inflow diperlukan.
-                </small>
+                <small className="text-danger">Kod inflow diperlukan.</small>
               )}
             </Form.Group>
 
             {/* Generate dynamic form input based on selected kod inflow */}
-            {showKodInflowTerperinci &&
-              showKodInflowTerperinci.length > 0 && (
-                <React.Fragment>
-                  {showKodInflowTerperinci.map((terperinci) => (
-                    <Form.Group 
-                      key={terperinci.id} 
-                      controlId={`keteranganInflowTerperinci_${terperinci.id}`}
-                      className="mb-3"
+            {showKodInflowTerperinci && showKodInflowTerperinci.length > 0 && (
+              <React.Fragment>
+                {showKodInflowTerperinci.map((terperinci) => (
+                  <Form.Group
+                    key={terperinci.id}
+                    controlId={`keteranganInflowTerperinci_${terperinci.id}`}
+                    className="mb-3"
+                  >
+                    <Form.Label
+                      className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
                     >
-                      <Form.Label 
-                        className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
-                      >
-                        {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`}
-                      </Form.Label>
+                      {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`}
+                    </Form.Label>
 
-                      <Form.Control
-                        type="text"
-                        {...register(`keteranganInflowTerperinci_${terperinci.id}`, { required: true })}
-                        onChange={(e) => {
-                          handleInputChange(`keteranganInflowTerperinci_${terperinci.id}`, e.target.value);
-                        }}
-                        aria-invalid={errors[`keteranganInflowTerperinci_${terperinci.id}`] ? "true" : "false"}
-                      />
-
-                      {errors[`keteranganInflowTerperinci_${terperinci.id}`]?.type === "required" && (
-                        <small className="text-danger">
-                          Keterangan terperinci {terperinci.kodInflowTerperinci} diperlukan.
-                        </small>
+                    <Form.Control
+                      type="text"
+                      {...register(
+                        `keteranganInflowTerperinci_${terperinci.id}`,
+                        { required: true }
                       )}
-                    </Form.Group>
-                  ))}
-                </React.Fragment>
-              )
-            }
+                      onChange={(e) => {
+                        handleInputChange(
+                          `keteranganInflowTerperinci_${terperinci.id}`,
+                          e.target.value
+                        );
+                      }}
+                      aria-invalid={
+                        errors[`keteranganInflowTerperinci_${terperinci.id}`]
+                          ? "true"
+                          : "false"
+                      }
+                    />
+
+                    {errors[`keteranganInflowTerperinci_${terperinci.id}`]
+                      ?.type === "required" && (
+                      <small className="text-danger">
+                        Keterangan terperinci {terperinci.kodInflowTerperinci}{" "}
+                        diperlukan.
+                      </small>
+                    )}
+                  </Form.Group>
+                ))}
+              </React.Fragment>
+            )}
 
             <Form.Group controlId="amaunInflow" className="mb-3">
               <Form.Label className="form-label">Amaun Inflow (RM)</Form.Label>
@@ -179,30 +195,20 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
               />
 
               {errors.amaunInflow?.type === "required" && (
-                <small className="text-danger">
-                  Amaun inflow diperlukan.
-                </small>
+                <small className="text-danger">Amaun inflow diperlukan.</small>
               )}
             </Form.Group>
           </Modal.Body>
 
-        <Modal.Footer>
-          <Button
-            className="batal-btn"
-            onClick={closeModalCreateInflowIsiRumah}
-          >
-            Batal
-          </Button>
-          <Button onClick={handleSubmit(createInflowIsiRumah)}>Simpan</Button>
-        </Modal.Footer>
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModalCreateInflowIsiRumah}>
+            <Button
+              className="batal-btn"
+              onClick={closeModalCreateInflowIsiRumah}
+            >
               Batal
             </Button>
 
-            <Button variant="primary" type="submit">
-              Simpan
-            </Button>
+            <Button type="submit">Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

@@ -34,16 +34,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error); // Error from the backend or unknow error from the server side
     }
   }, [mingguId, setIsiRumahSahabats]);
 
@@ -66,16 +57,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error); // Error from the backend or unknow error from the server side
     }
   }, [setHubungansData]);
 
@@ -98,7 +80,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      ErrorAlert(error);
+      ErrorAlert(error); // Error from the backend or unknow error from the server side
     }
   }, [setKodInflowsData]);
 
@@ -120,16 +102,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
         ErrorAlert(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, []);
 
@@ -141,6 +114,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
     <>
       <div>
         <h2>Maklumat Tracking Isi Rumah</h2>
+
         <div className="sahabat-pembiayaan-table-container">
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
             <div className="tambah-baru-btn-container">
@@ -187,6 +161,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                             <Col xs={12}>
                               <Form.Group>
                                 <Form.Label>Nama</Form.Label>
+
                                 <Form.Control
                                   type="text"
                                   defaultValue={
@@ -202,6 +177,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                             <Col xs={12}>
                               <Form.Group>
                                 <Form.Label>No. Kad Pengenalan</Form.Label>
+
                                 <Form.Control
                                   type="text"
                                   defaultValue={
@@ -217,6 +193,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                             <Col xs={12}>
                               <Form.Group>
                                 <Form.Label>Hubungan</Form.Label>
+
                                 <Form.Control
                                   type="text"
                                   defaultValue={
@@ -254,7 +231,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                           <IndexTrackingInflowIsiRumah
                             isiRumahId={isiRumahSahabatsData.id}
                             pembiayaanSahabatsData={pembiayaanSahabatsData}
-                          kodInflowsData={kodInflowsData}
+                            kodInflowsData={kodInflowsData}
                           />
                         </Tab>
 
@@ -265,7 +242,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                           <IndexTrackingOutflowIsiRumah
                             isiRumahId={isiRumahSahabatsData.id}
                             pembiayaanSahabatsData={pembiayaanSahabatsData}
-                          kodOutflowsData={kodOutflowsData}
+                            kodOutflowsData={kodOutflowsData}
                           />
                         </Tab>
                       </Tabs>

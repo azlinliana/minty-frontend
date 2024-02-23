@@ -8,7 +8,11 @@ import { Button, Table } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 
-function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodInflowsData }) {
+function IndexTrackingInflowIsiRumah({
+  isiRumahId,
+  pembiayaanSahabatsData,
+  kodInflowsData,
+}) {
   // ----------BE----------
   // List inflow isi rumah
   const [inflowIsiRumahs, setInflowIsiRumahs] = useState([]);
@@ -25,16 +29,7 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodIn
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
+      ErrorAlert(error);
     }
   }, [isiRumahId, setInflowIsiRumahs]);
 
@@ -50,12 +45,14 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodIn
         const response = await axiosCustom.delete(
           `/sahabat/inflow-isi-rumah/${inflowIsiRumahId}`
         );
+
         if (response.status === 200) {
           setInflowIsiRumahs((prevInflowIsiRumahs) =>
             prevInflowIsiRumahs.filter(
               (inflowIsiRumah) => inflowIsiRumah.id !== inflowIsiRumahId
             )
           );
+          
           // Show success message from the server
           Swal.fire("Dipadam!", response.data.message, "success");
         }
@@ -189,7 +186,8 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodIn
                         </td>
                         <td>
                           {inflowIsiRumahsData.inflow_isi_rumah_terperincis &&
-                            inflowIsiRumahsData.inflow_isi_rumah_terperincis.length > 0 &&
+                            inflowIsiRumahsData.inflow_isi_rumah_terperincis
+                              .length > 0 &&
                             inflowIsiRumahsData.inflow_isi_rumah_terperincis
                               .filter(
                                 (inflowTerperinci) =>
@@ -198,7 +196,9 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodIn
                               )
                               .map((inflowTerperinciData, innerIndex) => (
                                 <React.Fragment key={innerIndex}>
-                                  {inflowTerperinciData.keteranganInflowTerperinci}
+                                  {
+                                    inflowTerperinciData.keteranganInflowTerperinci
+                                  }
                                 </React.Fragment>
                               ))}
                         </td>
@@ -230,7 +230,7 @@ function IndexTrackingInflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodIn
                                   kodInflowsData={kodInflowsData}
                                 />
                                 <Button
-                                  className="delBtn"
+                                  className="delete-btn"
                                   onClick={() =>
                                     deleteInflowIsiRumah(inflowIsiRumahsData.id)
                                   }
