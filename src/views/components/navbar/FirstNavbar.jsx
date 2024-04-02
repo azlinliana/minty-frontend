@@ -14,7 +14,6 @@ function FirstNavbar() {
 
   // ----------BE----------
   const navigate = useNavigate();
-  // const [token, setToken] = useAtom(tokenAtom);
 
   const handleSignOut = async () => {
     try {
