@@ -4,7 +4,7 @@ import "../../assets/styles/styles_pengguna.css";
 import { Table, Button } from "react-bootstrap";
 
 function IndexPengguna() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Back button

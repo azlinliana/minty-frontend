@@ -1,71 +1,30 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Button, Table } from "react-bootstrap";
+import "../../../assets/styles/styles_pengguna.css";
 import SearchAdmin from "./Search";
 import EditAdmin from "./Edit";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
-import "../../../assets/styles/styles_pengguna.css";
-import axiosCustom from "../../../axios";
-import Swal from "sweetalert2";
+import { Breadcrumb, Button, Table } from "react-bootstrap";
+import { useAdminStore } from "../../../store/pengguna/admin-store";
 
 function IndexAdmin() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List admin
-  const [admins, setAdmins] = useState([]);
-
-  const fetchAdmins = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get("pengguna/admin");
-
-      if (response.status === 200) {
-        setAdmins(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
+  // ___________________________________ Backend __________________________________
+  // List & delete admin
+  const { admins, fetchAdmins, deleteAdmin } = useAdminStore((state) => ({
+    admins: state.admins,
+    fetchAdmins: state.fetchAdmins,
+    deleteAdmin: state.deleteAdmin,
+  }));
 
   useEffect(() => {
     fetchAdmins();
   }, [fetchAdmins]);
-
-  // Delete dimensi
-  const deleteAdmin = async (adminId) => {
-    // Function to delete admin
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(`pengguna/admin/${adminId}`);
-
-        if (response.status === 200) {
-          setAdmins((prevAdmins) =>
-            prevAdmins.filter((admin) => admin.id !== adminId)
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
 
   return (
     <>
@@ -73,7 +32,10 @@ function IndexAdmin() {
         <h1>Admin</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="breadcrumb-previous-link">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="/tetapan-pengguna"
+          >
             Senarai Pengguna
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Admin</Breadcrumb.Item>
@@ -83,6 +45,7 @@ function IndexAdmin() {
       <div>
         <div className="pengguna-search-pg-header">
           <h2>Cari & Tambah Admin</h2>
+
           <SearchAdmin />
         </div>
 
@@ -124,6 +87,7 @@ function IndexAdmin() {
                       <td>{adminsData.statusAdmin}</td>
                       <td>
                         <EditAdmin admin={adminsData} />
+                        
                         <Button
                           className="delete-btn"
                           onClick={() => deleteAdmin(adminsData.id)}

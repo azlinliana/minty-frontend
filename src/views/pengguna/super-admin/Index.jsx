@@ -1,75 +1,31 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_pengguna.css";
 import SearchSuperAdmin from "./Search";
 import EditSuperAdmin from "./Edit";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import axiosCustom from "../../../axios";
-import Swal from "sweetalert2";
+import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
 
 function IndexSuperAdmin() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List super admin
-  const [superAdmins, setSuperAdmins] = useState([]);
-
-  const fetchSuperAdmins = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get("/pengguna/super-admin");
-
-      if (response.status === 200) {
-        setSuperAdmins(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
+  // ___________________________________ Backend __________________________________
+  // List & delete super admin
+  const { superAdmins, fetchSuperAdmins, deleteSuperAdmin } =
+    useSuperAdminStore((state) => ({
+      superAdmins: state.superAdmins,
+      fetchSuperAdmins: state.fetchSuperAdmins,
+      deleteSuperAdmin: state.deleteSuperAdmin,
+    }));
 
   useEffect(() => {
     fetchSuperAdmins();
   }, [fetchSuperAdmins]);
-
-  // Delete dimensi
-  const deleteSuperAdmin = async (superAdminId) => {
-    // Function to delete admin
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `pengguna/super-admin/${superAdminId}`
-        );
-
-        if (response.status === 200) {
-          setSuperAdmins((prevSuperAdmins) =>
-            prevSuperAdmins.filter(
-              (superAdmin) => superAdmin.id !== superAdminId
-            )
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
 
   return (
     <>
@@ -77,7 +33,10 @@ function IndexSuperAdmin() {
         <h1>Super Admin</h1>
 
         <Breadcrumb>
-          <Breadcrumb.Item className="breadcrumb-previous-link">
+          <Breadcrumb.Item
+            className="breadcrumb-previous-link"
+            href="/tetapan-pengguna"
+          >
             Senarai Pengguna
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Super Admin</Breadcrumb.Item>
@@ -129,6 +88,7 @@ function IndexSuperAdmin() {
                       <td>{superAdminsData.statusSuperAdmin}</td>
                       <td>
                         <EditSuperAdmin superAdmin={superAdminsData} />
+                        
                         <Button
                           className="delete-btn"
                           onClick={() => deleteSuperAdmin(superAdminsData.id)}

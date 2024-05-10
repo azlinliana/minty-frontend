@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import CreateAdmin from "./Create";
 import { Form, Row, Container } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useUserStore } from "../../../store/pengguna/user-store";
 
 function SearchAdmin() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateAdmin, setIsModalCreateAdmin] = useState(false);
   const openModalCreateAdmin = () => setIsModalCreateAdmin(true);
@@ -23,26 +22,16 @@ function SearchAdmin() {
     reset,
   } = useForm();
 
-  // ----------BE----------
-  // Store search staff result
-  const [searchStaffResult, setSearchStaffResult] = useState(null);
+  // ___________________________________ Backend __________________________________
+  // Search user to add as admin
+  const { penggunas, searchUserToAddAsAdmin } = useUserStore((state) => ({
+    penggunas: state.penggunas,
+    searchUserToAddAsAdmin: state.searchUserToAddAsAdmin,
+  }));
 
-  const searchAdmin = async (searchKakitanganInput) => {
-    try {
-      const response = await axiosCustom.post(
-        "pengguna/carian-pengguna",
-        { idKakitangan: searchKakitanganInput.idKakitangan } // Destructuring the object to send only relevant properties to the backend
-      );
-
-      if (response.status === 200) {
-        setSearchStaffResult(response.data);
-        openModalCreateAdmin();
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleSearchUser = (searchUserData) => {
+    searchUserToAddAsAdmin(searchUserData, openModalCreateAdmin);
   };
 
   return (
@@ -50,7 +39,7 @@ function SearchAdmin() {
       <Container fluid className="pengguna-search-bar-container">
         <Form
           className="pengguna-search-bar"
-          onSubmit={handleSubmit(searchAdmin)}
+          onSubmit={handleSubmit(handleSearchUser)}
           onReset={reset}
         >
           <Row>
@@ -74,7 +63,7 @@ function SearchAdmin() {
               <CreateAdmin
                 isModalCreateAdmin={isModalCreateAdmin}
                 closeModalCreateAdmin={closeModalCreateAdmin}
-                searchStaffResult={searchStaffResult}
+                searchStaffResult={penggunas}
               />
             </Form.Group>
           </Row>

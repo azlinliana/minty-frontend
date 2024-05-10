@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Modal, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
 
 function EditSuperAdmin({ superAdmin }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditSuperAdmin, setIsModalEditSuperAdmin] = useState(false);
   const openModalEditSuperAdmin = () => setIsModalEditSuperAdmin(true);
@@ -23,29 +21,24 @@ function EditSuperAdmin({ superAdmin }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini super admin modal is opened
   useEffect(() => {
+    setValue("idKakitangan", superAdmin.user.idKakitangan);
+    setValue("namaKakitangan", superAdmin.user.namaKakitangan);
+    setValue("lokasiKakitangan", superAdmin.user.lokasiKakitangan);
+    setValue("jawatanKakitangan", superAdmin.user.jawatanKakitangan);
     setValue("statusSuperAdmin", superAdmin.statusSuperAdmin);
   }, [superAdmin, setValue]);
 
-  // Update super admin
-  const updateSuperAdmin = async (superAdminInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `pengguna/super-admin/${superAdmin.id}`,
-        superAdminInput
-      );
+  // Edit super admin
+  const { editSuperAdmin } = useSuperAdminStore((state) => ({
+    editSuperAdmin: state.editSuperAdmin,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditSuperAdmin();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditSuperAdmin = (editSuperAdminData) => {
+    editSuperAdmin(superAdmin.id, editSuperAdminData, closeModalEditSuperAdmin);
   };
 
   return (
@@ -54,6 +47,7 @@ function EditSuperAdmin({ superAdmin }) {
         <Button className="edit-btn" onClick={openModalEditSuperAdmin}>
           Edit
         </Button>{" "}
+        
         <Modal
           show={isModalEditSuperAdmin}
           onHide={closeModalEditSuperAdmin}
@@ -64,8 +58,52 @@ function EditSuperAdmin({ superAdmin }) {
             <Modal.Title>Edit Super Admin</Modal.Title>
           </Modal.Header>
 
-          <Form onSubmit={handleSubmit(updateSuperAdmin)} onReset={reset}>
+          <Form onReset={reset}>
             <Modal.Body>
+              <Form.Group controlId="idKakitangan" className="mb-3">
+                <Form.Label className="form-label">Id Kakitangan</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("idKakitangan", { required: true })}
+                  readOnly
+                />
+              </Form.Group>
+
+              <Form.Group controlId="namaKakitangan" className="mb-3">
+                <Form.Label className="form-label">Nama Kakitangan</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("namaKakitangan", { required: true })}
+                  readOnly
+                />
+              </Form.Group>
+
+              <Form.Group controlId="lokasiKakitangan" className="mb-3">
+                <Form.Label className="form-label">
+                  Lokasi Kakitangan
+                </Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("lokasiKakitangan", { required: true })}
+                  readOnly
+                />
+              </Form.Group>
+
+              <Form.Group controlId="jawatanKakitangan" className="mb-3">
+                <Form.Label className="form-label">
+                  Jawatan Kakitangan
+                </Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("jawatanKakitangan", { required: true })}
+                  readOnly
+                />
+              </Form.Group>
+
               <Form.Group controlId="statusSuperAdmin" className="mb-3">
                 <Form.Label className="form-label">
                   Status Super Admin
@@ -97,7 +135,9 @@ function EditSuperAdmin({ superAdmin }) {
                 Batal
               </Button>
 
-              <Button type="submit">Simpan</Button>
+              <Button onClick={handleSubmit(handleEditSuperAdmin)}>
+                Simpan
+              </Button>
             </Modal.Footer>
           </Form>
         </Modal>

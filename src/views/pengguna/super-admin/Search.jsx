@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import CreateSuperAdmin from "./Create";
 import { Form, Row, Container } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useUserStore } from "../../../store/pengguna/user-store";
 
 function SearchSuperAdmin() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateSuperAdmin, setIsModalCreateSuperAdmin] = useState(false);
   const openModalCreateSuperAdmin = () => setIsModalCreateSuperAdmin(true);
@@ -23,26 +22,16 @@ function SearchSuperAdmin() {
     reset,
   } = useForm();
 
-  // ----------BE----------
-  // Store search staff result
-  const [searchStaffResult, setSearchStaffResult] = useState(null);
+  // ___________________________________ Backend __________________________________
+  // Search user to add as super admin
+  const { penggunas, searchUserToAddAsSuperAdmin } = useUserStore((state) => ({
+    penggunas: state.penggunas,
+    searchUserToAddAsSuperAdmin: state.searchUserToAddAsSuperAdmin,
+  }));
 
-  const searchSuperAdmin = async (searchKakitanganInput) => {
-    try {
-      const response = await axiosCustom.post(
-        "pengguna/carian-pengguna",
-        { idKakitangan: searchKakitanganInput.idKakitangan } // Destructuring the object to send only relevant properties to the backend
-      );
-
-      if (response.status === 200) {
-        setSearchStaffResult(response.data);
-        openModalCreateSuperAdmin();
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleSearchUser = (searchUserData) => {
+    searchUserToAddAsSuperAdmin(searchUserData, openModalCreateSuperAdmin);
   };
 
   return (
@@ -50,7 +39,7 @@ function SearchSuperAdmin() {
       <Container fluid className="pengguna-search-bar-container">
         <Form
           className="pengguna-search-bar"
-          onSubmit={handleSubmit(searchSuperAdmin)}
+          onSubmit={handleSubmit(handleSearchUser)}
           onReset={reset}
         >
           <Row>
@@ -74,7 +63,7 @@ function SearchSuperAdmin() {
               <CreateSuperAdmin
                 isModalCreateSuperAdmin={isModalCreateSuperAdmin}
                 closeModalCreateSuperAdmin={closeModalCreateSuperAdmin}
-                searchStaffResult={searchStaffResult}
+                searchStaffResult={penggunas}
               />
             </Form.Group>
           </Row>

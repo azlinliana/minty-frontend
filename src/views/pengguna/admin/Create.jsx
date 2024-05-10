@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Form, Button } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useAdminStore } from "../../../store/pengguna/admin-store";
 
 function CreateAdmin({
   isModalCreateAdmin,
   closeModalCreateAdmin,
   searchStaffResult,
 }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Form validation
   const { register, handleSubmit, setValue } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when searchStaffResult changes for each field
   useEffect(() => {
     if (searchStaffResult) {
@@ -27,19 +25,13 @@ function CreateAdmin({
   }, [searchStaffResult, setValue]);
 
   // Create admin
-  const createAdmin = async (adminInput) => {
-    try {
-      const response = await axiosCustom.post("pengguna/admin", adminInput);
+  const { createAdmin } = useAdminStore((state) => ({
+    createAdmin: state.createAdmin,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateAdmin();
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateAdmin = (addAdminData) => {
+    createAdmin(addAdminData, closeModalCreateAdmin);
   };
 
   return (
@@ -58,11 +50,7 @@ function CreateAdmin({
           <Modal.Title>Tambah Admin</Modal.Title>
         </Modal.Header>
 
-        <Form
-          onSubmit={handleSubmit(() =>
-            createAdmin({ userId: searchStaffResult.id })
-          )}
-        >
+        <Form>
           <Modal.Body>
             {/* Display search staff result */}
             <Form.Group controlId="idKakitangan" className="mb-3">
@@ -111,7 +99,13 @@ function CreateAdmin({
               Batal
             </Button>
 
-            <Button type="submit">Tambah</Button>
+            <Button
+              onClick={handleSubmit(() =>
+                handleCreateAdmin({ userId: searchStaffResult.id })
+              )}
+            >
+              Simpan
+            </Button>
           </Modal.Footer>
         </Form>
       </Modal>
