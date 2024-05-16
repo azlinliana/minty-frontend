@@ -20,7 +20,6 @@ import IndexKodInflow from "./views/selenggara/kod-inflow/Index";
 import IndexKodOutflow from "./views/selenggara/kod-outflow/Index";
 import IndexDimensi from "./views/selenggara/dimensi/Index";
 import IndexHubungan from "./views/selenggara/hubungan/Index";
-import PinjamanAktiviti from "./views/selenggara/PinjamanAktiviti";
 import IndexPengguna from "./views/pengguna/Index";
 import IndexAdmin from "./views/pengguna/admin/Index";
 import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
@@ -90,7 +89,6 @@ function App() {
             <Route path="kod-outflow" element={<IndexKodOutflow />} />
             <Route path="dimensi" element={<IndexDimensi />} />
             <Route path="hubungan" element={<IndexHubungan />} />
-            <Route path="pinjaman-aktiviti" element={<PinjamanAktiviti />} />
 
             {/* Pengguna */}
             <Route path="tetapan-pengguna" element={<IndexPengguna />} />
