@@ -11,7 +11,7 @@ import "../../assets/styles/styles_auth.css";
 import axiosCustom from "../../axios";
 
 function SignIn() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
   const handleCloseModalForgotPassword = () => setIsModalForgotPassword(false);
@@ -45,7 +45,7 @@ function SignIn() {
     setShowPassword(!showPassword);
   };
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   const navigate = useNavigate();
 
   const handleSignIn = async (signInInput) => {

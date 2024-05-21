@@ -11,7 +11,7 @@ function SearchResultSahabat() {
 
   // ----------FE----------
   const resultSahabat = location.state.resultSahabat || []; // Display sahabat search result
-
+  
   const goBack = () => { navigate(-1); }; // Back button
 
   return (
@@ -32,7 +32,7 @@ function SearchResultSahabat() {
       </div>
 
       {resultSahabat.map((dataSahabat) => (
-        <div key={dataSahabat.id}>
+        <div key={dataSahabat.noSahabat}>
           <div className="search-result-id">
             <p>Hasil Carian: {dataSahabat.noKadPengenalanSahabat}</p>
           </div>
@@ -129,7 +129,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.kumpulanSahabat}
+                        value={dataSahabat.kumpulanId}
                         disabled
                       />
                     </Form.Group>

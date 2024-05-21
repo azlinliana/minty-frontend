@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
+import { useKodInflowStore } from "../../../store/selenggara/kod-inflow-store";
+import { useSelenggaraStore } from "../../../store/options-store";
 
 function CreateKodInflow() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateKodInflow, setIsModalCreateKodInflow] = useState(false);
   const openModalCreateKodInflow = () => setIsModalCreateKodInflow(true);
@@ -25,46 +24,32 @@ function CreateKodInflow() {
     watch,
   } = useForm();
 
-  // ----------BE----------
-  // Create kod inflow
-  const createKodInflow = async (kodInflowInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/selenggara/kod-inflow`,
-        kodInflowInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateKodInflow();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  // ___________________________________ Backend __________________________________
+  // // Fetch kod inflow data
+  // const { kodInflowOptions, displayKodInflows } = useKodInflowStore((state) => ({
+  //   kodInflowOptions: state.kodInflowOptions,
+  //   displayKodInflows: state.displayKodInflows
+  // }));
 
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
+  // useEffect(() => {
+  //   displayKodInflows();
+  // }, [displayKodInflows]);
+
+  // Create kod inflow
+  const { kodInflows, displayKodInflows, createKodInflow } = useKodInflowStore((state) => ({
+    kodInflows: state.kodInflows,
+    displayKodInflows: state. displayKodInflows,
+    createKodInflow: state.createKodInflow,
+  }));
 
   useEffect(() => {
-    const fetchKodInflow = async () => {
-      try {
-        const response = await axiosCustom.get(
-          `/selenggara/kod-inflow/display-kod-inflow`
-        );
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setKodInflowsData(response.data); // Display all kod inflow data
-        } else {
-          ErrorAlert(response.data);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
+    displayKodInflows();
+  }, [displayKodInflows]);
 
-    fetchKodInflow();
-  }, []);
+  // Pass input & close modal
+  const handleCreateKodInflow = (addKodInflowData) => {
+    createKodInflow(addKodInflowData, closeModalCreateKodInflow);
+  };
 
   return (
     <>
@@ -72,6 +57,7 @@ function CreateKodInflow() {
         <Button onClick={openModalCreateKodInflow}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
+        
         <Modal
           show={isModalCreateKodInflow}
           onHide={closeModalCreateKodInflow}
@@ -100,7 +86,7 @@ function CreateKodInflow() {
                     --Pilih Kod Inflow--
                   </option>
 
-                  {kodInflowsData.map((kodInflow) => (
+                  {kodInflows.map((kodInflow) => (
                     <option key={kodInflow.id} value={kodInflow.id}>
                       {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                     </option>
@@ -214,7 +200,9 @@ function CreateKodInflow() {
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(createKodInflow)}>Simpan</Button>
+              <Button onClick={handleSubmit(handleCreateKodInflow)}>
+                Simpan
+              </Button>
             </Modal.Footer>
           </Form>
         </Modal>

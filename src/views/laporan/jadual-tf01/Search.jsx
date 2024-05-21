@@ -1,113 +1,52 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import ResultTF01 from "./SearchResult";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_laporan.css";
+import ResultTF01 from "./SearchResult";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
+import { useLokasiStore } from "../../../store/options-store";
 import axiosCustom from "../../../axios";
 
 function SearchTf01() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const [isSearchResultTf01Visible, setIsSearchResultTf01Visible] =
     useState(false);
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   const [selectedWilayah, setSelectedWilayah] = useState("");
   const [selectedCawangan, setSelectedCawangan] = useState("");
   const [selectedPusat, setSelectedPusat] = useState("");
 
-  const [wilayahOptions, setWilayahOptions] = useState([]);
-  const [cawanganOptions, setCawanganOptions] = useState([]);
-  const [pusatOptions, setPusatOptions] = useState([]);
-
-  // Fetch wilayah
-  const fetchWilayahs = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/wilayah/display-wilayah`
-      );
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setWilayahOptions(
-          response.data.map((wilayah) => ({
-            value: wilayah.id,
-            label: wilayah.namaWilayah,
-          }))
-        );
-
-        fetchCawangans();
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setWilayahOptions]);
+  // Display wilayah, cawangan & pusat options
+  const {
+    wilayahOptions,
+    displayWilayahs,
+    cawanganOptions,
+    displayCawangans,
+    pusatOptions,
+    displayPusats,
+  } = useLokasiStore((state) => ({
+    wilayahOptions: state.wilayahOptions,
+    displayWilayahs: state.displayWilayahs,
+    cawanganOptions: state.cawanganOptions,
+    displayCawangans: state.displayCawangans,
+    pusatOptions: state.pusatOptions,
+    displayPusats: state.displayPusats,
+  }));
 
   useEffect(() => {
-    fetchWilayahs();
-  }, [fetchWilayahs]);
-
-  // Fetch cawangan
-  const fetchCawangans = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/cawangan/display-cawangan`
-      );
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setCawanganOptions(
-          response.data.map((cawangan) => ({
-            value: cawangan.id,
-            label: cawangan.namaCawangan,
-            wilayahId: cawangan.wilayahId,
-          }))
-        );
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setCawanganOptions]);
-
-  useEffect(() => {
-    fetchCawangans();
-  }, [fetchCawangans]);
-
-  // Fetch pusat
-  const fetchPusats = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(`/selenggara/pusat/display-pusat`);
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setPusatOptions(
-          response.data.map((pusat) => ({
-            value: pusat.id,
-            label: pusat.namaPusat,
-            wilayahId: pusat.wilayahId,
-            cawanganId: pusat.cawanganId,
-          }))
-        );
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setPusatOptions]);
-
-  useEffect(() => {
-    fetchPusats();
-  }, [fetchPusats]);
+    displayWilayahs();
+    displayCawangans();
+    displayPusats();
+  }, [displayWilayahs, displayCawangans, displayPusats]);
 
   // Search jadual TF01
   const [resultTF01, setResultTF01] = useState([]);
@@ -149,40 +88,41 @@ function SearchTf01() {
 
         <div className="jadual-search-bar-section">
           <Container fluid className="jadual-search-bar">
-            <Form onSubmit={handleSubmit} onReset={reset}>
+            <Form onReset={reset}>
               <Row>
                 <Col xs={12} md={4}>
                   <div>
                     <Form.Group>
-                      <Form.Label>Wilayah</Form.Label>
-                      <Controller
-                        id="wilayahId"
-                        name="wilayahId"
-                        control={control}
+                      <Form.Label className="form-label">Wilayah</Form.Label>
+
+                      <Form.Control
+                        as="select"
+                        className="form-select"
+                        {...register("wilayahId", { required: true })}
+                        onChange={(e) => {
+                          setSelectedWilayah(e.target.value);
+                        }}
+                        aria-invalid={errors.wilayahId ? "true" : "false"}
                         defaultValue=""
-                        rules={{ required: "Wilayah diperlukan." }}
-                        render={({ field: { onChange } }) => (
-                          <Form.Select
-                            onChange={(e) => {
-                              setSelectedWilayah(e.target.value);
-                              onChange(e);
-                            }}
-                            defaultValue=""
-                          >
-                            <option value="" disabled>
-                              --Pilih Wilayah--
+                      >
+                        <option value="" disabled>
+                          --Pilih Wilayah--
+                        </option>
+                        {wilayahOptions
+                          // Sort wilayah options alphabetically by namaWilayah
+                          .sort((a, b) =>
+                            a.namaWilayah.localeCompare(b.namaWilayah)
+                          )
+                          .map((wilayah) => (
+                            <option key={wilayah.id} value={wilayah.kodWilayah}>
+                              {wilayah.namaWilayah}
                             </option>
-                            {wilayahOptions.map((wilayah) => (
-                              <option key={wilayah.value} value={wilayah.value}>
-                                {wilayah.label}
-                              </option>
-                            ))}
-                          </Form.Select>
-                        )}
-                      />
-                      {errors.wilayahId && (
+                          ))}
+                      </Form.Control>
+
+                      {errors.wilayahId?.type === "required" && (
                         <small className="text-danger">
-                          {errors.wilayahId.message}
+                          Wilayah diperlukan.
                         </small>
                       )}
                     </Form.Group>
@@ -192,44 +132,45 @@ function SearchTf01() {
                 <Col xs={12} md={4}>
                   <div>
                     <Form.Group>
-                      <Form.Label>Cawangan</Form.Label>
-                      <Controller
-                        id="cawanganId"
-                        name="cawanganId"
-                        control={control}
+                      <Form.Label className="form-label">Cawangan</Form.Label>
+
+                      <Form.Control
+                        as="select"
+                        className="form-select"
+                        {...register("cawanganId", { required: true })}
+                        onChange={(e) => {
+                          setSelectedCawangan(e.target.value);
+                        }}
+                        aria-invalid={errors.cawanganId ? "true" : "false"}
                         defaultValue=""
-                        rules={{ required: "Cawangan diperlukan." }}
-                        render={({ field: { onChange } }) => (
-                          <Form.Select
-                            onChange={(e) => {
-                              setSelectedCawangan(e.target.value);
-                              onChange(e);
-                            }}
-                            defaultValue=""
-                          >
-                            <option value="" disabled>
-                              --Pilih Cawangan--
+                      >
+                        <option value="" disabled>
+                          --Pilih Cawangan--
+                        </option>
+                        {cawanganOptions
+                          // Filter options based on the selected wilayah
+                          .filter(
+                            (item) =>
+                              selectedWilayah &&
+                              item.wilayahId === selectedWilayah
+                          )
+                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
+                          .sort((a, b) =>
+                            a.namaCawangan.localeCompare(b.namaCawangan)
+                          )
+                          .map((cawangan) => (
+                            <option
+                              key={cawangan.id}
+                              value={cawangan.kodCawangan}
+                            >
+                              {cawangan.namaCawangan}
                             </option>
-                            {cawanganOptions
-                              .filter(
-                                (item) =>
-                                  selectedWilayah &&
-                                  item.wilayahId === Number(selectedWilayah)
-                              )
-                              .map((cawangan) => (
-                                <option
-                                  key={cawangan.value}
-                                  value={cawangan.value}
-                                >
-                                  {cawangan.label}
-                                </option>
-                              ))}
-                          </Form.Select>
-                        )}
-                      />
-                      {errors.cawanganId && (
+                          ))}
+                      </Form.Control>
+
+                      {errors.cawanganId?.type === "required" && (
                         <small className="text-danger">
-                          {errors.cawanganId.message}
+                          Cawangan diperlukan.
                         </small>
                       )}
                     </Form.Group>
@@ -239,42 +180,39 @@ function SearchTf01() {
                 <Col xs={12} md={4}>
                   <div>
                     <Form.Group>
-                      <Form.Label>Pusat</Form.Label>
-                      <Controller
-                        id="pusatId"
-                        name="pusatId"
-                        control={control}
+                      <Form.Label className="form-label">Pusat</Form.Label>
+
+                      <Form.Control
+                        as="select"
+                        className="form-select"
+                        {...register("pusatId", { required: true })}
+                        onChange={(e) => {
+                          setSelectedPusat(e.target.value);
+                        }}
+                        aria-invalid={errors.pusatId ? "true" : "false"}
                         defaultValue=""
-                        rules={{ required: "Pusat diperlukan." }}
-                        render={({ field: { onChange } }) => (
-                          <Form.Select
-                            onChange={(e) => {
-                              setSelectedPusat(e.target.value);
-                              onChange(e);
-                            }}
-                            defaultValue=""
-                          >
-                            <option value="" disabled>
-                              --Pilih Pusat--
+                      >
+                        <option value="" disabled>
+                          --Pilih Pusat--
+                        </option>
+                        {pusatOptions
+                          // Filter options based on the selected cawangan
+                          .filter(
+                            (item) =>
+                              selectedCawangan &&
+                              item.kodCawangan === selectedCawangan
+                          )
+                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
+                          .sort((a, b) => a.namaPusat.localeCompare(b.namPusat))
+                          .map((pusat) => (
+                            <option key={pusat.id} value={pusat.kodPusat}>
+                              {pusat.namaPusat}
                             </option>
-                            {pusatOptions
-                              .filter(
-                                (item) =>
-                                  selectedCawangan &&
-                                  item.cawanganId === Number(selectedCawangan)
-                              )
-                              .map((pusat) => (
-                                <option key={pusat.value} value={pusat.value}>
-                                  {pusat.label}
-                                </option>
-                              ))}
-                          </Form.Select>
-                        )}
-                      />
-                      {errors.pusatId && (
-                        <small className="text-danger">
-                          {errors.pusatId.message}
-                        </small>
+                          ))}
+                      </Form.Control>
+
+                      {errors.pusatId?.type === "required" && (
+                        <small className="text-danger">Pusat diperlukan.</small>
                       )}
                     </Form.Group>
                   </div>

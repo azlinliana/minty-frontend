@@ -4,14 +4,11 @@ import "../../../assets/styles/styles_selenggara.css";
 import CreateKodInflow from "./Create";
 import EditWithoutKodInflowTerperinci from "./Edit/EditWithoutKodInflowTerperinci";
 import EditWithKodInflowTerperinci from "./Edit/EditWithKodInflowTerperinci";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import axiosCustom from "../../../axios";
-import Swal from "sweetalert2";
+import { useKodInflowStore } from "../../../store/selenggara/kod-inflow-store";
 
 function IndexKodInflow() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Back button
@@ -19,93 +16,25 @@ function IndexKodInflow() {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List kod inflow
-  const [kodInflows, setKodInflows] = useState([]);
-
-  const fetchKodInflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(`/selenggara/kod-inflow`);
-
-      if (response.status === 200) {
-        setKodInflows(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
+  // ___________________________________ Backend _________________________________________________________
+  // List, delete kod inflow without kod inflow terperinci & delete kod inflow with kod inflow terperinci
+  const {
+    kodInflows,
+    fetchKodInflows,
+    deleteKodInflowWithoutKodInflowTerperinci,
+    deleteKodInflowWithKodInflowTerperinci,
+  } = useKodInflowStore((state) => ({
+    kodInflows: state.kodInflows,
+    fetchKodInflows: state.fetchKodInflows,
+    deleteKodInflowWithoutKodInflowTerperinci:
+      state.deleteKodInflowWithoutKodInflowTerperinci,
+    deleteKodInflowWithKodInflowTerperinci:
+      state.deleteKodInflowWithKodInflowTerperinci,
+  }));
 
   useEffect(() => {
     fetchKodInflows();
   }, [fetchKodInflows]);
-
-  // Delete kod inflow without kod inflow terperinci
-  const deleteKodInflowWithoutKodInflowTerperinci = async (kodInflowId) => {
-    // Function to delete kod inflow
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/selenggara/kod-inflow/${kodInflowId}`
-        );
-
-        if (response.status === 200) {
-          setKodInflows((prevKodInflows) =>
-            prevKodInflows.filter((kodInflow) => kodInflow.id !== kodInflowId)
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
-
-  // Delete kod inflow with kod inflow terperinci
-  const deleteKodInflowWithKodInflowTerperinci = async (
-    kodInflowTerperinciId
-  ) => {
-    console.log(kodInflowTerperinciId);
-    // Function to delete dimensi
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/selenggara/kod-inflow-terperinci/${kodInflowTerperinciId}`
-        );
-
-        if (response.status === 200) {
-          setKodInflows((prevKodInflowTerperincis) =>
-            prevKodInflowTerperincis.filter(
-              (kodInflowTerperinci) =>
-                kodInflowTerperinci.id !== kodInflowTerperinciId
-            )
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
 
   return (
     <>
@@ -170,6 +99,7 @@ function IndexKodInflow() {
                           <EditWithoutKodInflowTerperinci
                             kodInflow={kodInflowsData}
                           />
+
                           <Button
                             className="delete-btn"
                             variant="danger"
@@ -237,6 +167,7 @@ function IndexKodInflow() {
                               kodInflow={kodInflowsData}
                               kodInflowTerperinci={kodInflowTerperincisData}
                             />
+
                             <Button
                               className="delete-btn"
                               variant="danger"

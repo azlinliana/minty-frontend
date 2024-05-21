@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
 
 function EditDimensi({ dimensi }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditDimensi, setIsModalEditDimensi] = useState(false);
   const openModalEditDimensi = () => setIsModalEditDimensi(true);
@@ -23,7 +21,7 @@ function EditDimensi({ dimensi }) {
     reset,
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini dimensi modal is opened
   const [formData, setFormData] = useState({
     kodDimensi: "",
@@ -46,22 +44,14 @@ function EditDimensi({ dimensi }) {
     }));
   }, [dimensi, setValue]);
 
-  const updateDimensi = async (dimensiInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/selenggara/dimensi/${dimensi.id}`,
-        dimensiInput
-      );
+  // Edit dimensi
+  const { editDimensi } = useDimensiStore((state) => ({
+    editDimensi: state.editDimensi,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditDimensi();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditDimensi = (editDimensiData) => {
+    editDimensi(dimensi.id, editDimensiData, closeModalEditDimensi);
   };
 
   return (
@@ -69,6 +59,7 @@ function EditDimensi({ dimensi }) {
       <Button className="edit-btn" onClick={openModalEditDimensi}>
         Edit
       </Button>{" "}
+      
       <Modal
         show={isModalEditDimensi}
         onHide={closeModalEditDimensi}
@@ -143,7 +134,7 @@ function EditDimensi({ dimensi }) {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(updateDimensi)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditDimensi)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

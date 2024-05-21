@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../../axios";
+import { useKodInflowStore } from "../../../../store/selenggara/kod-inflow-store";
 
 function EditWithoutKodInflowTerperinci({ kodInflow }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [
     isModalEditKodInflowWithoutKodInflowTerperinci,
@@ -27,7 +25,7 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
     reset,
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini kod inflow modal is opened
   const [formData, setFormData] = useState({
     kodInflow: "",
@@ -50,25 +48,17 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
     }));
   }, [kodInflow, setValue]);
 
-  const updateKodInflowWithoutKodInflowTerperinci = async (
-    kodInflowWithoutKodInflowTerperinciInput
-  ) => {
-    try {
-      const response = await axiosCustom.put(
-        `/selenggara/kod-inflow/${kodInflow.id}`,
-        kodInflowWithoutKodInflowTerperinciInput
-      );
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditKodInflowWithoutKodInflowTerperinci();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Edit dimensi
+  const { editKodInflowWithoutKodInflowTerperinci } = useKodInflowStore((state) => ({
+    editKodInflowWithoutKodInflowTerperinci: state.editKodInflowWithoutKodInflowTerperinci,
+  }));
+
+  // Pass input & close modal
+  const handleEditKodInflowWithoutKodInflowTerperinci = (editKodInflowData) => {
+    editKodInflowWithoutKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithoutKodInflowTerperinci);
   };
+
 
   return (
     <>
@@ -79,6 +69,7 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
         >
           Edit
         </Button>{" "}
+        
         <Modal
           show={isModalEditKodInflowWithoutKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithoutKodInflowTerperinci}
@@ -162,7 +153,7 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
 
               <Button
                 onClick={handleFormSubmit(
-                  updateKodInflowWithoutKodInflowTerperinci
+                  handleEditKodInflowWithoutKodInflowTerperinci
                 )}
               >
                 Simpan

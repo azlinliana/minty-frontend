@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
 
 function EditHubungan({ hubungan }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditHubungan, setIsModalEditHubungan] = useState(false);
   const openModalEditHubungan = () => setIsModalEditHubungan(true);
@@ -23,7 +21,7 @@ function EditHubungan({ hubungan }) {
     reset,
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini hubungan modal is opened
   const [formData, setFormData] = useState({
     kodHubungan: "",
@@ -46,23 +44,14 @@ function EditHubungan({ hubungan }) {
     }));
   }, [hubungan, setValue]);
 
-  // Update hubungan
-  const updateHubungan = async (hubunganInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/selenggara/hubungan/${hubungan.id}`,
-        hubunganInput
-      );
+  // Edit hubungan
+  const { editHubungan } = useHubunganStore((state) => ({
+    editHubungan: state.editHubungan,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditHubungan();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditHubungan = (editHubunganData) => {
+    editHubungan(hubungan.id, editHubunganData, closeModalEditHubungan);
   };
 
   return (
@@ -70,6 +59,7 @@ function EditHubungan({ hubungan }) {
       <Button className="edit-btn" onClick={openModalEditHubungan}>
         Edit
       </Button>{" "}
+
       <Modal
         show={isModalEditHubungan}
         onHide={closeModalEditHubungan}
@@ -146,7 +136,7 @@ function EditHubungan({ hubungan }) {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(updateHubungan)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditHubungan)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

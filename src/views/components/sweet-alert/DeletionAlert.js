@@ -23,9 +23,8 @@ function DeletionAlert(onConfirmDeletion, onCancelDeletion) {
       if (result.isConfirmed) {
         onConfirmDeletion(); // Call the function to perform deletion
       } 
-      else if (result.dismiss === Swal.DismissReason.cancel) {
-        onCancelDeletion(); // Call the function for canceling deletion
-      }
+      else {
+        Swal.fire("Dibatalkan", "Data anda selamat.", "error");      }
     });
 }
 

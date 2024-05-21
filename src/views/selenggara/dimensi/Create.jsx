@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
+import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
 
 function CreateDimensi() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateDimensi, setIsModalCreateDimensi] = useState(false);
   const openModalCreateDimensi = () => setIsModalCreateDimensi(true);
@@ -24,22 +22,15 @@ function CreateDimensi() {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create dimensi
-  const createDimensi = async (dimensiInput) => {
-    try {
-      const response = await axiosCustom.post(
-        "/selenggara/dimensi",
-        dimensiInput
-      );
+  const { createDimensi } = useDimensiStore((state) => ({
+    createDimensi: state.createDimensi,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateDimensi();
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateDimensi = (addDimensiData) => {
+    createDimensi(addDimensiData, closeModalCreateDimensi);
   };
 
   return (
@@ -47,6 +38,7 @@ function CreateDimensi() {
       <Button onClick={openModalCreateDimensi}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+      
       <Modal
         show={isModalCreateDimensi}
         onHide={closeModalCreateDimensi}
@@ -97,7 +89,7 @@ function CreateDimensi() {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(createDimensi)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateDimensi)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

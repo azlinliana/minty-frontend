@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../../axios";
+import { useKodInflowStore } from "../../../../store/selenggara/kod-inflow-store";
 
 function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [
     isModalEditKodInflowWithKodInflowTerperinci,
@@ -27,7 +25,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
     reset,
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini kod inflow modal is opened
   const [formData, setFormData] = useState({
     kodInflow: "",
@@ -66,24 +64,14 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
     }));
   }, [kodInflow, kodInflowTerperinci, setValue]);
 
-  const updateKodInflowWithKodInflowTerperinci = async (
-    kodInflowWithKodInflowTerperinciInput
-  ) => {
-    try {
-      const response = await axiosCustom.put(
-        `/selenggara/kod-inflow/${kodInflow.id}/kod-inflow-terperinci/${kodInflowTerperinci.id}`,
-        kodInflowWithKodInflowTerperinciInput
-      );
+  // Edit kod inflow with kod inflow terperinci
+  const { editKodInflowWithKodInflowTerperinci } = useKodInflowStore((state) => ({
+    editKodInflowWithKodInflowTerperinci: state.editKodInflowWithKodInflowTerperinci,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditKodInflowWithKodInflowTerperinci();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditKodInflowWithKodInflowTerperinci = (editKodInflowData) => {
+    editKodInflowWithKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithKodInflowTerperinci);
   };
 
   return (
@@ -95,6 +83,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
         >
           Edit
         </Button>{" "}
+        
         <Modal
           show={isModalEditKodInflowWithKodInflowTerperinci}
           onHide={closeModalEditKodInflowWithKodInflowTerperinci}
@@ -255,7 +244,7 @@ function EditWithKodInflowTerperinci({ kodInflow, kodInflowTerperinci }) {
               <Button
                 variant="primary"
                 onClick={handleFormSubmit(
-                  updateKodInflowWithKodInflowTerperinci
+                  handleEditKodInflowWithKodInflowTerperinci
                 )}
               >
                 Simpan

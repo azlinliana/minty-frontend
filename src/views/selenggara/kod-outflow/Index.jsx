@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_selenggara.css";
 import CreateKodOutflow from "./Create";
 import EditKodOutflow from "./Edit";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import Swal from "sweetalert2";
-import axiosCustom from "../../../axios";
+import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
 
 function IndexKodOutflow() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Back button
@@ -17,59 +15,19 @@ function IndexKodOutflow() {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List kod outflow
-  const [kodOutflows, setKodOutflows] = useState([]);
-
-  const fetchKodOutflows = async () => {
-    try {
-      const response = await axiosCustom.get(`/selenggara/kod-outflow`);
-
-      if (response.status === 200) {
-        setKodOutflows(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  // ___________________________________ Backend __________________________________
+  // List & delete kod outflow
+  const { kodOutflows, fetchKodOutflows, deleteKodOutflow } = useKodOutflowStore(
+    (state) => ({
+      kodOutflows: state.kodOutflows,
+      fetchKodOutflows: state.fetchKodOutflows,
+      deleteKodOutflow: state.deleteKodOutflow,
+    })
+  );
 
   useEffect(() => {
     fetchKodOutflows();
-  }, []);
-
-  // Delete kod outflow
-  const deleteKodOutflow = async (kodOutflowId) => {
-    // Function to delete kod outflow
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/selenggara/kod-outflow/${kodOutflowId}`
-        );
-
-        if (response.status === 200) {
-          setKodOutflows((prevKodOutflows) =>
-            prevKodOutflows.filter(
-              (kodOutflow) => kodOutflow.id !== kodOutflowId
-            )
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
+  }, [fetchKodOutflows]);
 
   return (
     <>
@@ -122,6 +80,7 @@ function IndexKodOutflow() {
                   <td>{kodOutflowsData.statusKodOutflow}</td>
                   <td>
                     <EditKodOutflow kodOutflow={kodOutflowsData} />
+                    
                     <Button
                       className="delete-btn"
                       variant="danger"

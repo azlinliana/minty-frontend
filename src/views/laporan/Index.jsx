@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
-import { Table, Button, Form, Modal } from "react-bootstrap";
-import axiosCustom from "../../axios";
 import "../../assets/styles/styles_laporan.css";
+import { Table, Button, Form, Modal } from "react-bootstrap";
+import { useLaporanStore } from "../../store/laporan/laporan-store";
 
 function IndexLaporan() {
-  // ----------FE----------
+  const navigate = useNavigate();
+
+  // __________________________________ Frontend __________________________________
   // Modal Carian Laporan Profil Sahabat
   const [
     isModalCarianLaporanProfilSahabat,
@@ -41,49 +42,36 @@ function IndexLaporan() {
   } = useForm();
 
   // Link pages
-  const navigate = useNavigate();
   const clickJadualTF01 = () => navigate("/search-tf01");
   const clickJadualTF01Cawangan = () => navigate("/search-tf01-cawangan");
   const clickJadualTF02 = () => navigate("/search-tf02");
 
-  // ----------BE----------
-  const searchNoKadPengenalanSahabatProfilSahabat = async (
-    noKadPengenalanSahabatInput
-  ) => {
-    try {
-      const response = await axiosCustom.get(
-        `/laporan/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
-      );
-      if (response.status === 200) {
-        navigate("/pembiayaan-sahabat", {
-          state: { resultSahabat: response.data },
-        }); // Set response data as a state
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
-    }
+  // ___________________________________ Backend __________________________________
+  const {
+    laporanProfilSahabats,
+    searchNoKadPengenalanSahabatProfilSahabat,
+    laporanProfilSahabatTerperincis,
+    searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+  } = useLaporanStore((state) => ({
+    laporanProfilSahabats: state.laporanProfilSahabats,
+    searchNoKadPengenalanSahabatProfilSahabat:
+      state.searchNoKadPengenalanSahabatProfilSahabat,
+    laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
+    searchNoKadPengenalanSahabatProfilSahabatTerperinci:
+      state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+  }));
+
+  // Pass search input & navigate to page pembiayaaan sahabat
+  const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
+    const result = await searchNoKadPengenalanSahabatProfilSahabat(noKadPengenalanSahabatData);
+
+    navigate("/pembiayaan-sahabat", {
+      state: { resultSahabat: laporanProfilSahabats },
+    }); // Set response data as a state
   };
 
-  const searchNoKadPengenalanSahabatProfilSahabatTerperinci = async (
-    noKadPengenalanSahabatInput
-  ) => {
-    try {
-      const response = await axiosCustom.get(
-        `/laporan/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
-      );
-      if (response.status === 200) {
-        navigate("/pembiayaan-sahabat-terperinci", {
-          state: { resultSahabat: response.data },
-        }); // Set response data as a state
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
-    }
-  };
+  // Pass input & navigate to another page pembiayaaan sahabat terperinci
+  const handleSearchProfilSahabatTerperinci = () => {};
 
   return (
     <div>
@@ -164,11 +152,7 @@ function IndexLaporan() {
                     >
                       Batal
                     </Button>
-                    <Button
-                      onClick={handleSubmit(
-                        searchNoKadPengenalanSahabatProfilSahabat
-                      )}
-                    >
+                    <Button onClick={handleSubmit(handleSearchProfilSahabat)}>
                       Cari
                     </Button>
                   </Modal.Footer>
@@ -243,7 +227,7 @@ function IndexLaporan() {
                     </Button>
                     <Button
                       onClick={handleSubmit(
-                        searchNoKadPengenalanSahabatProfilSahabatTerperinci
+                        handleSearchProfilSahabatTerperinci
                       )}
                     >
                       Cari

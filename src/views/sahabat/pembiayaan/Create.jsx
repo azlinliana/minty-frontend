@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../axios";
+import { useSkimPembiayaanStore } from "../../../store/options-store";
 
 function CreatePembiayaan({ sahabatId }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
     useState(false);
@@ -20,13 +21,24 @@ function CreatePembiayaan({ sahabatId }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
+  // Display skim pembiayaan options
+  const { skimPembiayaanOptions, displaySkimPembiayaans } =
+    useSkimPembiayaanStore((state) => ({
+      skimPembiayaanOptions: state.skimPembiayaanOptions,
+      displaySkimPembiayaans: state.displaySkimPembiayaans,
+    }));
+
+  useEffect(() => {
+    displaySkimPembiayaans();
+  }, [displaySkimPembiayaans]);
+
   // Create pembiayaan sahabat
   const createPembiayaanSahabat = async (pembiayaanSahabatInput) => {
     try {
@@ -51,6 +63,7 @@ function CreatePembiayaan({ sahabatId }) {
         <Button onClick={openModalCreatePembiayaanSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Pembiayaan
         </Button>{" "}
+        
         <Modal
           show={isModalCreatePembiayaanSahabat}
           onHide={closeModalCreatePembiayaanSahabat}
@@ -62,34 +75,31 @@ function CreatePembiayaan({ sahabatId }) {
           </Modal.Header>
 
           <Modal.Body>
-            <Form
-              onSubmit={handleSubmit(createPembiayaanSahabat)}
-              onReset={reset}
-            >
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="skimPembiayaan">
-                  Skim Pembiayaan
-                </Form.Label>
-                <Controller
-                  id="skimPembiayaan"
-                  name="skimPembiayaan"
-                  control={control}
+            <Form onReset={reset}>
+              <Form.Group controlId="skimPembiayaanId" className="mb-3">
+                <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("skimPembiayaanId", { required: true })}
+                  onChange={(e) => {}}
+                  aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                   defaultValue=""
-                  rules={{ required: "Skim pembiayaan sahabat diperlukan." }}
-                  render={({ field: { onChange } }) => (
-                    <Form.Select onChange={onChange} defaultValue="">
-                      <option value="" disabled>
-                        --Pilih Skim Pembiayaan--
-                      </option>
-                      <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
-                      <option value="I-MUDA">I-MUDA</option>
-                      <option value="I-MESRA">I-MESRA</option>
-                    </Form.Select>
-                  )}
-                />
-                {errors.skimPembiayaan && (
+                >
+                  <option value="" disabled>
+                    --Pilih Skim Pembiayaan--
+                  </option>
+                  {skimPembiayaanOptions.map((skimPembiayaan) => (
+                    <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
+                      {skimPembiayaan.namaSkimPembiayaan}
+                    </option>
+                  ))}
+                </Form.Control>
+
+                {errors.skimPembiayaanId?.type === "required" && (
                   <small className="text-danger">
-                    {errors.skimPembiayaan.message}
+                    Skim pembiayaan diperlukan.
                   </small>
                 )}
               </Form.Group>

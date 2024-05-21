@@ -8,11 +8,11 @@ import "../../../assets/styles/styles_layout.css";
 import axiosCustom from "../../../axios";
 
 function FirstNavbar() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Link pages
   const clickAIMLogo = () => navigate("/inflow-outflow");
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   const navigate = useNavigate();
 
   const handleSignOut = async () => {

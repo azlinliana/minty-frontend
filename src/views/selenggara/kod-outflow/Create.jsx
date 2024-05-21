@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
+import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
 
 function CreateKodOutflow() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateKodOutflow, setIsModalCreateKodOutflow] = useState(false);
   const openModalCreateKodOutflow = () => setIsModalCreateKodOutflow(true);
@@ -24,24 +22,15 @@ function CreateKodOutflow() {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create kod outflow
-  const createKodOutflow = async (kodOutflowInput) => {
-    try {
-      const response = await axiosCustom.post(
-        "/selenggara/kod-outflow",
-        kodOutflowInput
-      );
+  const { createKodOutflow } = useKodOutflowStore((state) => ({
+    createKodOutflow: state.createKodOutflow,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateKodOutflow();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateKodOutflow = (addKodOutflowData) => {
+    createKodOutflow(addKodOutflowData, closeModalCreateKodOutflow);
   };
 
   return (
@@ -49,6 +38,7 @@ function CreateKodOutflow() {
       <Button onClick={openModalCreateKodOutflow}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+      
       <Modal
         show={isModalCreateKodOutflow}
         onHide={closeModalCreateKodOutflow}
@@ -101,7 +91,7 @@ function CreateKodOutflow() {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(createKodOutflow)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateKodOutflow)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

@@ -1,24 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
 import "../../assets/styles/styles_selenggara.css";
+import { Table, Button } from "react-bootstrap";
 
 function IndexSelenggara() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Link pages
   const navigate = useNavigate();
 
   const clickLihatKodInflow = () => navigate("/kod-inflow");
   const clickLihatKodOutflow = () => navigate("/kod-outflow");
-
   const clickLihatDimensi = () => navigate("/dimensi");
   const clickLihatHubungan = () => navigate("/hubungan");
-  // const clickLihatPinjamanAktiviti = () => navigate('/pinjaman-aktiviti');
-
-  // Back button
-  const goBack = () => {
-    navigate(-1);
-  };
 
   return (
     <>
@@ -93,12 +86,6 @@ function IndexSelenggara() {
               </tr>
             </tbody>
           </Table>
-
-          <div className="kembali-btn-container">
-            <Button className="kembali-btn" onClick={goBack}>
-              Kembali
-            </Button>{" "}
-          </div>
         </div>
       </div>
     </>

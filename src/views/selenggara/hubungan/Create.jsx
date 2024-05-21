@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
+import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
 
 function CreateHubungan() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateHubungan, setIsModalCreateHubungan] = useState(false);
   const openModalCreateHubungan = () => setIsModalCreateHubungan(true);
@@ -24,24 +22,15 @@ function CreateHubungan() {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create hubungan
-  const createHubungan = async (hubunganInput) => {
-    try {
-      const response = await axiosCustom.post(
-        "/selenggara/hubungan",
-        hubunganInput
-      );
+  const { createHubungan } = useHubunganStore((state) => ({
+    createHubungan: state.createHubungan,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateHubungan();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateHubungan = (addHubunganData) => {
+    createHubungan(addHubunganData, closeModalCreateHubungan);
   };
 
   return (
@@ -49,6 +38,7 @@ function CreateHubungan() {
       <Button onClick={openModalCreateHubungan}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+
       <Modal
         show={isModalCreateHubungan}
         onHide={closeModalCreateHubungan}
@@ -101,7 +91,7 @@ function CreateHubungan() {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(createHubungan)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateHubungan)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

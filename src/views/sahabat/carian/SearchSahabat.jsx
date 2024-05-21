@@ -1,15 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_sahabat.css";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import axiosCustom from "../../../axios";
+import { useSahabatStore } from "../../../store/sahabat/sahabat-store";
 
 function SearchSahabat() {
-  const navigate = useNavigate();
-
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Form validation
   const {
     register,
@@ -18,25 +15,31 @@ function SearchSahabat() {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
-  // Search no. kad pengenalan sahabat
-  const searchNoKadPengenalanSahabat = async (noKadPengenalanSahabatInput) => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/search/${noKadPengenalanSahabatInput.noKadPengenalanSahabat}`
-      );
+  // ___________________________________ Backend __________________________________
+  // Search sahabat
+  const { sahabats, searchSahabat } = useSahabatStore((state) => ({
+    sahabats: state.sahabats,
+    searchSahabat: state.searchSahabat,
+  }));
 
-      if (response.status === 200) {
-        navigate("/hasil-carian-sahabat", {
-          state: { resultSahabat: response.data },
-        }); // Set response data as a state
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
-    }
+  // Pass input and navigate to the hasil carian sahabat page with the sahabat data
+  const [searchComplete, setSearchComplete] = useState(false);
+
+  const handleSearchSahabat = async (searchSahabatData) => {
+    await searchSahabat(searchSahabatData);
+
+    setSearchComplete(true);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchComplete && sahabats.length > 0) {
+      navigate("/hasil-carian-sahabat", {
+        state: { resultSahabat: sahabats },
+      });
+    }
+  }, [sahabats, searchComplete, navigate]);
 
   return (
     <>
@@ -45,11 +48,7 @@ function SearchSahabat() {
       </div>
 
       <Container fluid className="sahabat-search-container">
-        <Form
-          className="sahabat-search-bar"
-          onSubmit={handleSubmit(searchNoKadPengenalanSahabat)}
-          onReset={reset}
-        >
+        <Form className="sahabat-search-bar" onReset={reset}>
           <Row>
             <Col xs={12} lg={10}>
               <Form.Group controlId="noKadPengenalanSahabat">
@@ -76,7 +75,7 @@ function SearchSahabat() {
                 <div>
                   <Button
                     className="carian-sahabat-search-btn"
-                    onClick={handleSubmit(searchNoKadPengenalanSahabat)}
+                    onClick={handleSubmit(handleSearchSahabat)}
                   >
                     Cari
                   </Button>

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
 
 function EditKodOutflow({ kodOutflow }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditKodOutflow, setIsModalEditKodOutflow] = useState(false);
   const openModalEditKodOutflow = () => setIsModalEditKodOutflow(true);
@@ -23,7 +21,7 @@ function EditKodOutflow({ kodOutflow }) {
     reset,
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini kod outflow modal is opened
   const [formData, setFormData] = useState({
     kodOutflow: "",
@@ -46,29 +44,23 @@ function EditKodOutflow({ kodOutflow }) {
     }));
   }, [kodOutflow, setValue]);
 
-  const updateKodOutflow = async (kodOutflowInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/selenggara/kod-outflow/${kodOutflow.id}`,
-        kodOutflowInput
-      );
+  // Edit kod outflow
+  const { editKodOutflow } = useKodOutflowStore((state) => ({
+    editKodOutflow: state.editKodOutflow,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditKodOutflow();
-      } else {
-        ErrorAlert(response.data.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditKodOutflow = (editKodOutflowData) => {
+    editKodOutflow(kodOutflow.id, editKodOutflowData, closeModalEditKodOutflow);
   };
+
 
   return (
     <>
       <Button className="edit-btn" onClick={openModalEditKodOutflow}>
         Edit
       </Button>{" "}
+      
       <Modal
         show={isModalEditKodOutflow}
         onHide={closeModalEditKodOutflow}
@@ -145,7 +137,7 @@ function EditKodOutflow({ kodOutflow }) {
               Batal
             </Button>
 
-            <Button onClick={handleSubmit(updateKodOutflow)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditKodOutflow)}>Simpan</Button>
           </Modal.Footer>
         </Form>
       </Modal>

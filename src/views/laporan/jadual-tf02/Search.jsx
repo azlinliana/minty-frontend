@@ -1,56 +1,37 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import ResultTf02 from "./SearchResult";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_laporan.css";
+import ResultTf02 from "./SearchResult";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import { Container, Row, Col, Form, Button, Breadcrumb } from "react-bootstrap";
+import { useLokasiStore } from "../../../store/options-store";
+
 import axiosCustom from "../../../axios";
 
 function SearchTf02() {
-  // ------- FE ---------
+  // __________________________________ Frontend __________________________________
   // Controls visibility of the reports
   const [isSearchResultJadualTf02Visible, setIsSearchResultJadualTf02Visible] =
     useState(false);
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
-  const [selectedCawangan, setSelectedCawangan] = useState("");
-
-  const [cawanganOptions, setCawanganOptions] = useState([]);
-
-  // Fetch cawangan
-  const fetchCawangans = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/cawangan/display-cawangan`
-      );
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setCawanganOptions(
-          response.data.map((cawangan) => ({
-            value: cawangan.id,
-            label: cawangan.namaCawangan,
-            wilayahId: cawangan.wilayahId,
-          }))
-        );
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setCawanganOptions]);
+  // ___________________________________ Backend __________________________________
+  // Display cawangan options
+  const { cawanganOptions, displayCawangans } = useLokasiStore((state) => ({
+    cawanganOptions: state.cawanganOptions,
+    displayCawangans: state.displayCawangans,
+  }));
 
   useEffect(() => {
-    fetchCawangans();
-  }, [fetchCawangans]);
+    displayCawangans();
+  }, [displayCawangans]);
 
   // Search jadual TF02
   const [resultTf02, setResultTF02] = useState([]);
@@ -91,55 +72,54 @@ function SearchTf02() {
 
         <div className="jadual-search-bar-section">
           <Container fluid className="jadual-search-bar">
-            <Row>
-              {/* Cawangan */}
-              <Col xs={12} md={12}>
-                <div>
-                  <Form.Group>
-                    <Form.Label>Cawangan</Form.Label>
-                    <Controller
-                      id="cawanganId"
-                      name="cawanganId"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "Cawangan diperlukan." }}
-                      render={({ field: { onChange } }) => (
-                        <Form.Select
-                          onChange={(e) => {
-                            setSelectedCawangan(e.target.value);
-                            onChange(e);
-                          }}
-                          defaultValue=""
-                        >
-                          <option value="" disabled>
-                            --Pilih Cawangan--
-                          </option>
-                          {cawanganOptions.map((cawangan) => (
-                            <option key={cawangan.value} value={cawangan.value}>
-                              {cawangan.label}
-                            </option>
-                          ))}
-                        </Form.Select>
-                      )}
-                    />
-                    {errors.cawanganId && (
-                      <small className="text-danger">
-                        {errors.cawanganId.message}
-                      </small>
-                    )}
-                  </Form.Group>
-                </div>
-              </Col>
-            </Row>
+            <Form onReset={reset}>
+              <Row>
+                {/* Cawangan */}
+                <Col xs={12} md={12}>
+                  <div>
+                    <Form.Group>
+                      <Form.Label className="form-label">Cawangan</Form.Label>
 
-            <div className="laporan-jadual-carian-btn-container">
-              <Button
-                className="laporan-jadual-carian-btn"
-                onClick={handleSubmit(searchJadualTF02)}
-              >
-                Cari
-              </Button>{" "}
-            </div>
+                      <Form.Control
+                        as="select"
+                        className="form-select"
+                        {...register("cawanganId", { required: true })}
+                        onChange={(e) => {}}
+                        aria-invalid={errors.cawanganId ? "true" : "false"}
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          --Pilih Cawangan--
+                        </option>
+                        {cawanganOptions.map((cawangan) => (
+                          <option
+                            key={cawangan.id}
+                            value={cawangan.kodCawangan}
+                          >
+                            {cawangan.namaCawangan}
+                          </option>
+                        ))}
+                      </Form.Control>
+
+                      {errors.cawanganId?.type === "required" && (
+                        <small className="text-danger">
+                          Cawangan diperlukan.
+                        </small>
+                      )}
+                    </Form.Group>
+                  </div>
+                </Col>
+              </Row>
+
+              <div className="laporan-jadual-carian-btn-container">
+                <Button
+                  className="laporan-jadual-carian-btn"
+                  onClick={handleSubmit(searchJadualTF02)}
+                >
+                  Cari
+                </Button>{" "}
+              </div>
+            </Form>
           </Container>
 
           {isSearchResultJadualTf02Visible && (

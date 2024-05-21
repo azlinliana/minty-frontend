@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_selenggara.css";
 import CreateHubungan from "./Create";
 import EditHubungan from "./Edit";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import Swal from "sweetalert2";
-import axiosCustom from "../../../axios";
+import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
 
 function IndexHubungan() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Back button
@@ -18,57 +15,19 @@ function IndexHubungan() {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List hubungan
-  const [hubungans, setHubungans] = useState([]);
-
-  const fetchHubungans = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get("/selenggara/hubungan");
-
-      if (response.status === 200) {
-        setHubungans(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
+  // ___________________________________ Backend __________________________________
+  // List & delete hubungan
+  const { hubungans, fetchHubungans, deleteHubungan } = useHubunganStore(
+    (state) => ({
+      hubungans: state.hubungans,
+      fetchHubungans: state.fetchHubungans,
+      deleteHubungan: state.deleteHubungan,
+    })
+  );
 
   useEffect(() => {
     fetchHubungans();
   }, [fetchHubungans]);
-
-  // Delete hubungan
-  const deleteHubungan = async (hubunganId) => {
-    // Function to delete dimensi
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/selenggara/hubungan/${hubunganId}`
-        );
-
-        if (response.status === 200) {
-          setHubungans((prevHubungans) =>
-            prevHubungans.filter((hubungan) => hubungan.id !== hubunganId)
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
 
   return (
     <>
@@ -121,6 +80,7 @@ function IndexHubungan() {
                   <td>{hubungansData.statusHubungan}</td>
                   <td>
                     <EditHubungan hubungan={hubungansData} />
+                    
                     <Button
                       className="delete-btn"
                       onClick={() => deleteHubungan(hubungansData.id)}

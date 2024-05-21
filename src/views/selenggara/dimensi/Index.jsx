@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_selenggara.css";
 import CreateDimensi from "./Create";
 import EditDimensi from "./Edit";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import Swal from "sweetalert2";
-import axiosCustom from "../../../axios";
+import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
 
 function IndexDimensi() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Back button
@@ -18,57 +15,19 @@ function IndexDimensi() {
     navigate(-1);
   };
 
-  // ----------BE----------
-  // List dimensi
-  const [dimensis, setDimensis] = useState([]);
-
-  const fetchDimensis = async () => {
-    try {
-      const response = await axiosCustom.get("/selenggara/dimensi");
-
-      if (response.status === 200) {
-        setDimensis(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  // ___________________________________ Backend __________________________________
+  // List & delete dimensi
+  const { dimensis, fetchDimensis, deleteDimensi } = useDimensiStore(
+    (state) => ({
+      dimensis: state.dimensis,
+      fetchDimensis: state.fetchDimensis,
+      deleteDimensi: state.deleteDimensi,
+    })
+  );
 
   useEffect(() => {
     fetchDimensis();
-  }, []);
-
-  // Delete dimensi
-  const deleteDimensi = async (dimensiId) => {
-    // Function to delete dimensi
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/selenggara/dimensi/${dimensiId}`
-        );
-
-        if (response.status === 200) {
-          setDimensis((prevDimensis) =>
-            prevDimensis.filter((dimensi) => dimensi.id !== dimensiId)
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
+  }, [fetchDimensis]);
 
   return (
     <>
@@ -121,6 +80,7 @@ function IndexDimensi() {
                   <td>{dimensisData.statusDimensi}</td>
                   <td>
                     <EditDimensi dimensi={dimensisData} />
+                    
                     <Button
                       className="delete-btn"
                       onClick={() => deleteDimensi(dimensisData.id)}
