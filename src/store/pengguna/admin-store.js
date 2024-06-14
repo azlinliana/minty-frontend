@@ -37,7 +37,7 @@ export const useAdminStore = create((set) => ({
         ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Handle network error or other errors
+      ErrorAlert(error);
     }
   },
   // Edit admin
@@ -59,7 +59,7 @@ export const useAdminStore = create((set) => ({
 
         SuccessAlert(response.data.success);
       } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
+        ErrorAlert(response);
       }
     } catch (error) {
       ErrorAlert(error);
@@ -78,11 +78,11 @@ export const useAdminStore = create((set) => ({
 
           SuccessAlert(response.data.success);
         } else {
-          ErrorAlert(response); // Handle error from the backend or unknown error from the server side
+          ErrorAlert(response); 
         }
       });
     } catch (error) {
-      ErrorAlert(error); // Handle network error or other errors
+      ErrorAlert(error);
     }
   },
 }));

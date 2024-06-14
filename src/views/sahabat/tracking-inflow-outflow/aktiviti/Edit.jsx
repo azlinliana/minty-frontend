@@ -1,78 +1,106 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
-import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../../axios";
+import { useAktivitiStore } from "../../../../store/sahabat/aktiviti-store";
 
 function EditAktiviti({
   sahabatId,
   pembiayaanId,
   aktivitiId,
-  aktiviti,
-  kegiatanOptions,
-  keteranganKegiatanOptions,
-  projekKegiatanOptions,
-  kodDimensisData,
-}) {
-  // ----------FE----------
+  aktivitiSahabat,
+  selectedAktiviti,
+  setSelectedAktiviti,
+  selectedKeteranganAktiviti,
+  setSelectedKeteranganAktiviti,
+  setSelectedProjekAktiviti,
+  aktivitiOptions,
+  keteranganAktivitiOptions,
+  projekAktivitiOptions,
+  dimensiOptions,
+}) { console.log(dimensiOptions);
+  // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalEditAktiviti, setIsModalEditAktiviti] = useState(false);
-  const openModalEditAktiviti = () => setIsModalEditAktiviti(true);
-  const closeModalEditAktiviti = () => {
-    setIsModalEditAktiviti(false);
+  const [isModalEditAktivitiSahabat, setIsModalEditAktivitiSahabat] =
+    useState(false);
+  const openModalEditAktivitiSahabat = () =>
+    setIsModalEditAktivitiSahabat(true);
+  const closeModalEditAktivitiSahabat = () => {
+    setIsModalEditAktivitiSahabat(false);
   };
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
+  // ___________________________________ Backend __________________________________
+  // Set default values when the edit aktiviti modal is opened
+  const [formData, setFormData] = useState({
+    kegiatanId: "",
+    keteranganKegiatanId: "",
+    projekKegiatanId: "",
+    dimensiId: "",
+    pengurusDanaAktiviti: "",
+    keteranganLainAktiviti: "",
+    jumlahPinjamanAktiviti: "",
+  });
 
-  // ----------BE----------
-  // Fetch kegiatan, keterangan kegiatan, and projek kegiatan
-  const [selectedKegiatan, setSelectedKegiatan] = useState("");
-  const [selectedKeteranganKegiatan, setSelectedKeteranganKegiatan] =
-    useState("");
-  const [selectedProjekKegiatan, setSelectedProjekKegiatan] = useState("");
-
-  // Set initial values based on aktiviti prop
   useEffect(() => {
-    if (aktiviti) {
-      setSelectedKegiatan(aktiviti.kegiatanId.toString());
-      setSelectedKeteranganKegiatan(aktiviti.keteranganKegiatanId.toString());
-      setSelectedProjekKegiatan(aktiviti.projekKegiatanId.toString());
-    }
-  }, [aktiviti]);
+    // Populate form data
+    setValue("kegiatanId", aktivitiSahabat.kegiatanId);
+    setValue("keteranganKegiatanId", aktivitiSahabat.keteranganKegiatanId);
+    setValue("projekKegiatanId", aktivitiSahabat.projekKegiatanId);
+    setValue("dimensiId", aktivitiSahabat.kodDimensi);
+    setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
+    setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
+    setValue("jumlahPinjamanAktiviti", aktivitiSahabat.jumlahPinjamanAktiviti);
+    console.log(aktivitiSahabat.kodDimensi);
 
-  const updateAktiviti = async (aktivitiInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/aktiviti/${aktivitiId}`,
-        aktivitiInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditAktiviti();
-      } else {
-        console.log(response);
-        ErrorAlert(response.error); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kegiatanId: aktivitiSahabat.kegiatanId,
+      keteranganKegiatanId: aktivitiSahabat.keteranganKegiatanId,
+      projekKegiatanId: aktivitiSahabat.projekKegiatanId,
+      dimensiId: aktivitiSahabat.kodDimensi,
+      pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
+      keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
+      jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
+    }));
+
+    // setSelectedAktiviti(aktivitiSahabat.kegiatanId);
+    // setSelectedKeteranganAktiviti(aktivitiSahabat.keteranganKegiatanId);
+    // setSelectedProjekAktiviti(aktivitiSahabat.projekKegiatanId);
+  }, [aktivitiSahabat, setValue]);
+
+  // Edit aktiviti sahabat
+  const { editAktivitiSahabat } = useAktivitiStore((state) => ({
+    editAktivitiSahabat: state.editAktivitiSahabat,
+  }));
+
+  // Pass input & close modal
+  const handleEditAktivitiSahabat = (editAktivitiSahabatData) => {
+    editAktivitiSahabat(
+      sahabatId,
+      pembiayaanId,
+      aktivitiId,
+      editAktivitiSahabatData,
+      closeModalEditAktivitiSahabat
+    );
   };
 
   return (
     <>
-      <Button className="edit-btn" onClick={openModalEditAktiviti}>
+      <Button className="edit-btn" onClick={openModalEditAktivitiSahabat}>
         Edit
       </Button>{" "}
+
       <Modal
-        show={isModalEditAktiviti}
-        onHide={closeModalEditAktiviti}
+        show={isModalEditAktivitiSahabat}
+        onHide={closeModalEditAktivitiSahabat}
         backdrop="static"
         keyboard={false}
       >
@@ -80,252 +108,221 @@ function EditAktiviti({
           <Modal.Title>Edit Aktiviti Sahabat</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} onReset={reset}>
-            <Form.Group>
-              <Form.Label htmlFor="kegiatanId">Aktiviti</Form.Label>
-              <Controller
-                id="kegiatanId"
-                name="kegiatanId"
-                control={control}
-                defaultValue={aktiviti.kegiatanId}
-                rules={{ required: "Aktivti diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={(e) => {
-                      setSelectedKegiatan(e.target.value);
-                      onChange(e);
-                    }}
-                    defaultValue={aktiviti.kegiatanId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Aktiviti--
-                    </option>
-                    {kegiatanOptions.map((kegiatan) => (
-                      <option key={kegiatan.value} value={kegiatan.value}>
-                        {kegiatan.label}
-                      </option>
-                    ))}
-                  </Form.Select>
-                )}
-              />
-              {errors.kegiatanId && (
-                <small className="text-danger">
-                  {errors.kegiatanId.message}
-                </small>
+        <Form onReset={reset}>
+          <Modal.Body>
+            {/* Aktiviti */}
+            <Form.Group controlId="kegiatanId" className="mb-3">
+              <Form.Label className="form-label">Aktiviti</Form.Label>
+
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("kegiatanId", { required: true })}
+                aria-invalid={errors.kegiatanId ? "true" : "false"}
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  --Pilih Aktiviti--
+                </option>
+
+                {aktivitiOptions.map((aktiviti) => (
+                  <option key={aktiviti.id} value={aktiviti.id}>
+                    {aktiviti.jenisKegiatan}
+                  </option>
+                ))}
+              </Form.Control>
+
+              {errors.kegiatanId?.type === "required" && (
+                <small className="text-danger">Aktiviti diperlukan.</small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="keteranganKegiatanId">
-                Keterangan Aktiviti
+            {/* Keterangan Kegiatan */}
+            <Form.Group controlId="keteranganKegiatanId" className="mb-3">
+              <Form.Label className="form-label">
+                Keterangan Kegiatan
               </Form.Label>
-              <Controller
-                id="keteranganKegiatanId"
-                name="keteranganKegiatanId"
-                control={control}
-                defaultValue={aktiviti.keteranganKegiatanId}
-                rules={{ required: "Keterangan aktiviti diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={(e) => {
-                      setSelectedKeteranganKegiatan(e.target.value);
-                      onChange(e);
-                    }}
-                    defaultValue={aktiviti.keteranganKegiatanId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Keterangan Aktiviti--
+
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("keteranganKegiatanId", { required: true })}
+                onChange={(e) => {
+                  setSelectedKeteranganAktiviti(e.target.value);
+                }}
+                aria-invalid={errors.keteranganKegiatanId ? "true" : "false"}
+              >
+                <option value="" disabled>
+                  --Pilih Keterangan Kegiatan--
+                </option>
+
+                {keteranganAktivitiOptions
+                  .filter(
+                    (item) =>
+                      selectedAktiviti && item.kegiatanId === selectedAktiviti
+                  )
+                  .map((keteranganAktiviti) => (
+                    <option
+                      key={keteranganAktiviti.id}
+                      value={keteranganAktiviti.id}
+                    >
+                      {keteranganAktiviti.jenisKeteranganKegiatan}
                     </option>
-                    {keteranganKegiatanOptions
-                      .filter(
-                        (item) =>
-                          selectedKegiatan &&
-                          item.kegiatanId === Number(selectedKegiatan)
-                      )
-                      .map((keteranganKegiatan) => (
-                        <option
-                          key={keteranganKegiatan.value}
-                          value={keteranganKegiatan.value}
-                        >
-                          {keteranganKegiatan.label}
-                        </option>
-                      ))}
-                  </Form.Select>
-                )}
-              />
-              {errors.keteranganKegiatanId && (
+                  ))}
+              </Form.Control>
+
+              {errors.keteranganKegiatanId?.type === "required" && (
                 <small className="text-danger">
-                  {errors.keteranganKegiatanId.message}
+                  Keterangan kegiatan diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="projekKegiatanId">
-                Projek Aktiviti
-              </Form.Label>
-              <Controller
-                id="projekKegiatanId"
-                name="projekKegiatanId"
-                control={control}
-                defaultValue={aktiviti.projekKegiatanId}
-                rules={{ required: "Projek aktiviti diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={(e) => {
-                      setSelectedProjekKegiatan(e.target.value);
-                      onChange(e);
-                    }}
-                    defaultValue={aktiviti.projekKegiatanId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Projek Aktiviti--
+            {/* Projek Aktiviti */}
+            <Form.Group controlId="projekKegiatanId" className="mb-3">
+              <Form.Label className="form-label">Projek Aktiviti</Form.Label>
+
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("projekKegiatanId", { required: true })}
+                onChange={(e) => {
+                  setSelectedProjekAktiviti(e.target.value);
+                }}
+                aria-invalid={errors.projekKegiatanId ? "true" : "false"}
+              >
+                <option value="" disabled>
+                  --Pilih Projek Aktiviti--
+                </option>
+                {projekAktivitiOptions
+                  .filter(
+                    (item) =>
+                      selectedKeteranganAktiviti &&
+                      item.keteranganKegiatanId === selectedKeteranganAktiviti
+                  )
+                  .map((projekAktiviti) => (
+                    <option key={projekAktiviti.id} value={projekAktiviti.id}>
+                      {projekAktiviti.jenisProjekKegiatan}
                     </option>
-                    {projekKegiatanOptions
-                      .filter(
-                        (item) =>
-                          selectedKeteranganKegiatan &&
-                          item.keteranganKegiatanId ===
-                            Number(selectedKeteranganKegiatan)
-                      )
-                      .map((projekKegiatan) => (
-                        <option
-                          key={projekKegiatan.value}
-                          value={projekKegiatan.value}
-                        >
-                          {projekKegiatan.label}
-                        </option>
-                      ))}
-                  </Form.Select>
-                )}
-              />
-              {errors.projekKegiatanId && (
+                  ))}
+              </Form.Control>
+
+              {errors.projekKegiatanId?.type === "required" && (
                 <small className="text-danger">
-                  {errors.projekKegiatanId.message}
+                  Projek aktiviti diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="dimensiId">Dimensi</Form.Label>
-              <Controller
-                id="dimensiId"
-                name="dimensiId"
-                control={control}
-                defaultValue={aktiviti.dimensiId}
-                rules={{ required: "Kod dimensi diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={aktiviti.dimensiId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Kod Dimensi--
+            {/* Dimensi */}
+            <Form.Group controlId="dimensiId" className="mb-3">
+              <Form.Label className="form-label">Dimensi</Form.Label>
+
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("dimensiId", { required: true })}
+                aria-invalid={errors.dimensiId ? "true" : "false"}
+              >
+                <option value="" disabled>
+                  --Pilih Kod Dimensi--
+                </option>
+                {dimensiOptions
+                  .sort((a, b) => a.kodDimensi.localeCompare(b.kodDimensi))
+                  .map((kodDimensi) => (
+                    <option key={kodDimensi.id} value={kodDimensi.id}>
+                      {kodDimensi.kodDimensi} - {kodDimensi.keteranganDimensi}
                     </option>
-                    {kodDimensisData.map((kodDimensi) => (
-                      <option key={kodDimensi.id} value={kodDimensi.id}>
-                        {kodDimensi.kodDimensi} - {kodDimensi.keteranganDimensi}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  ))}
+              </Form.Control>
+
+              {errors.dimensiId?.type === "required" && (
+                <small className="text-danger">Kod dimensi diperlukan.</small>
+              )}
+            </Form.Group>
+
+            {/* Pengurusan Dana */}
+            <Form.Group controlId="pengurusDanaAktiviti" className="mb-3">
+              <Form.Label className="form-label">Pengurusan Dana</Form.Label>
+
+              <Form.Control
+                as="select"
+                className="form-select"
+                {...register("pengurusDanaAktiviti", { required: true })}
+                onChange={(e) => {}}
+                aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
+              >
+                <option value="" disabled>
+                  --Pilih Pengurus Dana Sahabat--
+                </option>
+                <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
+                <option value="PS - PARTNERSHIP">PS - PARTNERSHIP</option>
+                <option value="PL - PERNIAGAAN">PL - PIPELINER</option>
+
+                {errors.pengurusDanaAktiviti?.type === "required" && (
+                  <small className="text-danger">
+                    Pengurusan dana diperlukan.
+                  </small>
                 )}
-              />
-              {errors.dimensiId && (
+              </Form.Control>
+
+              {errors.pengurusDanaAktiviti?.type === "required" && (
                 <small className="text-danger">
-                  {errors.dimensiId.message}
+                  Pengurusan dana diperlukan.
                 </small>
               )}
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="pengurusDana">Pengurusan Dana</Form.Label>
-              <Controller
-                id="pegurusDanaAktiviti"
-                name="pengurusDanaAktiviti"
-                control={control}
-                defaultValue={aktiviti.pengurusDanaAktiviti}
-                rules={{ required: "Pengurus dana diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={aktiviti.pengurusDanaAktiviti}
-                  >
-                    <option value="" disabled>
-                      --Pilih Pengurus Dana Sahabat--
-                    </option>
-                    <option value="FM-FUND MANAGER">FM-FUND MANAGER</option>
-                    <option value="PS-PARTNERSHIP">PS-PARTNERSHIP</option>
-                    <option value="PL-PERNIAGAAN">PL-PIPELINER</option>
-                  </Form.Select>
-                )}
-              />
-              {errors.pengurusDanaAktiviti && (
-                <small className="text-danger">
-                  {errors.pengurusDanaAktiviti.message}
-                </small>
-              )}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="keteranganLainAktiviti">
+            {/* Keterangan Lain Aktiviti */}
+            <Form.Group controlId="keteranganLainAktiviti" className="mb-3">
+              <Form.Label className="form-label">
                 Keterangan untuk Lain-Lain
               </Form.Label>
-              <Controller
-                id="keteranganLainAktiviti"
-                name="keteranganLainAktiviti"
-                control={control}
-                defaultValue={aktiviti.keteranganLainAktiviti}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan keterangan untuk lain-lain"
-                    autoFocus
-                  />
-                )}
+
+              <Form.Control
+                type="text"
+                {...register("keteranganLainAktiviti")}
+                aria-invalid={errors.keteranganLainAktiviti ? "true" : "false"}
+                placeholder="Masukkan keterangan untuk lain-lain"
               />
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="jumlahPinjamanAktiviti">
+            {/* Jumlah Pinjaman */}
+            <Form.Group controlId="jumlahPinjamanAktiviti" className="mb-3">
+              <Form.Label className="form-label">
                 Jumlah Pinjaman (RM)
               </Form.Label>
-              <Controller
-                id="jumlahPinjamanAktiviti"
-                name="jumlahPinjamanAktiviti"
-                control={control}
-                defaultValue={aktiviti.jumlahPinjamanAktiviti}
-                rules={{ required: "Jumlah pinjaman diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="number"
-                    min="0.00"
-                    max="10000.00"
-                    step="0.01"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan jumlah pinjaman (RM)"
-                    autoFocus
-                  />
-                )}
+
+              <Form.Control
+                type="number"
+                min="0.00"
+                max="10000.00"
+                step="0.01"
+                {...register("jumlahPinjamanAktiviti", { required: true })}
+                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
+                placeholder="Masukkan jumlah pinjaman (RM)"
               />
-              {errors.jumlahPinjamanAktiviti && (
+              {errors.jumlahPinjamanAktiviti?.type === "required" && (
                 <small className="text-danger">
-                  {errors.jumlahPinjamanAktiviti.message}
+                  Jumlah pinjaman diperlukan.
                 </small>
               )}
             </Form.Group>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
 
-        <Modal.Footer>
-          <Button className="batal-btn" onClick={closeModalEditAktiviti}>
-            Batal
-          </Button>
-          <Button onClick={handleSubmit(updateAktiviti)}>Simpan</Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Button
+              className="batal-btn"
+              onClick={closeModalEditAktivitiSahabat}
+            >
+              Batal
+            </Button>
+
+            <Button onClick={handleSubmit(handleEditAktivitiSahabat)}>
+              Simpan
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );

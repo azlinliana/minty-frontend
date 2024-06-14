@@ -7,7 +7,7 @@ import { Button, Breadcrumb } from "react-bootstrap";
 import "../../../assets/styles/styles_sahabat.css";
 
 function TrackingInflowOutflow() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -55,12 +55,12 @@ function TrackingInflowOutflow() {
         <MaklumatSahabat key={dataSahabat.id} dataSahabat={dataSahabat} />
       ))}
 
-      <MaklumatMinggu
+      {/* <MaklumatMinggu
         sahabatId={sahabatId}
         pembiayaanId={pembiayaanId}
         mingguId={mingguId}
         pembiayaanSahabatsData={pembiayaanSahabatsData}
-      />
+      /> */}
 
       <BorangTrackingMingguanSahabat
         sahabatId={sahabatId}

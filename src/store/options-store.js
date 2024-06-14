@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axiosCustom from "../axios";
-
+import { devtools } from "zustand/middleware";
 // _____________________________________________________________________________ Skim Pembiayaan Options_____________________________________________________________
 export const useSkimPembiayaanStore = create((set) => ({
   skimPembiayaanOptions: [],
@@ -13,25 +13,25 @@ export const useSkimPembiayaanStore = create((set) => ({
 }));
 
 // _____________________________________________________________________________ Aktiviti Options____________________________________________________________________
-export const useActivitiStore = create((set) => ({
+export const useProjekAktivitiStore = create((set) => ({
   aktivitiOptions: [],
   keteranganAktivitiOptions: [],
   projekAktivitiOptions: [],
   // Aktiviti
   displayAktivitis: async () => {
-    const response = await axiosCustom.get(``);
+    const response = await axiosCustom.get(`option/kegiatan/display-kegiatan`);
 
     set({ aktivitiOptions: response.data });
   },
   // Keterangan aktiviti
   displayKeteranganAktivitis: async () => {
-    const response = await axiosCustom.get(``);
+    const response = await axiosCustom.get(`option/keterangan-kegiatan/display-keterangan-kegiatan`);
 
     set({ keteranganAktivitiOptions: response.data });
   },
   // Projek aktiviti
   displayProjekAktivitis: async () => {
-    const response = await axiosCustom.get(``);
+    const response = await axiosCustom.get(`option/projek-kegiatan/display-projek-kegiatan`);
 
     set({ projekAktivitiOptions: response.data });
   },

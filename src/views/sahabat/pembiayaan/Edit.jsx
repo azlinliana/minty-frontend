@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Modal, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
 function EditPembiayaan({
   sahabatId,
   pembiayaanId,
   pembiayaanSahabat,
+  skimPembiayaanOptions,
   checkIndexMingguConditionEachPembiayaan,
 }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
     useState(false);
@@ -30,43 +29,39 @@ function EditPembiayaan({
     reset,
   } = useForm();
 
-  // ----------BE----------
-  // Set default values when the kemas kini pembiayaan modal is opened
+  // ___________________________________ Backend __________________________________
+  // Set default values when the edit pembiayaan modal is opened
   const [formData, setFormData] = useState({
-    skimPembiayaan: "",
+    skimPembiayaanId: "",
     statusPembiayaan: "",
   });
 
   useEffect(() => {
     // Populate form data
-    setValue("skimPembiayaan", pembiayaanSahabat.skimPembiayaan);
+    setValue("skimPembiayaanId", pembiayaanSahabat.skimPembiayaanId);
     setValue("statusPembiayaan", pembiayaanSahabat.statusPembiayaan);
 
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
-      skimPembiayaan: pembiayaanSahabat.skimPembiayaan,
+      skimPembiayaanId: pembiayaanSahabat.skimPembiayaanId,
       statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
     }));
   }, [pembiayaanSahabat, setValue]);
 
-  // Update pembiayaan sahabat
-  const updatePembiayaanSahabat = async (pembiayaanSahabatInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}`,
-        pembiayaanSahabatInput
-      );
+  // Edit pembiayaan sahabat
+  const { editPembiayaanSahabat } = usePembiayaanStore((state) => ({
+    editPembiayaanSahabat: state.editPembiayaanSahabat,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditPembiayaanSahabat();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditPembiayaanSahabat = (editPembiayaanSahabatData) => {
+    editPembiayaanSahabat(
+      sahabatId,
+      pembiayaanId,
+      editPembiayaanSahabatData,
+      closeModalEditPembiayaanSahabat
+    );
   };
 
   // ----------BE & FE-------------------------------
@@ -86,6 +81,7 @@ function EditPembiayaan({
         <span href="#" onClick={openModalEditPembiayaanSahabat}>
           Edit
         </span>{" "}
+
         <Modal
           show={isModalEditPembiayaanSahabat}
           onHide={closeModalEditPembiayaanSahabat}
@@ -98,24 +94,27 @@ function EditPembiayaan({
 
           <Form onReset={reset}>
             <Modal.Body>
-              <Form.Group controlId="skimPembiayaan" className="mb-3">
+              <Form.Group controlId="skimPembiayaanId" className="mb-3">
                 <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
 
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("skimPembiayaan", { required: true })}
-                  aria-invalid={errors.skimPembiayaan ? "true" : "false"}
+                  {...register("skimPembiayaanId", { required: true })}
+                  aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                 >
                   <option value="" disabled>
                     --Pilih Skim Pembiayaan--
                   </option>
-                  <option value="TIADA PEMBIAYAAN">TIADA PEMBIAYAAN</option>
-                  <option value="I-MUDA">I-MUDA</option>
-                  <option value="I-MESRA">I-MESRA</option>
+                  
+                  {skimPembiayaanOptions.map((skimPembiayaan) => (
+                    <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
+                      {skimPembiayaan.namaSkimPembiayaan}
+                    </option>
+                  ))}
                 </Form.Control>
 
-                {errors.skimPembiayaan?.type === "required" && (
+                {errors.skimPembiayaanId?.type === "required" && (
                   <small className="text-danger">
                     Skim pembiayaan diperlukan.
                   </small>
@@ -158,7 +157,7 @@ function EditPembiayaan({
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(updatePembiayaanSahabat)}>
+              <Button onClick={handleSubmit(handleEditPembiayaanSahabat)}>
                 Simpan
               </Button>
             </Modal.Footer>

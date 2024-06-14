@@ -1,61 +1,83 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
 function EditMinggu({
   sahabatId,
   pembiayaanId,
-  mingguPembiayaanSahabat,
   mingguId,
+  mingguPembiayaanSahabat,
 }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalEditMinggu, setIsModalEditMinggu] = useState(false);
-  const openModalEditMinggu = () => setIsModalEditMinggu(true);
-  const closeModalEditMinggu = () => {
-    setIsModalEditMinggu(false);
+  const [
+    isModalEditMingguPembiayaanSahabat,
+    setIsModalEditMingguPembiayaanSahabat,
+  ] = useState(false);
+  const openModalEditMingguPembiayaanSahabat = () =>
+    setIsModalEditMingguPembiayaanSahabat(true);
+  const closeModalEditMingguPembiayaanSahabat = () => {
+    setIsModalEditMingguPembiayaanSahabat(false);
     reset(); // Reset previous form input
   };
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
-  // ----------BE----------
-  // Update minggu pembiayaan sahabat
-  const updateMingguPembiayaanSahabat = async (
-    mingguPembiayaanSahabatInput
+  // ___________________________________ Backend __________________________________
+  // Set default values when the kemas kini minggu modal is opened
+  const [formData, setFormData] = useState({
+    bilanganMinggu: "",
+    tarikhBorangMinggu: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("bilanganMinggu", mingguPembiayaanSahabat.bilanganMinggu);
+    setValue("tarikhBorangMinggu", mingguPembiayaanSahabat.tarikhBorangMinggu);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      bilanganMinggu: mingguPembiayaanSahabat.bilanganMinggu,
+      tarikhBorangMinggu: mingguPembiayaanSahabat.tarikhBorangMinggu,
+    }));
+  }, [mingguPembiayaanSahabat, setValue]);
+
+  // Edit minggu pembiayaan sahabat
+  const { editMingguPembiayaanSahabat } = useMingguStore((state) => ({
+    editMingguPembiayaanSahabat: state.editMingguPembiayaanSahabat,
+  }));
+
+  // Pass input & close modal
+  const handleEditMingguPembiayaanSahabat = (
+    editMingguPembiayaanSahabatData
   ) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
-        mingguPembiayaanSahabatInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditMinggu();
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    editMingguPembiayaanSahabat(
+      sahabatId,
+      pembiayaanId,
+      mingguId,
+      editMingguPembiayaanSahabatData,
+      closeModalEditMingguPembiayaanSahabat
+    );
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModalEditMinggu}>Edit Minggu</Button>{" "}
+        <Button onClick={openModalEditMingguPembiayaanSahabat}>
+          Edit Minggu
+        </Button>{" "}
         <Modal
-          show={isModalEditMinggu}
-          onHide={closeModalEditMinggu}
+          show={isModalEditMingguPembiayaanSahabat}
+          onHide={closeModalEditMingguPembiayaanSahabat}
           backdrop="static"
           keyboard={false}
         >
@@ -64,61 +86,40 @@ function EditMinggu({
           </Modal.Header>
 
           <Modal.Body>
-            <Form
-              onSubmit={handleSubmit(updateMingguPembiayaanSahabat)}
-              onReset={reset}
-            >
-              <Form.Group>
-                <Form.Label htmlFor="bilanganMinggu">
+            <Form onReset={reset}>
+              <Form.Group controlId="bilanganMinggu" className="mb-3">
+                <Form.Label className="form-label">
                   Bilangan Minggu
                 </Form.Label>
-                <Controller
-                  id="bilanganMinggu"
-                  name="bilanganMinggu"
+
+                <Form.Control
                   type="number"
-                  control={control}
-                  defaultValue={mingguPembiayaanSahabat.bilanganMinggu}
-                  rules={{ required: "Bilangan minggu diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="number"
-                      onChange={onChange}
-                      value={value}
-                      placeholder="Masukkan minggu ke berapa"
-                      autoFocus
-                    />
-                  )}
+                  {...register("bilanganMinggu", { required: true })}
+                  aria-invalid={errors.bilanganMinggu ? "true" : "false"}
+                  placeholder="Masukkan minggu ke berapa"
                 />
-                {errors.bilanganMinggu && (
+
+                {errors.bilanganMinggu?.type === "required" && (
                   <small className="text-danger">
-                    {errors.bilanganMinggu.message}
+                    Bilangan minggu diperlukan.
                   </small>
                 )}
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label htmlFor="tarikhBorangMinggu">
+              <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
+                <Form.Label className="form-label">
                   Tarikh Borang Minggu
                 </Form.Label>
-                <Controller
+
+                <Form.Control
                   type="date"
-                  id="tarikhBorangMinggu"
-                  name="tarikhBorangMinggu"
-                  control={control}
-                  defaultValue={mingguPembiayaanSahabat.tarikhBorangMinggu}
-                  rules={{ required: "Tarikh borang minggu diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="date"
-                      onChange={onChange}
-                      value={value}
-                      autoFocus
-                    />
-                  )}
+                  {...register("tarikhBorangMinggu", { required: true })}
+                  aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
                 />
-                {errors.tarikhBorangMinggu && (
+
+                {errors.tarikhBorangMinggu?.type === "required" && (
                   <small className="text-danger">
-                    {errors.tarikhBorangMinggu.message}
+                    Tarikh borang minggu diperlukan.
                   </small>
                 )}
               </Form.Group>
@@ -126,10 +127,13 @@ function EditMinggu({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditMinggu}>
+            <Button
+              className="batal-btn"
+              onClick={closeModalEditMingguPembiayaanSahabat}
+            >
               Batal
             </Button>
-            <Button onClick={handleSubmit(updateMingguPembiayaanSahabat)}>
+            <Button onClick={handleSubmit(handleEditMingguPembiayaanSahabat)}>
               Simpan
             </Button>
           </Modal.Footer>

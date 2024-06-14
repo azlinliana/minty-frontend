@@ -1,60 +1,54 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
+import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
 function CreateMinggu({ sahabatId, pembiayaanId }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateMinggu, setIsModalCreateMinggu] = useState(false);
-  const openModalCreateMinggu = () => setIsModalCreateMinggu(true);
-  const closeModalCreateMinggu = () => {
-    setIsModalCreateMinggu(false);
+  const [isModalCreateMingguPembiayaanSahabat, setIsModalCreateMingguPembiayaanSahabat] = useState(false);
+  const openModalCreateMingguPembiayaanSahabat = () => setIsModalCreateMingguPembiayaanSahabat(true);
+  const closeModalCreateMingguPembiayaanSahabat = () => {
+    setIsModalCreateMingguPembiayaanSahabat(false);
     reset(); // Reset previous form input
   };
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create minggu pembiayaan sahabat
-  const createMingguPembiayaanSahabat = async (
-    mingguPembiayaanSahabatInput
-  ) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
-        mingguPembiayaanSahabatInput
-      );
+  const { createMingguPembiayaanSahabat } = useMingguStore((state) => ({
+    createMingguPembiayaanSahabat: state.createMingguPembiayaanSahabat,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateMinggu();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateMingguPembiayaanSahabat = (
+    addMingguPembiayaanSahabatData
+  ) => {
+    createMingguPembiayaanSahabat(
+      sahabatId,
+      pembiayaanId,
+      addMingguPembiayaanSahabatData,
+      closeModalCreateMingguPembiayaanSahabat
+    );
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModalCreateMinggu}>
+        <Button onClick={openModalCreateMingguPembiayaanSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
         </Button>{" "}
         <Modal
-          show={isModalCreateMinggu}
-          onHide={closeModalCreateMinggu}
+          show={isModalCreateMingguPembiayaanSahabat}
+          onHide={closeModalCreateMingguPembiayaanSahabat}
           backdrop="static"
           keyboard={false}
         >
@@ -63,61 +57,40 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
           </Modal.Header>
 
           <Modal.Body>
-            <Form
-              onSubmit={handleSubmit(createMingguPembiayaanSahabat)}
-              onReset={reset}
-            >
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="bilanganMinggu">
+            <Form onReset={reset}>
+              <Form.Group controlId="bilanganMinggu" className="mb-3">
+                <Form.Label className="form-label">
                   Bilangan Minggu
                 </Form.Label>
-                <Controller
+
+                <Form.Control
                   type="number"
-                  id="bilanganMinggu"
-                  name="bilanganMinggu"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: "Bilangan minggu diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="number"
-                      onChange={onChange}
-                      value={value}
-                      placeholder="Masukkan minggu ke berapa"
-                      autoFocus
-                    />
-                  )}
+                  {...register("bilanganMinggu", { required: true })}
+                  aria-invalid={errors.bilanganMinggu ? "true" : "false"}
+                  placeholder="Masukkan minggu ke berapa"
                 />
-                {errors.bilanganMinggu && (
+
+                {errors.bilanganMinggu?.type === "required" && (
                   <small className="text-danger">
-                    {errors.bilanganMinggu.message}
+                    Bilangan minggu diperlukan.
                   </small>
                 )}
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label htmlFor="tarikhBorangMinggu">
+              <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
+                <Form.Label className="form-label">
                   Tarikh Borang Minggu
                 </Form.Label>
-                <Controller
+
+                <Form.Control
                   type="date"
-                  id="tarikhBorangMinggu"
-                  name="tarikhBorangMinggu"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: "Tarikh borang minggu diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="date"
-                      onChange={onChange}
-                      value={value}
-                      autoFocus
-                    />
-                  )}
+                  {...register("tarikhBorangMinggu", { required: true })}
+                  aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
                 />
-                {errors.tarikhBorangMinggu && (
+
+                {errors.tarikhBorangMinggu?.type === "required" && (
                   <small className="text-danger">
-                    {errors.tarikhBorangMinggu.message}
+                    Tarikh borang minggu diperlukan.
                   </small>
                 )}
               </Form.Group>
@@ -125,10 +98,11 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateMinggu}>
+            <Button className="batal-btn" onClick={closeModalCreateMingguPembiayaanSahabat}>
               Batal
             </Button>
-            <Button onClick={handleSubmit(createMingguPembiayaanSahabat)}>
+
+            <Button onClick={handleSubmit(handleCreateMingguPembiayaanSahabat)}>
               Simpan
             </Button>
           </Modal.Footer>

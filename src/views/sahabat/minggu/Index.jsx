@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_sahabat.css";
 import CreateMinggu from "./Create";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../components/sweet-alert/DeletionAlert";
 import { Button, Table, Alert } from "react-bootstrap";
-import axiosCustom from "../../../axios";
-import Swal from "sweetalert2";
+import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
 function IndexMinggu({
   resultSahabat,
@@ -15,7 +12,7 @@ function IndexMinggu({
   pembiayaanSahabatsData,
   handleCheckIndexMingguConditionEachPembiayaan,
 }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
   // Click Kemas Kini button
@@ -44,71 +41,21 @@ function IndexMinggu({
     });
   };
 
-  // ----------BE----------
-  // List minggu pembiayaan sahabat
-  const [mingguPembiayaanSahabats, setMingguPembiayaanSahabats] = useState([]);
-
-  const fetchMingguPembiayaanSahabats = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
-      );
-
-      if (response.status === 200) {
-        setMingguPembiayaanSahabats(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknown error from the server side
-      }
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
-    }
-  }, [sahabatId, pembiayaanId, setMingguPembiayaanSahabats]);
+  // ___________________________________ Backend __________________________________
+  // List & delete minggu pembiayaan sahabat
+  const {
+    mingguPembiayaanSahabats,
+    fetchMingguPembiayaanSahabats,
+    deleteMingguPembiayaanSahabat,
+  } = useMingguStore((state) => ({
+    mingguPembiayaanSahabats: state.mingguPembiayaanSahabats,
+    fetchMingguPembiayaanSahabats: state.fetchMingguPembiayaanSahabats,
+    deleteMingguPembiayaanSahabat: state.deleteMingguPembiayaanSahabat,
+  }));
 
   useEffect(() => {
-    fetchMingguPembiayaanSahabats();
-  }, [fetchMingguPembiayaanSahabats]);
-
-  // Delete minggu
-  const deleteMingguPembiayaanSahabats = async (mingguPembiayaanSahabatId) => {
-    // Function to delete minggu
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/sahabat/minggu/${mingguPembiayaanSahabatId}`
-        );
-
-        if (response.status === 200) {
-          setMingguPembiayaanSahabats((prevMingguPembiayaanSahabats) =>
-            prevMingguPembiayaanSahabats.filter(
-              (mingguPembiayaanSahabat) =>
-                mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
-            )
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        console.error("Ralat dalam memadam dimensi", error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
+    fetchMingguPembiayaanSahabats(sahabatId, pembiayaanId);
+  }, [fetchMingguPembiayaanSahabats, sahabatId, pembiayaanId]);
 
   // ----------BE & FE-------------------------------
   // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
@@ -173,7 +120,10 @@ function IndexMinggu({
         {/* Hide tambah minggu button */}
         {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" && (
           <div className="tambah-baru-btn-container">
-            <CreateMinggu sahabatId={sahabatId} pembiayaanId={pembiayaanId} />
+            <CreateMinggu 
+              sahabatId={sahabatId} 
+              pembiayaanId={pembiayaanId} 
+            />
           </div>
         )}
 
@@ -265,7 +215,7 @@ function IndexMinggu({
                           <Button
                             className="delete-btn"
                             onClick={() =>
-                              deleteMingguPembiayaanSahabats(
+                              deleteMingguPembiayaanSahabat(
                                 mingguPembiayaanSahabatsData.id
                               )
                             }

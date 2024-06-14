@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../assets/styles/styles_sahabat.css";
 import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Card, Alert, Badge, Dropdown, DropdownButton } from "react-bootstrap";
 import { TfiArrowCircleDown, TfiArrowCircleUp } from "react-icons/tfi";
-import axiosCustom from "../../../axios";
+import { useSkimPembiayaanStore } from "../../../store/options-store";
+import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
+usePembiayaanStore;
 function IndexPembiayaan({ resultSahabat, sahabatId }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Collapsible pembiayaan card
   const [isCardCollapsed, setIsCardCollapsed] = useState({});
 
@@ -20,29 +21,34 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
     }));
   };
 
-  // ----------BE----------
-  // List pembiayaan sahabat
-  const [pembiayaanSahabats, setPembiayaanSahabats] = useState([]);
-
-  const fetchPembiayaanSahabats = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/pembiayaan/${sahabatId}`
-      );
-
-      if (response.status === 200) {
-        setPembiayaanSahabats(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [sahabatId, setPembiayaanSahabats]);
+  // ___________________________________ Backend __________________________________
+  // ============================== Dropdown Options ==============================
+  // Display skim pembiayaan options
+  const { skimPembiayaanOptions, displaySkimPembiayaans } =
+    useSkimPembiayaanStore((state) => ({
+      skimPembiayaanOptions: state.skimPembiayaanOptions,
+      displaySkimPembiayaans: state.displaySkimPembiayaans,
+    }));
 
   useEffect(() => {
-    fetchPembiayaanSahabats();
-  }, [fetchPembiayaanSahabats]);
+    displaySkimPembiayaans();
+  }, [displaySkimPembiayaans]);
+  // ==============================================================================
+
+  // List & delete pembiayaan sahabat
+  const {
+    pembiayaanSahabats,
+    fetchPembiayaanSahabats,
+    deletePembiayaanSahabat,
+  } = usePembiayaanStore((state) => ({
+    pembiayaanSahabats: state.pembiayaanSahabats,
+    fetchPembiayaanSahabats: state.fetchPembiayaanSahabats,
+    deletePembiayaanSahabat: state.deletePembiayaanSahabat,
+  }));
+
+  useEffect(() => {
+    fetchPembiayaanSahabats(sahabatId);
+  }, [fetchPembiayaanSahabats, sahabatId]);
 
   // ----------BE & FE-------------------------------
   // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
@@ -84,7 +90,10 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
             "SELESAI") ? (
           <div className="tambah-baru-btn-container">
-            <CreatePembiayaan sahabatId={sahabatId} />
+            <CreatePembiayaan
+              sahabatId={sahabatId}
+              skimPembiayaanOptions={skimPembiayaanOptions}
+            />
           </div>
         ) : null}
 
@@ -104,7 +113,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                 <Card.Header as="h5" className="card-pembiayaan-sahabat-header">
                   <div className="card-pembiayaan-sahabat-content">
                     <div className="card-skim-pembiayaan-header">
-                      {pembiayaanSahabatsData.skimPembiayaan}
+                      {pembiayaanSahabatsData.namaSkimPembiayaan}
                     </div>
 
                     <Badge
@@ -133,13 +142,21 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                           sahabatId={sahabatId}
                           pembiayaanId={pembiayaanSahabatsData.id}
                           pembiayaanSahabat={pembiayaanSahabatsData}
+                          skimPembiayaanOptions={skimPembiayaanOptions}
                           checkIndexMingguConditionEachPembiayaan={
                             checkIndexMingguConditionEachPembiayaan
                           }
                         />
                       </Dropdown.Item>
 
-                      <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+                      <Dropdown.Item
+                        eventKey="2"
+                        onClick={() =>
+                          deletePembiayaanSahabat(pembiayaanSahabatsData.id)
+                        }
+                      >
+                        Padam
+                      </Dropdown.Item>
                     </DropdownButton>
 
                     <div

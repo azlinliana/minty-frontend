@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../axios";
-import { useSkimPembiayaanStore } from "../../../store/options-store";
+import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
-function CreatePembiayaan({ sahabatId }) {
+function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
@@ -28,35 +25,20 @@ function CreatePembiayaan({ sahabatId }) {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Display skim pembiayaan options
-  const { skimPembiayaanOptions, displaySkimPembiayaans } =
-    useSkimPembiayaanStore((state) => ({
-      skimPembiayaanOptions: state.skimPembiayaanOptions,
-      displaySkimPembiayaans: state.displaySkimPembiayaans,
-    }));
-
-  useEffect(() => {
-    displaySkimPembiayaans();
-  }, [displaySkimPembiayaans]);
-
   // Create pembiayaan sahabat
-  const createPembiayaanSahabat = async (pembiayaanSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/pembiayaan/${sahabatId}`,
-        pembiayaanSahabatInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreatePembiayaanSahabat();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  const { createPembiayaanSahabat } = usePembiayaanStore((state) => ({
+    createPembiayaanSahabat: state.createPembiayaanSahabat,
+  }));
 
+  // Pass input & close modal
+  const handleCreatePembiayaanSahabat = (addPembiayaanSahabatData) => {
+    createPembiayaanSahabat(
+      sahabatId,
+      addPembiayaanSahabatData,
+      closeModalCreatePembiayaanSahabat
+    );
+  };
+  
   return (
     <>
       <div>
@@ -113,8 +95,9 @@ function CreatePembiayaan({ sahabatId }) {
             >
               Batal
             </Button>
-            <Button onClick={handleSubmit(createPembiayaanSahabat)}>
-              Tambah
+
+            <Button onClick={handleSubmit(handleCreatePembiayaanSahabat)}>
+              Simpan
             </Button>
           </Modal.Footer>
         </Modal>

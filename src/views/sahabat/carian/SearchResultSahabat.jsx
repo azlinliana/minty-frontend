@@ -5,14 +5,18 @@ import IndexPembiayaan from "../pembiayaan/Index";
 import { Breadcrumb, Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function SearchResultSahabat() {
-  const location = useLocation();
-
+  // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
-  // ----------FE----------
-  const resultSahabat = location.state.resultSahabat || []; // Display sahabat search result
-  
-  const goBack = () => { navigate(-1); }; // Back button
+  const goBack = () => {
+    navigate(-1);
+  }; // Back button
+
+  // ___________________________________ Backend __________________________________
+  // Display sahabat search result
+  const location = useLocation();
+
+  const resultSahabat = location.state.resultSahabat;
 
   return (
     <>
@@ -31,10 +35,10 @@ function SearchResultSahabat() {
         </Breadcrumb>
       </div>
 
-      {resultSahabat.map((dataSahabat) => (
-        <div key={dataSahabat.noSahabat}>
+      {resultSahabat.map((sahabatData) => (
+        <div key={sahabatData.noSahabat}>
           <div className="search-result-id">
-            <p>Hasil Carian: {dataSahabat.noKadPengenalanSahabat}</p>
+            <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p>
           </div>
 
           <div className="hasil-carian-sahabat-content">
@@ -51,7 +55,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.namaSahabat}
+                        value={sahabatData.namaSahabat}
                         disabled
                       />
                     </Form.Group>
@@ -65,7 +69,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.noKadPengenalanSahabat}
+                        value={sahabatData.noKadPengenalanSahabat}
                         disabled
                       />
                     </Form.Group>
@@ -77,7 +81,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.noSahabat}
+                        value={sahabatData.noSahabat}
                         disabled
                       />
                     </Form.Group>
@@ -91,7 +95,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.wilayahId}
+                        value={sahabatData.namaWilayah}
                         disabled
                       />
                     </Form.Group>
@@ -103,7 +107,7 @@ function SearchResultSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.cawanganId}
+                        value={sahabatData.namaCawangan}
                         disabled
                       />
                     </Form.Group>
@@ -113,11 +117,11 @@ function SearchResultSahabat() {
                 <Row>
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Pusat</Form.Label>
+                      <Form.Label>Blok</Form.Label>
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.pusatId}
+                        value={sahabatData.namaBlok}
                         disabled
                       />
                     </Form.Group>
@@ -125,11 +129,25 @@ function SearchResultSahabat() {
 
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
+                      <Form.Label>Pusat</Form.Label>
+
+                      <Form.Control
+                        type="text"
+                        value={sahabatData.namaPusat}
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col xs={6}>
+                    <Form.Group className="sahabat-carian-spacing">
                       <Form.Label>Kumpulan</Form.Label>
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.kumpulanId}
+                        value={sahabatData.namaKumpulan}
                         disabled
                       />
                     </Form.Group>
@@ -144,7 +162,7 @@ function SearchResultSahabat() {
 
             <IndexPembiayaan
               resultSahabat={resultSahabat}
-              sahabatId={dataSahabat.id}
+              sahabatId={sahabatData.id}
             />
           </div>
 

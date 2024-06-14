@@ -1,45 +1,106 @@
 import { create } from "zustand";
 import axiosCustom from "../../axios";
+import SuccessAlert from "../../views/components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../views/components/sweet-alert/ErrorAlert";
+import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 
 export const useMingguStore = create((set) => ({
-  minggus: [],
+  mingguPembiayaanSahabats: [],
   // Fetch minggu pembiayaan sahabat
-  fetchMingguPembiayaanSahabat: async () => {
-    const response = await axiosCustom.get(`/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`);
-
-    set({ minggus: response.data });
-  },
-  // Create pembiayaan sahaat
-  createMingguPembiayaanSahabat: async (mingguPembiayaanSahabatInput) => {
-    const response = await axiosCustom.post(
-      `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
-      mingguPembiayaanSahabatInput
+  fetchMingguPembiayaanSahabats: async (sahabatId, pembiayaanId) => {
+    const response = await axiosCustom.get(
+      `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
     );
 
-    set({ minggus: response.data });
+    set({ mingguPembiayaanSahabats: response.data });
   },
-  // Edit pembiayaan sahabat
-  editPembiayaanSahabat: async (pembiayaanSahabatInput) => {
-    const response = await axiosCustom.put(
-      `${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
-      pembiayaanSahabatInput
-    );
+  // Create minggu pembiayaan sahaat
+  createMingguPembiayaanSahabat: async (
+    sahabatId,
+    pembiayaanId,
+    mingguPembiayaanSahabatInput,
+    closeModalCreateMingguPembiayaanSahabat
+  ) => {
+    try {
+      const response = await axiosCustom.post(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
+        mingguPembiayaanSahabatInput
+      );
 
-    set({ 
-      pembiayaans: [
-        ...state.pembiayaans, 
-        response.data.pembiayaanData
-      ],
-    });
+      if (response.status === 200) {
+        set((state) => ({
+          mingguPembiayaanSahabats: [
+            ...state.mingguPembiayaanSahabats,
+            response.data.mingguPembiayaanSahabatData,
+          ],
+        }));
+
+        closeModalCreateMingguPembiayaanSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
+  // Show minggu pembiayaan sahabat
+  showMingguPembiayaanSahabat: async (sahabatId, pembiayaanId, mingguId) => {
+    try {
+      const response = await axiosCustom.get(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
+      );
+
+      set({ mingguPembiayaanSahabats: response.data });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
+  // Edit minggu pembiayaan sahabat
+  editMingguPembiayaanSahabat: async (
+    sahabatId,
+    pembiayaanId,
+    mingguId,
+    mingguPembiayaanSahabatInput,
+    closeModalEditMingguPembiayaanSahabat
+  ) => {
+    console.log(mingguPembiayaanSahabatInput);
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
+        mingguPembiayaanSahabatInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.map(
+            (mingguPembiayaanSahabat) =>
+              mingguPembiayaanSahabat.id === mingguId
+                ? response.data.mingguPembiayaanSahabatData
+                : mingguPembiayaanSahabat
+          ),
+        }));
+
+        closeModalEditMingguPembiayaanSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
   },
   // Delete pembiayaan sahabat
-  deletePembiayaanSahabat: async (mingguPembiayaanSahabatId) => {
+  deleteMingguPembiayaanSahabat: async (mingguPembiayaanSahabatId) => {
     await axiosCustom.delete(`/sahabat/minggu/${mingguPembiayaanSahabatId}`);
 
     set((state) => ({
-      minggus: state.minggus.filter(
-        (mingguPembiayaanSahabat) => mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
-      )
+      mingguPembiayaanSahabats: state.minggus.filter(
+        (mingguPembiayaanSahabat) =>
+          mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
+      ),
     }));
   },
 }));

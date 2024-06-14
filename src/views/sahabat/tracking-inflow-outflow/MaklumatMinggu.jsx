@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "../../../assets/styles/styles_sahabat.css";
 import EditMinggu from "../minggu/Edit";
-import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
-import axiosCustom from "../../../axios";
+import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
 function MaklumatMinggu({
   sahabatId,
@@ -11,36 +10,24 @@ function MaklumatMinggu({
   mingguId,
   pembiayaanSahabatsData,
 }) {
-  // ----------BE----------
+  // __________________________________ Frontend __________________________________
   // Show minggu pembiayaan sahabat
-  const [showMingguPembiayaanSahabat, setshowMingguPembiayaanSahabat] =
-    useState([]);
+  const { mingguPembiayaanSahabats, showMingguPembiayaanSahabat } =
+    useMingguStore((state) => ({
+      mingguPembiayaanSahabats: state.mingguPembiayaanSahabats,
+      showMingguPembiayaanSahabat: state.showMingguPembiayaanSahabat,
+    }));
 
-  const getMingguPembiayaanSahabat = async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
-      );
-
-      if (response.status === 200) {
-        setshowMingguPembiayaanSahabat(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
 
   useEffect(() => {
-    getMingguPembiayaanSahabat();
-  }, []);
+    showMingguPembiayaanSahabat(sahabatId, pembiayaanId, mingguId);
+  }, [showMingguPembiayaanSahabat, sahabatId, pembiayaanId, mingguId]);
 
   return (
     <div className="card-tambah-minggu-sahabat-content">
       <h2>Maklumat Minggu</h2>
 
-      {showMingguPembiayaanSahabat.id ? (
+      {mingguPembiayaanSahabats.id && (
         <>
           {/* Hide edit minggu button */}
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
@@ -48,8 +35,8 @@ function MaklumatMinggu({
               <EditMinggu
                 sahabatId={sahabatId}
                 pembiayaanId={pembiayaanId}
-                mingguPembiayaanSahabat={showMingguPembiayaanSahabat}
-                mingguId={showMingguPembiayaanSahabat.id}
+                mingguPembiayaanSahabat={mingguPembiayaanSahabats}
+                mingguId={mingguPembiayaanSahabats.id}
               />
             </div>
           ) : null}
@@ -67,7 +54,7 @@ function MaklumatMinggu({
                       <Form.Control
                         type="text"
                         defaultValue={
-                          showMingguPembiayaanSahabat.bilanganMinggu
+                          mingguPembiayaanSahabats.bilanganMinggu
                         }
                         disabled
                       />
@@ -83,7 +70,7 @@ function MaklumatMinggu({
                       <Form.Control
                         type="text"
                         defaultValue={new Date(
-                          showMingguPembiayaanSahabat.tarikhBorangMinggu
+                          mingguPembiayaanSahabats.tarikhBorangMinggu
                         ).toLocaleDateString("en-GB")}
                         disabled
                       />
@@ -94,10 +81,6 @@ function MaklumatMinggu({
             </Card.Body>
           </Card>
         </>
-      ) : (
-        <Container fluid>
-          <p>Tiada maklumat minggu pembiayaan sahabat ini.</p>
-        </Container>
       )}
     </div>
   );

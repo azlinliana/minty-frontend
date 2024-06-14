@@ -32,7 +32,7 @@ function SearchSahabat() {
   };
 
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     if (searchComplete && sahabats.length > 0) {
       navigate("/hasil-carian-sahabat", {
