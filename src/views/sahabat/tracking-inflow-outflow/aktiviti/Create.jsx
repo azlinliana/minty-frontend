@@ -57,6 +57,7 @@ function CreateAktiviti({
       <Button variant="primary" onClick={openModalCreateAktivitiSahabat}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+
       <Modal
         show={isModalCreateAktivitiSahabat}
         onHide={closeModalCreateAktivitiSahabat}
@@ -66,6 +67,7 @@ function CreateAktiviti({
         <Modal.Header closeButton>
           <Modal.Title>Tambah Aktiviti Sahabat</Modal.Title>
         </Modal.Header>
+
         <Form onReset={reset}>
           <Modal.Body>
             {/* Aktiviti */}
@@ -157,6 +159,7 @@ function CreateAktiviti({
                 <option value="" disabled>
                   --Pilih Projek Aktiviti--
                 </option>
+                
                 {projekAktivitiOptions
                   .filter(
                     (item) =>

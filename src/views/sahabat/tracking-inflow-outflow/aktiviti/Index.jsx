@@ -18,13 +18,12 @@ function IndexAktiviti({
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
   // Display aktiviti, keterangan aktiviti, and projek aktiviti options
-  const [selectedAktiviti, setSelectedAktiviti] = useState([]);
+  const [selectedAktiviti, setSelectedAktiviti] = useState("");
 
-  const [selectedKeteranganAktiviti, setSelectedKeteranganAktiviti] = useState(
-    []
-  );
+  const [selectedKeteranganAktiviti, setSelectedKeteranganAktiviti] =
+    useState("");
 
-  const [selectedProjekAktiviti, setSelectedProjekAktiviti] = useState([]);
+  const [selectedProjekAktiviti, setSelectedProjekAktiviti] = useState("");
 
   const {
     aktivitiOptions,

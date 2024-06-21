@@ -18,7 +18,6 @@ function MaklumatMinggu({
       showMingguPembiayaanSahabat: state.showMingguPembiayaanSahabat,
     }));
 
-
   useEffect(() => {
     showMingguPembiayaanSahabat(sahabatId, pembiayaanId, mingguId);
   }, [showMingguPembiayaanSahabat, sahabatId, pembiayaanId, mingguId]);

@@ -8,7 +8,6 @@ import { TfiArrowCircleDown, TfiArrowCircleUp } from "react-icons/tfi";
 import { useSkimPembiayaanStore } from "../../../store/options-store";
 import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
-usePembiayaanStore;
 function IndexPembiayaan({ resultSahabat, sahabatId }) {
   // __________________________________ Frontend __________________________________
   // Collapsible pembiayaan card

@@ -17,7 +17,7 @@ function EditAktiviti({
   keteranganAktivitiOptions,
   projekAktivitiOptions,
   dimensiOptions,
-}) { console.log(dimensiOptions);
+}) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditAktivitiSahabat, setIsModalEditAktivitiSahabat] =
@@ -36,6 +36,7 @@ function EditAktiviti({
     formState: { errors },
     reset,
   } = useForm();
+
   // ___________________________________ Backend __________________________________
   // Set default values when the edit aktiviti modal is opened
   const [formData, setFormData] = useState({
@@ -48,33 +49,70 @@ function EditAktiviti({
     jumlahPinjamanAktiviti: "",
   });
 
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
   useEffect(() => {
+    // Match data
+    const kegiatanId = findOptionId(
+      aktivitiOptions,
+      "jenisKegiatan",
+      aktivitiSahabat.jenisKegiatan
+    );
+
+    const keteranganKegiatanId = findOptionId(
+      keteranganAktivitiOptions,
+      "jenisKeteranganKegiatan",
+      aktivitiSahabat.jenisKeteranganKegiatan
+    );
+
+    const projekKegiatanId = findOptionId(
+      projekAktivitiOptions,
+      "jenisProjekKegiatan",
+      aktivitiSahabat.jenisProjekKegiatan
+    );
+
+    const dimensiId = findOptionId(
+      dimensiOptions,
+      "kodDimensi",
+      aktivitiSahabat.kodDimensi
+    );
+
     // Populate form data
-    setValue("kegiatanId", aktivitiSahabat.kegiatanId);
-    setValue("keteranganKegiatanId", aktivitiSahabat.keteranganKegiatanId);
-    setValue("projekKegiatanId", aktivitiSahabat.projekKegiatanId);
-    setValue("dimensiId", aktivitiSahabat.kodDimensi);
+    setValue("kegiatanId", kegiatanId);
+    setValue("keteranganKegiatanId", keteranganKegiatanId);
+    setValue("projekKegiatanId", projekKegiatanId);
+    setValue("dimensiId", dimensiId);
     setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
     setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
     setValue("jumlahPinjamanAktiviti", aktivitiSahabat.jumlahPinjamanAktiviti);
-    console.log(aktivitiSahabat.kodDimensi);
 
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
-      kegiatanId: aktivitiSahabat.kegiatanId,
-      keteranganKegiatanId: aktivitiSahabat.keteranganKegiatanId,
-      projekKegiatanId: aktivitiSahabat.projekKegiatanId,
-      dimensiId: aktivitiSahabat.kodDimensi,
+      kegiatanId,
+      keteranganKegiatanId,
+      projekKegiatanId,
+      dimensiId,
       pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
       keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
       jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
     }));
 
-    // setSelectedAktiviti(aktivitiSahabat.kegiatanId);
-    // setSelectedKeteranganAktiviti(aktivitiSahabat.keteranganKegiatanId);
-    // setSelectedProjekAktiviti(aktivitiSahabat.projekKegiatanId);
-  }, [aktivitiSahabat, setValue]);
+    // setSelectedAktiviti(kegiatanId);
+    // setSelectedKeteranganAktiviti(keteranganKegiatanId);
+    // setSelectedProjekAktiviti(projekKegiatanId);
+  }, [
+    aktivitiSahabat,
+    setValue,
+    // setSelectedAktiviti,
+    // setSelectedKeteranganAktiviti,
+    // setSelectedProjekAktiviti,
+  ]);
 
   // Edit aktiviti sahabat
   const { editAktivitiSahabat } = useAktivitiStore((state) => ({
@@ -118,8 +156,10 @@ function EditAktiviti({
                 as="select"
                 className="form-select"
                 {...register("kegiatanId", { required: true })}
+                onChange={(e) => {
+                  setSelectedAktiviti(e.target.value);
+                }}
                 aria-invalid={errors.kegiatanId ? "true" : "false"}
-                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Aktiviti--
@@ -159,7 +199,8 @@ function EditAktiviti({
                 {keteranganAktivitiOptions
                   .filter(
                     (item) =>
-                      selectedAktiviti && item.kegiatanId === selectedAktiviti
+                      // selectedAktiviti && 
+                    item.kegiatanId === selectedAktiviti
                   )
                   .map((keteranganAktiviti) => (
                     <option
@@ -194,10 +235,11 @@ function EditAktiviti({
                 <option value="" disabled>
                   --Pilih Projek Aktiviti--
                 </option>
+
                 {projekAktivitiOptions
                   .filter(
                     (item) =>
-                      selectedKeteranganAktiviti &&
+                      // selectedKeteranganAktiviti &&
                       item.keteranganKegiatanId === selectedKeteranganAktiviti
                   )
                   .map((projekAktiviti) => (

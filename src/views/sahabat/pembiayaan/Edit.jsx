@@ -36,15 +36,29 @@ function EditPembiayaan({
     statusPembiayaan: "",
   });
 
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
   useEffect(() => {
+    // Match data
+    const skimPembiayaanId = findOptionId(
+      skimPembiayaanOptions,
+      "namaSkimPembiayaan",
+      pembiayaanSahabat.namaSkimPembiayaan
+    );
+
     // Populate form data
-    setValue("skimPembiayaanId", pembiayaanSahabat.skimPembiayaanId);
+    setValue("skimPembiayaanId", skimPembiayaanId);
     setValue("statusPembiayaan", pembiayaanSahabat.statusPembiayaan);
 
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
-      skimPembiayaanId: pembiayaanSahabat.skimPembiayaanId,
+      skimPembiayaanId,
       statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
     }));
   }, [pembiayaanSahabat, setValue]);
@@ -81,7 +95,7 @@ function EditPembiayaan({
         <span href="#" onClick={openModalEditPembiayaanSahabat}>
           Edit
         </span>{" "}
-
+        
         <Modal
           show={isModalEditPembiayaanSahabat}
           onHide={closeModalEditPembiayaanSahabat}
@@ -106,7 +120,7 @@ function EditPembiayaan({
                   <option value="" disabled>
                     --Pilih Skim Pembiayaan--
                   </option>
-                  
+
                   {skimPembiayaanOptions.map((skimPembiayaan) => (
                     <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
                       {skimPembiayaan.namaSkimPembiayaan}
