@@ -197,11 +197,11 @@ function EditAktiviti({
                 </option>
 
                 {keteranganAktivitiOptions
-                  .filter(
-                    (item) =>
-                      // selectedAktiviti && 
-                    item.kegiatanId === selectedAktiviti
-                  )
+                  // .filter(
+                  //   (item) =>
+                  //     selectedAktiviti && 
+                  //   item.kegiatanId === selectedAktiviti
+                  // )
                   .map((keteranganAktiviti) => (
                     <option
                       key={keteranganAktiviti.id}
@@ -238,9 +238,9 @@ function EditAktiviti({
 
                 {projekAktivitiOptions
                   .filter(
-                    (item) =>
-                      // selectedKeteranganAktiviti &&
-                      item.keteranganKegiatanId === selectedKeteranganAktiviti
+                  //   (item) =>
+                  //     selectedKeteranganAktiviti &&
+                  //     item.keteranganKegiatanId === selectedKeteranganAktiviti
                   )
                   .map((projekAktiviti) => (
                     <option key={projekAktiviti.id} value={projekAktiviti.id}>

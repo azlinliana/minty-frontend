@@ -11,6 +11,8 @@ export const useInflowSahabatStore = create((set) => ({
     const response = await axiosCustom.get(
       `/sahabat/inflow-sahabat/${mingguId}`
     );
+
+    set({ inflowSahabats: response.data });
   },
   // Create inflow sahabat
   createInflowSahabat: async () => {
