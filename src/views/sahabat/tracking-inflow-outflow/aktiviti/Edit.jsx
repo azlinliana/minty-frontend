@@ -102,17 +102,7 @@ function EditAktiviti({
       keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
       jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
     }));
-
-    // setSelectedAktiviti(kegiatanId);
-    // setSelectedKeteranganAktiviti(keteranganKegiatanId);
-    // setSelectedProjekAktiviti(projekKegiatanId);
-  }, [
-    aktivitiSahabat,
-    setValue,
-    // setSelectedAktiviti,
-    // setSelectedKeteranganAktiviti,
-    // setSelectedProjekAktiviti,
-  ]);
+  }, [aktivitiSahabat, setValue]);
 
   // Edit aktiviti sahabat
   const { editAktivitiSahabat } = useAktivitiStore((state) => ({
@@ -197,11 +187,10 @@ function EditAktiviti({
                 </option>
 
                 {keteranganAktivitiOptions
-                  // .filter(
-                  //   (item) =>
-                  //     selectedAktiviti && 
-                  //   item.kegiatanId === selectedAktiviti
-                  // )
+                  .filter(
+                    (item) =>
+                      selectedAktiviti && item.kegiatanId === selectedAktiviti
+                  )
                   .map((keteranganAktiviti) => (
                     <option
                       key={keteranganAktiviti.id}
@@ -238,9 +227,9 @@ function EditAktiviti({
 
                 {projekAktivitiOptions
                   .filter(
-                  //   (item) =>
-                  //     selectedKeteranganAktiviti &&
-                  //     item.keteranganKegiatanId === selectedKeteranganAktiviti
+                    (item) =>
+                      selectedKeteranganAktiviti &&
+                      item.keteranganKegiatanId === selectedKeteranganAktiviti
                   )
                   .map((projekAktiviti) => (
                     <option key={projekAktiviti.id} value={projekAktiviti.id}>
