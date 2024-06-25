@@ -6,13 +6,15 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
-function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
+function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
   // ----------FE----------
   // Modal
   const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] =
     useState(false);
+
   const openModalCreateOutflowSahabat = () =>
     setIsModalCreateOutflowSahabat(true);
+
   const closeModalCreateOutflow = () => {
     setIsModalCreateOutflowSahabat(false);
     reset(); // Reset previous form input
@@ -76,7 +78,7 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowsData }) {
                       <option value="" disabled>
                         --Pilih Kod Outflow--
                       </option>
-                      {kodOutflowsData.map((kodOutflow) => (
+                      {kodOutflowOptions.map((kodOutflow) => (
                         <option key={kodOutflow.id} value={kodOutflow.id}>
                           {kodOutflow.kodOutflow} -{" "}
                           {kodOutflow.keteranganKodOutflow}

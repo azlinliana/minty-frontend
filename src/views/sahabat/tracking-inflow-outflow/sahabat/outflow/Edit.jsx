@@ -9,7 +9,7 @@ function EditTrackingOutflowSahabat({
   mingguId,
   outflowSahabatId,
   outflowSahabat,
-  kodOutflowsData,
+  kodOutflowOptions,
 }) {
   // ----------FE----------
   // Modal
@@ -83,7 +83,7 @@ function EditTrackingOutflowSahabat({
                       <option value="" disabled>
                         --Pilih Kod Outflow--
                       </option>
-                      {kodOutflowsData.map((kodOutflow) => (
+                      {kodOutflowOptions.map((kodOutflow) => (
                         <option key={kodOutflow.id} value={kodOutflow.id}>
                           {kodOutflow.kodOutflow} -{" "}
                           {kodOutflow.keteranganKodOutflow}

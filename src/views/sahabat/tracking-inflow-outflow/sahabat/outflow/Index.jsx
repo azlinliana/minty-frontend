@@ -1,78 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
+import "../../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingOutflowSahabat from "./Create";
 import EditTrackingOutflowSahabat from "./Edit";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import { Button, Table } from "react-bootstrap";
-import axiosCustom from "../../../../../axios";
-import Swal from "sweetalert2";
-import "../../../../../assets/styles/styles_sahabat.css";
+import { useOutflowSahabatStore } from "../../../../../store/sahabat/outflow-sahabat-store";
 
-function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData, kodOutflowsData }) {
-  // ----------BE----------
-  const [outflowSahabats, setOutflowSahabats] = useState([]);
-
-  // List outflow sahabat
-  const fetchOutflowSahabats = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/outflow-sahabat/${mingguId}`
-      );
-
-      if (response.status === 200) {
-        setOutflowSahabats(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
-    }
-  }, [mingguId, setOutflowSahabats]);
+function IndexTrackingOutflowSahabat({
+  mingguId,
+  pembiayaanSahabatsData,
+  kodOutflowOptions,
+}) {
+  // ___________________________________ Backend __________________________________
+  // List & delete outflow sahabat
+  const { outflowSahabats, fetchOutflowSahabats, deleteOutflowSahabat } =
+    useOutflowSahabatStore((state) => ({
+      outflowSahabats: state.outflowSahabats,
+      fetchOutflowSahabats: state.fetchOutflowSahabats,
+      deleteOutflowSahabat: state.deleteOutflowSahabat,
+    }));
 
   useEffect(() => {
-    fetchOutflowSahabats();
-  }, [fetchOutflowSahabats]);
-
-  // Delete outflow sahabat
-  const deleteOutflowSahabat = async (outflowSahabatId) => {
-    // Function to delete outflow sahabat
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/sahabat/outflow-sahabat/${outflowSahabatId}`
-        );
-
-        if (response.status === 200) {
-          setOutflowSahabats((prevOutflowSahabats) =>
-            prevOutflowSahabats.filter(
-              (outflowSahabat) => outflowSahabat.id !== outflowSahabatId
-            )
-          );
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        console.error("Ralat dalam memadam dimensi", error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
+    fetchOutflowSahabats(mingguId);
+  }, [fetchOutflowSahabats, mingguId]);
 
   return (
     <>
@@ -81,7 +30,7 @@ function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData, kodOutf
           <div className="tambah-baru-btn-container">
             <CreateTrackingOutflowSahabat
               mingguId={mingguId}
-              kodOutflowsData={kodOutflowsData}
+              kodOutflowOptions={kodOutflowOptions}
             />
           </div>
         ) : null}
@@ -112,9 +61,9 @@ function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData, kodOutf
               outflowSahabats.map((outflowSahabatsData, key) => (
                 <tr key={key}>
                   <td>{key + 1}</td>
-                  <td>{outflowSahabatsData.kod_outflow.kodOutflow}</td>
+                  <td>{outflowSahabatsData.kodOutflow}</td>
                   <td>
-                    {outflowSahabatsData.kod_outflow.keteranganKodOutflow}
+                    {outflowSahabatsData.keteranganKodOutflow}
                   </td>
                   <td>{outflowSahabatsData.amaunOutflow}</td>
                   {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
@@ -123,7 +72,7 @@ function IndexTrackingOutflowSahabat({ mingguId, pembiayaanSahabatsData, kodOutf
                         mingguId={mingguId}
                         outflowSahabatId={outflowSahabatsData.id}
                         outflowSahabat={outflowSahabatsData}
-                        kodOutflowsData={kodOutflowsData}
+                        kodOutflowOptions={kodOutflowOptions}
                       />
                       <Button
                         className="delete-btn"

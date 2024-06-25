@@ -7,7 +7,12 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 export const useOutflowSahabatStore = create((set) => ({
   outflowSahabats: [],
   // Fetch outflow sahabat
-  fetchOutflowSahabats: async () => {
+  fetchOutflowSahabats: async (mingguId) => {
+    const response = await axiosCustom.get(
+      `/sahabat/outflow-sahabat/${mingguId}`
+    );
+
+    set({ outflowSahabats: response.data });
   },
   // Create outflow sahabat
   createOutflowSahabat: async () => {

@@ -5,9 +5,10 @@ import { Tab, Tabs } from "react-bootstrap";
 import "../../../../assets/styles/styles_sahabat.css";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../../axios";
+import { useSelenggaraStore } from "../../../../store/options-store";
 
 function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Tab tracking sahabat
   const [activeTab, setActiveTab] = useState({
     key: "tracking-inflow-sahabat",
@@ -18,60 +19,26 @@ function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
     setActiveTab({ key, title });
   };
 
-  // ----------BE----------
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
-
-  const fetchKodInflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-inflow/display-kod-inflow`
-      );
-
-      if (Array.isArray(response.data)) {
-        setKodInflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [setKodInflowsData]);
+  // ___________________________________ Backend __________________________________
+  // ============================== Dropdown Options ==============================
+  // Display kod inflow & kod outflow options
+  const {
+    kodInflowOptions,
+    displayKodInflows,
+    kodOutflowOptions,
+    displayKodOutflows,
+  } = useSelenggaraStore((state) => ({
+    kodInflowOptions: state.kodInflowOptions,
+    displayKodInflows: state.displayKodInflows,
+    kodOutflowOptions: state.kodOutflowOptions,
+    displayKodOutflows: state.displayKodOutflows,
+  }));
 
   useEffect(() => {
-    fetchKodInflows();
-  }, [fetchKodInflows]);
-
-  // Fetch kod outflow data
-  const [kodOutflowsData, setKodOutflowsData] = useState([]);
-
-  const fetchKodOutflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-outflow/display-kod-outflow`
-      );
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setKodOutflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 503 || error.response.status === 429)
-      ) {
-        // The server is not ready, ignore the error
-        console.log("Server not ready, retry later.");
-      } else {
-        // Handle other errors
-        ErrorAlert(error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchKodOutflows();
-  }, [fetchKodOutflows]);
+    displayKodInflows();
+    displayKodOutflows();
+  }, [displayKodInflows, displayKodOutflows]);
+  // ==============================================================================
   
   return (
     <div>
@@ -92,7 +59,7 @@ function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
           <IndexTrackingInflowSahabat
             mingguId={mingguId}
             pembiayaanSahabatsData={pembiayaanSahabatsData}
-            kodInflowsData={kodInflowsData}
+            kodInflowOptions={kodInflowOptions}
           />
         </Tab>
 
@@ -100,7 +67,7 @@ function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
           <IndexTrackingOutflowSahabat
             mingguId={mingguId}
             pembiayaanSahabatsData={pembiayaanSahabatsData}
-            kodOutflowsData={kodOutflowsData}
+            kodOutflowOptions={kodOutflowOptions}
           />
         </Tab>
       </Tabs>

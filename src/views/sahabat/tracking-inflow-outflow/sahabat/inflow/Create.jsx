@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
+import { useInflowSahabatStore } from "../../../../../store/sahabat/inflow-sahabat-store";
 
-function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
-  // ----------FE----------
+function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] =
     useState(false);
+
   const openModalCreateInflowSahabat = () =>
     setIsModalCreateInflowSahabat(true);
+
   const closeModalCreateTrackingInflowSahabat = () => {
     setIsModalCreateInflowSahabat(false);
     reset(); // Reset previous form input
@@ -33,7 +33,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
-    const selectedKodInflowData = kodInflowsData.find(
+    const selectedKodInflowData = kodInflowOptions.find(
       (item) => item.id === parseInt(selectedValue)
     );
 
@@ -54,7 +54,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
 
     selectedKodInflowData.kod_inflow_terperincis.forEach((terperinci) => {
       const fieldName = `kodInflowTerperinci[${terperinci.id}]`;
-      
+
       resetTerperinciValues[fieldName] = "";
     });
 
@@ -75,31 +75,25 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
   };
 
   // Create inflow sahabat
-  const createInflowSahabat = async (inflowSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/inflow-sahabat/${mingguId}`,
-        inflowSahabatInput
-      );
+  const { createInflowSahabat } = useInflowSahabatStore((state) => ({
+    createInflowSahabat: state.createInflowSahabat,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-
-        closeModalCreateTrackingInflowSahabat();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateInflowSahabat = (addInflowSahabatData) => {
+    createInflowSahabat(
+      mingguId,
+      addInflowSahabatData,
+      closeModalCreateTrackingInflowSahabat
+    );
   };
-
   return (
     <>
       <div>
         <Button onClick={openModalCreateInflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
+        
         <Modal
           show={isModalCreateInflowSahabat}
           onHide={closeModalCreateTrackingInflowSahabat}
@@ -110,7 +104,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
             <Modal.Title>Tambah Inflow Sahabat</Modal.Title>
           </Modal.Header>
 
-          <Form onSubmit={handleSubmit(createInflowSahabat)} onReset={reset}>
+          <Form onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="kodInflowId" className="mb-3">
                 <Form.Label className="form-label">Kod Inflow</Form.Label>
@@ -128,7 +122,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
                   <option value="" disabled>
                     --Pilih Kod Inflow--
                   </option>
-                  {kodInflowsData.map((kodInflow) => (
+                  {kodInflowOptions.map((kodInflow) => (
                     <option key={kodInflow.id} value={kodInflow.id}>
                       {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                     </option>
@@ -216,7 +210,9 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowsData }) {
                 Batal
               </Button>
 
-              <Button type="submit">Simpan</Button>
+              <Button onClick={handleSubmit(handleCreateInflowSahabat)}>
+                Simpan
+              </Button>
             </Modal.Footer>
           </Form>
         </Modal>
