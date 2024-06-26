@@ -55,12 +55,12 @@ function TrackingInflowOutflow() {
         <MaklumatSahabat key={dataSahabat.id} dataSahabat={dataSahabat} />
       ))}
 
-      {/* <MaklumatMinggu
+      <MaklumatMinggu
         sahabatId={sahabatId}
         pembiayaanId={pembiayaanId}
         mingguId={mingguId}
         pembiayaanSahabatsData={pembiayaanSahabatsData}
-      /> */}
+      />
 
       <BorangTrackingMingguanSahabat
         sahabatId={sahabatId}

@@ -142,6 +142,7 @@ function EditTrackingInflowIsiRumah({
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
+      
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -152,7 +153,7 @@ function EditTrackingInflowIsiRumah({
           <Modal.Title>Edit Inflow Isi Rumah</Modal.Title>
         </Modal.Header>
 
-        <Form onSubmit={handleSubmit(updateInflowIsiRumah)} onReset={reset}>
+        <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
@@ -249,8 +250,7 @@ function EditTrackingInflowIsiRumah({
             >
               Batal
             </Button>
-
-            <Button type="submit">Simpan</Button>
+            <Button onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>{" "}
           </Modal.Footer>
         </Form>
       </Modal>

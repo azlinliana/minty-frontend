@@ -189,7 +189,9 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
                 </Form.Label>
 
                 <Form.Control
-                  type="text"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
                   {...register("amaunInflow", { required: true })}
                   aria-invalid={errors.amaunInflow ? "true" : "false"}
                 />

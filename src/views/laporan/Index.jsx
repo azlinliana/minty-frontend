@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import "../../assets/styles/styles_laporan.css";
 import { Table, Button, Form, Modal } from "react-bootstrap";
 import { useLaporanStore } from "../../store/laporan/laporan-store";
 
 function IndexLaporan() {
-  const navigate = useNavigate();
-
   // __________________________________ Frontend __________________________________
   // Modal Carian Laporan Profil Sahabat
   const [
     isModalCarianLaporanProfilSahabat,
     setIsModalCarianLaporanProfilSahabat,
   ] = useState(false);
+
   const openModalCarianLaporanProfilSahabat = () =>
     setIsModalCarianLaporanProfilSahabat(true);
+
   const closeModalCarianLaporanProfilSahabat = () => {
     setIsModalCarianLaporanProfilSahabat(false);
     reset(); // Reset previous form input
@@ -26,8 +26,10 @@ function IndexLaporan() {
     isModalCarianLaporanProfilSahabatTerperinci,
     setIsModalCarianLaporanProfilSahabatTerperinci,
   ] = useState(false);
+
   const openModalCarianLaporanProfilSahabatTerperinci = () =>
     setIsModalCarianLaporanProfilSahabatTerperinci(true);
+
   const closeModalCarianLaporanProfilSahabatTerperinci = () => {
     setIsModalCarianLaporanProfilSahabatTerperinci(false);
     reset(); // Reset previous form input
@@ -35,13 +37,15 @@ function IndexLaporan() {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
 
   // Link pages
+  const navigate = useNavigate();
+
   const clickJadualTF01 = () => navigate("/search-tf01");
   const clickJadualTF01Cawangan = () => navigate("/search-tf01-cawangan");
   const clickJadualTF02 = () => navigate("/search-tf02");
@@ -63,7 +67,9 @@ function IndexLaporan() {
 
   // Pass search input & navigate to page pembiayaaan sahabat
   const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
-    const result = await searchNoKadPengenalanSahabatProfilSahabat(noKadPengenalanSahabatData);
+    const result = await searchNoKadPengenalanSahabatProfilSahabat(
+      noKadPengenalanSahabatData
+    );
 
     navigate("/pembiayaan-sahabat", {
       state: { resultSahabat: laporanProfilSahabats },
@@ -71,7 +77,15 @@ function IndexLaporan() {
   };
 
   // Pass input & navigate to another page pembiayaaan sahabat terperinci
-  const handleSearchProfilSahabatTerperinci = () => {};
+  const handleSearchProfilSahabatTerperinci = async (noKadPengenalanSahabatData) => {
+    const result = await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
+      noKadPengenalanSahabatData
+    );
+
+    navigate("/pembiayaan-sahabat-terperinci", {
+      state: { resultSahabat: laporanProfilSahabatTerperincis },
+    }); // Set response data as a state
+  };
 
   return (
     <div>
@@ -109,53 +123,56 @@ function IndexLaporan() {
                     <Modal.Title>Carian Laporan Profil Sahabat</Modal.Title>
                   </Modal.Header>
 
-                  <Modal.Body>
-                    <Form
-                      onSubmit={handleSubmit(
-                        searchNoKadPengenalanSahabatProfilSahabat
-                      )}
-                      onReset={reset}
-                    >
-                      <Form.Group className="mb-3">
-                        <Controller
-                          id="noKadPengenalanSahabat"
-                          name="noKadPengenalanSahabat"
-                          control={control}
-                          defaultValue=""
-                          rules={{
+                  <Form onReset={reset}>
+                    <Modal.Body>
+                      <Form.Group
+                        controlId="noKadPengenalanSahabat"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          placeholder="Masukkan no. kad pengenalan sahabat"
+                          {...register("noKadPengenalanSahabat", {
                             required: "No. kad pengenalan sahabat diperlukan.",
-                          }}
-                          render={({ field: { onChange, value } }) => (
-                            <Form.Control
-                              type="text"
-                              maxLength={12}
-                              onChange={onChange}
-                              value={value}
-                              placeholder="Masukkan no. kad pengenalan sahabat"
-                              autoFocus
-                            />
-                          )}
+                            pattern: {
+                              value: /^\d{12}$/,
+                              message:
+                                "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                            },
+                          })}
+                          aria-invalid={
+                            errors.noKadPengenalanSahabat ? "true" : "false"
+                          }
                         />
-                        {errors.noKadPengenalanSahabat && (
+
+                        {/* Validate required field */}
+                        {errors.noKadPengenalanSahabat?.type === "required" && (
+                          <small className="text-danger">
+                            No. kad pengenalan sahabat diperlukan.
+                          </small>
+                        )}
+
+                        {/* Validate pattern field */}
+                        {errors.noKadPengenalanSahabat?.type === "pattern" && (
                           <small className="text-danger">
                             {errors.noKadPengenalanSahabat.message}
                           </small>
                         )}
                       </Form.Group>
-                    </Form>
-                  </Modal.Body>
+                    </Modal.Body>
 
-                  <Modal.Footer>
-                    <Button
-                      className="batal-btn"
-                      onClick={closeModalCarianLaporanProfilSahabat}
-                    >
-                      Batal
-                    </Button>
-                    <Button onClick={handleSubmit(handleSearchProfilSahabat)}>
-                      Cari
-                    </Button>
-                  </Modal.Footer>
+                    <Modal.Footer>
+                      <Button
+                        className="batal-btn"
+                        onClick={closeModalCarianLaporanProfilSahabat}
+                      >
+                        Batal
+                      </Button>
+                      <Button onClick={handleSubmit(handleSearchProfilSahabat)}>
+                        Cari
+                      </Button>
+                    </Modal.Footer>
+                  </Form>
                 </Modal>
               </td>
             </tr>
@@ -182,57 +199,60 @@ function IndexLaporan() {
                     </Modal.Title>
                   </Modal.Header>
 
-                  <Modal.Body>
-                    <Form
-                      onSubmit={handleSubmit(
-                        searchNoKadPengenalanSahabatProfilSahabatTerperinci
-                      )}
-                      onReset={reset}
-                    >
-                      <Form.Group className="mb-3">
-                        <Controller
-                          id="noKadPengenalanSahabat"
-                          name="noKadPengenalanSahabat"
-                          control={control}
-                          defaultValue=""
-                          rules={{
+                  <Form onReset={reset}>
+                    <Modal.Body>
+                      <Form.Group
+                        controlId="noKadPengenalanSahabat"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          placeholder="Masukkan no. kad pengenalan sahabat"
+                          {...register("noKadPengenalanSahabat", {
                             required: "No. kad pengenalan sahabat diperlukan.",
-                          }}
-                          render={({ field: { onChange, value } }) => (
-                            <Form.Control
-                              type="text"
-                              maxLength={12}
-                              onChange={onChange}
-                              value={value}
-                              placeholder="Masukkan no. kad pengenalan sahabat"
-                              autoFocus
-                            />
-                          )}
+                            pattern: {
+                              value: /^\d{12}$/,
+                              message:
+                                "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                            },
+                          })}
+                          aria-invalid={
+                            errors.noKadPengenalanSahabat ? "true" : "false"
+                          }
                         />
-                        {errors.noKadPengenalanSahabat && (
+
+                        {/* Validate required field */}
+                        {errors.noKadPengenalanSahabat?.type === "required" && (
+                          <small className="text-danger">
+                            No. kad pengenalan sahabat diperlukan.
+                          </small>
+                        )}
+
+                        {/* Validate pattern field */}
+                        {errors.noKadPengenalanSahabat?.type === "pattern" && (
                           <small className="text-danger">
                             {errors.noKadPengenalanSahabat.message}
                           </small>
                         )}
                       </Form.Group>
-                    </Form>
-                  </Modal.Body>
+                    </Modal.Body>
 
-                  <Modal.Footer>
-                    <Button
-                      className="batal-btn"
-                      onClick={closeModalCarianLaporanProfilSahabatTerperinci}
-                    >
-                      Batal
-                    </Button>
-                    <Button
-                      onClick={handleSubmit(
-                        handleSearchProfilSahabatTerperinci
-                      )}
-                    >
-                      Cari
-                    </Button>
-                  </Modal.Footer>
+                    <Modal.Footer>
+                      <Button
+                        className="batal-btn"
+                        onClick={closeModalCarianLaporanProfilSahabatTerperinci}
+                      >
+                        Batal
+                      </Button>
+                      <Button
+                        onClick={handleSubmit(
+                          handleSearchProfilSahabatTerperinci
+                        )}
+                      >
+                        Cari
+                      </Button>
+                    </Modal.Footer>
+                  </Form>
                 </Modal>
               </td>
             </tr>

@@ -11,11 +11,13 @@ function EditTrackingInflowSahabat({
   inflowSahabat,
   kodInflowsData,
 }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] =
     useState(false);
+
   const openModalEditInflowSahabat = () => setIsModalEditInflowSahabat(true);
+
   const closeModalEditInflowSahabat = () => {
     setIsModalEditInflowSahabat(false);
 
@@ -171,6 +173,7 @@ function EditTrackingInflowSahabat({
       <Button className="edit-btn" onClick={openModalEditInflowSahabat}>
         Edit
       </Button>{" "}
+      
       <Modal
         show={isModalEditInflowSahabat}
         onHide={closeModalEditInflowSahabat}

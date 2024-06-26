@@ -109,7 +109,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
           <Modal.Title>Tambah Inflow Isi Rumah</Modal.Title>
         </Modal.Header>
 
-        <Form onSubmit={handleSubmit(createInflowIsiRumah)} onReset={reset}>
+        <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>

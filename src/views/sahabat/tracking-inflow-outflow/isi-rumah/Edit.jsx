@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 
 function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubunganOptions }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
   const openModalEditIsiRumah = () => setIsModalEditIsiRumah(true);
@@ -16,10 +16,11 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubunganOptions }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
     formState: { errors },
+    reset,
   } = useForm();
 
   // ----------BE----------
@@ -55,106 +56,93 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubunganOptions }) {
             <Modal.Title>Edit Isi Rumah</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
-            <Form onSubmit={handleSubmit} onReset={reset}>
-              <Form.Label htmlFor="noKadPengenalanIsiRumah">
-                No. Kad Pengenalan
-              </Form.Label>
-              <Controller
-                type="text"
-                id="noKadPengenalanIsiRumah"
-                name="noKadPengenalanIsiRumah"
-                control={control}
-                defaultValue={isiRumahSahabat.noKadPengenalanIsiRumah}
-                rules={{
-                  required: "No. kad pengenalan isi rumah diperlukan.",
-                  pattern: {
-                    value: /^\d{12}$/,
-                    message:
-                      "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
-                  },
-                }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan no. kad pengenalan isi rumah sahabat"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.noKadPengenalanIsiRumah && (
-                <small className="text-danger">
-                  {errors.noKadPengenalanIsiRumah.message}
-                </small>
-              )}
-            </Form>
+          <Form onReset={reset}>
+            <Modal.Body>
+              <Form.Group controlId="noKadPengenalanIsiRumah" className="mb-3">
+                <Form.Label className="form-label">
+                  No. Kad Pengenalan
+                </Form.Label>
 
-            <Form onSubmit={handleSubmit} onReset={reset}>
-              <Form.Label htmlFor="namaIsiRumah">Nama</Form.Label>
-              <Controller
-                type="text"
-                id="namaIsiRumah"
-                name="namaIsiRumah"
-                control={control}
-                defaultValue={isiRumahSahabat.namaIsiRumah}
-                rules={{ required: "Nama isi rumah diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan nama isi rumah sahabat"
-                    autoFocus
-                  />
-                )}
-              />
-              {errors.namaIsiRumah && (
-                <small className="text-danger">
-                  {errors.namaIsiRumah.message}
-                </small>
-              )}
-            </Form>
+                <Form.Control
+                  type="text"
+                  {...register("noKadPengenalanIsiRumah", {
+                    required: "No. kad pengenalan isi rumah diperlukan.",
+                    pattern: {
+                      value: /^\d{12}$/,
+                      message:
+                        "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
+                    },
+                  })}
+                  aria-invalid={
+                    errors.noKadPengenalanIsiRumah ? "true" : "false"
+                  }
+                />
 
-            <Form.Group>
-              <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
-              <Controller
-                id="hubunganId"
-                name="hubunganId"
-                control={control}
-                defaultValue={isiRumahSahabat.hubunganId}
-                rules={{ required: "Hubungan isi rumah diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    defaultValue={isiRumahSahabat.hubunganId}
-                  >
-                    <option value="" disabled>
-                      --Pilih Hubungan--
+                {/* Validate required field */}
+                {errors.noKadPengenalanIsiRumah?.type === "required" && (
+                  <small className="text-danger">
+                    No. kad pengenalan isi rumah diperlukan.
+                  </small>
+                )}
+
+                {/* Validate pattern field */}
+                {errors.noKadPengenalanIsiRumah?.type === "pattern" && (
+                  <small className="text-danger">
+                    {errors.noKadPengenalanIsiRumah.message}
+                  </small>
+                )}
+              </Form.Group>
+
+              <Form.Group controlId="namaIsiRumah" className="mb-3">
+                <Form.Label className="form-label">Nama</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("namaIsiRumah", { required: true })}
+                  aria-invalid={errors.namaIsiRumah ? "true" : "false"}
+                />
+                {errors.namaIsiRumah?.type === "required" && (
+                  <small className="text-danger">
+                    Nama isi rumah diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+
+              <Form.Group controlId="hubunganId" className="mb-3">
+                <Form.Label className="form-label">Hubungan</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("hubunganId", { required: true })}
+                  aria-invalid={errors.hubunganId ? "true" : "false"}
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    --Pilih Hubungan--
+                  </option>
+                  {hubunganOptions.map((hubungan) => (
+                    <option key={hubungan.id} value={hubungan.id}>
+                      {hubungan.kodHubungan}
                     </option>
-                    {hubunganOptions.map((hubungan) => (
-                      <option key={hubungan.id} value={hubungan.id}>
-                        {hubungan.kodHubungan}
-                      </option>
-                    ))}
-                  </Form.Select>
-                )}
-              />
-              {errors.hubunganIsiRumah && (
-                <small className="text-danger">
-                  {errors.hubunganIsiRumah.message}
-                </small>
-              )}
-            </Form.Group>
-          </Modal.Body>
+                  ))}
+                </Form.Control>
 
-          <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditIsiRumah}>
-              Batal
-            </Button>
-            <Button onClick={handleSubmit(updateIsiRumah)}>Simpan</Button>
-          </Modal.Footer>
+                {errors.hubunganId?.type === "required" && (
+                  <small className="text-danger">
+                    Hubungan isi rumah diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button className="batal-btn" onClick={closeModalEditIsiRumah}>
+                Batal
+              </Button>
+              <Button onClick={handleSubmit(updateIsiRumah)}>Simpan</Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     </>

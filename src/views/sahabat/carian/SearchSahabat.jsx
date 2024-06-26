@@ -32,7 +32,7 @@ function SearchSahabat() {
   };
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (searchComplete && sahabats.length > 0) {
       navigate("/hasil-carian-sahabat", {
@@ -54,17 +54,31 @@ function SearchSahabat() {
               <Form.Group controlId="noKadPengenalanSahabat">
                 <Form.Control
                   type="text"
-                  maxLength={12}
                   placeholder="Masukkan no. kad pengenalan sahabat"
-                  {...register("noKadPengenalanSahabat", { required: true })}
+                  {...register("noKadPengenalanSahabat", {
+                    required: "No. kad pengenalan sahabat diperlukan.",
+                    pattern: {
+                      value: /^\d{12}$/,
+                      message:
+                        "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                    },
+                  })}
                   aria-invalid={
                     errors.noKadPengenalanSahabat ? "true" : "false"
                   }
                 />
 
+                {/* Validate required field */}
                 {errors.noKadPengenalanSahabat?.type === "required" && (
                   <small className="text-danger">
                     No. kad pengenalan sahabat diperlukan.
+                  </small>
+                )}
+
+                {/* Validate pattern field */}
+                {errors.noKadPengenalanSahabat?.type === "pattern" && (
+                  <small className="text-danger">
+                    {errors.noKadPengenalanSahabat.message}
                   </small>
                 )}
               </Form.Group>

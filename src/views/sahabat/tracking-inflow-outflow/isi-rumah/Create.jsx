@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -7,10 +7,12 @@ import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
 function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateIsiRumah, setIsModalCreateIsiRumah] = useState(false);
+
   const openModalCreateIsiRumah = () => setIsModalCreateIsiRumah(true);
+
   const closeModalCreateIsiRumah = () => {
     setIsModalCreateIsiRumah(false);
     reset(); // Reset previous form input
@@ -18,8 +20,8 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -49,6 +51,7 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
         <Button onClick={openModalCreateIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
+
         <Modal
           show={isModalCreateIsiRumah}
           onHide={closeModalCreateIsiRumah}
@@ -58,105 +61,95 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
           <Modal.Header closeButton>
             <Modal.Title>Tambah Isi Rumah</Modal.Title>
           </Modal.Header>
+          
+          <Form onReset={reset}>
+            <Modal.Body>
+              <Form.Group controlId="noKadPengenalanIsiRumah" className="mb-3">
+                <Form.Label className="form-label">
+                  No. Kad Pengenalan
+                </Form.Label>
 
-          <Modal.Body>
-            <Form onSubmit={handleSubmit} onReset={reset}>
-              <Form.Label htmlFor="noKadPengenalanIsiRumah">
-                No. Kad Pengenalan
-              </Form.Label>
-              <Controller
-                type="text"
-                id="noKadPengenalanIsiRumah"
-                name="noKadPengenalanIsiRumah"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "No. kad pengenalan isi rumah diperlukan.",
-                  pattern: {
-                    value: /^\d{12}$/,
-                    message:
-                      "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
-                  },
-                }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan no. kad pengenalan isi rumah sahabat"
-                    autoFocus
-                  />
+                <Form.Control
+                  type="text"
+                  {...register("noKadPengenalanIsiRumah", {
+                    required: "No. kad pengenalan isi rumah diperlukan.",
+                    pattern: {
+                      value: /^\d{12}$/,
+                      message:
+                        "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
+                    },
+                  })}
+                  aria-invalid={
+                    errors.noKadPengenalanIsiRumah ? "true" : "false"
+                  }
+                />
+
+                {/* Validate required field */}
+                {errors.noKadPengenalanIsiRumah?.type === "required" && (
+                  <small className="text-danger">
+                    No. kad pengenalan isi rumah diperlukan.
+                  </small>
                 )}
-              />
 
-              {errors.noKadPengenalanIsiRumah && (
-                <small className="text-danger">
-                  {errors.noKadPengenalanIsiRumah.message}
-                </small>
-              )}
-            </Form>
-
-            <Form onSubmit={handleSubmit} onReset={reset}>
-              <Form.Label htmlFor="namaIsiRumah">Nama</Form.Label>
-              <Controller
-                type="text"
-                id="namaIsiRumah"
-                name="namaIsiRumah"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Nama isi rumah diperlukan." }}
-                render={({ field: { onChange, value } }) => (
-                  <Form.Control
-                    type="text"
-                    onChange={onChange}
-                    value={value}
-                    placeholder="Masukkan nama isi rumah sahabat"
-                    autoFocus
-                  />
+                {/* Validate pattern field */}
+                {errors.noKadPengenalanIsiRumah?.type === "pattern" && (
+                  <small className="text-danger">
+                    {errors.noKadPengenalanIsiRumah.message}
+                  </small>
                 )}
-              />
-              {errors.namaIsiRumah && (
-                <small className="text-danger">
-                  {errors.namaIsiRumah.message}
-                </small>
-              )}
-            </Form>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label htmlFor="hubunganIsiRumah">Hubungan</Form.Label>
-              <Controller
-                id="hubunganId"
-                name="hubunganId"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Hubungan isi rumah diperlukan." }}
-                render={({ field: { onChange } }) => (
-                  <Form.Select onChange={onChange} defaultValue="">
-                    <option value="" disabled>
-                      --Pilih Hubungan--
+              <Form.Group controlId="namaIsiRumah" className="mb-3">
+                <Form.Label className="form-label">Nama</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  {...register("namaIsiRumah", { required: true })}
+                  aria-invalid={errors.namaIsiRumah ? "true" : "false"}
+                />
+                {errors.namaIsiRumah?.type === "required" && (
+                  <small className="text-danger">
+                    Nama isi rumah diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+
+              <Form.Group controlId="hubunganId" className="mb-3">
+                <Form.Label className="form-label">Hubungan</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("hubunganId", { required: true })}
+                  aria-invalid={errors.hubunganId ? "true" : "false"}
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    --Pilih Hubungan--
+                  </option>
+                  {hubunganOptions.map((hubungan) => (
+                    <option key={hubungan.id} value={hubungan.id}>
+                      {hubungan.kodHubungan}
                     </option>
-                    {hubunganOptions.map((hubungan) => (
-                      <option key={hubungan.id} value={hubungan.id}>
-                        {hubungan.kodHubungan}
-                      </option>
-                    ))}
-                  </Form.Select>
-                )}
-              />
-              {errors.hubunganId && (
-                <small className="text-danger">
-                  {errors.hubunganId.message}
-                </small>
-              )}
-            </Form.Group>
-          </Modal.Body>
+                  ))}
+                </Form.Control>
 
-          <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateIsiRumah}>
-              Batal
-            </Button>
-            <Button onClick={handleSubmit(createIsiRumah)}>Simpan</Button>
-          </Modal.Footer>
+                {errors.hubunganId?.type === "required" && (
+                  <small className="text-danger">
+                    Hubungan isi rumah diperlukan.
+                  </small>
+                )}
+              </Form.Group>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button className="batal-btn" onClick={closeModalCreateIsiRumah}>
+                Batal
+              </Button>
+
+              <Button onClick={handleSubmit(createIsiRumah)}>Simpan</Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     </>

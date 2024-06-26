@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
 function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] =
     useState(false);
@@ -22,8 +22,8 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
 
   // Form validation
   const {
+    register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm();
@@ -53,6 +53,7 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
         <Button onClick={openModalCreateOutflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
+
         <Modal
           show={isModalCreateOutflowSahabat}
           onHide={closeModalCreateOutflow}
@@ -63,75 +64,64 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
             <Modal.Title>Tambah Outflow Sahabat</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
-            <Form onSubmit={handleSubmit} onReset={reset}>
-              <Form.Group>
-                <Form.Label htmlFor="kodOutflowId">Kod Outflow</Form.Label>
-                <Controller
-                  id="kodOutflowId"
-                  name="kodOutflowId"
-                  control={control}
+          <Form onReset={reset}>
+            <Modal.Body>
+              <Form.Group controlId="kodOutflowId" className="mb-3">
+                <Form.Label className="form-label">Kod Outflow</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  className="form-select"
+                  {...register("kodOutflowId", { required: true })}
+                  aria-invalid={errors.kodOutflowId ? "true" : "false"}
                   defaultValue=""
-                  rules={{ required: "Kod outflow diperlukan." }}
-                  render={({ field: { onChange } }) => (
-                    <Form.Select onChange={onChange} defaultValue="">
-                      <option value="" disabled>
-                        --Pilih Kod Outflow--
-                      </option>
-                      {kodOutflowOptions.map((kodOutflow) => (
-                        <option key={kodOutflow.id} value={kodOutflow.id}>
-                          {kodOutflow.kodOutflow} -{" "}
-                          {kodOutflow.keteranganKodOutflow}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  )}
-                />
-                {errors.kodOutflowId && (
-                  <small className="text-danger">
-                    {errors.kodOutflowId.message}
-                  </small>
+                >
+                  <option value="" disabled>
+                    --Pilih Kod Outflow--
+                  </option>
+                  {kodOutflowOptions.map((kodOutflow) => (
+                    <option key={kodOutflow.id} value={kodOutflow.id}>
+                      {kodOutflow.kodOutflow} - {kodOutflow.keteranganKodOutflow}
+                    </option>
+                  ))}
+                </Form.Control>
+
+                {errors.kodOutflowId?.type === "required" && (
+                  <small className="text-danger">Kod outflow diperlukan.</small>
                 )}
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label htmlFor="amaunOutflow">
+              <Form.Group controlId="amaunOutflow" className="mb-3">
+                <Form.Label className="form-label">
                   Amaun Outflow (RM)
                 </Form.Label>
-                <Controller
-                  id="amaunOutflow"
-                  name="amaunOutflow"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: "Amaun outflow diperlukan." }}
-                  render={({ field: { onChange, value } }) => (
-                    <Form.Control
-                      type="number"
-                      min="0.00"
-                      max="10000.00"
-                      step="0.01"
-                      onChange={onChange}
-                      value={value}
-                      placeholder="Masukkan amaun outflow (RM)"
-                      autoFocus
-                    />
-                  )}
+
+                <Form.Control
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  {...register("amaunOutflow", { required: true })}
+                  aria-invalid={errors.amaunOutflow ? "true" : "false"}
                 />
-                {errors.amaunOutflow && (
+
+                {errors.amaunOutflow?.type === "required" && (
                   <small className="text-danger">
-                    {errors.amaunOutflow.message}
+                    Amaun outflow diperlukan.
                   </small>
                 )}
               </Form.Group>
-            </Form>
-          </Modal.Body>
+            </Modal.Body>
 
-          <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateOutflow}>
-              Batal
-            </Button>
-            <Button onClick={handleSubmit(createOutflowSahabat)}>Simpan</Button>
-          </Modal.Footer>
+            <Modal.Footer>
+              <Button className="batal-btn" onClick={closeModalCreateOutflow}>
+                Batal
+              </Button>
+
+              <Button onClick={handleSubmit(createOutflowSahabat)}>
+                Simpan
+              </Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     </>
