@@ -1,15 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingIsiRumah from "./Create";
 import EditTrackingIsiRumah from "./Edit";
 import IndexTrackingInflowIsiRumah from "./inflow/Index";
 import IndexTrackingOutflowIsiRumah from "./outflow/Index";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import { Tab, Tabs, Alert, Card, Container, Row, Col, Form, Dropdown, DropdownButton } from "react-bootstrap";
-import axiosCustom from "../../../../axios";
+import {
+  Tab,
+  Tabs,
+  Alert,
+  Card,
+  Container,
+  Row,
+  Col,
+  Form,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
+import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
+import { useSelenggaraStore } from "../../../../store/options-store";
 
 function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Tab tracking isi rumah
   const [activeTab, setActiveTab] = useState({
     key: "tracking-inflow-isi-rumah",
@@ -20,96 +31,44 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
     setActiveTab({ key, title });
   };
 
-  // ----------BE----------
-  // List isi rumah sahabat
-  const [isiRumahSahabats, setIsiRumahSahabats] = useState([]);
-
-  const fetchIsiRumahSahabats = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(`/sahabat/isi-rumah/${mingguId}`);
-
-      if (response.status === 200) {
-        setIsiRumahSahabats(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error from the backend or unknow error from the server side
-    }
-  }, [mingguId, setIsiRumahSahabats]);
-
-  useEffect(() => {
-    fetchIsiRumahSahabats();
-  }, [fetchIsiRumahSahabats]);
-
-  // Fetch hubungan data
-  const [hubungansData, setHubungansData] = useState([]);
-
-  const fetchHubungans = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/hubungan/display-hubungan`
-      );
-
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setHubungansData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error from the backend or unknow error from the server side
-    }
-  }, [setHubungansData]);
+  // ___________________________________ Backend __________________________________
+  // ============================== Dropdown Options ==============================
+  // Display hubungan, kod inflow, kod outflow option
+  const {
+    hubunganOptions,
+    displayHubungans,
+    kodInflowOptions,
+    displayKodInflows,
+    kodOutflowOptions,
+    displayKodOutflows,
+  } = useSelenggaraStore((state) => ({
+    hubunganOptions: state.hubunganOptions,
+    displayHubungans: state.displayHubungans,
+    kodInflowOptions: state.kodInflowOptions,
+    displayKodInflows: state.displayKodInflows,
+    kodOutflowOptions: state.kodOutflowOptions,
+    displayKodOutflows: state.displayKodOutflows,
+  }));
 
   useEffect(() => {
-    fetchHubungans();
-  }, [fetchHubungans]);
+    displayHubungans();
+    displayKodInflows();
+    displayKodOutflows();
+  }, [displayHubungans, displayKodInflows, displayKodOutflows]);
+  // ==============================================================================
 
-  // Fetch kod inflow data
-  const [kodInflowsData, setKodInflowsData] = useState([]);
-
-  const fetchKodInflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-inflow/display-kod-inflow`
-      );
-
-      if (Array.isArray(response.data)) {
-        setKodInflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error from the backend or unknow error from the server side
-    }
-  }, [setKodInflowsData]);
+  // List & delete isi rumah sahabat
+  const { isiRumahSahabats, fetchIsiRumahSahabats, deleteIsiRumahSahabat } =
+    useIsiRumahStore((state) => ({
+      isiRumahSahabats: state.isiRumahSahabats,
+      fetchIsiRumahSahabats: state.fetchIsiRumahSahabats,
+      deleteIsiRumahSahabat: state.deleteIsiRumahSahabat,
+    }));
 
   useEffect(() => {
-    fetchKodInflows();
-  }, [fetchKodInflows]);
+    fetchIsiRumahSahabats(mingguId);
+  }, [fetchIsiRumahSahabats, mingguId]);
 
-  // Fetch kod outflow data
-  const [kodOutflowsData, setKodOutflowsData] = useState([]);
-
-  const fetchKodOutflows = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/selenggara/kod-outflow/display-kod-outflow`
-      );
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        setKodOutflowsData(response.data); // Display all kod inflow data
-      } else {
-        ErrorAlert(response.data);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchKodOutflows();
-  }, [fetchKodOutflows]);
-  
   return (
     <>
       <div>
@@ -120,7 +79,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
             <div className="tambah-baru-btn-container">
               <CreateTrackingIsiRumah
                 mingguId={mingguId}
-                hubungansData={hubungansData}
+                hubunganOptions={hubunganOptions}
               />
             </div>
           ) : null}
@@ -146,7 +105,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                             <EditTrackingIsiRumah
                               mingguId={mingguId}
                               isiRumahSahabat={isiRumahSahabatsData}
-                              hubungansData={hubungansData}
+                              hubunganOptions={hubunganOptions}
                             />
                           </Dropdown.Item>
                           <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
@@ -231,7 +190,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                           <IndexTrackingInflowIsiRumah
                             isiRumahId={isiRumahSahabatsData.id}
                             pembiayaanSahabatsData={pembiayaanSahabatsData}
-                            kodInflowsData={kodInflowsData}
+                            kodInflowOptions={kodInflowOptions}
                           />
                         </Tab>
 
@@ -242,7 +201,7 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
                           <IndexTrackingOutflowIsiRumah
                             isiRumahId={isiRumahSahabatsData.id}
                             pembiayaanSahabatsData={pembiayaanSahabatsData}
-                            kodOutflowsData={kodOutflowsData}
+                            kodOutflowOptions={kodOutflowOptions}
                           />
                         </Tab>
                       </Tabs>

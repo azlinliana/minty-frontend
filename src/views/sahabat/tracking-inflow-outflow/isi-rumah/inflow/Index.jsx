@@ -1,74 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import "../../../../../assets/styles/styles_sahabat.css";
 import CreateTrackingInflowIsiRumah from "./Create";
 import EditTrackingInflowIsiRumah from "./Edit";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
-import DeletionAlert from "../../../../components/sweet-alert/DeletionAlert";
 import { Button, Table } from "react-bootstrap";
-import axiosCustom from "../../../../../axios";
-import Swal from "sweetalert2";
+import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function IndexTrackingInflowIsiRumah({
   isiRumahId,
   pembiayaanSahabatsData,
-  kodInflowsData,
+  kodInflowOptions,
 }) {
-  // ----------BE----------
-  // List inflow isi rumah
-  const [inflowIsiRumahs, setInflowIsiRumahs] = useState([]);
-
-  const fetchInflowIsiRumahs = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/sahabat/inflow-isi-rumah/${isiRumahId}`
-      );
-
-      if (response.status === 200) {
-        setInflowIsiRumahs(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, [isiRumahId, setInflowIsiRumahs]);
+  // ___________________________________ Backend __________________________________
+  // List & delete inflow isi rumah
+  const { inflowIsiRumahs, fetchInflowIsiRumahs, deleteInflowIsiRumah } =
+    useInflowIsiRumahStore((state) => ({
+      inflowIsiRumahs: state.inflowIsiRumahs,
+      fetchInflowIsiRumahs: state.fetchInflowIsiRumahs,
+      deleteInflowIsiRumah: state.deleteInflowIsiRumah,
+    }));
 
   useEffect(() => {
-    fetchInflowIsiRumahs();
-  }, [fetchInflowIsiRumahs]);
-
-  // Delete inflow isi rumah
-  const deleteInflowIsiRumah = async (inflowIsiRumahId) => {
-    // Function to delete inflow isi rumah
-    const performDeletion = async () => {
-      try {
-        const response = await axiosCustom.delete(
-          `/sahabat/inflow-isi-rumah/${inflowIsiRumahId}`
-        );
-
-        if (response.status === 200) {
-          setInflowIsiRumahs((prevInflowIsiRumahs) =>
-            prevInflowIsiRumahs.filter(
-              (inflowIsiRumah) => inflowIsiRumah.id !== inflowIsiRumahId
-            )
-          );
-          
-          // Show success message from the server
-          Swal.fire("Dipadam!", response.data.message, "success");
-        }
-      } catch (error) {
-        console.error("Ralat dalam memadam dimensi", error);
-      }
-    };
-
-    // Function to handle cancellation
-    const cancelDeletion = () => {
-      Swal.fire("Dibatalkan", "Data anda selamat.", "error");
-    };
-
-    // Display the deletion confirmation dialog
-    DeletionAlert(performDeletion, cancelDeletion);
-  };
+    fetchInflowIsiRumahs(isiRumahId);
+  }, [fetchInflowIsiRumahs, isiRumahId]);
 
   return (
     <>
@@ -77,7 +30,7 @@ function IndexTrackingInflowIsiRumah({
           <div className="tambah-baru-btn-container">
             <CreateTrackingInflowIsiRumah
               isiRumahId={isiRumahId}
-              kodInflowsData={kodInflowsData}
+              kodInflowOptions={kodInflowOptions}
             />
           </div>
         ) : null}
@@ -112,15 +65,12 @@ function IndexTrackingInflowIsiRumah({
             ) : (
               inflowIsiRumahs.map((inflowIsiRumahsData, index) => (
                 <React.Fragment key={index}>
-                  {inflowIsiRumahsData.kod_inflow.kod_inflow_terperincis
-                    .length === 0 ? (
+                  {inflowIsiRumahsData.kodInflowTerperincis.length === 0 ? (
                     // Render row for inflow isi rumah without kod inflow terperinci
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{inflowIsiRumahsData.kod_inflow.kodInflow}</td>
-                      <td>
-                        {inflowIsiRumahsData.kod_inflow.keteranganKodInflow}
-                      </td>
+                      <td>{inflowIsiRumahsData.kodInflow}</td>
+                      <td>{inflowIsiRumahsData.keteranganKodInflow}</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -131,7 +81,7 @@ function IndexTrackingInflowIsiRumah({
                             isiRumahId={isiRumahId}
                             inflowIsiRumahId={inflowIsiRumahsData.id}
                             inflowIsiRumah={inflowIsiRumahsData}
-                            kodInflowsData={kodInflowsData}
+                            kodInflowOptions={kodInflowOptions}
                           />
                           <Button
                             className="delete-btn"
@@ -149,34 +99,31 @@ function IndexTrackingInflowIsiRumah({
                     <tr>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
+                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
                         }
                       >
                         {index + 1}
                       </td>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
+                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
                         }
                       >
-                        {inflowIsiRumahsData.kod_inflow.kodInflow}
+                        {inflowIsiRumahsData.kodInflow}
                       </td>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kod_inflow.kod_inflow_terperincis
-                            .length + 1
+                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
                         }
                       >
-                        {inflowIsiRumahsData.kod_inflow.keteranganKodInflow}
+                        {inflowIsiRumahsData.keteranganKodInflow}
                       </td>
                     </tr>
                   )}
                   {/* Displaying Kod Inflow Terperinci */}
-                  {inflowIsiRumahsData.kod_inflow.kod_inflow_terperincis.map(
+                  {inflowIsiRumahsData.kodInflowTerperincis.map(
                     (kodInflowTerperincisData, subIndex) => (
-                      // Render rows for kod_inflow_terperincis
+                      // Render rows for kod inflow terperinci
                       <tr key={subIndex}>
                         <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
                         <td>
@@ -185,15 +132,19 @@ function IndexTrackingInflowIsiRumah({
                           }
                         </td>
                         <td>
-                          {inflowIsiRumahsData.inflow_isi_rumah_terperincis &&
-                            inflowIsiRumahsData.inflow_isi_rumah_terperincis
+                          {inflowIsiRumahsData.inflowIsiRumahTerperincis &&
+                            inflowIsiRumahsData.inflowIsiRumahTerperincis
                               .length > 0 &&
-                            inflowIsiRumahsData.inflow_isi_rumah_terperincis
-                              .filter(
-                                (inflowTerperinci) =>
-                                  inflowTerperinci.kodInflowTerperinciId ===
-                                  kodInflowTerperincisData.id
-                              )
+                            inflowIsiRumahsData.inflowIsiRumahTerperincis
+                              .filter((inflowTerperinci) => {
+                                // Match id type: '"1"(string) === 1(integer)'
+                                const kodId =
+                                  inflowTerperinci.kodInflowTerperinciId;
+                                const terperinciId =
+                                  kodInflowTerperincisData.id;
+
+                                return String(kodId) === String(terperinciId);
+                              })
                               .map((inflowTerperinciData, innerIndex) => (
                                 <React.Fragment key={innerIndex}>
                                   {
@@ -208,8 +159,7 @@ function IndexTrackingInflowIsiRumah({
                           <React.Fragment>
                             <td
                               rowSpan={
-                                inflowIsiRumahsData.kod_inflow
-                                  .kod_inflow_terperincis.length
+                                inflowIsiRumahsData.kodInflowTerperincis.length
                               }
                             >
                               {inflowIsiRumahsData.amaunInflow}
@@ -219,16 +169,16 @@ function IndexTrackingInflowIsiRumah({
                             "SELESAI" ? (
                               <td
                                 rowSpan={
-                                  inflowIsiRumahsData.kod_inflow
-                                    .kod_inflow_terperincis.length
+                                  inflowIsiRumahsData.kodInflowTerperincis
+                                    .length
                                 }
                               >
-                                <EditTrackingInflowIsiRumah
+                                {/* <EditTrackingInflowIsiRumah
                                   isiRumahId={isiRumahId}
                                   inflowIsiRumahId={inflowIsiRumahsData.id}
                                   inflowIsiRumah={inflowIsiRumahsData}
-                                  kodInflowsData={kodInflowsData}
-                                />
+                                  kodInflowOptions={kodInflowOptions}
+                                /> */}
                                 <Button
                                   className="delete-btn"
                                   onClick={() =>

@@ -112,12 +112,12 @@ const VerticalStepper = ({
                 />
               ) : null}
 
-              {/* {index === 2 ? (
+              {index === 2 ? (
                 <IndexTrackingIsiRumah
                   mingguId={mingguId}
                   pembiayaanSahabatsData={pembiayaanSahabatsData}
                 />
-              ) : null} */}
+              ) : null}
 
               <Box sx={{ mb: 2 }}>
                 {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (

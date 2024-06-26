@@ -8,7 +8,7 @@ import axiosCustom from "../../../../../axios";
 import Swal from "sweetalert2";
 import "../../../../../assets/styles/styles_sahabat.css";
 
-function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodOutflowsData }) {
+function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodOutflowOptions }) {
   // ----------BE----------
   // List outflow isi rumah sahabat
   const [outflowIsiRumahs, setOutflowIsiRumahs] = useState([]);
@@ -111,7 +111,7 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
           <div className="tambah-baru-btn-container">
             <CreateTrackingOutflowIsiRumah
               isiRumahId={isiRumahId}
-              kodOutflowsData={kodOutflowsData}
+              kodOutflowOptions={kodOutflowOptions}
             />
           </div>
         ) : null}
@@ -143,19 +143,19 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
               outflowIsiRumahs.map((outflowIsiRumahsData, key) => (
                 <tr key={key}>
                   <td>{key + 1}</td>
-                  <td>{outflowIsiRumahsData.kod_outflow.kodOutflow}</td>
+                  <td>{outflowIsiRumahsData.kodOutflow}</td>
                   <td>
-                    {outflowIsiRumahsData.kod_outflow.keteranganKodOutflow}
+                    {outflowIsiRumahsData.keteranganKodOutflow}
                   </td>
                   <td>{outflowIsiRumahsData.amaunOutflow}</td>
                   {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                     <td>
-                      <EditTrackingOutflowIsiRumah
+                      {/* <EditTrackingOutflowIsiRumah
                         isiRumahId={isiRumahId}
                         outflowIsiRumahId={outflowIsiRumahsData.id}
                         outflowIsiRumah={outflowIsiRumahsData}
-                        kodOutflowsData={kodOutflowsData}
-                      />
+                        kodOutflowOptions={kodOutflowOptions}
+                      /> */}
                       <Button
                         className="delete-btn"
                         onClick={() =>

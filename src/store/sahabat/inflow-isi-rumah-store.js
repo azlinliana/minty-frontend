@@ -7,11 +7,17 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 export const useInflowIsiRumahStore = create((set) => ({
   inflowIsiRumahs: [],
   // Fetch inflow isi rumah
-  fetchInflowIsiRumahs: async () => {},
+  fetchInflowIsiRumahs: async (isiRumahId) => {
+    const response = await axiosCustom.get(
+      `/sahabat/inflow-isi-rumah/${isiRumahId}`
+    );
+
+    set({ inflowIsiRumahs: response.data });
+  },
   // Create inflow isi rumah
   createInflowIsiRumah: async () => {},
   // Edit inflow isi rumah
   editInflowIsiRumah: async () => {},
   // Delete inflow isi rumah
   deleteInflowIsiRumah: async () => {}
-}))
+}));

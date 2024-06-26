@@ -9,7 +9,7 @@ function EditTrackingOutflowIsiRumah({
   isiRumahId,
   outflowIsiRumahId,
   outflowIsiRumah,
-  kodOutflowsData,
+  kodOutflowOptions,
 }) {
   // ----------FE----------
   // Modal
@@ -85,7 +85,7 @@ function EditTrackingOutflowIsiRumah({
                       <option value="" disabled>
                         --Pilih Kod Outflow--
                       </option>
-                      {kodOutflowsData.map((kodOutflow) => (
+                      {kodOutflowOptions.map((kodOutflow) => (
                         <option key={kodOutflow.id} value={kodOutflow.id}>
                           {kodOutflow.kodOutflow} -{" "}
                           {kodOutflow.keteranganKodOutflow}

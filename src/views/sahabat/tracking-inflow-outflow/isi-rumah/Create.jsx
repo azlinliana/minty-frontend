@@ -6,7 +6,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 
-function CreateTrackingIsiRumah({ mingguId, hubungansData }) {
+function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
   // ----------FE----------
   // Modal
   const [isModalCreateIsiRumah, setIsModalCreateIsiRumah] = useState(false);
@@ -135,7 +135,7 @@ function CreateTrackingIsiRumah({ mingguId, hubungansData }) {
                     <option value="" disabled>
                       --Pilih Hubungan--
                     </option>
-                    {hubungansData.map((hubungan) => (
+                    {hubunganOptions.map((hubungan) => (
                       <option key={hubungan.id} value={hubungan.id}>
                         {hubungan.kodHubungan}
                       </option>

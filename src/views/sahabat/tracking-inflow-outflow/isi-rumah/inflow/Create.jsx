@@ -6,7 +6,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
-function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
+function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   // ----------FE----------
   // Modal
   const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
@@ -35,7 +35,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
-    const selectedKodInflowData = kodInflowsData.find(
+    const selectedKodInflowData = kodInflowOptions.find(
       (item) => item.id === parseInt(selectedValue)
     );
 
@@ -127,7 +127,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowsData }) {
                 <option value="" disabled>
                   --Pilih Kod Inflow--
                 </option>
-                {kodInflowsData.map((kodInflow) => (
+                {kodInflowOptions.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                   </option>

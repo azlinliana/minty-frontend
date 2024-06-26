@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import SuccessAlert from "../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../axios";
 
-function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubungansData }) {
+function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubunganOptions }) {
   // ----------FE----------
   // Modal
   const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
@@ -133,7 +133,7 @@ function EditTrackingIsiRumah({ mingguId, isiRumahSahabat, hubungansData }) {
                     <option value="" disabled>
                       --Pilih Hubungan--
                     </option>
-                    {hubungansData.map((hubungan) => (
+                    {hubunganOptions.map((hubungan) => (
                       <option key={hubungan.id} value={hubungan.id}>
                         {hubungan.kodHubungan}
                       </option>

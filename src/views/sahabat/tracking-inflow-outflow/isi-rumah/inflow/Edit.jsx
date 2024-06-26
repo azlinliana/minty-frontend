@@ -9,11 +9,12 @@ function EditTrackingInflowIsiRumah({
   isiRumahId,
   inflowIsiRumahId,
   inflowIsiRumah,
-  kodInflowsData,
+  kodInflowOptions,
 }) {
   // ----------FE----------
   // Modal
-  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] = useState(false);
+  const [isModalEditInflowIsiRumah, setIsModalEditInflowIsiRumah] =
+    useState(false);
 
   const openModalEditInflowIsiRumah = () => setIsModalEditInflowIsiRumah(true);
 
@@ -47,18 +48,16 @@ function EditTrackingInflowIsiRumah({
 
   useEffect(() => {
     if (inflowIsiRumah) {
-      setValue("kodInflowId", inflowIsiRumah.kod_inflow.id); // Populate form data
+      setValue("kodInflowId", inflowIsiRumah.id); // Populate form data
 
       setValue("amaunInflow", inflowIsiRumah.amaunInflow);
 
-      setSelectedKodInflow(inflowIsiRumah.kod_inflow.kodInflow); // Set selected kod inflow and terperinci data
+      setSelectedKodInflow(inflowIsiRumah.kodInflow); // Set selected kod inflow and terperinci data
 
-      setShowKodInflowTerperinci(
-        inflowIsiRumah.kod_inflow.kod_inflow_terperincis
-      );
+      setShowKodInflowTerperinci(inflowIsiRumah.kodInflowTerperincis);
 
       // Set terperinci values
-      inflowIsiRumah.inflow_isi_rumah_terperincis.forEach((terperinci) => {
+      inflowIsiRumah.inflowIsiRumahTerperincis.forEach((terperinci) => {
         setValue(
           `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
           terperinci.keteranganInflowTerperinci
@@ -85,7 +84,7 @@ function EditTrackingInflowIsiRumah({
   }, [inflowIsiRumah, setValue]);
 
   const handleKodInflowChange = (selectedValue) => {
-    const selectedKodInflowData = kodInflowsData.find(
+    const selectedKodInflowData = kodInflowOptions.find(
       (item) => item.id === parseInt(selectedValue)
     );
 
@@ -143,7 +142,6 @@ function EditTrackingInflowIsiRumah({
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
-      
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -171,7 +169,7 @@ function EditTrackingInflowIsiRumah({
                 <option value="" disabled>
                   --Pilih Kod Inflow--
                 </option>
-                {kodInflowsData.map((kodInflow) => (
+                {kodInflowOptions.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                   </option>

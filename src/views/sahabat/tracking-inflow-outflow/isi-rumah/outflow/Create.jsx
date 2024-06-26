@@ -6,7 +6,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
 
-function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
+function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   // ----------FE----------
   // Modal
   const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] =
@@ -76,7 +76,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowsData }) {
                       <option value="" disabled>
                         --Pilih Kod Outflow--
                       </option>
-                      {kodOutflowsData.map((kodOutflow) => (
+                      {kodOutflowOptions.map((kodOutflow) => (
                         <option key={kodOutflow.id} value={kodOutflow.id}>
                           {kodOutflow.kodOutflow} -{" "}
                           {kodOutflow.keteranganKodOutflow}
