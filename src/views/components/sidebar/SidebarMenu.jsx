@@ -97,7 +97,7 @@ const SidebarMenu = [
       },
     ],
     roles: [3],
-  }
+  },
 ];
 
 export default SidebarMenu;

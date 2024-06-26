@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
+import "../../../assets/styles/styles_layout.css";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
 import SidebarMenu from "./SidebarMenu";
 import { BsPersonCircle } from "react-icons/bs";
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import axiosCustom from "../../../axios";
-import "../../../assets/styles/styles_layout.css";
 
 function Sidebar() {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const toggleSidebar = () => {
@@ -34,7 +35,7 @@ function Sidebar() {
     };
   }, []);
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   const [userSidebarInfo, setUserSidebarInfo] = useState();
 
   const showUserSidebarInfo = useCallback(async () => {
@@ -57,8 +58,8 @@ function Sidebar() {
 
   // Generate filtered sidebar menu based on user's roles
   const filteredSidebarMenu = userSidebarInfo
-    ? SidebarMenu.filter((item) =>
-        item.roles.includes(userSidebarInfo.perananId)
+    ? SidebarMenu.filter(
+        (item) => item.roles.includes(Number(userSidebarInfo.perananId)) // Match string and number for perananId value
       )
     : [];
 
