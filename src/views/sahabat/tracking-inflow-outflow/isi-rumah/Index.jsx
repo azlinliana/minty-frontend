@@ -17,9 +17,17 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
-import { useSelenggaraStore } from "../../../../store/options-store";
 
-function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
+function IndexTrackingIsiRumah({
+  mingguId,
+  pembiayaanSahabatsData,
+  kodInflowOptions,
+  displayKodInflows,
+  kodOutflowOptions,
+  displayKodOutflows,
+  hubunganOptions,
+  displayHubungans,
+}) {
   // __________________________________ Frontend __________________________________
   // Tab tracking isi rumah
   const [activeTab, setActiveTab] = useState({
@@ -33,23 +41,6 @@ function IndexTrackingIsiRumah({ mingguId, pembiayaanSahabatsData }) {
 
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
-  // Display hubungan, kod inflow, kod outflow option
-  const {
-    hubunganOptions,
-    displayHubungans,
-    kodInflowOptions,
-    displayKodInflows,
-    kodOutflowOptions,
-    displayKodOutflows,
-  } = useSelenggaraStore((state) => ({
-    hubunganOptions: state.hubunganOptions,
-    displayHubungans: state.displayHubungans,
-    kodInflowOptions: state.kodInflowOptions,
-    displayKodInflows: state.displayKodInflows,
-    kodOutflowOptions: state.kodOutflowOptions,
-    displayKodOutflows: state.displayKodOutflows,
-  }));
-
   useEffect(() => {
     displayHubungans();
     displayKodInflows();

@@ -3,11 +3,15 @@ import IndexTrackingInflowSahabat from "../sahabat/inflow/Index";
 import IndexTrackingOutflowSahabat from "../sahabat/outflow/Index";
 import { Tab, Tabs } from "react-bootstrap";
 import "../../../../assets/styles/styles_sahabat.css";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import axiosCustom from "../../../../axios";
-import { useSelenggaraStore } from "../../../../store/options-store";
 
-function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
+function IndexTrackingSahabat({ 
+  mingguId, 
+  pembiayaanSahabatsData,
+  kodInflowOptions,
+  displayKodInflows,
+  kodOutflowOptions,
+  displayKodOutflows,
+}) {
   // __________________________________ Frontend __________________________________
   // Tab tracking sahabat
   const [activeTab, setActiveTab] = useState({
@@ -21,19 +25,6 @@ function IndexTrackingSahabat({ mingguId, pembiayaanSahabatsData }) {
 
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
-  // Display kod inflow & kod outflow options
-  const {
-    kodInflowOptions,
-    displayKodInflows,
-    kodOutflowOptions,
-    displayKodOutflows,
-  } = useSelenggaraStore((state) => ({
-    kodInflowOptions: state.kodInflowOptions,
-    displayKodInflows: state.displayKodInflows,
-    kodOutflowOptions: state.kodOutflowOptions,
-    displayKodOutflows: state.displayKodOutflows,
-  }));
-
   useEffect(() => {
     displayKodInflows();
     displayKodOutflows();

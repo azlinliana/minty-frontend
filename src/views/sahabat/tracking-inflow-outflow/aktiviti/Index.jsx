@@ -4,16 +4,20 @@ import CreateAktiviti from "./Create";
 import EditAktiviti from "./Edit";
 import { Button, Table } from "react-bootstrap";
 import { useAktivitiStore } from "../../../../store/sahabat/aktiviti-store";
-import {
-  useProjekAktivitiStore,
-  useSelenggaraStore,
-} from "../../../../store/options-store";
 
 function IndexAktiviti({
   sahabatId,
   pembiayaanId,
   pembiayaanSahabatsData,
   onDataAvailableChange,
+  aktivitiOptions,
+  displayAktivitis,
+  keteranganAktivitiOptions,
+  displayKeteranganAktivitis,
+  projekAktivitiOptions,
+  displayProjekAktivitis,
+  dimensiOptions,
+  displayDimensis,
 }) {
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
@@ -25,37 +29,17 @@ function IndexAktiviti({
 
   const [selectedProjekAktiviti, setSelectedProjekAktiviti] = useState("");
 
-  const {
-    aktivitiOptions,
-    displayAktivitis,
-    keteranganAktivitiOptions,
-    displayKeteranganAktivitis,
-    projekAktivitiOptions,
-    displayProjekAktivitis,
-  } = useProjekAktivitiStore((state) => ({
-    aktivitiOptions: state.aktivitiOptions,
-    displayAktivitis: state.displayAktivitis,
-    keteranganAktivitiOptions: state.keteranganAktivitiOptions,
-    displayKeteranganAktivitis: state.displayKeteranganAktivitis,
-    projekAktivitiOptions: state.projekAktivitiOptions,
-    displayProjekAktivitis: state.displayProjekAktivitis,
-  }));
-
   useEffect(() => {
     displayAktivitis();
     displayKeteranganAktivitis();
     displayProjekAktivitis();
-  }, [displayAktivitis, displayKeteranganAktivitis, displayProjekAktivitis]);
-
-  // Display dimensi options
-  const { dimensiOptions, displayDimensis } = useSelenggaraStore((state) => ({
-    dimensiOptions: state.dimensiOptions,
-    displayDimensis: state.displayDimensis,
-  }));
-
-  useEffect(() => {
     displayDimensis();
-  }, [displayDimensis]);
+  }, [
+    displayAktivitis,
+    displayKeteranganAktivitis,
+    displayProjekAktivitis,
+    displayDimensis,
+  ]);
   // ==============================================================================
 
   // List & delete aktiviti sahabat

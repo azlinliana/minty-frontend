@@ -25,6 +25,20 @@ const VerticalStepper = ({
   pembiayaanId,
   mingguId,
   pembiayaanSahabatsData,
+  aktivitiOptions,
+  displayAktivitis,
+  keteranganAktivitiOptions,
+  displayKeteranganAktivitis,
+  projekAktivitiOptions,
+  displayProjekAktivitis,
+  dimensiOptions,
+  displayDimensis,
+  kodInflowOptions,
+  displayKodInflows,
+  kodOutflowOptions,
+  displayKodOutflows,
+  hubunganOptions,
+  displayHubungans,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -102,6 +116,14 @@ const VerticalStepper = ({
                   pembiayaanId={pembiayaanId}
                   pembiayaanSahabatsData={pembiayaanSahabatsData}
                   onDataAvailableChange={setAktivitiDataAvailable} // Pass the function to IndexAktiviti
+                  aktivitiOptions={aktivitiOptions}
+                  displayAktivitis={displayAktivitis}
+                  keteranganAktivitiOptions={keteranganAktivitiOptions}
+                  displayKeteranganAktivitis={displayKeteranganAktivitis}
+                  projekAktivitiOptions={projekAktivitiOptions}
+                  displayProjekAktivitis={displayProjekAktivitis}
+                  dimensiOptions={dimensiOptions}
+                  displayDimensis={displayDimensis}
                 />
               ) : null}
 
@@ -109,6 +131,10 @@ const VerticalStepper = ({
                 <IndexTrackingSahabat
                   mingguId={mingguId}
                   pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  kodInflowOptions={kodInflowOptions}
+                  displayKodInflows={displayKodInflows}
+                  kodOutflowOptions={kodOutflowOptions}
+                  displayKodOutflows={displayKodOutflows}
                 />
               ) : null}
 
@@ -116,6 +142,12 @@ const VerticalStepper = ({
                 <IndexTrackingIsiRumah
                   mingguId={mingguId}
                   pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  kodInflowOptions={kodInflowOptions}
+                  displayKodInflows={displayKodInflows}
+                  kodOutflowOptions={kodOutflowOptions}
+                  displayKodOutflows={displayKodOutflows}
+                  hubunganOptions={hubunganOptions}
+                  displayHubungans={displayHubungans}
                 />
               ) : null}
 
