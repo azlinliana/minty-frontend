@@ -35,6 +35,7 @@ function SearchProfilSahabat() {
   // ___________________________________ Backend __________________________________
   // Display sahabat search result
   const location = useLocation();
+
   const resultSahabat = location.state.resultSahabat || [];
 
   // Display pembiayaan sahabat based on selected skim pembiayaan
@@ -83,8 +84,8 @@ function SearchProfilSahabat() {
         </Breadcrumb>
       </div>
 
-      {resultSahabat.map((dataSahabat) => (
-        <React.Fragment key={dataSahabat.id}>
+      {resultSahabat.map((sahabatData) => (
+        <React.Fragment key={sahabatData.noSahabat}>
           <div>
             <div className="laporan-search-pg-header">
               <h2>Maklumat Sahabat</h2>
@@ -100,7 +101,7 @@ function SearchProfilSahabat() {
                       <Form.Control
                         type="text"
                         {...register("namaSahabat")}
-                        value={dataSahabat.namaSahabat}
+                        value={sahabatData.namaSahabat}
                         readOnly
                       />
                     </Form.Group>
@@ -116,7 +117,7 @@ function SearchProfilSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.noKadPengenalanSahabat}
+                        value={sahabatData.noKadPengenalanSahabat}
                         readOnly
                       />
                     </Form.Group>
@@ -130,7 +131,7 @@ function SearchProfilSahabat() {
 
                       <Form.Control
                         type="text"
-                        value={dataSahabat.noSahabat}
+                        value={sahabatData.noSahabat}
                         readOnly
                       />
                     </Form.Group>
@@ -220,7 +221,7 @@ function SearchProfilSahabat() {
             <div className="laporan-hasil-carian-skim-pembiayaan-container">
               <SearchResultPembiayaanSahabat
                 resultSahabat={resultSahabat}
-                sahabatId={dataSahabat.id}
+                sahabatId={sahabatData.id}
                 pembiayaanSahabats={pembiayaanSahabats}
                 selectedSkimPembiayaan={selectedSkimPembiayaan}
               />

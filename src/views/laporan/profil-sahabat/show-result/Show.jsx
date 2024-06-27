@@ -10,7 +10,7 @@ import axiosCustom from "../../../../axios";
 import "../../../../assets/styles/styles_laporan.css";
 
 function ShowProfilSahabat() {
-  // ------------ FE --------------
+  // __________________________________ Frontend __________________________________
   // Back button
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
@@ -61,7 +61,7 @@ function ShowProfilSahabat() {
             <strong>
               Hasil Carian:{" "}
               {resultSahabat.map(
-                (dataSahabat) => dataSahabat.noKadPengenalanSahabat
+                (sahabatData) => sahabatData.noKadPengenalanSahabat
               )}
             </strong>
           </p>

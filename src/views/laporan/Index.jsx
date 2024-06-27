@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../../assets/styles/styles_laporan.css";
@@ -51,41 +51,56 @@ function IndexLaporan() {
   const clickJadualTF02 = () => navigate("/search-tf02");
 
   // ___________________________________ Backend __________________________________
-  const {
-    laporanProfilSahabats,
-    searchNoKadPengenalanSahabatProfilSahabat,
-    laporanProfilSahabatTerperincis,
-    searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-  } = useLaporanStore((state) => ({
-    laporanProfilSahabats: state.laporanProfilSahabats,
-    searchNoKadPengenalanSahabatProfilSahabat:
-      state.searchNoKadPengenalanSahabatProfilSahabat,
-    laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
-    searchNoKadPengenalanSahabatProfilSahabatTerperinci:
-      state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-  }));
+    // Search profil sahabat & profil sahabat terperinci
+    const [searchComplete, setSearchComplete] = useState(false);
 
-  // Pass search input & navigate to page pembiayaaan sahabat
+    const {
+      laporanProfilSahabats,
+      searchNoKadPengenalanSahabatProfilSahabat,
+      laporanProfilSahabatTerperincis,
+      searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+    } = useLaporanStore((state) => ({
+      laporanProfilSahabats: state.laporanProfilSahabats,
+      searchNoKadPengenalanSahabatProfilSahabat:
+        state.searchNoKadPengenalanSahabatProfilSahabat,
+      laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
+      searchNoKadPengenalanSahabatProfilSahabatTerperinci:
+        state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+    }));
+
+  // Pass input & navigate to the pembiayaaan sahabat page with sahabat data
   const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
-    const result = await searchNoKadPengenalanSahabatProfilSahabat(
+    await searchNoKadPengenalanSahabatProfilSahabat(noKadPengenalanSahabatData);
+
+    setSearchComplete(true);
+  };
+
+  useEffect(() => {
+    if (searchComplete && laporanProfilSahabats.length > 0) {
+      navigate("/pembiayaan-sahabat", {
+        state: { resultSahabat: laporanProfilSahabats },
+      });
+    }
+  }, [laporanProfilSahabats, searchComplete, navigate]);
+
+  // Pass input & navigate to the pembiayaaan sahabat terperinci page with sahabat data
+  const handleSearchProfilSahabatTerperinci = async (
+    noKadPengenalanSahabatData
+  ) => {
+    await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
       noKadPengenalanSahabatData
     );
 
-    navigate("/pembiayaan-sahabat", {
-      state: { resultSahabat: laporanProfilSahabats },
-    }); // Set response data as a state
+    setSearchComplete(true);
   };
 
-  // Pass input & navigate to another page pembiayaaan sahabat terperinci
-  const handleSearchProfilSahabatTerperinci = async (noKadPengenalanSahabatData) => {
-    const result = await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
-      noKadPengenalanSahabatData
-    );
-
-    navigate("/pembiayaan-sahabat-terperinci", {
-      state: { resultSahabat: laporanProfilSahabatTerperincis },
-    }); // Set response data as a state
-  };
+  useEffect(() => {
+    if (searchComplete && laporanProfilSahabatTerperincis.length > 0) {
+      navigate("/pembiayaan-sahabat-terperinci", {
+        state: { resultSahabat: laporanProfilSahabatTerperincis },
+      });
+    }
+  }, [laporanProfilSahabatTerperincis, searchComplete, navigate]);
 
   return (
     <div>

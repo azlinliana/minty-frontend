@@ -4,7 +4,7 @@ import ErrorAlert from "../../views/components/sweet-alert/ErrorAlert";
 
 const URL = "laporan/search";
 
-export const useLaporanStore = create((set) => ({
+export const useLaporanStore = create((set, get) => ({
   laporanProfilSahabats: [],
   laporanProfilSahabatTerperincis: [],
   // Search profil sahabat based on no kad pengenalan sahabat
@@ -17,13 +17,18 @@ export const useLaporanStore = create((set) => ({
 
       if (response.status === 200) {
         set({ laporanProfilSahabats: response.data });
+
+        return get().laporanProfilSahabats;
       } else {
         ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
+      ErrorAlert(error);
     }
   },
+
+  skimPembiayaanSahabatProfilSahabatTerperinci: async () => {},
+
   // Search profil sahabat terperinci based on no kad pengenalan sahabat
   searchNoKadPengenalanSahabatProfilSahabatTerperinci: async (noKadPengenalanSahabatInput) => {
     try {
@@ -34,11 +39,13 @@ export const useLaporanStore = create((set) => ({
 
       if (response.status === 200) {
         set({ laporanProfilSahabatTerperincis: response.data });
+
+        return get().laporanProfilSahabatTerperincis;
       } else {
         ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
+      ErrorAlert(error);
     }
   }
 }));
