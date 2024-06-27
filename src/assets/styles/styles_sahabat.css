@@ -210,5 +210,7 @@
   /* This represents the Box */
   margin: 10px;
 }
-
-
+/* Server issue */
+.css-vgb7rt {
+  border-width: 0;
+}
