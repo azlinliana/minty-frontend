@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
+import { useOutflowSahabatStore } from "../../../../../store/sahabat/outflow-sahabat-store";
 
 function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateOutflowSahabat, setIsModalCreateOutflowSahabat] =
+  const [isModalCreateTrackingOutflowSahabat, setIsModalCreateTrackingOutflowSahabat] =
     useState(false);
 
-  const openModalCreateOutflowSahabat = () =>
-    setIsModalCreateOutflowSahabat(true);
+  const openModalCreateTrackingOutflowSahabat = () =>
+    setIsModalCreateTrackingOutflowSahabat(true);
 
-  const closeModalCreateOutflow = () => {
-    setIsModalCreateOutflowSahabat(false);
+  const closeModalCreateTrackingOutflowSahabat = () => {
+    setIsModalCreateTrackingOutflowSahabat(false);
     reset(); // Reset previous form input
   };
 
@@ -28,35 +26,31 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
-  // Create inflow sahabat
-  const createOutflowSahabat = async (outflowSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/outflow-sahabat/${mingguId}`,
-        outflowSahabatInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateOutflow();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // ___________________________________ Backend __________________________________
+  // Create outflow sahabat
+  const { createOutflowSahabat } = useOutflowSahabatStore((state) => ({
+    createOutflowSahabat: state.createOutflowSahabat,
+  }));
+
+  // Pass input & close modal
+  const handleCreateOutflowSahabat = (addOutflowSahabatData) => {
+    createOutflowSahabat(
+      mingguId,
+      addOutflowSahabatData,
+      closeModalCreateTrackingOutflowSahabat
+    );
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModalCreateOutflowSahabat}>
+        <Button onClick={openModalCreateTrackingOutflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
 
         <Modal
-          show={isModalCreateOutflowSahabat}
-          onHide={closeModalCreateOutflow}
+          show={isModalCreateTrackingOutflowSahabat}
+          onHide={closeModalCreateTrackingOutflowSahabat}
           backdrop="static"
           keyboard={false}
         >
@@ -102,6 +96,7 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
                   step="0.01"
                   {...register("amaunOutflow", { required: true })}
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
+                  placeholder="Masukkan amaun outflow"
                 />
 
                 {errors.amaunOutflow?.type === "required" && (
@@ -113,11 +108,11 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalCreateOutflow}>
+              <Button className="batal-btn" onClick={closeModalCreateTrackingOutflowSahabat}>
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(createOutflowSahabat)}>
+              <Button onClick={handleSubmit(handleCreateOutflowSahabat)}>
                 Simpan
               </Button>
             </Modal.Footer>
