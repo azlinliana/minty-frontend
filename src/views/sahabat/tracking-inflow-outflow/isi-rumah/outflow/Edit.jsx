@@ -36,7 +36,6 @@ function EditTrackingOutflowIsiRumah({
   // ----------BE----------
   // Update outflow isi rumah
   const updateOutflowIsiRumah = async (outflowIsiRumahInput) => {
-    console.log(outflowIsiRumahInput);
     try {
       const response = await axiosCustom.put(
         `/sahabat/outflow-isi-rumah/${isiRumahId}/${outflowIsiRumahId}`,
@@ -49,7 +48,6 @@ function EditTrackingOutflowIsiRumah({
         ErrorAlert(response); // Error from the backend or unknow error from the server side
       }
     } catch (error) {
-      console.log(error);
       ErrorAlert(error);
     }
   };
