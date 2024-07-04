@@ -7,7 +7,6 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 export const useMingguStore = create((set) => ({
   mingguPembiayaanSahabats: [],
   currentMingguPembiayaanSahabat: {},
-  loading: false,
   // Fetch minggu pembiayaan sahabat
   fetchMingguPembiayaanSahabats: async (sahabatId, pembiayaanId) => {
     const response = await axiosCustom.get(
