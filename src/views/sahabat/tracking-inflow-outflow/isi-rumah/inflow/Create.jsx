@@ -5,17 +5,21 @@ import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../../axios";
+import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
+  const [
+    isModalCreateTrackingInflowIsiRumah,
+    setIsModalCreateTrackingInflowIsiRumah,
+  ] = useState(false);
 
-  const openModalCreateInflowIsiRumah = () => setIsModalCreateInflowIsiRumah(true);
+  const openModalCreateTrackingInflowIsiRumah = () =>
+    setIsModalCreateTrackingInflowIsiRumah(true);
 
   const closeModalCreateInflowIsiRumah = () => {
-    setIsModalCreateInflowIsiRumah(false);
-
+    setIsModalCreateTrackingInflowIsiRumah(false);
     reset(); // Reset previous form input
   };
 
@@ -28,10 +32,9 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
-  
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
@@ -74,33 +77,26 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   };
 
   // Create inflow isi rumah
-  const createInflowIsiRumah = async (inflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/inflow-isi-rumah/${isiRumahId}`,
-        inflowIsiRumahInput
-      );
+  const { createInflowIsiRumah } = useInflowIsiRumahStore((state) => ({
+    createInflowIsiRumah: state.createInflowIsiRumah,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-
-        closeModalCreateInflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateInflowIsiRumah = (addInflowIsiRumahData) => {
+    createInflowIsiRumah(
+      isiRumahId,
+      addInflowIsiRumahData,
+      closeModalCreateInflowIsiRumah
+    );
   };
 
   return (
     <>
-      <Button onClick={openModalCreateInflowIsiRumah}>
+      <Button onClick={openModalCreateTrackingInflowIsiRumah}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
       <Modal
-        show={isModalCreateInflowIsiRumah}
+        show={isModalCreateTrackingInflowIsiRumah}
         onHide={closeModalCreateInflowIsiRumah}
         backdrop="static"
         keyboard={false}
@@ -208,7 +204,9 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
               Batal
             </Button>
 
-            <Button type="submit">Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateInflowIsiRumah)}>
+              Simpan
+            </Button>
           </Modal.Footer>
         </Form>
       </Modal>

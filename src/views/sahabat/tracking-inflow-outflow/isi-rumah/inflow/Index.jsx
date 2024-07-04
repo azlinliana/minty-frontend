@@ -14,7 +14,7 @@ function IndexTrackingInflowIsiRumah({
   // List & delete inflow isi rumah
   const { inflowIsiRumahs, fetchInflowIsiRumahs, deleteInflowIsiRumah } =
     useInflowIsiRumahStore((state) => ({
-      inflowIsiRumahs: state.inflowIsiRumahs,
+      inflowIsiRumahs: state.inflowIsiRumahs[isiRumahId] || [],
       fetchInflowIsiRumahs: state.fetchInflowIsiRumahs,
       deleteInflowIsiRumah: state.deleteInflowIsiRumah,
     }));
@@ -65,7 +65,7 @@ function IndexTrackingInflowIsiRumah({
             ) : (
               inflowIsiRumahs.map((inflowIsiRumahsData, index) => (
                 <React.Fragment key={index}>
-                  {inflowIsiRumahsData.kodInflowTerperincis.length === 0 ? (
+                  {inflowIsiRumahsData.kodInflowTerperinci.length === 0 ? (
                     // Render row for inflow isi rumah without kod inflow terperinci
                     <tr>
                       <td>{index + 1}</td>
@@ -77,12 +77,12 @@ function IndexTrackingInflowIsiRumah({
                       <td>{inflowIsiRumahsData.amaunInflow}</td>
                       {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                         <td>
-                          <EditTrackingInflowIsiRumah
+                          {/* <EditTrackingInflowIsiRumah
                             isiRumahId={isiRumahId}
                             inflowIsiRumahId={inflowIsiRumahsData.id}
                             inflowIsiRumah={inflowIsiRumahsData}
                             kodInflowOptions={kodInflowOptions}
-                          />
+                          /> */}
                           <Button
                             className="delete-btn"
                             onClick={() =>
@@ -99,21 +99,21 @@ function IndexTrackingInflowIsiRumah({
                     <tr>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
+                          inflowIsiRumahsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {index + 1}
                       </td>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
+                          inflowIsiRumahsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {inflowIsiRumahsData.kodInflow}
                       </td>
                       <td
                         rowSpan={
-                          inflowIsiRumahsData.kodInflowTerperincis.length + 1
+                          inflowIsiRumahsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {inflowIsiRumahsData.keteranganKodInflow}
@@ -121,7 +121,7 @@ function IndexTrackingInflowIsiRumah({
                     </tr>
                   )}
                   {/* Displaying Kod Inflow Terperinci */}
-                  {inflowIsiRumahsData.kodInflowTerperincis.map(
+                  {inflowIsiRumahsData.kodInflowTerperinci.map(
                     (kodInflowTerperincisData, subIndex) => (
                       // Render rows for kod inflow terperinci
                       <tr key={subIndex}>
@@ -132,10 +132,10 @@ function IndexTrackingInflowIsiRumah({
                           }
                         </td>
                         <td>
-                          {inflowIsiRumahsData.inflowIsiRumahTerperincis &&
-                            inflowIsiRumahsData.inflowIsiRumahTerperincis
+                          {inflowIsiRumahsData.inflowIsiRumahTerperinci &&
+                            inflowIsiRumahsData.inflowIsiRumahTerperinci
                               .length > 0 &&
-                            inflowIsiRumahsData.inflowIsiRumahTerperincis
+                            inflowIsiRumahsData.inflowIsiRumahTerperinci
                               .filter((inflowTerperinci) => {
                                 // Match id type: '"1"(string) === 1(integer)'
                                 const kodId =
@@ -159,7 +159,7 @@ function IndexTrackingInflowIsiRumah({
                           <React.Fragment>
                             <td
                               rowSpan={
-                                inflowIsiRumahsData.kodInflowTerperincis.length
+                                inflowIsiRumahsData.kodInflowTerperinci.length
                               }
                             >
                               {inflowIsiRumahsData.amaunInflow}
@@ -169,8 +169,7 @@ function IndexTrackingInflowIsiRumah({
                             "SELESAI" ? (
                               <td
                                 rowSpan={
-                                  inflowIsiRumahsData.kodInflowTerperincis
-                                    .length
+                                  inflowIsiRumahsData.kodInflowTerperinci.length
                                 }
                               >
                                 {/* <EditTrackingInflowIsiRumah
