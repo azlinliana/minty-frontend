@@ -76,12 +76,12 @@ function IndexTrackingInflowSahabat({
                       <td>{inflowSahabatsData.amaunInflow}</td>
                       {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                         <td>
-                          <EditTrackingInflowSahabat
+                          {/* <EditTrackingInflowSahabat
                             mingguId={mingguId}
                             inflowSahabatId={inflowSahabatsData.id}
                             inflowSahabat={inflowSahabatsData}
                             kodInflowOptions={kodInflowOptions}
-                          />
+                          /> */}
                           <Button
                             className="delete-btn"
                             onClick={() =>
