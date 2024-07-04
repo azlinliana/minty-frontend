@@ -12,9 +12,9 @@ function MaklumatMinggu({
 }) {
   // __________________________________ Frontend __________________________________
   // Show minggu pembiayaan sahabat
-  const { mingguPembiayaanSahabats, showMingguPembiayaanSahabat } =
+  const { currentMingguPembiayaanSahabat, showMingguPembiayaanSahabat } =
     useMingguStore((state) => ({
-      mingguPembiayaanSahabats: state.mingguPembiayaanSahabats,
+      currentMingguPembiayaanSahabat: state.currentMingguPembiayaanSahabat,
       showMingguPembiayaanSahabat: state.showMingguPembiayaanSahabat,
     }));
 
@@ -26,7 +26,7 @@ function MaklumatMinggu({
     <div className="card-tambah-minggu-sahabat-content">
       <h2>Maklumat Minggu</h2>
 
-      {mingguPembiayaanSahabats.id && (
+      {currentMingguPembiayaanSahabat && (
         <>
           {/* Hide edit minggu button */}
           {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
@@ -34,8 +34,8 @@ function MaklumatMinggu({
               <EditMinggu
                 sahabatId={sahabatId}
                 pembiayaanId={pembiayaanId}
-                mingguPembiayaanSahabat={mingguPembiayaanSahabats}
-                mingguId={mingguPembiayaanSahabats.id}
+                mingguId={mingguId}
+                currentMingguPembiayaanSahabat={currentMingguPembiayaanSahabat}
               />
             </div>
           ) : null}
@@ -44,33 +44,31 @@ function MaklumatMinggu({
             <Card.Body>
               <Container fluid>
                 <Row>
+                  {/* Bilangan minggu */}
                   <Col xs={6}>
-                    <Form.Group>
+                    <Form.Group controlId="bilanganMinggu">
                       <Form.Label className="card-track-minggu-simple">
                         Bilangan Minggu
                       </Form.Label>
 
                       <Form.Control
-                        type="text"
-                        defaultValue={
-                          mingguPembiayaanSahabats.bilanganMinggu
-                        }
+                        type="number"
+                        defaultValue={currentMingguPembiayaanSahabat.bilanganMinggu}
                         disabled
                       />
                     </Form.Group>
                   </Col>
 
+                  {/* Tarikh borang minggu */}
                   <Col xs={6}>
-                    <Form.Group>
+                    <Form.Group controlId="tarikhBorangMinggu">
                       <Form.Label className="card-track-minggu-simple">
                         Tarikh Borang Minggu
                       </Form.Label>
 
                       <Form.Control
-                        type="text"
-                        defaultValue={new Date(
-                          mingguPembiayaanSahabats.tarikhBorangMinggu
-                        ).toLocaleDateString("en-GB")}
+                        type="date"
+                        defaultValue={currentMingguPembiayaanSahabat.tarikhBorangMinggu}
                         disabled
                       />
                     </Form.Group>
