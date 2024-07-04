@@ -32,7 +32,6 @@ function SearchSahabat() {
   };
 
   const navigate = useNavigate();
-
   useEffect(() => {
     if (searchComplete && sahabats.length > 0) {
       navigate("/hasil-carian-sahabat", {
@@ -50,6 +49,7 @@ function SearchSahabat() {
       <Container fluid className="sahabat-search-container">
         <Form className="sahabat-search-bar" onReset={reset}>
           <Row>
+            {/* Carian no. kad pengenalan sahabat */}
             <Col xs={12} lg={10}>
               <Form.Group controlId="noKadPengenalanSahabat">
                 <Form.Control
@@ -83,7 +83,7 @@ function SearchSahabat() {
                 )}
               </Form.Group>
             </Col>
-
+            
             <Col xs={12} lg={2} className="sahabat-search-button">
               <Form.Group>
                 <div>
