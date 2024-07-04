@@ -8,7 +8,9 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateMingguPembiayaanSahabat, setIsModalCreateMingguPembiayaanSahabat] = useState(false);
+  
   const openModalCreateMingguPembiayaanSahabat = () => setIsModalCreateMingguPembiayaanSahabat(true);
+  
   const closeModalCreateMingguPembiayaanSahabat = () => {
     setIsModalCreateMingguPembiayaanSahabat(false);
     reset(); // Reset previous form input
@@ -46,6 +48,7 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
         <Button onClick={openModalCreateMingguPembiayaanSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
         </Button>{" "}
+
         <Modal
           show={isModalCreateMingguPembiayaanSahabat}
           onHide={closeModalCreateMingguPembiayaanSahabat}
@@ -58,6 +61,7 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
           <Modal.Body>
             <Form onReset={reset}>
+              {/* Bilangan minggu */}
               <Form.Group controlId="bilanganMinggu" className="mb-3">
                 <Form.Label className="form-label">
                   Bilangan Minggu
@@ -77,6 +81,7 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
                 )}
               </Form.Group>
 
+              {/* Tarikh borang minggu */}
               <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
                 <Form.Label className="form-label">
                   Tarikh Borang Minggu
@@ -86,6 +91,7 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
                   type="date"
                   {...register("tarikhBorangMinggu", { required: true })}
                   aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
+                  placeholder="Masukkan tarikh borang minggu"
                 />
 
                 {errors.tarikhBorangMinggu?.type === "required" && (

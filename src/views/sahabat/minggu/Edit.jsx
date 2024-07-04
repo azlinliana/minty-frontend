@@ -7,19 +7,20 @@ function EditMinggu({
   sahabatId,
   pembiayaanId,
   mingguId,
-  mingguPembiayaanSahabat,
-}) {
+  currentMingguPembiayaanSahabat,
+}) { 
   // __________________________________ Frontend __________________________________
   // Modal
   const [
     isModalEditMingguPembiayaanSahabat,
     setIsModalEditMingguPembiayaanSahabat,
   ] = useState(false);
+
   const openModalEditMingguPembiayaanSahabat = () =>
     setIsModalEditMingguPembiayaanSahabat(true);
+
   const closeModalEditMingguPembiayaanSahabat = () => {
     setIsModalEditMingguPembiayaanSahabat(false);
-    reset(); // Reset previous form input
   };
 
   // Form validation
@@ -32,7 +33,7 @@ function EditMinggu({
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini minggu modal is opened
+  // Set default values when the edit minggu modal is opened
   const [formData, setFormData] = useState({
     bilanganMinggu: "",
     tarikhBorangMinggu: "",
@@ -40,16 +41,19 @@ function EditMinggu({
 
   useEffect(() => {
     // Populate form data
-    setValue("bilanganMinggu", mingguPembiayaanSahabat.bilanganMinggu);
-    setValue("tarikhBorangMinggu", mingguPembiayaanSahabat.tarikhBorangMinggu);
+    setValue("bilanganMinggu", currentMingguPembiayaanSahabat.bilanganMinggu);
+    setValue(
+      "tarikhBorangMinggu",
+      currentMingguPembiayaanSahabat.tarikhBorangMinggu
+    );
 
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
-      bilanganMinggu: mingguPembiayaanSahabat.bilanganMinggu,
-      tarikhBorangMinggu: mingguPembiayaanSahabat.tarikhBorangMinggu,
+      bilanganMinggu: currentMingguPembiayaanSahabat.bilanganMinggu,
+      tarikhBorangMinggu: currentMingguPembiayaanSahabat.tarikhBorangMinggu,
     }));
-  }, [mingguPembiayaanSahabat, setValue]);
+  }, [currentMingguPembiayaanSahabat, setValue]);
 
   // Edit minggu pembiayaan sahabat
   const { editMingguPembiayaanSahabat } = useMingguStore((state) => ({
@@ -75,6 +79,7 @@ function EditMinggu({
         <Button onClick={openModalEditMingguPembiayaanSahabat}>
           Edit Minggu
         </Button>{" "}
+        
         <Modal
           show={isModalEditMingguPembiayaanSahabat}
           onHide={closeModalEditMingguPembiayaanSahabat}
@@ -85,12 +90,11 @@ function EditMinggu({
             <Modal.Title>Edit Minggu</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
-            <Form onReset={reset}>
+          <Form onReset={reset}>
+            <Modal.Body>
+              {/* Bilangan minggu */}
               <Form.Group controlId="bilanganMinggu" className="mb-3">
-                <Form.Label className="form-label">
-                  Bilangan Minggu
-                </Form.Label>
+                <Form.Label className="form-label">Bilangan Minggu</Form.Label>
 
                 <Form.Control
                   type="number"
@@ -106,6 +110,7 @@ function EditMinggu({
                 )}
               </Form.Group>
 
+              {/* Tarikh borang minggu */}
               <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
                 <Form.Label className="form-label">
                   Tarikh Borang Minggu
@@ -115,6 +120,7 @@ function EditMinggu({
                   type="date"
                   {...register("tarikhBorangMinggu", { required: true })}
                   aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
+                  placeholder="Masukkan tarikh borang minggu"
                 />
 
                 {errors.tarikhBorangMinggu?.type === "required" && (
@@ -123,20 +129,21 @@ function EditMinggu({
                   </small>
                 )}
               </Form.Group>
-            </Form>
-          </Modal.Body>
+            </Modal.Body>
 
-          <Modal.Footer>
-            <Button
-              className="batal-btn"
-              onClick={closeModalEditMingguPembiayaanSahabat}
-            >
-              Batal
-            </Button>
-            <Button onClick={handleSubmit(handleEditMingguPembiayaanSahabat)}>
-              Simpan
-            </Button>
-          </Modal.Footer>
+            <Modal.Footer>
+              <Button
+                className="batal-btn"
+                onClick={closeModalEditMingguPembiayaanSahabat}
+              >
+                Batal
+              </Button>
+
+              <Button onClick={handleSubmit(handleEditMingguPembiayaanSahabat)}>
+                Simpan
+              </Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     </>

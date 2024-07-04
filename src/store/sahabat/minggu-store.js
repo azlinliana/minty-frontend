@@ -6,15 +6,22 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 
 export const useMingguStore = create((set) => ({
   mingguPembiayaanSahabats: [],
+  currentMingguPembiayaanSahabat: {},
+  loading: false,
   // Fetch minggu pembiayaan sahabat
   fetchMingguPembiayaanSahabats: async (sahabatId, pembiayaanId) => {
     const response = await axiosCustom.get(
       `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`
     );
 
-    set({ mingguPembiayaanSahabats: response.data });
+    set((state) => ({
+      mingguPembiayaanSahabats: {
+        ...state.mingguPembiayaanSahabats,
+        [pembiayaanId]: response.data,
+      }
+    }));
   },
-  // Create minggu pembiayaan sahaat
+  // Create minggu pembiayaan sahabat
   createMingguPembiayaanSahabat: async (
     sahabatId,
     pembiayaanId,
@@ -29,10 +36,13 @@ export const useMingguStore = create((set) => ({
 
       if (response.status === 200) {
         set((state) => ({
-          mingguPembiayaanSahabats: [
+          mingguPembiayaanSahabats: {
             ...state.mingguPembiayaanSahabats,
-            response.data.mingguPembiayaanSahabatData,
-          ],
+            [pembiayaanId]: [
+              ...state.mingguPembiayaanSahabats[pembiayaanId],
+              response.data.mingguPembiayaanSahabatData,
+            ],
+          },
         }));
 
         closeModalCreateMingguPembiayaanSahabat();
@@ -51,8 +61,13 @@ export const useMingguStore = create((set) => ({
       const response = await axiosCustom.get(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
       );
-
-      set({ mingguPembiayaanSahabats: response.data });
+      
+      set((state) => ({
+        currentMingguPembiayaanSahabat: response.data,
+        mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.map((minggu) =>
+          minggu.id === mingguId ? response.data : minggu
+        ),
+      }));
     } catch (error) {
       ErrorAlert(error);
     }
@@ -65,7 +80,6 @@ export const useMingguStore = create((set) => ({
     mingguPembiayaanSahabatInput,
     closeModalEditMingguPembiayaanSahabat
   ) => {
-    console.log(mingguPembiayaanSahabatInput);
     try {
       const response = await axiosCustom.put(
         `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`,
@@ -74,11 +88,12 @@ export const useMingguStore = create((set) => ({
 
       if (response.status === 200) {
         set((state) => ({
-          mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.map(
-            (mingguPembiayaanSahabat) =>
-              mingguPembiayaanSahabat.id === mingguId
-                ? response.data.mingguPembiayaanSahabatData
-                : mingguPembiayaanSahabat
+          currentMingguPembiayaanSahabat:
+            response.data.mingguPembiayaanSahabatData,
+          mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.map((item) =>
+            item.id === mingguId
+              ? response.data.mingguPembiayaanSahabatData
+              : item
           ),
         }));
 
@@ -94,13 +109,27 @@ export const useMingguStore = create((set) => ({
   },
   // Delete pembiayaan sahabat
   deleteMingguPembiayaanSahabat: async (mingguPembiayaanSahabatId) => {
-    await axiosCustom.delete(`/sahabat/minggu/${mingguPembiayaanSahabatId}`);
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/minggu/${mingguPembiayaanSahabatId}`
+        );
 
-    set((state) => ({
-      mingguPembiayaanSahabats: state.minggus.filter(
-        (mingguPembiayaanSahabat) =>
-          mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
-      ),
-    }));
+        if (response.status === 200) {
+          set((state) => ({
+            mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.filter(
+              (mingguPembiayaanSahabat) =>
+                mingguPembiayaanSahabat.id !== mingguPembiayaanSahabatId
+            ),
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
   },
 }));
