@@ -14,8 +14,10 @@ function EditPembiayaan({
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
     useState(false);
+
   const openModalEditPembiayaanSahabat = () =>
     setIsModalEditPembiayaanSahabat(true);
+
   const closeModalEditPembiayaanSahabat = () => {
     setIsModalEditPembiayaanSahabat(false);
   };
@@ -78,17 +80,17 @@ function EditPembiayaan({
     );
   };
 
-  // ----------BE & FE-------------------------------
-  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
-  // | Hidden status pembiayaan case                |
-  // ------------------------------------------------
+  //  ============================== Backend & Frontend =============================
+  // |    IndexPembiayaan, EditPembiayaan, IndexMinggu                              |
+  // |    Hidden status pembiayaan case                                             |
+  //  ===============================================================================
   const conditionResult = checkIndexMingguConditionEachPembiayaan.find(
     (condition) => condition.pembiayaanId === pembiayaanId
   )?.conditionsResults;
 
   // Get the result from props
   const hideStatusPembiayaan = conditionResult;
-
+  
   return (
     <>
       <div>
@@ -108,6 +110,7 @@ function EditPembiayaan({
 
           <Form onReset={reset}>
             <Modal.Body>
+              {/* Skim pembiayaan */}
               <Form.Group controlId="skimPembiayaanId" className="mb-3">
                 <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
 
@@ -135,6 +138,7 @@ function EditPembiayaan({
                 )}
               </Form.Group>
 
+              {/* Status pembiayaan */}
               {hideStatusPembiayaan ? null : (
                 <Form.Group controlId="statusPembiayaan" className="mb-3">
                   <Form.Label className="form-label">

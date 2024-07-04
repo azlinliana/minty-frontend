@@ -97,12 +97,6 @@ export const usePembiayaanStore = create((set) => ({
           ErrorAlert(response);
         }
       });
-
-      set((state) => ({
-        pembiayaans: state.pembiayaans.filter(
-          (pembiayaan) => pembiayaan.id !== pembiayaanId
-        ),
-      }));
     } catch (error) {
       ErrorAlert(error);
     }

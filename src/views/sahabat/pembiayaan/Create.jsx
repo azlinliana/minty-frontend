@@ -9,8 +9,10 @@ function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
   // Modal
   const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
     useState(false);
+
   const openModalCreatePembiayaanSahabat = () =>
     setIsModalCreatePembiayaanSahabat(true);
+
   const closeModalCreatePembiayaanSahabat = () => {
     setIsModalCreatePembiayaanSahabat(false);
     reset(); // Reset previous form input
@@ -58,6 +60,7 @@ function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
 
           <Modal.Body>
             <Form onReset={reset}>
+              {/* Skim pembiayaan */}
               <Form.Group controlId="skimPembiayaanId" className="mb-3">
                 <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
 
