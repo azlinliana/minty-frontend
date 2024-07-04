@@ -147,7 +147,7 @@ function IndexTrackingIsiRumah({
                                 <Form.Control
                                   type="text"
                                   defaultValue={
-                                    isiRumahSahabatsData.hubungan.kodHubungan
+                                    isiRumahSahabatsData.hubungan
                                   }
                                   disabled
                                 />

@@ -5,6 +5,7 @@ import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
+import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
 
 function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
   // __________________________________ Frontend __________________________________
@@ -26,23 +27,15 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create isi rumah
-  const createIsiRumah = async (isiRumahInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/isi-rumah/${mingguId}`,
-        isiRumahInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  const { createIsiRumahSahabat } = useIsiRumahStore((state) => ({
+    createIsiRumahSahabat: state.createIsiRumahSahabat,
+  }));
+
+  // Pass input & close modal
+  const handleCreateIsiRumah = (addIsiRumahData) => {
+    createIsiRumahSahabat(mingguId, addIsiRumahData, closeModalCreateIsiRumah);
   };
 
   return (
@@ -51,7 +44,7 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
         <Button onClick={openModalCreateIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
-
+        
         <Modal
           show={isModalCreateIsiRumah}
           onHide={closeModalCreateIsiRumah}
@@ -61,7 +54,7 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
           <Modal.Header closeButton>
             <Modal.Title>Tambah Isi Rumah</Modal.Title>
           </Modal.Header>
-          
+
           <Form onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="noKadPengenalanIsiRumah" className="mb-3">
@@ -82,6 +75,7 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
                   aria-invalid={
                     errors.noKadPengenalanIsiRumah ? "true" : "false"
                   }
+                  placeholder="Masukkan no. kad pengenalan isi rumah"
                 />
 
                 {/* Validate required field */}
@@ -106,7 +100,9 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
                   type="text"
                   {...register("namaIsiRumah", { required: true })}
                   aria-invalid={errors.namaIsiRumah ? "true" : "false"}
+                  placeholder="Masukkan nama isi rumah"
                 />
+
                 {errors.namaIsiRumah?.type === "required" && (
                   <small className="text-danger">
                     Nama isi rumah diperlukan.
@@ -147,7 +143,9 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(createIsiRumah)}>Simpan</Button>
+              <Button onClick={handleSubmit(handleCreateIsiRumah)}>
+                Simpan
+              </Button>
             </Modal.Footer>
           </Form>
         </Modal>
