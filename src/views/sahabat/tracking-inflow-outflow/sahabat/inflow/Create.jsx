@@ -7,14 +7,14 @@ import { useInflowSahabatStore } from "../../../../../store/sahabat/inflow-sahab
 function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateInflowSahabat, setIsModalCreateInflowSahabat] =
+  const [isModalCreateTrackingInflowSahabat, setIsModalCreateTrackingInflowSahabat] =
     useState(false);
 
-  const openModalCreateInflowSahabat = () =>
-    setIsModalCreateInflowSahabat(true);
+  const openModalCreateTrackingInflowSahabat = () =>
+    setIsModalCreateTrackingInflowSahabat(true);
 
   const closeModalCreateTrackingInflowSahabat = () => {
-    setIsModalCreateInflowSahabat(false);
+    setIsModalCreateTrackingInflowSahabat(false);
     reset(); // Reset previous form input
   };
 
@@ -27,7 +27,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
@@ -87,15 +87,15 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
       closeModalCreateTrackingInflowSahabat
     );
   };
+
   return (
     <>
       <div>
-        <Button onClick={openModalCreateInflowSahabat}>
+        <Button onClick={openModalCreateTrackingInflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
-        
         <Modal
-          show={isModalCreateInflowSahabat}
+          show={isModalCreateTrackingInflowSahabat}
           onHide={closeModalCreateTrackingInflowSahabat}
           backdrop="static"
           keyboard={false}
@@ -194,6 +194,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
                   step="0.01"
                   {...register("amaunInflow", { required: true })}
                   aria-invalid={errors.amaunInflow ? "true" : "false"}
+                  placeholder="Masukkan amaun inflow"
                 />
 
                 {errors.amaunInflow?.type === "required" && (

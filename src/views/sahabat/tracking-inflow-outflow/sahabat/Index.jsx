@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import IndexTrackingInflowSahabat from "../sahabat/inflow/Index";
 import IndexTrackingOutflowSahabat from "../sahabat/outflow/Index";
 import { Tab, Tabs } from "react-bootstrap";
