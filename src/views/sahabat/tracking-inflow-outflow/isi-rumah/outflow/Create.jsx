@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
+import { useOutflowIsiRumahStore } from "../../../../../store/sahabat/outflow-isi-rumah-store";
 
 function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   // __________________________________ Frontend __________________________________
@@ -28,23 +26,19 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create outflow isi rumah
-  const createOutflowIsiRumah = async (outflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/outflow-isi-rumah/${isiRumahId}`,
-        outflowIsiRumahInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateOutflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  const { createOutflowIsiRumah } = useOutflowIsiRumahStore((state) => ({
+    createOutflowIsiRumah: state.createOutflowIsiRumah,
+  }));
+
+  // Pass input & close modal
+  const handleCreateOutflowIsiRumah = (addOutflowIsiRumahData) => {
+    createOutflowIsiRumah(
+      isiRumahId,
+      addOutflowIsiRumahData,
+      closeModalCreateOutflowIsiRumah
+    );
   };
 
   return (
@@ -121,7 +115,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(createOutflowIsiRumah)}>
+              <Button onClick={handleSubmit(handleCreateOutflowIsiRumah)}>
                 Simpan
               </Button>
             </Modal.Footer>

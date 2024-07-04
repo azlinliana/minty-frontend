@@ -6,16 +6,49 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 
 export const useOutflowIsiRumahStore = create((set) => ({
   outflowIsiRumahs: [],
+  currentIsiRumah: {},
   // Fetch inflow isi rumah
   fetchOutflowIsiRumahs: async (isiRumahId) => {
     const response = await axiosCustom.get(
       `/sahabat/outflow-isi-rumah/${isiRumahId}`
     );
 
-    set({ outflowIsiRumahs: response.data });
-  },
+    set((state) => ({
+      outflowIsiRumahs: {
+        ...state.outflowIsiRumahs,
+        [isiRumahId]: response.data,
+      }
+    }));  },
   // Create outflow isi rumah
-  createOutflowIsiRumah: async () => {},
+  createOutflowIsiRumah: async (
+    isiRumahId,
+    outflowIsiRumahInput,
+    closeModalCreateOutflowIsiRumah
+  ) => {
+    try {
+      const response = await axiosCustom.post(
+        `/sahabat/outflow-isi-rumah/${isiRumahId}`,
+        outflowIsiRumahInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          outflowIsiRumahs: [
+            ...state.outflowIsiRumahs,
+            response.data.outflowIsiRumahSahabatData,
+          ],
+        }));
+
+        closeModalCreateOutflowIsiRumah();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Edit outflow isi rumah
   editOutflowIsiRumah: async () => {},
   // Delete outflow isi rumah
