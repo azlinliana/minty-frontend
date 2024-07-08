@@ -48,7 +48,7 @@ function IndexMinggu({
     fetchMingguPembiayaanSahabats,
     deleteMingguPembiayaanSahabat,
   } = useMingguStore((state) => ({
-    mingguPembiayaanSahabats: state.mingguPembiayaanSahabats[pembiayaanId],
+    mingguPembiayaanSahabats: state.mingguPembiayaanSahabats[pembiayaanId] || [],
     fetchMingguPembiayaanSahabats: state.fetchMingguPembiayaanSahabats,
     deleteMingguPembiayaanSahabat: state.deleteMingguPembiayaanSahabat,
   }));

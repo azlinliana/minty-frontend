@@ -18,12 +18,13 @@ export const useOutflowIsiRumahStore = create((set) => ({
         ...state.outflowIsiRumahs,
         [isiRumahId]: response.data,
       }
-    }));  },
+    })); 
+  },
   // Create outflow isi rumah
   createOutflowIsiRumah: async (
     isiRumahId,
     outflowIsiRumahInput,
-    closeModalCreateOutflowIsiRumah
+    closeModalCreateTrackingOutflowIsiRumah
   ) => {
     try {
       const response = await axiosCustom.post(
@@ -33,13 +34,16 @@ export const useOutflowIsiRumahStore = create((set) => ({
 
       if (response.status === 200) {
         set((state) => ({
-          outflowIsiRumahs: [
+          outflowIsiRumahs: {
             ...state.outflowIsiRumahs,
-            response.data.outflowIsiRumahSahabatData,
-          ],
+            [isiRumahId]: [
+              ...state.outflowIsiRumahs[isiRumahId],
+              response.data.outflowIsiRumahSahabatData,
+            ],
+          },
         }));
 
-        closeModalCreateOutflowIsiRumah();
+        closeModalCreateTrackingOutflowIsiRumah();
 
         SuccessAlert(response.data.success);
       } else {
@@ -52,5 +56,30 @@ export const useOutflowIsiRumahStore = create((set) => ({
   // Edit outflow isi rumah
   editOutflowIsiRumah: async () => {},
   // Delete outflow isi rumah
-  deleteOutflowIsiRumah: async () => {}
+  deleteOutflowIsiRumah: async (isiRumahId, outflowIsiRumahId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/outflow-isi-rumah/${outflowIsiRumahId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            outflowIsiRumahs: {
+              ...state.outflowIsiRumahs,
+              [isiRumahId]: state.outflowIsiRumahs[isiRumahId].filter(
+                (outflowIsiRumah) => outflowIsiRumah.id !== outflowIsiRumahId
+              ),
+            },
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  }
 }));

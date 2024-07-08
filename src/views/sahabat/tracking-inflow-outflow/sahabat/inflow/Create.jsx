@@ -49,8 +49,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
       kodInflowTerperinci: [], // Reset the array
     }));
 
-    // Reset keteranganInflowTerperinci values
-    const resetTerperinciValues = {};
+    const resetTerperinciValues = {}; // Reset keteranganInflowTerperinci values
 
     selectedKodInflowData.kod_inflow_terperincis.forEach((terperinci) => {
       const fieldName = `kodInflowTerperinci[${terperinci.id}]`;
@@ -58,11 +57,9 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
       resetTerperinciValues[fieldName] = "";
     });
 
-    // Reset the form with the new values
-    reset(resetTerperinciValues);
+    reset(resetTerperinciValues); // Reset the form with the new values
 
-    // Set the value directly in the form data
-    setValue("kodInflowId", selectedValue);
+    setValue("kodInflowId", selectedValue); // Set the value directly in the form data
   };
 
   const [formData, setFormData] = useState({});
@@ -87,13 +84,14 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
       closeModalCreateTrackingInflowSahabat
     );
   };
-
+  
   return (
     <>
       <div>
         <Button onClick={openModalCreateTrackingInflowSahabat}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
+
         <Modal
           show={isModalCreateTrackingInflowSahabat}
           onHide={closeModalCreateTrackingInflowSahabat}

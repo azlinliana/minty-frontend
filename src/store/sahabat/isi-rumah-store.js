@@ -33,7 +33,7 @@ export const useIsiRumahStore = create((set) => ({
         }));
 
         closeModalCreateIsiRumah();
-console.log(response.data);
+        
         SuccessAlert(response.data.success);
       } else {
         ErrorAlert(response);

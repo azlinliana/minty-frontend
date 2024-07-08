@@ -31,7 +31,7 @@ function CreateTrackingOutflowSahabat({ mingguId, kodOutflowOptions }) {
   const { createOutflowSahabat } = useOutflowSahabatStore((state) => ({
     createOutflowSahabat: state.createOutflowSahabat,
   }));
-
+  
   // Pass input & close modal
   const handleCreateOutflowSahabat = (addOutflowSahabatData) => {
     createOutflowSahabat(

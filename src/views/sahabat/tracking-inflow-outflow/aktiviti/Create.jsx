@@ -21,8 +21,10 @@ function CreateAktiviti({
   // Modal
   const [isModalCreateAktivitiSahabat, setIsModalCreateAktivitiSahabat] =
     useState(false);
+
   const openModalCreateAktivitiSahabat = () =>
     setIsModalCreateAktivitiSahabat(true);
+  
   const closeModalCreateAktivitiSahabat = () => {
     setIsModalCreateAktivitiSahabat(false);
     reset(); // Reset previous form input

@@ -17,14 +17,14 @@ export const useInflowIsiRumahStore = create((set) => ({
       inflowIsiRumahs: {
         ...state.inflowIsiRumahs,
         [isiRumahId]: response.data,
-      }
+      },
     }));
   },
   // Create inflow isi rumah
   createInflowIsiRumah: async (
     isiRumahId,
     inflowIsiRumahInput,
-    closeModalCreateInflowIsiRumah
+    closeModalCreateTrackingInflowIsiRumah
   ) => {
     try {
       const response = await axiosCustom.post(
@@ -34,13 +34,16 @@ export const useInflowIsiRumahStore = create((set) => ({
 
       if (response.status === 200) {
         set((state) => ({
-          inflowIsiRumahs: [
+          inflowIsiRumahs: {
             ...state.inflowIsiRumahs,
-            response.data.inflowIsiRumahSahabatData,
-          ],
+            [isiRumahId]: [
+              ...state.inflowIsiRumahs[isiRumahId],
+              response.data.inflowIsiRumahSahabatData,
+            ],
+          },
         }));
 
-        closeModalCreateInflowIsiRumah();
+        closeModalCreateTrackingInflowIsiRumah();
 
         SuccessAlert(response.data.success);
       } else {
@@ -53,5 +56,30 @@ export const useInflowIsiRumahStore = create((set) => ({
   // Edit inflow isi rumah
   editInflowIsiRumah: async () => {},
   // Delete inflow isi rumah
-  deleteInflowIsiRumah: async () => {},
+  deleteInflowIsiRumah: async (isiRumahId, inflowIsiRumahId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/inflow-isi-rumah/${inflowIsiRumahId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            inflowIsiRumahs: {
+              ...state.inflowIsiRumahs,
+              [isiRumahId]: state.inflowIsiRumahs[isiRumahId].filter(
+                (inflowIsiRumah) => inflowIsiRumah.id !== inflowIsiRumahId
+              ),
+            },
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
 }));

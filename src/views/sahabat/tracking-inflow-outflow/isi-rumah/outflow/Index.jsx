@@ -74,7 +74,7 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
                       <Button
                         className="delete-btn"
                         onClick={() =>
-                          deleteOutflowIsiRumah(outflowIsiRumahsData.id)
+                          deleteOutflowIsiRumah(isiRumahId, outflowIsiRumahsData.id)
                         }
                       >
                         Padam

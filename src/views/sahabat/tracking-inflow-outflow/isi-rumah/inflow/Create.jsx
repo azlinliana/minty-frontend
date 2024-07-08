@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
 import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
@@ -18,7 +15,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   const openModalCreateTrackingInflowIsiRumah = () =>
     setIsModalCreateTrackingInflowIsiRumah(true);
 
-  const closeModalCreateInflowIsiRumah = () => {
+  const closeModalCreateTrackingInflowIsiRumah = () => {
     setIsModalCreateTrackingInflowIsiRumah(false);
     reset(); // Reset previous form input
   };
@@ -86,7 +83,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
     createInflowIsiRumah(
       isiRumahId,
       addInflowIsiRumahData,
-      closeModalCreateInflowIsiRumah
+      closeModalCreateTrackingInflowIsiRumah
     );
   };
 
@@ -95,9 +92,10 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
       <Button onClick={openModalCreateTrackingInflowIsiRumah}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
+      
       <Modal
         show={isModalCreateTrackingInflowIsiRumah}
-        onHide={closeModalCreateInflowIsiRumah}
+        onHide={closeModalCreateTrackingInflowIsiRumah}
         backdrop="static"
         keyboard={false}
       >
@@ -185,9 +183,12 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
               <Form.Label className="form-label">Amaun Inflow (RM)</Form.Label>
 
               <Form.Control
-                type="text"
+                type="number"
+                min="0.01"
+                step="0.01"
                 {...register("amaunInflow", { required: true })}
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
+                placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
@@ -199,7 +200,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
           <Modal.Footer>
             <Button
               className="batal-btn"
-              onClick={closeModalCreateInflowIsiRumah}
+              onClick={closeModalCreateTrackingInflowIsiRumah}
             >
               Batal
             </Button>

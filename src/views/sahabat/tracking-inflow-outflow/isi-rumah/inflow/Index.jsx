@@ -86,7 +86,7 @@ function IndexTrackingInflowIsiRumah({
                           <Button
                             className="delete-btn"
                             onClick={() =>
-                              deleteInflowIsiRumah(inflowIsiRumahsData.id)
+                              deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
                             }
                           >
                             Padam
@@ -181,7 +181,7 @@ function IndexTrackingInflowIsiRumah({
                                 <Button
                                   className="delete-btn"
                                   onClick={() =>
-                                    deleteInflowIsiRumah(inflowIsiRumahsData.id)
+                                    deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
                                   }
                                 >
                                   Padam

@@ -7,14 +7,14 @@ import { useOutflowIsiRumahStore } from "../../../../../store/sahabat/outflow-is
 function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] =
+  const [isModalCreateTrackingOutflowIsiRumah, setIsModalCreateTrackingOutflowIsiRumah] =
     useState(false);
 
-  const openModalCreateOutflowIsiRumah = () =>
-    setIsModalCreateOutflowIsiRumah(true);
+  const openModalCreateTrackingOutflowIsiRumah = () =>
+    setIsModalCreateTrackingOutflowIsiRumah(true);
 
-  const closeModalCreateOutflowIsiRumah = () => {
-    setIsModalCreateOutflowIsiRumah(false);
+  const closeModalCreateTrackingOutflowIsiRumah = () => {
+    setIsModalCreateTrackingOutflowIsiRumah(false);
     reset(); // Reset previous form input
   };
 
@@ -37,20 +37,20 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
     createOutflowIsiRumah(
       isiRumahId,
       addOutflowIsiRumahData,
-      closeModalCreateOutflowIsiRumah
+      closeModalCreateTrackingOutflowIsiRumah
     );
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModalCreateOutflowIsiRumah}>
+        <Button onClick={openModalCreateTrackingOutflowIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
         
         <Modal
-          show={isModalCreateOutflowIsiRumah}
-          onHide={closeModalCreateOutflowIsiRumah}
+          show={isModalCreateTrackingOutflowIsiRumah}
+          onHide={closeModalCreateTrackingOutflowIsiRumah}
           backdrop="static"
           keyboard={false}
         >
@@ -97,6 +97,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                   step="0.01"
                   {...register("amaunOutflow", { required: true })}
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
+                  placeholder="Masukkan amaun outflow"
                 />
 
                 {errors.amaunOutflow?.type === "required" && (
@@ -110,7 +111,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
             <Modal.Footer>
               <Button
                 className="batal-btn"
-                onClick={closeModalCreateOutflowIsiRumah}
+                onClick={closeModalCreateTrackingOutflowIsiRumah}
               >
                 Batal
               </Button>

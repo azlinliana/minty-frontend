@@ -47,5 +47,27 @@ export const useInflowSahabatStore = create((set) => ({
   // Edit inflow sahabat
   editInflowSahabat: async () => {},
   // Delete inflow sahabat
-  deleteInflowSahabat: async () => {},
+  deleteInflowSahabat: async (inflowSahabatId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/inflow-sahabat/${inflowSahabatId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            inflowSahabats: state.inflowSahabats.filter(
+              (inflowSahabat) => inflowSahabat.id !== inflowSahabatId
+            ),
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
 }));
