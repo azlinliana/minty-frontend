@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import axiosCustom from "../../../../../axios";
+import { useOutflowSahabatStore } from "../../../../../store/sahabat/outflow-sahabat-store";
 
 function EditTrackingOutflowSahabat({
   mingguId,
@@ -12,6 +13,30 @@ function EditTrackingOutflowSahabat({
   kodOutflowOptions,
 }) {
   // __________________________________ Frontend __________________________________
+  // Form validation
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  // _____________________________ Frontend & Backend _____________________________
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
+  // Match data
+  const kodOutflowId = findOptionId(
+    kodOutflowOptions,
+    "kodOutflow",
+    outflowSahabat.kodOutflow
+  );
+
   // Modal
   const [isModalEditOutflowSahabat, setIsModalEditOutflowSahabat] =
     useState(false);
@@ -20,19 +45,37 @@ function EditTrackingOutflowSahabat({
 
   const closeModalEditOutflowSahabat = () => {
     setIsModalEditOutflowSahabat(false);
-    reset(); // Reset previous form input
+
+    // Reset previous form input
+    const resetFields = {
+      kodOutflowId: kodOutflowId,
+      amaunOutflow: outflowSahabat.amaunOutflow,
+    };
+
+    reset(resetFields);
   };
 
-  // Form validation
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  // Set default values when the edit outflow sahabat modal is opened
+  const [formData, setFormData] = useState({
+    kodOutflowId: "",
+    amaunOutflow: "",
+  });
+
+  useEffect(() => {
+    // Populate form data
+    setValue("kodOutflowId", kodOutflowId);
+    setValue("amaunOutflow", outflowSahabat.amaunOutflow);
+
+    // Set default values for formData
+    setFormData((prevData) => ({
+      ...prevData,
+      kodOutflowId,
+      amaunOutflow: outflowSahabat.amaunOutflow,
+    }));
+  }, [outflowSahabat, setValue]);
 
   // ----------BE----------
-  // Update outflow sahabat
+  // Edit outflow sahabat
   const updateOutflowSahabat = async (outflowSahabatInput) => {
     try {
       const response = await axiosCustom.put(
@@ -56,7 +99,7 @@ function EditTrackingOutflowSahabat({
         <Button className="edit-btn" onClick={openModalEditOutflowSahabat}>
           Edit
         </Button>{" "}
-
+        
         <Modal
           show={isModalEditOutflowSahabat}
           onHide={closeModalEditOutflowSahabat}
@@ -69,6 +112,7 @@ function EditTrackingOutflowSahabat({
 
           <Form onReset={reset}>
             <Modal.Body>
+              {/* Kod outflow */}
               <Form.Group controlId="kodOutflowId" className="mb-3">
                 <Form.Label className="form-label">Kod Outflow</Form.Label>
 
@@ -77,11 +121,11 @@ function EditTrackingOutflowSahabat({
                   className="form-select"
                   {...register("kodOutflowId", { required: true })}
                   aria-invalid={errors.kodOutflowId ? "true" : "false"}
-                  defaultValue=""
                 >
                   <option value="" disabled>
                     --Pilih Kod Outflow--
                   </option>
+
                   {kodOutflowOptions.map((kodOutflow) => (
                     <option key={kodOutflow.id} value={kodOutflow.id}>
                       {kodOutflow.kodOutflow} -{" "}
@@ -95,6 +139,7 @@ function EditTrackingOutflowSahabat({
                 )}
               </Form.Group>
 
+              {/* Amaun outflow */}
               <Form.Group controlId="amaunOutflow" className="mb-3">
                 <Form.Label className="form-label">
                   Amaun Outflow (RM)
@@ -106,6 +151,7 @@ function EditTrackingOutflowSahabat({
                   step="0.01"
                   {...register("amaunOutflow", { required: true })}
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
+                  placeholder="Masukkan amaun outflow"
                 />
 
                 {errors.amaunOutflow?.type === "required" && (
