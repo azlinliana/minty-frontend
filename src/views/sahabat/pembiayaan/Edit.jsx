@@ -98,6 +98,7 @@ function EditPembiayaan({
   )?.conditionsResults;
 
   // Get the result from props
+  // Need to be checked as this part of hidden status pembiayaan field is not working anymore
   const hideStatusPembiayaan = conditionResult;
 
   return (
