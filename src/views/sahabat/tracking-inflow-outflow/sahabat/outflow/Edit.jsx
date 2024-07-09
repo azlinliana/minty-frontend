@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
-import axiosCustom from "../../../../../axios";
 import { useOutflowSahabatStore } from "../../../../../store/sahabat/outflow-sahabat-store";
 
 function EditTrackingOutflowSahabat({
@@ -74,23 +71,20 @@ function EditTrackingOutflowSahabat({
     }));
   }, [outflowSahabat, setValue]);
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Edit outflow sahabat
-  const updateOutflowSahabat = async (outflowSahabatInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/outflow-sahabat/${mingguId}/${outflowSahabatId}`,
-        outflowSahabatInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalEditOutflowSahabat();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  const { editOutflowSahabat } = useOutflowSahabatStore((state) => ({
+    editOutflowSahabat: state.editOutflowSahabat,
+  }));
+
+  // Pass input & close modal
+  const handleEditOutflowSahabat = (editOutflowSahabatData) => {
+    editOutflowSahabat(
+      mingguId,
+      outflowSahabatId,
+      editOutflowSahabatData,
+      closeModalEditOutflowSahabat
+    );
   };
 
   return (
@@ -99,7 +93,7 @@ function EditTrackingOutflowSahabat({
         <Button className="edit-btn" onClick={openModalEditOutflowSahabat}>
           Edit
         </Button>{" "}
-        
+
         <Modal
           show={isModalEditOutflowSahabat}
           onHide={closeModalEditOutflowSahabat}
@@ -170,7 +164,7 @@ function EditTrackingOutflowSahabat({
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(updateOutflowSahabat)}>
+              <Button onClick={handleSubmit(handleEditOutflowSahabat)}>
                 Simpan
               </Button>
             </Modal.Footer>
