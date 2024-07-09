@@ -50,8 +50,6 @@ function IndexAktiviti({
       deleteAktivitiSahabat: state.deleteAktivitiSahabat,
     }));
 
-    
-
   useEffect(() => {
     fetchAktivitiSahabats(sahabatId, pembiayaanId);
   }, [fetchAktivitiSahabats, sahabatId, pembiayaanId]);
@@ -71,6 +69,7 @@ function IndexAktiviti({
                 setSelectedAktiviti={setSelectedAktiviti}
                 selectedKeteranganAktiviti={selectedKeteranganAktiviti}
                 setSelectedKeteranganAktiviti={setSelectedKeteranganAktiviti}
+                selectedProjekAktiviti={selectedProjekAktiviti}
                 setSelectedProjekAktiviti={setSelectedProjekAktiviti}
                 aktivitiOptions={aktivitiOptions}
                 keteranganAktivitiOptions={keteranganAktivitiOptions}
