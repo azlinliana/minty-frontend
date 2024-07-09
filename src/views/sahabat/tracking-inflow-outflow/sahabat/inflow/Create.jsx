@@ -167,6 +167,7 @@ function CreateTrackingInflowSahabat({ mingguId, kodInflowOptions }) {
                               ? "true"
                               : "false"
                           }
+                          placeholder="Keterangan inflow terperinci diperlukan"
                         />
 
                         {errors[`keteranganInflowTerperinci_${terperinci.id}`]

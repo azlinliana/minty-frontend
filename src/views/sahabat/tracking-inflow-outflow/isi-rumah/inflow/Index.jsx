@@ -77,12 +77,12 @@ function IndexTrackingInflowIsiRumah({
                       <td>{inflowIsiRumahsData.amaunInflow}</td>
                       {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                         <td>
-                          {/* <EditTrackingInflowIsiRumah
+                          <EditTrackingInflowIsiRumah
                             isiRumahId={isiRumahId}
                             inflowIsiRumahId={inflowIsiRumahsData.id}
                             inflowIsiRumah={inflowIsiRumahsData}
                             kodInflowOptions={kodInflowOptions}
-                          /> */}
+                          />
                           <Button
                             className="delete-btn"
                             onClick={() =>
@@ -172,12 +172,12 @@ function IndexTrackingInflowIsiRumah({
                                   inflowIsiRumahsData.kodInflowTerperinci.length
                                 }
                               >
-                                {/* <EditTrackingInflowIsiRumah
+                                <EditTrackingInflowIsiRumah
                                   isiRumahId={isiRumahId}
                                   inflowIsiRumahId={inflowIsiRumahsData.id}
                                   inflowIsiRumah={inflowIsiRumahsData}
                                   kodInflowOptions={kodInflowOptions}
-                                /> */}
+                                />
                                 <Button
                                   className="delete-btn"
                                   onClick={() =>

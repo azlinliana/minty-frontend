@@ -46,18 +46,32 @@ function EditTrackingInflowIsiRumah({
     kodInflowTerperinci: {},
   });
 
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
+  // Match data
+  const kodInflowId = findOptionId(
+    kodInflowOptions,
+    "kodInflow",
+    inflowIsiRumah.kodInflow
+  );
+
   useEffect(() => {
     if (inflowIsiRumah) {
-      setValue("kodInflowId", inflowIsiRumah.id); // Populate form data
+      setValue("kodInflowId", kodInflowId); // Populate form data
 
       setValue("amaunInflow", inflowIsiRumah.amaunInflow);
 
-      setSelectedKodInflow(inflowIsiRumah.kodInflow); // Set selected kod inflow and terperinci data
-
+      // Set selected kod inflow and terperinci data
+      setSelectedKodInflow(inflowIsiRumah.kodInflow);
       setShowKodInflowTerperinci(inflowIsiRumah.kodInflowTerperincis);
 
       // Set terperinci values
-      inflowIsiRumah.inflowIsiRumahTerperincis.forEach((terperinci) => {
+      inflowIsiRumah.inflowIsiRumahTerperinci.forEach((terperinci) => {
         setValue(
           `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
           terperinci.keteranganInflowTerperinci
@@ -67,9 +81,9 @@ function EditTrackingInflowIsiRumah({
       // Set default values for formData
       setFormData((prevData) => ({
         ...prevData,
-        kodInflowId: inflowIsiRumah.kod_inflow.id,
+        kodInflowId,
         amaunInflow: inflowIsiRumah.amaunInflow,
-        kodInflowTerperinci: inflowIsiRumah.inflow_isi_rumah_terperincis.reduce(
+        kodInflowTerperinci: inflowIsiRumah.inflowIsiRumahTerperinci.reduce(
           (item, terperinci) => {
             item[
               `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
@@ -91,19 +105,21 @@ function EditTrackingInflowIsiRumah({
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
 
     if (selectedValue === previousKodInflow) {
-      setValue("kodInflowId", previousKodInflow); // User selected the previous Kod Inflow, restore the previous data
+      // User selected the previous Kod Inflow, restore the previous data
+      setValue("kodInflowId", previousKodInflow);
 
       // Restore terperinci values
-      inflowIsiRumah.inflow_isi_rumah_terperincis.forEach((terperinci) => {
+      inflowIsiRumah.inflowIsiRumahTerperinci.forEach((terperinci) => {
         setValue(
           `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
           terperinci.keteranganInflowTerperinci
         );
       });
     } else {
-      setPreviousKodInflow(selectedValue); // User selected a new Kod Inflow, set the associated terperinci fields
+      // User selected a new Kod Inflow, set the associated terperinci fields
+      setPreviousKodInflow(selectedValue);
 
-      setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
+      setShowKodInflowTerperinci(selectedKodInflowData.kodInflowTerperinci);
     }
   };
 
@@ -142,7 +158,6 @@ function EditTrackingInflowIsiRumah({
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
-      
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -235,6 +250,7 @@ function EditTrackingInflowIsiRumah({
                 type="text"
                 {...register("amaunInflow", { required: true })}
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
+                placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
