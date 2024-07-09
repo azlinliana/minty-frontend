@@ -65,12 +65,12 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
                   <td>{outflowIsiRumahsData.amaunOutflow}</td>
                   {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
                     <td>
-                      {/* <EditTrackingOutflowIsiRumah
+                      <EditTrackingOutflowIsiRumah
                         isiRumahId={isiRumahId}
                         outflowIsiRumahId={outflowIsiRumahsData.id}
                         outflowIsiRumah={outflowIsiRumahsData}
                         kodOutflowOptions={kodOutflowOptions}
-                      /> */}
+                      />
                       <Button
                         className="delete-btn"
                         onClick={() =>
