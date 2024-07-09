@@ -6,7 +6,7 @@ import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 
 const URL = "selenggara/kod-inflow";
 
-export const useKodInflowStore = create((set) => ({
+export const useKodInflowStore = create((set, get) => ({
   kodInflows: [],
   // Fetch kod inflow
   fetchKodInflows: async () => {
