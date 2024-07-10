@@ -17,8 +17,8 @@ export const useOutflowIsiRumahStore = create((set) => ({
       outflowIsiRumahs: {
         ...state.outflowIsiRumahs,
         [isiRumahId]: response.data,
-      }
-    })); 
+      },
+    }));
   },
   // Create outflow isi rumah
   createOutflowIsiRumah: async (
@@ -54,7 +54,41 @@ export const useOutflowIsiRumahStore = create((set) => ({
     }
   },
   // Edit outflow isi rumah
-  editOutflowIsiRumah: async () => {},
+  editOutflowIsiRumah: async (
+    isiRumahId,
+    outflowIsiRumahId,
+    outflowIsiRumahInput,
+    closeModalEditOutflowIsiRumah
+  ) => {
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/outflow-isi-rumah/${isiRumahId}/${outflowIsiRumahId}`,
+        outflowIsiRumahInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          outflowIsiRumahs: {
+            ...state.outflowIsiRumahs,
+            [isiRumahId]: state.outflowIsiRumahs[isiRumahId].map(
+              (outflowIsiRumah) =>
+                outflowIsiRumah.id === outflowIsiRumahId
+                  ? response.data.outflowIsiRumahData
+                  : outflowIsiRumah
+            ),
+          },
+        }));
+
+        closeModalEditOutflowIsiRumah();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Delete outflow isi rumah
   deleteOutflowIsiRumah: async (isiRumahId, outflowIsiRumahId) => {
     try {
@@ -81,5 +115,5 @@ export const useOutflowIsiRumahStore = create((set) => ({
     } catch (error) {
       ErrorAlert(error);
     }
-  }
+  },
 }));
