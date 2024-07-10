@@ -7,8 +7,10 @@ import { useOutflowIsiRumahStore } from "../../../../../store/sahabat/outflow-is
 function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateTrackingOutflowIsiRumah, setIsModalCreateTrackingOutflowIsiRumah] =
-    useState(false);
+  const [
+    isModalCreateTrackingOutflowIsiRumah,
+    setIsModalCreateTrackingOutflowIsiRumah,
+  ] = useState(false);
 
   const openModalCreateTrackingOutflowIsiRumah = () =>
     setIsModalCreateTrackingOutflowIsiRumah(true);
@@ -22,6 +24,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -60,6 +63,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
 
           <Form onReset={reset}>
             <Modal.Body>
+              {/* Kod outflow */}
               <Form.Group controlId="kodOutflowId" className="mb-3">
                 <Form.Label className="form-label">Kod Outflow</Form.Label>
 
@@ -86,6 +90,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                 )}
               </Form.Group>
 
+              {/* Amaun outflow */}
               <Form.Group controlId="amaunOutflow" className="mb-3">
                 <Form.Label className="form-label">
                   Amaun Outflow (RM)
@@ -95,7 +100,24 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                   type="number"
                   min="0.01"
                   step="0.01"
-                  {...register("amaunOutflow", { required: true })}
+                  {...register("amaunOutflow", {
+                    required: "Amaun outflow diperlukan.",
+                    valueAsNumber: true, // Ensure value is treated as a number
+                    validate: {
+                      isGreaterThanZero: (value) => {
+                        return (
+                          parseFloat(value) >= 0.01 ||
+                          "Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                        );
+                      },
+                    },
+                  })}
+                  onBlur={(e) => {
+                    const currentValue = parseFloat(e.target.value);
+                    if (!isNaN(currentValue)) {
+                      setValue("amaunOutflow", currentValue.toFixed(2)); // Format to two decimal places
+                    }
+                  }}
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
                   placeholder="Masukkan amaun outflow"
                 />
@@ -103,6 +125,12 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                 {errors.amaunOutflow?.type === "required" && (
                   <small className="text-danger">
                     Amaun outflow diperlukan.
+                  </small>
+                )}
+
+                {errors.amaunOutflow?.type === "isGreaterThanZero" && (
+                  <small className="text-danger">
+                    Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih.
                   </small>
                 )}
               </Form.Group>
