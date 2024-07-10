@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Form, Modal, Button } from "react-bootstrap";
-import axiosCustom from "../../../../../axios";
+import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function EditTrackingInflowIsiRumah({
   isiRumahId,
@@ -63,8 +61,10 @@ function EditTrackingInflowIsiRumah({
   useEffect(() => {
     if (inflowIsiRumah) {
       setValue("kodInflowId", kodInflowId); // Populate form data
-
-      setValue("amaunInflow", inflowIsiRumah.amaunInflow);
+      setValue(
+        "amaunInflow",
+        parseFloat(inflowIsiRumah.amaunInflow).toFixed(2)
+      );
 
       // Set selected kod inflow and terperinci data
       setSelectedKodInflow(inflowIsiRumah.kodInflow);
@@ -133,24 +133,20 @@ function EditTrackingInflowIsiRumah({
     }));
   };
 
-  // Update inflow isi rumah
-  const updateInflowIsiRumah = async (inflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/inflow-isi-rumah/${isiRumahId}/${inflowIsiRumahId}`,
-        inflowIsiRumahInput
-      );
+  // ___________________________________ Backend __________________________________
+  // Edit inflow isi rumah
+  const { editInflowIsiRumah } = useInflowIsiRumahStore((state) => ({
+    editInflowIsiRumah: state.editInflowIsiRumah,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-
-        closeModalEditInflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditInflowIsiRumah = (editInflowIsiRumahData) => {
+    editInflowIsiRumah(
+      isiRumahId,
+      inflowIsiRumahId,
+      editInflowIsiRumahData,
+      closeModalEditInflowIsiRumah
+    );
   };
 
   return (
@@ -158,6 +154,7 @@ function EditTrackingInflowIsiRumah({
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
+
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -170,6 +167,7 @@ function EditTrackingInflowIsiRumah({
 
         <Form onReset={reset}>
           <Modal.Body>
+            {/* Kod inflow */}
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
 
@@ -243,18 +241,42 @@ function EditTrackingInflowIsiRumah({
               </React.Fragment>
             )}
 
+            {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
               <Form.Label className="form-label">Amaun Inflow</Form.Label>
 
               <Form.Control
                 type="text"
-                {...register("amaunInflow", { required: true })}
+                {...register("amaunInflow", {
+                  required: "Amaun inflow diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
                 placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
                 <small className="text-danger">Amaun inflow diperlukan.</small>
+              )}
+
+              {errors.amaunInflow?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                </small>
               )}
             </Form.Group>
           </Modal.Body>
@@ -266,7 +288,8 @@ function EditTrackingInflowIsiRumah({
             >
               Batal
             </Button>
-            <Button onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>{" "}
+            
+            <Button onClick={handleSubmit(handleEditInflowIsiRumah)}>Simpan</Button>{" "}
           </Modal.Footer>
         </Form>
       </Modal>

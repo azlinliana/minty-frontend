@@ -24,8 +24,8 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -105,6 +105,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
 
         <Form onReset={reset}>
           <Modal.Body>
+            {/* Kod inflow */}
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
 
@@ -179,6 +180,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
               </React.Fragment>
             )}
 
+            {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
               <Form.Label className="form-label">Amaun Inflow (RM)</Form.Label>
 
@@ -186,13 +188,36 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
                 type="number"
                 min="0.01"
                 step="0.01"
-                {...register("amaunInflow", { required: true })}
+                {...register("amaunInflow", {
+                  required: "Amaun inflow diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}              
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
                 placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
                 <small className="text-danger">Amaun inflow diperlukan.</small>
+              )}
+
+              {errors.amaunInflow?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                </small>
               )}
             </Form.Group>
           </Modal.Body>
