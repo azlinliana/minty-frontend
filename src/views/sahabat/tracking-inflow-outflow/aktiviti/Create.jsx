@@ -24,7 +24,7 @@ function CreateAktiviti({
 
   const openModalCreateAktivitiSahabat = () =>
     setIsModalCreateAktivitiSahabat(true);
-  
+
   const closeModalCreateAktivitiSahabat = () => {
     setIsModalCreateAktivitiSahabat(false);
     reset(); // Reset previous form input
@@ -34,6 +34,7 @@ function CreateAktiviti({
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -59,7 +60,7 @@ function CreateAktiviti({
       <Button variant="primary" onClick={openModalCreateAktivitiSahabat}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
+      
       <Modal
         show={isModalCreateAktivitiSahabat}
         onHide={closeModalCreateAktivitiSahabat}
@@ -161,7 +162,7 @@ function CreateAktiviti({
                 <option value="" disabled>
                   --Pilih Projek Aktiviti--
                 </option>
-                
+
                 {projekAktivitiOptions
                   .filter(
                     (item) =>
@@ -269,13 +270,38 @@ function CreateAktiviti({
                 min="0.00"
                 max="10000.00"
                 step="0.01"
-                {...register("jumlahPinjamanAktiviti", { required: true })}
+                {...register("jumlahPinjamanAktiviti", {
+                  required: "Jumlah pinjaman diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Jumlah pinjaman haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}
                 aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
                 placeholder="Masukkan jumlah pinjaman (RM)"
               />
+
               {errors.jumlahPinjamanAktiviti?.type === "required" && (
                 <small className="text-danger">
                   Jumlah pinjaman diperlukan.
+                </small>
+              )}
+
+              {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Jumlah pinjaman aktiviti haruslah sekurang-kurangnya 0.01 atau
+                  lebih.
                 </small>
               )}
             </Form.Group>

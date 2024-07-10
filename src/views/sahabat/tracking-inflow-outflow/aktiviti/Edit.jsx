@@ -105,8 +105,10 @@ function EditAktiviti({
     setValue("dimensiId", dimensiId);
     setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
     setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
-    setValue("jumlahPinjamanAktiviti", aktivitiSahabat.jumlahPinjamanAktiviti);
-
+    setValue(
+      "jumlahPinjamanAktiviti",
+      parseFloat(aktivitiSahabat.jumlahPinjamanAktiviti).toFixed(2)
+    );
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
@@ -348,13 +350,37 @@ function EditAktiviti({
                 min="0.00"
                 max="10000.00"
                 step="0.01"
-                {...register("jumlahPinjamanAktiviti", { required: true })}
-                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
+                {...register("jumlahPinjamanAktiviti", {
+                  required: "Jumlah pinjaman diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Jumlah pinjaman haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
                 placeholder="Masukkan jumlah pinjaman (RM)"
               />
+
               {errors.jumlahPinjamanAktiviti?.type === "required" && (
                 <small className="text-danger">
                   Jumlah pinjaman diperlukan.
+                </small>
+              )}
+
+              {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Jumlah pinjaman aktiviti haruslah sekurang-kurangnya 0.01 atau
+                  lebih.
                 </small>
               )}
             </Form.Group>
