@@ -61,7 +61,10 @@ function EditTrackingOutflowSahabat({
   useEffect(() => {
     // Populate form data
     setValue("kodOutflowId", kodOutflowId);
-    setValue("amaunOutflow", outflowSahabat.amaunOutflow);
+    setValue(
+      "amaunOutflow",
+      parseFloat(outflowSahabat.amaunOutflow).toFixed(2)
+    );
 
     // Set default values for formData
     setFormData((prevData) => ({
@@ -143,7 +146,24 @@ function EditTrackingOutflowSahabat({
                   type="number"
                   min="0.01"
                   step="0.01"
-                  {...register("amaunOutflow", { required: true })}
+                  {...register("amaunOutflow", {
+                    required: "Amaun outflow diperlukan.",
+                    valueAsNumber: true, // Ensure value is treated as a number
+                    validate: {
+                      isGreaterThanZero: (value) => {
+                        return (
+                          parseFloat(value) >= 0.01 ||
+                          "Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                        );
+                      },
+                    },
+                  })}
+                  onBlur={(e) => {
+                    const currentValue = parseFloat(e.target.value);
+                    if (!isNaN(currentValue)) {
+                      setValue("amaunOutflow", currentValue.toFixed(2)); // Format to two decimal places
+                    }
+                  }}                  
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
                   placeholder="Masukkan amaun outflow"
                 />
@@ -151,6 +171,12 @@ function EditTrackingOutflowSahabat({
                 {errors.amaunOutflow?.type === "required" && (
                   <small className="text-danger">
                     Amaun outflow diperlukan.
+                  </small>
+                )}
+
+                {errors.amaunOutflow?.type === "isGreaterThanZero" && (
+                  <small className="text-danger">
+                    Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih.
                   </small>
                 )}
               </Form.Group>
