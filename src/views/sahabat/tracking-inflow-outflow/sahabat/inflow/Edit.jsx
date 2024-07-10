@@ -78,7 +78,7 @@ function EditTrackingInflowSahabat({
       setValue("kodInflowId", kodInflowId);
       setValue(
         "amaunInflow",
-        parseFloat(inflowIsiRumah.amaunInflow).toFixed(2)
+        parseFloat(inflowSahabat.amaunInflow).toFixed(2)
       );
 
       // Set selected kod inflow and terperinci data
