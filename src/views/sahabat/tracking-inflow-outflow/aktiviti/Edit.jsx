@@ -367,7 +367,8 @@ function EditAktiviti({
                   if (!isNaN(currentValue)) {
                     setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
                   }
-                }}                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
+                }}                
+                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
                 placeholder="Masukkan jumlah pinjaman (RM)"
               />
 
