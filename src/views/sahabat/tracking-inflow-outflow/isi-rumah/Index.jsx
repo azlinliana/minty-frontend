@@ -94,12 +94,20 @@ function IndexTrackingIsiRumah({
                         >
                           <Dropdown.Item eventKey="1">
                             <EditTrackingIsiRumah
-                              mingguId={mingguId}
+                              isiRumahId={isiRumahSahabatsData.id}
                               isiRumahSahabat={isiRumahSahabatsData}
                               hubunganOptions={hubunganOptions}
                             />
                           </Dropdown.Item>
-                          <Dropdown.Item eventKey="2">Padam</Dropdown.Item>
+
+                          <Dropdown.Item
+                            eventKey="2"
+                            onClick={() =>
+                              deleteIsiRumahSahabat(isiRumahSahabatsData.id)
+                            }
+                          >
+                            Padam
+                          </Dropdown.Item>
                         </DropdownButton>
                       </div>
                     ) : null}
@@ -146,9 +154,7 @@ function IndexTrackingIsiRumah({
 
                                 <Form.Control
                                   type="text"
-                                  defaultValue={
-                                    isiRumahSahabatsData.hubungan
-                                  }
+                                  defaultValue={isiRumahSahabatsData.hubungan}
                                   disabled
                                 />
                               </Form.Group>
