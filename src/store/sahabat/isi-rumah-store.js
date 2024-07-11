@@ -33,7 +33,7 @@ export const useIsiRumahStore = create((set) => ({
         }));
 
         closeModalCreateIsiRumah();
-        
+
         SuccessAlert(response.data.success);
       } else {
         ErrorAlert(response);
@@ -43,7 +43,60 @@ export const useIsiRumahStore = create((set) => ({
     }
   },
   // Edit isi rumah sahabat
-  editIsiRumahSahabat: async () => {},
+  editIsiRumahSahabat: async (
+    isiRumahId,
+    isiRumahInput,
+    closeModalEditIsiRumah
+  ) => {
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/isi-rumah/${isiRumahId}`,
+        isiRumahInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          isiRumahSahabats: state.isiRumahSahabats.map(
+            (isiRumahSahabat) =>
+              isiRumahSahabat.id === isiRumahId
+                ? response.data.isiRumahSahabatData
+                : isiRumahSahabat
+          ),
+        }));
+        
+        closeModalEditIsiRumah();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Delete isi rumah sahabat
-  deleteIsiRumahSahabat: async () => {},
+  deleteIsiRumahSahabat: async (isiRumahId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/isi-rumah/${isiRumahId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            isiRumahSahabats: state.isiRumahSahabats.filter(
+              (isiRumahSahabat) =>
+                isiRumahSahabat.id !== isiRumahId
+            ),
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
 }));
