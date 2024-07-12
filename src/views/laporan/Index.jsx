@@ -51,22 +51,22 @@ function IndexLaporan() {
   const clickJadualTF02 = () => navigate("/search-tf02");
 
   // ___________________________________ Backend __________________________________
-    // Search profil sahabat & profil sahabat terperinci
-    const [searchComplete, setSearchComplete] = useState(false);
+  // Search profil sahabat & profil sahabat terperinci
+  const [searchComplete, setSearchComplete] = useState(false);
 
-    const {
-      laporanProfilSahabats,
-      searchNoKadPengenalanSahabatProfilSahabat,
-      laporanProfilSahabatTerperincis,
-      searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-    } = useLaporanStore((state) => ({
-      laporanProfilSahabats: state.laporanProfilSahabats,
-      searchNoKadPengenalanSahabatProfilSahabat:
-        state.searchNoKadPengenalanSahabatProfilSahabat,
-      laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
-      searchNoKadPengenalanSahabatProfilSahabatTerperinci:
-        state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-    }));
+  const {
+    laporanProfilSahabats,
+    searchNoKadPengenalanSahabatProfilSahabat,
+    laporanProfilSahabatTerperincis,
+    searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+  } = useLaporanStore((state) => ({
+    laporanProfilSahabats: state.laporanProfilSahabats,
+    searchNoKadPengenalanSahabatProfilSahabat:
+      state.searchNoKadPengenalanSahabatProfilSahabat,
+    laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
+    searchNoKadPengenalanSahabatProfilSahabatTerperinci:
+      state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
+  }));
 
   // Pass input & navigate to the pembiayaaan sahabat page with sahabat data
   const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
@@ -76,7 +76,7 @@ function IndexLaporan() {
   };
 
   useEffect(() => {
-    if (searchComplete && laporanProfilSahabats.length > 0) {
+    if (searchComplete) {
       navigate("/pembiayaan-sahabat", {
         state: { resultSahabat: laporanProfilSahabats },
       });
@@ -95,7 +95,7 @@ function IndexLaporan() {
   };
 
   useEffect(() => {
-    if (searchComplete && laporanProfilSahabatTerperincis.length > 0) {
+    if (searchComplete) {
       navigate("/pembiayaan-sahabat-terperinci", {
         state: { resultSahabat: laporanProfilSahabatTerperincis },
       });
@@ -117,7 +117,9 @@ function IndexLaporan() {
               <th className="laporan-table-cta">Tindakan</th>
             </tr>
           </thead>
+          
           <tbody>
+            {/* Laporan Profil Sahabat */}
             <tr>
               <td className="laporan-table-index">1</td>
               <td>Laporan Profil Sahabat</td>
@@ -191,7 +193,8 @@ function IndexLaporan() {
                 </Modal>
               </td>
             </tr>
-
+            
+            {/* Laporan Profil Sahabat Terperinci */}
             <tr>
               <td className="laporan-table-index">2</td>
               <td>Laporan Profil Sahabat Terperinci</td>
@@ -202,6 +205,7 @@ function IndexLaporan() {
                 >
                   Cari
                 </Button>{" "}
+
                 <Modal
                   show={isModalCarianLaporanProfilSahabatTerperinci}
                   onHide={closeModalCarianLaporanProfilSahabatTerperinci}
@@ -271,7 +275,8 @@ function IndexLaporan() {
                 </Modal>
               </td>
             </tr>
-
+            
+            {/* Jadual TF01 */}
             <tr>
               <td className="laporan-table-index">3</td>
               <td>Jadual TF01</td>
@@ -285,6 +290,7 @@ function IndexLaporan() {
               </td>
             </tr>
 
+            {/* Jadual TF01 Mengikut Cawangan */}
             <tr>
               <td className="laporan-table-index">4</td>
               <td>Jadual TF01 Mengikut Cawangan</td>
@@ -298,6 +304,7 @@ function IndexLaporan() {
               </td>
             </tr>
 
+            {/* Jadual TF02 */}
             <tr>
               <td className="laporan-table-index">5</td>
               <td>Jadual TF02</td>

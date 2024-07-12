@@ -10,9 +10,10 @@ import { Breadcrumb, Button } from "react-bootstrap";
 import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../../axios";
 import "../../../../assets/styles/styles_laporan.css";
+import { useProfilSahabatTerperinciStore } from "../../../../store/laporan/profil-sahabat-terperinci-store";
 
 function ShowProfilSahabatTerperinci() {
-  // ------------ FE --------------
+  // __________________________________ Frontend __________________________________
   // Back button
   const navigate = useNavigate();
   const goBack = () => {
@@ -23,27 +24,20 @@ function ShowProfilSahabatTerperinci() {
   const location = useLocation();
   const { resultSahabat, sahabatId, pembiayaanSahabatId } = location.state;
 
-  // ------------ BE --------------
+  // ___________________________________ Backend __________________________________
   // Fetch profil sahabat terperinci
-  const [profilSahabatTerperinci, setProfilSahabatTerperinci] = useState({});
-  const getProfilSahabatTerperinci = async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/laporan/profil-sahabat-terperinci/${sahabatId}/${pembiayaanSahabatId}`
-      );
-      if (response.status === 200) {
-        setProfilSahabatTerperinci(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknown error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  // Fetch profil sahabat
+  const {
+    profilSahabatTerperinci,
+    fetchProfilSahabatTerperinci,
+  } = useProfilSahabatTerperinciStore((state) => ({
+    profilSahabatTerperinci: state.profilSahabatTerperinci,
+    fetchProfilSahabatTerperinci: state.fetchProfilSahabatTerperinci,
+  }));
 
   useEffect(() => {
-    getProfilSahabatTerperinci();
-  }, [profilSahabatTerperinci]);
+    fetchProfilSahabatTerperinci(sahabatId, pembiayaanSahabatId);
+  }, [fetchProfilSahabatTerperinci, sahabatId, pembiayaanSahabatId]);
 
   return (
     <>
@@ -66,9 +60,7 @@ function ShowProfilSahabatTerperinci() {
           <p>
             <strong>
               Hasil Carian:{" "}
-              {resultSahabat.map(
-                (dataSahabat) => dataSahabat.noKadPengenalanSahabat
-              )}
+              {resultSahabat.noKadPengenalanSahabat}
             </strong>
           </p>
         </div>

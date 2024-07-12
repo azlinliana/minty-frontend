@@ -5,10 +5,10 @@ import { Button, Table } from "react-bootstrap";
 function SearchResultPembiayaanTerperinciSahabat({
   resultSahabat,
   sahabatId,
-  pembiayaanSahabats,
+  pembiayaanSahabatTerperincis,
   selectedSkimPembiayaan,
 }) {
-  // ----------FE----------
+  // _____________________________ Frontend & Backend _____________________________
   // Navigate to profil sahabat terperinci along with sahabat and pembiayaan data
   const navigate = useNavigate();
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
@@ -17,10 +17,10 @@ function SearchResultPembiayaanTerperinciSahabat({
     });
   };
 
-  // ------------ BE --------------
+  // ___________________________________ Backend __________________________________
   // Filter pembiayaanSahabats based on selectedSkimPembiayaan
-  const filteredPembiayaanSahabats = pembiayaanSahabats.filter(
-    (pembiayaan) => pembiayaan.skimPembiayaan === selectedSkimPembiayaan
+  const filteredPembiayaanSahabats = pembiayaanSahabatTerperincis.filter(
+    (pembiayaan) => pembiayaan.namaSkimPembiayaan === selectedSkimPembiayaan
   );
 
   return (
@@ -43,24 +43,25 @@ function SearchResultPembiayaanTerperinciSahabat({
                 <th>Tindakan</th>
               </tr>
             </thead>
+
             <tbody>
               {filteredPembiayaanSahabats.map(
                 (pembiayaanSahabatsData, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
-                    <td>{pembiayaanSahabatsData.skimPembiayaan}</td>
+                    <td>{pembiayaanSahabatsData.namaSkimPembiayaan}</td>
                     <td>
-                      <time dateTime={pembiayaanSahabatsData.created_at}>
+                      <time dateTime={pembiayaanSahabatsData.tarikhMula}>
                         {new Date(
-                          pembiayaanSahabatsData.created_at
+                          pembiayaanSahabatsData.tarikhMula
                         ).toLocaleDateString("en-GB")}
                       </time>
                     </td>
                     <td>
-                      <time dateTime={pembiayaanSahabatsData.updated_at}>
+                      <time dateTime={pembiayaanSahabatsData.tarikhTamat}>
                         {new Date(
-                          pembiayaanSahabatsData.updated_at
+                          pembiayaanSahabatsData.tarikhTamat
                         ).toLocaleDateString("en-GB")}
                       </time>
                     </td>

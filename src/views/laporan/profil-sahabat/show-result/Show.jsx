@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import "../../../../assets/styles/styles_laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";
 import RajahInflowOutflow from "./RajahInflowOutflow";
 import { Button, Breadcrumb, Dropdown, DropdownButton } from "react-bootstrap";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import axiosCustom from "../../../../axios";
-import "../../../../assets/styles/styles_laporan.css";
+import { useProfilSahabatStore } from "../../../../store/laporan/profil-sahabat-store";
 
 function ShowProfilSahabat() {
   // __________________________________ Frontend __________________________________
@@ -19,27 +18,19 @@ function ShowProfilSahabat() {
   const location = useLocation();
   const { resultSahabat, sahabatId, pembiayaanSahabatId } = location.state;
 
-  // ------------ BE --------------
+  // ___________________________________ Backend __________________________________
   // Fetch profil sahabat
-  const [profilSahabat, setProfilSahabat] = useState({});
-  const getProfilSahabat = async () => {
-    try {
-      const response = await axiosCustom.get(
-        `/laporan/profil-sahabat/${sahabatId}/${pembiayaanSahabatId}`
-      );
-      if (response.status === 200) {
-        setProfilSahabat(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknown error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
+  const {
+    profilSahabat,
+    fetchProfilSahabat,
+  } = useProfilSahabatStore((state) => ({
+    profilSahabat: state.profilSahabat,
+    fetchProfilSahabat: state.fetchProfilSahabat,
+  }));
 
   useEffect(() => {
-    getProfilSahabat();
-  }, []);
+    fetchProfilSahabat(sahabatId, pembiayaanSahabatId);
+  }, [fetchProfilSahabat, sahabatId, pembiayaanSahabatId]);
 
   return (
     <>
@@ -60,9 +51,7 @@ function ShowProfilSahabat() {
           <p>
             <strong>
               Hasil Carian:{" "}
-              {resultSahabat.map(
-                (sahabatData) => sahabatData.noKadPengenalanSahabat
-              )}
+              {resultSahabat.noKadPengenalanSahabat}
             </strong>
           </p>
         </div>
