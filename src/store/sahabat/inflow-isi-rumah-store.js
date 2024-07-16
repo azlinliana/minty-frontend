@@ -54,7 +54,39 @@ export const useInflowIsiRumahStore = create((set) => ({
     }
   },
   // Edit inflow isi rumah
-  editInflowIsiRumah: async () => {},
+  editInflowIsiRumah: async (
+    isiRumahId,
+    inflowIsiRumahId,
+    inflowIsiRumahInput,
+    closeModalEditInflowIsiRumah
+  ) => {
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/inflow-isi-rumah/${isiRumahId}/${inflowIsiRumahId}`,
+        inflowIsiRumahInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          ...state.inflowIsiRumahs,
+          [isiRumahId]: state.inflowIsiRumahs[isiRumahId].map(
+            (inflowIsiRumah) =>
+              inflowIsiRumah.id === inflowIsiRumahId
+                ? response.data.inflowIsiRumahSahabatData
+                : inflowIsiRumah
+          ),
+        }));
+
+        closeModalEditInflowIsiRumah();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Delete inflow isi rumah
   deleteInflowIsiRumah: async (isiRumahId, inflowIsiRumahId) => {
     try {
