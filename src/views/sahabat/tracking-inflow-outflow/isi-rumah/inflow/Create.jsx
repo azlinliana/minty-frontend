@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
+import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
-  // ----------FE----------
+  // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateInflowIsiRumah, setIsModalCreateInflowIsiRumah] = useState(false);
+  const [
+    isModalCreateTrackingInflowIsiRumah,
+    setIsModalCreateTrackingInflowIsiRumah,
+  ] = useState(false);
 
-  const openModalCreateInflowIsiRumah = () => setIsModalCreateInflowIsiRumah(true);
+  const openModalCreateTrackingInflowIsiRumah = () =>
+    setIsModalCreateTrackingInflowIsiRumah(true);
 
-  const closeModalCreateInflowIsiRumah = () => {
-    setIsModalCreateInflowIsiRumah(false);
-
+  const closeModalCreateTrackingInflowIsiRumah = () => {
+    setIsModalCreateTrackingInflowIsiRumah(false);
     reset(); // Reset previous form input
   };
 
@@ -23,15 +24,14 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // State to store selected kod Inflow
   const [selectedKodInflow, setSelectedKodInflow] = useState("");
-  
   const [showKodInflowTerperinci, setShowKodInflowTerperinci] = useState([]);
 
   const handleKodInflowChange = (selectedValue) => {
@@ -74,34 +74,28 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
   };
 
   // Create inflow isi rumah
-  const createInflowIsiRumah = async (inflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/inflow-isi-rumah/${isiRumahId}`,
-        inflowIsiRumahInput
-      );
+  const { createInflowIsiRumah } = useInflowIsiRumahStore((state) => ({
+    createInflowIsiRumah: state.createInflowIsiRumah,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-
-        closeModalCreateInflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleCreateInflowIsiRumah = (addInflowIsiRumahData) => {
+    createInflowIsiRumah(
+      isiRumahId,
+      addInflowIsiRumahData,
+      closeModalCreateTrackingInflowIsiRumah
+    );
   };
 
   return (
     <>
-      <Button onClick={openModalCreateInflowIsiRumah}>
+      <Button onClick={openModalCreateTrackingInflowIsiRumah}>
         <FaPlus style={{ fontSize: "10px" }} /> Tambah
       </Button>{" "}
-
+      
       <Modal
-        show={isModalCreateInflowIsiRumah}
-        onHide={closeModalCreateInflowIsiRumah}
+        show={isModalCreateTrackingInflowIsiRumah}
+        onHide={closeModalCreateTrackingInflowIsiRumah}
         backdrop="static"
         keyboard={false}
       >
@@ -111,6 +105,7 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
 
         <Form onReset={reset}>
           <Modal.Body>
+            {/* Kod inflow */}
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
 
@@ -185,17 +180,44 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
               </React.Fragment>
             )}
 
+            {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
               <Form.Label className="form-label">Amaun Inflow (RM)</Form.Label>
 
               <Form.Control
-                type="text"
-                {...register("amaunInflow", { required: true })}
+                type="number"
+                min="0.01"
+                step="0.01"
+                {...register("amaunInflow", {
+                  required: "Amaun inflow diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}              
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
+                placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
                 <small className="text-danger">Amaun inflow diperlukan.</small>
+              )}
+
+              {errors.amaunInflow?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                </small>
               )}
             </Form.Group>
           </Modal.Body>
@@ -203,12 +225,14 @@ function CreateTrackingInflowIsiRumah({ isiRumahId, kodInflowOptions }) {
           <Modal.Footer>
             <Button
               className="batal-btn"
-              onClick={closeModalCreateInflowIsiRumah}
+              onClick={closeModalCreateTrackingInflowIsiRumah}
             >
               Batal
             </Button>
 
-            <Button type="submit">Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateInflowIsiRumah)}>
+              Simpan
+            </Button>
           </Modal.Footer>
         </Form>
       </Modal>

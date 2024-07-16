@@ -64,7 +64,7 @@ function IndexTrackingInflowSahabat({
             ) : (
               inflowSahabats.map((inflowSahabatsData, index) => (
                 <React.Fragment key={index}>
-                  {inflowSahabatsData.kodInflowTerperincis.length === 0 ? (
+                  {inflowSahabatsData.kodInflowTerperinci.length === 0 ? (
                     // Render row for inflow sahabat without kod inflow terperinci
                     <tr>
                       <td>{index + 1}</td>
@@ -98,21 +98,21 @@ function IndexTrackingInflowSahabat({
                     <tr>
                       <td
                         rowSpan={
-                          inflowSahabatsData.kodInflowTerperincis.length + 1
+                          inflowSahabatsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {index + 1}
                       </td>
                       <td
                         rowSpan={
-                          inflowSahabatsData.kodInflowTerperincis.length + 1
+                          inflowSahabatsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {inflowSahabatsData.kodInflow}
                       </td>
                       <td
                         rowSpan={
-                          inflowSahabatsData.kodInflowTerperincis.length + 1
+                          inflowSahabatsData.kodInflowTerperinci.length + 1
                         }
                       >
                         {inflowSahabatsData.keteranganKodInflow}
@@ -120,7 +120,7 @@ function IndexTrackingInflowSahabat({
                     </tr>
                   )}
                   {/* Displaying Kod Inflow Terperinci */}
-                  {inflowSahabatsData.kodInflowTerperincis.map(
+                  {inflowSahabatsData.kodInflowTerperinci.map(
                     (kodInflowTerperincisData, subIndex) => (
                       // Render rows for kod inflow terperinci
                       <tr key={subIndex}>
@@ -131,10 +131,10 @@ function IndexTrackingInflowSahabat({
                           }
                         </td>
                         <td>
-                          {inflowSahabatsData.inflowSahabatTerperincis &&
-                            inflowSahabatsData.inflowSahabatTerperincis.length >
+                          {inflowSahabatsData.inflowSahabatTerperinci &&
+                            inflowSahabatsData.inflowSahabatTerperinci.length >
                               0 &&
-                            inflowSahabatsData.inflowSahabatTerperincis
+                            inflowSahabatsData.inflowSahabatTerperinci
                               .filter((inflowTerperinci) => {
                                 // Match id type: '"1"(string) === 1(integer)'
                                 const kodId =
@@ -158,7 +158,7 @@ function IndexTrackingInflowSahabat({
                           <React.Fragment>
                             <td
                               rowSpan={
-                                inflowSahabatsData.kodInflowTerperincis.length
+                                inflowSahabatsData.kodInflowTerperinci.length
                               }
                             >
                               {inflowSahabatsData.amaunInflow}
@@ -168,15 +168,15 @@ function IndexTrackingInflowSahabat({
                             "SELESAI" ? (
                               <td
                                 rowSpan={
-                                  inflowSahabatsData.kodInflowTerperincis.length
+                                  inflowSahabatsData.kodInflowTerperinci.length
                                 }
                               >
-                                {/* <EditTrackingInflowSahabat
+                                <EditTrackingInflowSahabat
                                   mingguId={mingguId}
                                   inflowSahabatId={inflowSahabatsData.id}
                                   inflowSahabat={inflowSahabatsData}
                                   kodInflowOptions={kodInflowOptions}
-                                /> */}
+                                />
                                 <Button
                                   className="delete-btn"
                                   onClick={() =>

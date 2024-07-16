@@ -45,7 +45,60 @@ export const useInflowSahabatStore = create((set) => ({
     }
   },
   // Edit inflow sahabat
-  editInflowSahabat: async () => {},
+  editInflowSahabat: async (
+    mingguId,
+    inflowSahabatId,
+    inflowSahabatInput,
+    closeModalEditInflowSahabat
+  ) => {
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/inflow-sahabat/${mingguId}/${inflowSahabatId}`,
+        inflowSahabatInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          inflowSahabats: state.inflowSahabats.map(
+            (inflowSahabat) =>
+              inflowSahabat.id === inflowSahabatId
+                ? response.data.inflowSahabatData
+                : inflowSahabat
+          ),
+        }));
+
+        closeModalEditInflowSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Delete inflow sahabat
-  deleteInflowSahabat: async () => {},
+  deleteInflowSahabat: async (inflowSahabatId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/inflow-sahabat/${inflowSahabatId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            inflowSahabats: state.inflowSahabats.filter(
+              (inflowSahabat) => inflowSahabat.id !== inflowSahabatId
+            ),
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
 }));

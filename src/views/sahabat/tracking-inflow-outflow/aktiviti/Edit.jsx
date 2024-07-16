@@ -12,6 +12,7 @@ function EditAktiviti({
   setSelectedAktiviti,
   selectedKeteranganAktiviti,
   setSelectedKeteranganAktiviti,
+  selectedProjekAktiviti,
   setSelectedProjekAktiviti,
   aktivitiOptions,
   keteranganAktivitiOptions,
@@ -19,15 +20,6 @@ function EditAktiviti({
   dimensiOptions,
 }) {
   // __________________________________ Frontend __________________________________
-  // Modal
-  const [isModalEditAktivitiSahabat, setIsModalEditAktivitiSahabat] =
-    useState(false);
-  const openModalEditAktivitiSahabat = () =>
-    setIsModalEditAktivitiSahabat(true);
-  const closeModalEditAktivitiSahabat = () => {
-    setIsModalEditAktivitiSahabat(false);
-  };
-
   // Form validation
   const {
     register,
@@ -37,7 +29,63 @@ function EditAktiviti({
     reset,
   } = useForm();
 
-  // ___________________________________ Backend __________________________________
+  // _____________________________ Frontend & Backend _____________________________
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
+  // Match data
+  const kegiatanId = findOptionId(
+    aktivitiOptions,
+    "jenisKegiatan",
+    aktivitiSahabat.jenisKegiatan
+  );
+
+  const keteranganKegiatanId = findOptionId(
+    keteranganAktivitiOptions,
+    "jenisKeteranganKegiatan",
+    aktivitiSahabat.jenisKeteranganKegiatan
+  );
+
+  const projekKegiatanId = findOptionId(
+    projekAktivitiOptions,
+    "jenisProjekKegiatan",
+    aktivitiSahabat.jenisProjekKegiatan
+  );
+
+  const dimensiId = findOptionId(
+    dimensiOptions,
+    "kodDimensi",
+    aktivitiSahabat.kodDimensi
+  );
+
+  // Modal
+  const [isModalEditAktivitiSahabat, setIsModalEditAktivitiSahabat] =
+    useState(false);
+
+  const openModalEditAktivitiSahabat = () =>
+    setIsModalEditAktivitiSahabat(true);
+
+  const closeModalEditAktivitiSahabat = () => {
+    setIsModalEditAktivitiSahabat(false);
+
+    // Reset previous form input
+    const resetFields = {
+      kegiatanId: kegiatanId,
+      keteranganKegiatanId: keteranganKegiatanId,
+      projekKegiatanId: projekKegiatanId,
+      dimensiId: dimensiId,
+      pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
+      keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
+      jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
+    };
+
+    reset(resetFields);
+  };
+
   // Set default values when the edit aktiviti modal is opened
   const [formData, setFormData] = useState({
     kegiatanId: "",
@@ -49,39 +97,7 @@ function EditAktiviti({
     jumlahPinjamanAktiviti: "",
   });
 
-  // Match data from zustand & backend
-  const findOptionId = (options, key, value) => {
-    const option = options.find((option) => option[key] === value);
-
-    return option ? option.id : "";
-  };
-
   useEffect(() => {
-    // Match data
-    const kegiatanId = findOptionId(
-      aktivitiOptions,
-      "jenisKegiatan",
-      aktivitiSahabat.jenisKegiatan
-    );
-
-    const keteranganKegiatanId = findOptionId(
-      keteranganAktivitiOptions,
-      "jenisKeteranganKegiatan",
-      aktivitiSahabat.jenisKeteranganKegiatan
-    );
-
-    const projekKegiatanId = findOptionId(
-      projekAktivitiOptions,
-      "jenisProjekKegiatan",
-      aktivitiSahabat.jenisProjekKegiatan
-    );
-
-    const dimensiId = findOptionId(
-      dimensiOptions,
-      "kodDimensi",
-      aktivitiSahabat.kodDimensi
-    );
-
     // Populate form data
     setValue("kegiatanId", kegiatanId);
     setValue("keteranganKegiatanId", keteranganKegiatanId);
@@ -89,8 +105,10 @@ function EditAktiviti({
     setValue("dimensiId", dimensiId);
     setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
     setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
-    setValue("jumlahPinjamanAktiviti", aktivitiSahabat.jumlahPinjamanAktiviti);
-
+    setValue(
+      "jumlahPinjamanAktiviti",
+      parseFloat(aktivitiSahabat.jumlahPinjamanAktiviti).toFixed(2)
+    );
     // Set default values for formData
     setFormData((prevData) => ({
       ...prevData,
@@ -104,6 +122,7 @@ function EditAktiviti({
     }));
   }, [aktivitiSahabat, setValue]);
 
+  // ___________________________________ Backend __________________________________
   // Edit aktiviti sahabat
   const { editAktivitiSahabat } = useAktivitiStore((state) => ({
     editAktivitiSahabat: state.editAktivitiSahabat,
@@ -125,7 +144,7 @@ function EditAktiviti({
       <Button className="edit-btn" onClick={openModalEditAktivitiSahabat}>
         Edit
       </Button>{" "}
-
+      
       <Modal
         show={isModalEditAktivitiSahabat}
         onHide={closeModalEditAktivitiSahabat}
@@ -150,6 +169,7 @@ function EditAktiviti({
                   setSelectedAktiviti(e.target.value);
                 }}
                 aria-invalid={errors.kegiatanId ? "true" : "false"}
+                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Aktiviti--
@@ -181,6 +201,7 @@ function EditAktiviti({
                   setSelectedKeteranganAktiviti(e.target.value);
                 }}
                 aria-invalid={errors.keteranganKegiatanId ? "true" : "false"}
+                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Keterangan Kegiatan--
@@ -220,6 +241,7 @@ function EditAktiviti({
                   setSelectedProjekAktiviti(e.target.value);
                 }}
                 aria-invalid={errors.projekKegiatanId ? "true" : "false"}
+                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Projek Aktiviti--
@@ -280,7 +302,6 @@ function EditAktiviti({
                 as="select"
                 className="form-select"
                 {...register("pengurusDanaAktiviti", { required: true })}
-                onChange={(e) => {}}
                 aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
               >
                 <option value="" disabled>
@@ -329,13 +350,38 @@ function EditAktiviti({
                 min="0.00"
                 max="10000.00"
                 step="0.01"
-                {...register("jumlahPinjamanAktiviti", { required: true })}
+                {...register("jumlahPinjamanAktiviti", {
+                  required: "Jumlah pinjaman diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Jumlah pinjaman haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}                
                 aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
                 placeholder="Masukkan jumlah pinjaman (RM)"
               />
+
               {errors.jumlahPinjamanAktiviti?.type === "required" && (
                 <small className="text-danger">
                   Jumlah pinjaman diperlukan.
+                </small>
+              )}
+
+              {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Jumlah pinjaman aktiviti haruslah sekurang-kurangnya 0.01 atau
+                  lebih.
                 </small>
               )}
             </Form.Group>

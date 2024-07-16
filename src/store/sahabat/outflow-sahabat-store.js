@@ -15,10 +15,90 @@ export const useOutflowSahabatStore = create((set) => ({
     set({ outflowSahabats: response.data });
   },
   // Create outflow sahabat
-  createOutflowSahabat: async () => {
+  createOutflowSahabat: async (
+    mingguId,
+    outflowSahabatInput,
+    closeModalCreateTrackingOutflowSahabat
+  ) => {
+    try {
+      const response = await axiosCustom.post(
+        `/sahabat/outflow-sahabat/${mingguId}`,
+        outflowSahabatInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          outflowSahabats: [
+            ...state.outflowSahabats,
+            response.data.outflowSahabatData,
+          ],
+        }));
+
+        closeModalCreateTrackingOutflowSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
   },
   // Edit outflow sahabat
-  editOutflowSahabat: async () => {},
+  editOutflowSahabat: async (
+    mingguId,
+    outflowSahabatId,
+    outflowSahabatInput,
+    closeModalEditOutflowSahabat
+  ) => {
+    try {
+      const response = await axiosCustom.put(
+        `/sahabat/outflow-sahabat/${mingguId}/${outflowSahabatId}`,
+        outflowSahabatInput
+      );
+
+      if (response.status === 200) {
+        set((state) => ({
+          outflowSahabats: state.outflowSahabats.map(
+            (outflowSahabat) =>
+              outflowSahabat.id === outflowSahabatId
+                ? response.data.outflowSahabatData
+                : outflowSahabat
+          ),
+        }));
+
+        closeModalEditOutflowSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
   // Delete outflow sahabat
-  deleteOutflowSahabat: async () => {}
+  deleteOutflowSahabat: async (outflowSahabatId) => {
+    try {
+      DeletionAlert(async () => {
+        const response = await axiosCustom.delete(
+          `/sahabat/outflow-sahabat/${outflowSahabatId}`
+        );
+
+        if (response.status === 200) {
+          set((state) => ({
+            outflowSahabats: state.outflowSahabats.filter(
+              (outflowSahabat) => outflowSahabat.id !== outflowSahabatId
+            ),
+          }));
+
+          SuccessAlert(response.data.success);
+        } else {
+          ErrorAlert(response);
+        }
+      });
+    } catch (error) {
+      ErrorAlert(error);
+    }
+  },
 }));

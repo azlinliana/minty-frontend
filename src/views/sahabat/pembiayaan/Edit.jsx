@@ -11,15 +11,6 @@ function EditPembiayaan({
   checkIndexMingguConditionEachPembiayaan,
 }) {
   // __________________________________ Frontend __________________________________
-  // Modal
-  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
-    useState(false);
-  const openModalEditPembiayaanSahabat = () =>
-    setIsModalEditPembiayaanSahabat(true);
-  const closeModalEditPembiayaanSahabat = () => {
-    setIsModalEditPembiayaanSahabat(false);
-  };
-
   // Form validation
   const {
     register,
@@ -29,13 +20,7 @@ function EditPembiayaan({
     reset,
   } = useForm();
 
-  // ___________________________________ Backend __________________________________
-  // Set default values when the edit pembiayaan modal is opened
-  const [formData, setFormData] = useState({
-    skimPembiayaanId: "",
-    statusPembiayaan: "",
-  });
-
+  // _____________________________ Frontend & Backend _____________________________
   // Match data from zustand & backend
   const findOptionId = (options, key, value) => {
     const option = options.find((option) => option[key] === value);
@@ -43,14 +28,39 @@ function EditPembiayaan({
     return option ? option.id : "";
   };
 
-  useEffect(() => {
-    // Match data
-    const skimPembiayaanId = findOptionId(
-      skimPembiayaanOptions,
-      "namaSkimPembiayaan",
-      pembiayaanSahabat.namaSkimPembiayaan
-    );
+  // Match data
+  const skimPembiayaanId = findOptionId(
+    skimPembiayaanOptions,
+    "namaSkimPembiayaan",
+    pembiayaanSahabat.namaSkimPembiayaan
+  );
 
+  // Modal
+  const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
+    useState(false);
+
+  const openModalEditPembiayaanSahabat = () =>
+    setIsModalEditPembiayaanSahabat(true);
+
+  const closeModalEditPembiayaanSahabat = () => {
+    setIsModalEditPembiayaanSahabat(false);
+
+    // Reset previous form input
+    const resetFields = {
+      skimPembiayaanId: skimPembiayaanId,
+      statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
+    };
+
+    reset(resetFields);
+  };
+
+  // Set default values when the edit pembiayaan modal is opened
+  const [formData, setFormData] = useState({
+    skimPembiayaanId: "",
+    statusPembiayaan: "",
+  });
+
+  useEffect(() => {
     // Populate form data
     setValue("skimPembiayaanId", skimPembiayaanId);
     setValue("statusPembiayaan", pembiayaanSahabat.statusPembiayaan);
@@ -63,6 +73,7 @@ function EditPembiayaan({
     }));
   }, [pembiayaanSahabat, setValue]);
 
+  // ___________________________________ Backend __________________________________
   // Edit pembiayaan sahabat
   const { editPembiayaanSahabat } = usePembiayaanStore((state) => ({
     editPembiayaanSahabat: state.editPembiayaanSahabat,
@@ -78,15 +89,16 @@ function EditPembiayaan({
     );
   };
 
-  // ----------BE & FE-------------------------------
-  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
-  // | Hidden status pembiayaan case                |
-  // ------------------------------------------------
+  // ======================== Frontend & Backend ====================================
+  // |    IndexPembiayaan, EditPembiayaan, IndexMinggu                              |
+  // |    Hidden status pembiayaan case                                             |
+  // ================================================================================
   const conditionResult = checkIndexMingguConditionEachPembiayaan.find(
     (condition) => condition.pembiayaanId === pembiayaanId
   )?.conditionsResults;
 
   // Get the result from props
+  // Need to be checked as this part of hidden status pembiayaan field is not working anymore
   const hideStatusPembiayaan = conditionResult;
 
   return (
@@ -95,7 +107,7 @@ function EditPembiayaan({
         <span href="#" onClick={openModalEditPembiayaanSahabat}>
           Edit
         </span>{" "}
-        
+
         <Modal
           show={isModalEditPembiayaanSahabat}
           onHide={closeModalEditPembiayaanSahabat}
@@ -108,6 +120,7 @@ function EditPembiayaan({
 
           <Form onReset={reset}>
             <Modal.Body>
+              {/* Skim pembiayaan */}
               <Form.Group controlId="skimPembiayaanId" className="mb-3">
                 <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
 
@@ -135,6 +148,7 @@ function EditPembiayaan({
                 )}
               </Form.Group>
 
+              {/* Status pembiayaan */}
               {hideStatusPembiayaan ? null : (
                 <Form.Group controlId="statusPembiayaan" className="mb-3">
                   <Form.Label className="form-label">

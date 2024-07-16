@@ -5,18 +5,15 @@ import IndexPembiayaan from "../pembiayaan/Index";
 import { Breadcrumb, Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function SearchResultSahabat() {
-  // __________________________________ Frontend __________________________________
+  // ___________________________________ Frontend ___________________________________
   const navigate = useNavigate();
-
   const goBack = () => {
     navigate(-1);
   }; // Back button
 
-  // ___________________________________ Backend __________________________________
-  // Display sahabat search result
+  // ____________________________________ Backend ____________________________________
   const location = useLocation();
-
-  const resultSahabat = location.state.resultSahabat;
+  const resultSahabat = location.state.resultSahabat; // Display sahabat search result
 
   return (
     <>
@@ -48,6 +45,7 @@ function SearchResultSahabat() {
               </div>
 
               <Container fluid>
+                {/* Nama sahabat */}
                 <Row>
                   <Col xs={12}>
                     <Form.Group>
@@ -62,6 +60,7 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
+                {/* No. kad pengenalan sahabat */}
                 <Row>
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
@@ -88,6 +87,7 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
+                {/* Wilayah sahabat */}
                 <Row>
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
@@ -114,6 +114,7 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
+                {/* Blok sahabat */}
                 <Row>
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
@@ -140,6 +141,7 @@ function SearchResultSahabat() {
                   </Col>
                 </Row>
 
+                {/* Kumpulan sahabat */}
                 <Row>
                   <Col xs={6}>
                     <Form.Group className="sahabat-carian-spacing">
@@ -160,6 +162,7 @@ function SearchResultSahabat() {
               <hr />
             </div>
 
+            {/* List pembiayaan */}
             <IndexPembiayaan
               resultSahabat={resultSahabat}
               sahabatId={sahabatData.id}

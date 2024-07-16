@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import axiosCustom from "../../../../../axios";
+import { useOutflowIsiRumahStore } from "../../../../../store/sahabat/outflow-isi-rumah-store";
 
 function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   // __________________________________ Frontend __________________________________
   // Modal
-  const [isModalCreateOutflowIsiRumah, setIsModalCreateOutflowIsiRumah] =
-    useState(false);
+  const [
+    isModalCreateTrackingOutflowIsiRumah,
+    setIsModalCreateTrackingOutflowIsiRumah,
+  ] = useState(false);
 
-  const openModalCreateOutflowIsiRumah = () =>
-    setIsModalCreateOutflowIsiRumah(true);
+  const openModalCreateTrackingOutflowIsiRumah = () =>
+    setIsModalCreateTrackingOutflowIsiRumah(true);
 
-  const closeModalCreateOutflowIsiRumah = () => {
-    setIsModalCreateOutflowIsiRumah(false);
+  const closeModalCreateTrackingOutflowIsiRumah = () => {
+    setIsModalCreateTrackingOutflowIsiRumah(false);
     reset(); // Reset previous form input
   };
 
@@ -24,39 +24,36 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
 
-  // ----------BE----------
+  // ___________________________________ Backend __________________________________
   // Create outflow isi rumah
-  const createOutflowIsiRumah = async (outflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `/sahabat/outflow-isi-rumah/${isiRumahId}`,
-        outflowIsiRumahInput
-      );
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-        closeModalCreateOutflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  const { createOutflowIsiRumah } = useOutflowIsiRumahStore((state) => ({
+    createOutflowIsiRumah: state.createOutflowIsiRumah,
+  }));
+
+  // Pass input & close modal
+  const handleCreateOutflowIsiRumah = (addOutflowIsiRumahData) => {
+    createOutflowIsiRumah(
+      isiRumahId,
+      addOutflowIsiRumahData,
+      closeModalCreateTrackingOutflowIsiRumah
+    );
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModalCreateOutflowIsiRumah}>
+        <Button onClick={openModalCreateTrackingOutflowIsiRumah}>
           <FaPlus style={{ fontSize: "10px" }} /> Tambah
         </Button>{" "}
         
         <Modal
-          show={isModalCreateOutflowIsiRumah}
-          onHide={closeModalCreateOutflowIsiRumah}
+          show={isModalCreateTrackingOutflowIsiRumah}
+          onHide={closeModalCreateTrackingOutflowIsiRumah}
           backdrop="static"
           keyboard={false}
         >
@@ -66,6 +63,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
 
           <Form onReset={reset}>
             <Modal.Body>
+              {/* Kod outflow */}
               <Form.Group controlId="kodOutflowId" className="mb-3">
                 <Form.Label className="form-label">Kod Outflow</Form.Label>
 
@@ -92,6 +90,7 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                 )}
               </Form.Group>
 
+              {/* Amaun outflow */}
               <Form.Group controlId="amaunOutflow" className="mb-3">
                 <Form.Label className="form-label">
                   Amaun Outflow (RM)
@@ -101,13 +100,37 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
                   type="number"
                   min="0.01"
                   step="0.01"
-                  {...register("amaunOutflow", { required: true })}
+                  {...register("amaunOutflow", {
+                    required: "Amaun outflow diperlukan.",
+                    valueAsNumber: true, // Ensure value is treated as a number
+                    validate: {
+                      isGreaterThanZero: (value) => {
+                        return (
+                          parseFloat(value) >= 0.01 ||
+                          "Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                        );
+                      },
+                    },
+                  })}
+                  onBlur={(e) => {
+                    const currentValue = parseFloat(e.target.value);
+                    if (!isNaN(currentValue)) {
+                      setValue("amaunOutflow", currentValue.toFixed(2)); // Format to two decimal places
+                    }
+                  }}
                   aria-invalid={errors.amaunOutflow ? "true" : "false"}
+                  placeholder="Masukkan amaun outflow"
                 />
 
                 {errors.amaunOutflow?.type === "required" && (
                   <small className="text-danger">
                     Amaun outflow diperlukan.
+                  </small>
+                )}
+
+                {errors.amaunOutflow?.type === "isGreaterThanZero" && (
+                  <small className="text-danger">
+                    Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih.
                   </small>
                 )}
               </Form.Group>
@@ -116,12 +139,12 @@ function CreateTrackingOutflowIsiRumah({ isiRumahId, kodOutflowOptions }) {
             <Modal.Footer>
               <Button
                 className="batal-btn"
-                onClick={closeModalCreateOutflowIsiRumah}
+                onClick={closeModalCreateTrackingOutflowIsiRumah}
               >
                 Batal
               </Button>
 
-              <Button onClick={handleSubmit(createOutflowIsiRumah)}>
+              <Button onClick={handleSubmit(handleCreateOutflowIsiRumah)}>
                 Simpan
               </Button>
             </Modal.Footer>

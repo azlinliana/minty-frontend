@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import SuccessAlert from "../../../../components/sweet-alert/SuccessAlert";
-import ErrorAlert from "../../../../components/sweet-alert/ErrorAlert";
 import { Form, Modal, Button } from "react-bootstrap";
-import axiosCustom from "../../../../../axios";
+import { useInflowIsiRumahStore } from "../../../../../store/sahabat/inflow-isi-rumah-store";
 
 function EditTrackingInflowIsiRumah({
   isiRumahId,
@@ -46,18 +44,34 @@ function EditTrackingInflowIsiRumah({
     kodInflowTerperinci: {},
   });
 
+  // Match data from zustand & backend
+  const findOptionId = (options, key, value) => {
+    const option = options.find((option) => option[key] === value);
+
+    return option ? option.id : "";
+  };
+
+  // Match data
+  const kodInflowId = findOptionId(
+    kodInflowOptions,
+    "kodInflow",
+    inflowIsiRumah.kodInflow
+  );
+
   useEffect(() => {
     if (inflowIsiRumah) {
-      setValue("kodInflowId", inflowIsiRumah.id); // Populate form data
+      setValue("kodInflowId", kodInflowId); // Populate form data
+      setValue(
+        "amaunInflow",
+        parseFloat(inflowIsiRumah.amaunInflow).toFixed(2)
+      );
 
-      setValue("amaunInflow", inflowIsiRumah.amaunInflow);
-
-      setSelectedKodInflow(inflowIsiRumah.kodInflow); // Set selected kod inflow and terperinci data
-
+      // Set selected kod inflow and terperinci data
+      setSelectedKodInflow(inflowIsiRumah.kodInflow);
       setShowKodInflowTerperinci(inflowIsiRumah.kodInflowTerperincis);
 
       // Set terperinci values
-      inflowIsiRumah.inflowIsiRumahTerperincis.forEach((terperinci) => {
+      inflowIsiRumah.inflowIsiRumahTerperinci.forEach((terperinci) => {
         setValue(
           `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
           terperinci.keteranganInflowTerperinci
@@ -67,9 +81,9 @@ function EditTrackingInflowIsiRumah({
       // Set default values for formData
       setFormData((prevData) => ({
         ...prevData,
-        kodInflowId: inflowIsiRumah.kod_inflow.id,
+        kodInflowId,
         amaunInflow: inflowIsiRumah.amaunInflow,
-        kodInflowTerperinci: inflowIsiRumah.inflow_isi_rumah_terperincis.reduce(
+        kodInflowTerperinci: inflowIsiRumah.inflowIsiRumahTerperinci.reduce(
           (item, terperinci) => {
             item[
               `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
@@ -91,19 +105,21 @@ function EditTrackingInflowIsiRumah({
     setSelectedKodInflow(selectedKodInflowData.kodInflow);
 
     if (selectedValue === previousKodInflow) {
-      setValue("kodInflowId", previousKodInflow); // User selected the previous Kod Inflow, restore the previous data
+      // User selected the previous Kod Inflow, restore the previous data
+      setValue("kodInflowId", previousKodInflow);
 
       // Restore terperinci values
-      inflowIsiRumah.inflow_isi_rumah_terperincis.forEach((terperinci) => {
+      inflowIsiRumah.inflowIsiRumahTerperinci.forEach((terperinci) => {
         setValue(
           `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
           terperinci.keteranganInflowTerperinci
         );
       });
     } else {
-      setPreviousKodInflow(selectedValue); // User selected a new Kod Inflow, set the associated terperinci fields
+      // User selected a new Kod Inflow, set the associated terperinci fields
+      setPreviousKodInflow(selectedValue);
 
-      setShowKodInflowTerperinci(selectedKodInflowData.kod_inflow_terperincis);
+      setShowKodInflowTerperinci(selectedKodInflowData.kodInflowTerperinci);
     }
   };
 
@@ -117,24 +133,20 @@ function EditTrackingInflowIsiRumah({
     }));
   };
 
-  // Update inflow isi rumah
-  const updateInflowIsiRumah = async (inflowIsiRumahInput) => {
-    try {
-      const response = await axiosCustom.put(
-        `/sahabat/inflow-isi-rumah/${isiRumahId}/${inflowIsiRumahId}`,
-        inflowIsiRumahInput
-      );
+  // ___________________________________ Backend __________________________________
+  // Edit inflow isi rumah
+  const { editInflowIsiRumah } = useInflowIsiRumahStore((state) => ({
+    editInflowIsiRumah: state.editInflowIsiRumah,
+  }));
 
-      if (response.status === 200) {
-        SuccessAlert(response.data.message);
-
-        closeModalEditInflowIsiRumah();
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  // Pass input & close modal
+  const handleEditInflowIsiRumah = (editInflowIsiRumahData) => {
+    editInflowIsiRumah(
+      isiRumahId,
+      inflowIsiRumahId,
+      editInflowIsiRumahData,
+      closeModalEditInflowIsiRumah
+    );
   };
 
   return (
@@ -142,7 +154,7 @@ function EditTrackingInflowIsiRumah({
       <Button className="edit-btn" onClick={openModalEditInflowIsiRumah}>
         Edit
       </Button>{" "}
-      
+
       <Modal
         show={isModalEditInflowIsiRumah}
         onHide={closeModalEditInflowIsiRumah}
@@ -155,6 +167,7 @@ function EditTrackingInflowIsiRumah({
 
         <Form onReset={reset}>
           <Modal.Body>
+            {/* Kod inflow */}
             <Form.Group controlId="kodInflowId" className="mb-3">
               <Form.Label className="form-label">Kod Inflow</Form.Label>
 
@@ -228,17 +241,42 @@ function EditTrackingInflowIsiRumah({
               </React.Fragment>
             )}
 
+            {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
               <Form.Label className="form-label">Amaun Inflow</Form.Label>
 
               <Form.Control
                 type="text"
-                {...register("amaunInflow", { required: true })}
+                {...register("amaunInflow", {
+                  required: "Amaun inflow diperlukan.",
+                  valueAsNumber: true, // Ensure value is treated as a number
+                  validate: {
+                    isGreaterThanZero: (value) => {
+                      return (
+                        parseFloat(value) >= 0.01 ||
+                        "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                      );
+                    },
+                  },
+                })}
+                onBlur={(e) => {
+                  const currentValue = parseFloat(e.target.value);
+                  if (!isNaN(currentValue)) {
+                    setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
+                  }
+                }}
                 aria-invalid={errors.amaunInflow ? "true" : "false"}
+                placeholder="Masukkan amaun inflow"
               />
 
               {errors.amaunInflow?.type === "required" && (
                 <small className="text-danger">Amaun inflow diperlukan.</small>
+              )}
+
+              {errors.amaunInflow?.type === "isGreaterThanZero" && (
+                <small className="text-danger">
+                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                </small>
               )}
             </Form.Group>
           </Modal.Body>
@@ -250,7 +288,8 @@ function EditTrackingInflowIsiRumah({
             >
               Batal
             </Button>
-            <Button onClick={handleSubmit(updateInflowIsiRumah)}>Simpan</Button>{" "}
+            
+            <Button onClick={handleSubmit(handleEditInflowIsiRumah)}>Simpan</Button>{" "}
           </Modal.Footer>
         </Form>
       </Modal>

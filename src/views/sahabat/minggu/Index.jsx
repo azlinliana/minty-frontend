@@ -48,7 +48,7 @@ function IndexMinggu({
     fetchMingguPembiayaanSahabats,
     deleteMingguPembiayaanSahabat,
   } = useMingguStore((state) => ({
-    mingguPembiayaanSahabats: state.mingguPembiayaanSahabats,
+    mingguPembiayaanSahabats: state.mingguPembiayaanSahabats[pembiayaanId] || [],
     fetchMingguPembiayaanSahabats: state.fetchMingguPembiayaanSahabats,
     deleteMingguPembiayaanSahabat: state.deleteMingguPembiayaanSahabat,
   }));
@@ -57,18 +57,20 @@ function IndexMinggu({
     fetchMingguPembiayaanSahabats(sahabatId, pembiayaanId);
   }, [fetchMingguPembiayaanSahabats, sahabatId, pembiayaanId]);
 
-  // ----------BE & FE-------------------------------
-  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
-  // | Hidden status pembiayaan case                |
-  // ------------------------------------------------
+  //  ============================== Backend & Frontend =============================
+  // |    IndexPembiayaan, EditPembiayaan, IndexMinggu                              |
+  // |    Hidden status pembiayaan case                                             |
+  //  ===============================================================================
   const [
     checkMingguPembiayaanSahabatLength,
     setCheckMingguPembiayaanSahabatLength,
   ] = useState(false); // Condition 1
+
   const [
     checkIncompleteMingguPembiayaanSahabats,
     setCheckIncompleteMingguPembiayaanSahabats,
   ] = useState(false); // Condition 2
+
   const [conditionsByPembiayaan, setConditionsByPembiayaan] = useState({});
 
   useEffect(() => {
@@ -112,7 +114,7 @@ function IndexMinggu({
       // Cleanup function to set isMounted to false when the component is unmounted
       isMounted = false;
     };
-  }, [mingguPembiayaanSahabats, pembiayaanId]);
+  }, []);
 
   return (
     <>

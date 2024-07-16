@@ -49,11 +49,12 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
     fetchPembiayaanSahabats(sahabatId);
   }, [fetchPembiayaanSahabats, sahabatId]);
 
-  // ----------BE & FE-------------------------------
-  // | IndexPembiayaan, EditPembiayaan, IndexMinggu |
-  // | Hidden status pembiayaan case                |
-  // ------------------------------------------------
-  // Pass state to IndexMinggu (Child) as a props for all pembiayaan sahabat data - Expecting the boolean data
+  //  ============================== Backend & Frontend =============================
+  // |    IndexPembiayaan, EditPembiayaan, IndexMinggu                              |
+  // |    Hidden status pembiayaan case                                             |
+  //  ===============================================================================
+  // Pass state to IndexMinggu (Child) as a props for all pembiayaan sahabat data
+  // Expecting the boolean data
   const [
     checkIndexMingguConditionEachPembiayaan,
     setCheckIndexMingguConditionEachPembiayaan,
@@ -89,6 +90,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
             "SELESAI") ? (
           <div className="tambah-baru-btn-container">
+            {/* Create pembiayaan */}
             <CreatePembiayaan
               sahabatId={sahabatId}
               skimPembiayaanOptions={skimPembiayaanOptions}
@@ -137,6 +139,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       id="dropdown-menu-align-end"
                     >
                       <Dropdown.Item eventKey="1">
+                        {/* Edit pembiayaan */}
                         <EditPembiayaan
                           sahabatId={sahabatId}
                           pembiayaanId={pembiayaanSahabatsData.id}
@@ -148,6 +151,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                         />
                       </Dropdown.Item>
 
+                      {/* Delete pembiayaan */}
                       <Dropdown.Item
                         eventKey="2"
                         onClick={() =>
@@ -179,7 +183,6 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
 
                 {isCardCollapsed[pembiayaanSahabatsData.id] ? null : (
                   <>
-                    {/* Senarai minggu pembiayaan */}
                     <Card.Body
                       className={`${
                         pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
@@ -188,7 +191,8 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       }`}
                     >
                       <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
-
+                      
+                      {/* List minggu */}
                       <IndexMinggu
                         resultSahabat={resultSahabat}
                         sahabatId={sahabatId}

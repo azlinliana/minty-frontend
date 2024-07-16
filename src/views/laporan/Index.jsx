@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../../assets/styles/styles_laporan.css";
@@ -51,6 +51,9 @@ function IndexLaporan() {
   const clickJadualTF02 = () => navigate("/search-tf02");
 
   // ___________________________________ Backend __________________________________
+  // Search profil sahabat & profil sahabat terperinci
+  const [searchComplete, setSearchComplete] = useState(false);
+
   const {
     laporanProfilSahabats,
     searchNoKadPengenalanSahabatProfilSahabat,
@@ -65,27 +68,39 @@ function IndexLaporan() {
       state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
   }));
 
-  // Pass search input & navigate to page pembiayaaan sahabat
+  // Pass input & navigate to the pembiayaaan sahabat page with sahabat data
   const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
-    const result = await searchNoKadPengenalanSahabatProfilSahabat(
+    await searchNoKadPengenalanSahabatProfilSahabat(noKadPengenalanSahabatData);
+
+    setSearchComplete(true);
+  };
+
+  useEffect(() => {
+    if (searchComplete) {
+      navigate("/pembiayaan-sahabat", {
+        state: { resultSahabat: laporanProfilSahabats },
+      });
+    }
+  }, [laporanProfilSahabats, searchComplete, navigate]);
+
+  // Pass input & navigate to the pembiayaaan sahabat terperinci page with sahabat data
+  const handleSearchProfilSahabatTerperinci = async (
+    noKadPengenalanSahabatData
+  ) => {
+    await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
       noKadPengenalanSahabatData
     );
 
-    navigate("/pembiayaan-sahabat", {
-      state: { resultSahabat: laporanProfilSahabats },
-    }); // Set response data as a state
+    setSearchComplete(true);
   };
 
-  // Pass input & navigate to another page pembiayaaan sahabat terperinci
-  const handleSearchProfilSahabatTerperinci = async (noKadPengenalanSahabatData) => {
-    const result = await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
-      noKadPengenalanSahabatData
-    );
-
-    navigate("/pembiayaan-sahabat-terperinci", {
-      state: { resultSahabat: laporanProfilSahabatTerperincis },
-    }); // Set response data as a state
-  };
+  useEffect(() => {
+    if (searchComplete) {
+      navigate("/pembiayaan-sahabat-terperinci", {
+        state: { resultSahabat: laporanProfilSahabatTerperincis },
+      });
+    }
+  }, [laporanProfilSahabatTerperincis, searchComplete, navigate]);
 
   return (
     <div>
@@ -102,7 +117,9 @@ function IndexLaporan() {
               <th className="laporan-table-cta">Tindakan</th>
             </tr>
           </thead>
+          
           <tbody>
+            {/* Laporan Profil Sahabat */}
             <tr>
               <td className="laporan-table-index">1</td>
               <td>Laporan Profil Sahabat</td>
@@ -176,7 +193,8 @@ function IndexLaporan() {
                 </Modal>
               </td>
             </tr>
-
+            
+            {/* Laporan Profil Sahabat Terperinci */}
             <tr>
               <td className="laporan-table-index">2</td>
               <td>Laporan Profil Sahabat Terperinci</td>
@@ -187,6 +205,7 @@ function IndexLaporan() {
                 >
                   Cari
                 </Button>{" "}
+
                 <Modal
                   show={isModalCarianLaporanProfilSahabatTerperinci}
                   onHide={closeModalCarianLaporanProfilSahabatTerperinci}
@@ -256,7 +275,8 @@ function IndexLaporan() {
                 </Modal>
               </td>
             </tr>
-
+            
+            {/* Jadual TF01 */}
             <tr>
               <td className="laporan-table-index">3</td>
               <td>Jadual TF01</td>
@@ -270,6 +290,7 @@ function IndexLaporan() {
               </td>
             </tr>
 
+            {/* Jadual TF01 Mengikut Cawangan */}
             <tr>
               <td className="laporan-table-index">4</td>
               <td>Jadual TF01 Mengikut Cawangan</td>
@@ -283,6 +304,7 @@ function IndexLaporan() {
               </td>
             </tr>
 
+            {/* Jadual TF02 */}
             <tr>
               <td className="laporan-table-index">5</td>
               <td>Jadual TF02</td>
