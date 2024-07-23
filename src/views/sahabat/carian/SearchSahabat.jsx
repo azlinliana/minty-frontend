@@ -46,7 +46,7 @@ function SearchSahabat() {
         <h1>Carian Sahabat</h1>
       </div>
 
-      <Container fluid className="sahabat-search-container">
+      <Container className="sahabat-search-container">
         <Form className="sahabat-search-bar" onReset={reset}>
           <Row>
             {/* Carian no. kad pengenalan sahabat */}
