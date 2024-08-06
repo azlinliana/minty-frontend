@@ -1,10 +1,11 @@
 import Swal from 'sweetalert2';
+import "../../../App.css";
 
 function DeletionAlert(onConfirmDeletion, onCancelDeletion) {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger',
+      cancelButton: 'btn btn-modal-danger',
     },
     buttonsStyling: false,
   });
