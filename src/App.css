@@ -77,8 +77,8 @@ a {
 .delete-btn {
   font-size: 0.75em;
   font-weight: 700;
-  border-color: var(--error_red);
-  background-color: var(--error_red);
+  border-color: #FF0000;
+  background-color: #FF0000;
   margin-bottom: 10px;
   --bs-btn-hover-bg: #000000;
 }
@@ -115,8 +115,13 @@ a {
 /* ****** MODAL ****** */
 /* ****************** */
 
-/* .modal-primary-btn {
-  font-weight: 700;
-  border-color: var(--darkcyanblue) !important;
-  background-color: var(--darkcyanblue) !important;
-} */
+/* DeletionAlert.js */
+
+.btn-success {
+  margin: 0 5px;
+}
+
+.btn-modal-danger {
+  background-color: #808080;
+  border-color: #808080;
+}
