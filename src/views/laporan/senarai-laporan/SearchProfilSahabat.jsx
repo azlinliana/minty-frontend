@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useLaporanStore } from "../../../store/laporan/laporan-store";
+import axiosCustom from "../../../axios";
 
 function SearchProfilSahabat() {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+
   // __________________________________ Frontend __________________________________
   // Modal
   const [
@@ -30,32 +34,24 @@ function SearchProfilSahabat() {
 
   // ___________________________________ Backend __________________________________
   // Search profil sahabat
-  const [searchComplete, setSearchComplete] = useState(false);
+  const handleSearchProfilSahabat = async (noKadPengenalanSahabatInput) => {
+    try {
+      const response = await axiosCustom.post(
+        `laporan/search`,
+        noKadPengenalanSahabatInput
+      );
 
-  const { laporanProfilSahabats, searchNoKadPengenalanSahabatProfilSahabat } =
-    useLaporanStore((state) => ({
-      laporanProfilSahabats: state.laporanProfilSahabats,
-      searchNoKadPengenalanSahabatProfilSahabat:
-        state.searchNoKadPengenalanSahabatProfilSahabat,
-    }));
-
-  // Pass input & navigate to the pembiayaaan sahabat page with sahabat data
-  const handleSearchProfilSahabat = async (noKadPengenalanSahabatData) => {
-    await searchNoKadPengenalanSahabatProfilSahabat(noKadPengenalanSahabatData);
-
-    setSearchComplete(true);
-  };
-
-  // Link pages
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (searchComplete) {
-      navigate("/pembiayaan-sahabat", {
-        state: { resultSahabat: laporanProfilSahabats },
-      });
+      if (response.status === 200) {
+        navigate("/pembiayaan-sahabat", {
+          state: { resultSahabat: response.data },
+        });
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
     }
-  }, [laporanProfilSahabats, searchComplete, navigate]);
+  };
 
   return (
     <>
@@ -73,7 +69,7 @@ function SearchProfilSahabat() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Carian Laporan Profil Sahabat</Modal.Title>
+          <Modal.Title>Carian Laporan Profil Sahabatd</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>

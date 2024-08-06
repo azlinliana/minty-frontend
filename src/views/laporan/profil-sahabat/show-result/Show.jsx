@@ -16,17 +16,11 @@ function ShowProfilSahabat() {
 
   // Get pembiayaan sahabat
   const location = useLocation();
-  const { resultSahabat, sahabatId, pembiayaanSahabatId } = location.state;
+  const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
 
   // ___________________________________ Backend __________________________________
   // Fetch profil sahabat
-  const {
-    profilSahabat,
-    fetchProfilSahabat,
-  } = useProfilSahabatStore((state) => ({
-    profilSahabat: state.profilSahabat,
-    fetchProfilSahabat: state.fetchProfilSahabat,
-  }));
+  const { profilSahabat, fetchProfilSahabat } = useProfilSahabatStore();
 
   useEffect(() => {
     fetchProfilSahabat(sahabatId, pembiayaanSahabatId);
@@ -49,10 +43,7 @@ function ShowProfilSahabat() {
 
         <div className="laporan-profil-sahabat-details">
           <p>
-            <strong>
-              Hasil Carian:{" "}
-              {resultSahabat.noKadPengenalanSahabat}
-            </strong>
+            <strong>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</strong>
           </p>
         </div>
       </div>

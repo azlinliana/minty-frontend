@@ -15,10 +15,12 @@ import {
 import { useLaporanStore } from "../../../store/laporan/laporan-store";
 
 function SearchProfilSahabat() {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // __________________________________ Frontend __________________________________
   // Back button
-  const navigate = useNavigate();
-
   const goBack = () => {
     navigate(-1);
   };
@@ -33,21 +35,18 @@ function SearchProfilSahabat() {
 
   // ___________________________________ Backend __________________________________
   // Display sahabat search result
-  const location = useLocation();
-  const resultSahabat = location.state.resultSahabat;
-  const sahabatId = resultSahabat.id;
+  const sahabatData = location.state.resultSahabat[0];
+  const sahabatId = sahabatData.id;
 
   // List pembiayaan asscociated with sahabat
-  const { pembiayaanSahabats, fetchPembiayaanProfilSahabat } = useLaporanStore(
-    (state) => ({
-      pembiayaanSahabats: state.pembiayaanSahabats,
-      fetchPembiayaanProfilSahabat: state.fetchPembiayaanProfilSahabat,
-    })
-  );
+  const { pembiayaanSahabats, fetchPembiayaanProfilSahabat } = useLaporanStore();
 
   useEffect(() => {
     fetchPembiayaanProfilSahabat(sahabatId);
   }, [fetchPembiayaanProfilSahabat, sahabatId]);
+
+  // Select skim pembiayaan from the dropdown
+  const [selectedSkimPembiayaan, setSelectedSkimPembiayaan] = useState("");
 
   // Display pembiayaan sahabat based on selected skim pembiayaan
   const [isSearchResultVisible, setIsSearchResultVisible] = useState(false);
@@ -55,8 +54,6 @@ function SearchProfilSahabat() {
   const handleSearchResultPembiayaanVisibility = () => {
     setIsSearchResultVisible(true);
   };
-
-  const [selectedSkimPembiayaan, setSelectedSkimPembiayaan] = useState(""); // Select skim pembiayaan from the dropdown
 
   return (
     <>
@@ -71,7 +68,7 @@ function SearchProfilSahabat() {
         </Breadcrumb>
       </div>
 
-      <React.Fragment key={resultSahabat.noSahabat}>
+      <React.Fragment key={sahabatData.noSahabat}>
         {/* Sahabat information */}
         <div>
           <div className="laporan-search-pg-header">
@@ -88,7 +85,7 @@ function SearchProfilSahabat() {
                     <Form.Control
                       type="text"
                       {...register("namaSahabat")}
-                      value={resultSahabat.namaSahabat}
+                      value={sahabatData.namaSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -104,7 +101,7 @@ function SearchProfilSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={resultSahabat.noKadPengenalanSahabat}
+                      value={sahabatData.noKadPengenalanSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -116,7 +113,7 @@ function SearchProfilSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={resultSahabat.noSahabat}
+                      value={sahabatData.noSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -207,7 +204,7 @@ function SearchProfilSahabat() {
         {isSearchResultVisible && (
           <div className="laporan-hasil-carian-skim-pembiayaan-container">
             <SearchResultPembiayaanSahabat
-              resultSahabat={resultSahabat}
+              sahabatData={sahabatData}
               sahabatId={sahabatId}
               pembiayaanSahabats={pembiayaanSahabats}
               selectedSkimPembiayaan={selectedSkimPembiayaan}
