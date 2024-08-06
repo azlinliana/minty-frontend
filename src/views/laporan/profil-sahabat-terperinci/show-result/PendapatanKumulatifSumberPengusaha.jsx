@@ -2,6 +2,10 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 
 function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
+  if (!pendapatanKumulatifSumberData) {
+    return null; // or display a loading indicator or error message
+  }
+  
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useLaporanStore } from "../../../store/laporan/laporan-store";
+import axiosCustom from "../../../axios";
 
 function SearchProfilSahabatTerperinci() {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+
   // __________________________________ Frontend __________________________________
   // Modal
   const [
@@ -30,38 +34,24 @@ function SearchProfilSahabatTerperinci() {
 
   // ___________________________________ Backend __________________________________
   // Search profil sahabat terperinci
-  const [searchComplete, setSearchComplete] = useState(false);
+  const handleSearchProfilSahabatTerperinci = async (noKadPengenalanSahabatInput) => {
+    try {
+      const response = await axiosCustom.post(
+        `laporan/search`,
+        noKadPengenalanSahabatInput
+      );
 
-  const {
-    laporanProfilSahabatTerperincis,
-    searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-  } = useLaporanStore((state) => ({
-    laporanProfilSahabatTerperincis: state.laporanProfilSahabatTerperincis,
-    searchNoKadPengenalanSahabatProfilSahabatTerperinci:
-      state.searchNoKadPengenalanSahabatProfilSahabatTerperinci,
-  }));
-
-  // Pass input & navigate to the pembiayaaan sahabat terperinci page with sahabat data
-  const handleSearchProfilSahabatTerperinci = async (
-    noKadPengenalanSahabatData
-  ) => {
-    await searchNoKadPengenalanSahabatProfilSahabatTerperinci(
-      noKadPengenalanSahabatData
-    );
-
-    setSearchComplete(true);
-  };
-
-  // Link pages
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (searchComplete) {
-      navigate("/pembiayaan-sahabat-terperinci", {
-        state: { resultSahabat: laporanProfilSahabatTerperincis },
-      });
+      if (response.status === 200) {
+        navigate("/pembiayaan-sahabat-terperinci", {
+          state: { resultSahabat: response.data },
+        });
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
     }
-  }, [laporanProfilSahabatTerperincis, searchComplete, navigate]);
+  };
 
   return (
     <>

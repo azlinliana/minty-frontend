@@ -10,7 +10,7 @@ function SearchResultPembiayaanSahabat({
 }) {
   // ______________________________ Hook Declaration ______________________________
   const navigate = useNavigate();
-
+  
   // _____________________________ Frontend & Backend _____________________________
   // Navigate to profil sahabat along with sahabat and pembiayaan data
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {

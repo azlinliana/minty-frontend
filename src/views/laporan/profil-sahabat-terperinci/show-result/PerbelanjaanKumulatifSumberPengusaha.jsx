@@ -4,6 +4,9 @@ import Table from "react-bootstrap/Table";
 function PerbelanjaanKumulatifSumberPengusaha({
   perbelanjaanKumulatifSumberData,
 }) {
+  if (!perbelanjaanKumulatifSumberData) {
+    return null; // or display a loading indicator or error message
+  }
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {

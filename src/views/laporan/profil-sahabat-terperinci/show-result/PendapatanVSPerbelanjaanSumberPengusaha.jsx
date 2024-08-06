@@ -12,6 +12,9 @@ const renderCell = (data) => {
 function PendapatanVSPerbelanjaanSumberPengusaha({
   pendapatanVSPerbelanjaanData,
 }) {
+  if (!pendapatanVSPerbelanjaanData) {
+    return null; // or display a loading indicator or error message
+  }
   // ------------ FE --------------
   // Format money value
   const formatMoney = (value) => {

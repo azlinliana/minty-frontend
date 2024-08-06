@@ -22,18 +22,12 @@ function ShowProfilSahabatTerperinci() {
 
   // Get pembiayaan sahabat
   const location = useLocation();
-  const { resultSahabat, sahabatId, pembiayaanSahabatId } = location.state;
+  const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
 
   // ___________________________________ Backend __________________________________
   // Fetch profil sahabat terperinci
-  // Fetch profil sahabat
-  const {
-    profilSahabatTerperinci,
-    fetchProfilSahabatTerperinci,
-  } = useProfilSahabatTerperinciStore((state) => ({
-    profilSahabatTerperinci: state.profilSahabatTerperinci,
-    fetchProfilSahabatTerperinci: state.fetchProfilSahabatTerperinci,
-  }));
+  const { profilSahabatTerperinci, fetchProfilSahabatTerperinci } =
+    useProfilSahabatTerperinciStore();
 
   useEffect(() => {
     fetchProfilSahabatTerperinci(sahabatId, pembiayaanSahabatId);
@@ -58,10 +52,7 @@ function ShowProfilSahabatTerperinci() {
 
         <div className="laporan-profil-sahabat-details">
           <p>
-            <strong>
-              Hasil Carian:{" "}
-              {resultSahabat.noKadPengenalanSahabat}
-            </strong>
+            <strong>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</strong>
           </p>
         </div>
       </div>
@@ -71,45 +62,40 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas
-        maklumatAsasData={profilSahabatTerperinci.maklumatAsas || {}}
-      />
+      <MaklumatAsas maklumatAsasData={profilSahabatTerperinci.maklumatAsas} />
 
       {/* Bahagian B: Maklumat Kegiatan & Modal */}
       <MaklumatKegiatanModal
         maklumatKegiatanModalData={
-          profilSahabatTerperinci.maklumatKegiatanModal || {}
+          profilSahabatTerperinci.maklumatKegiatanModal
         }
       />
 
       {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
       <PendapatanKumulatifKegiatan
         maklumatPendapatanKumulatifKegiatanData={
-          profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan || {}
+          profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
         }
       />
 
       {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
       <PendapatanKumulatifSumberPengusaha
         pendapatanKumulatifSumberData={
-          profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha ||
-          {}
+          profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
         }
       />
 
       {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
       <PerbelanjaanKumulatifSumberPengusaha
         perbelanjaanKumulatifSumberData={
-          profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha ||
-          {}
+          profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
         }
       />
 
       {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
       <PendapatanVSPerbelanjaanSumberPengusaha
         pendapatanVSPerbelanjaanData={
-          profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan ||
-          {}
+          profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
         }
       />
 
