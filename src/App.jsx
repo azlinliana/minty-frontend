@@ -62,6 +62,7 @@ function App() {
               element={<SearchProfilSahabat />}
             />
             <Route path="profil-sahabat" element={<ShowProfilSahabat />} />
+
             <Route
               path="pembiayaan-sahabat-terperinci"
               element={<SearchProfilSahabatTerperinci />}

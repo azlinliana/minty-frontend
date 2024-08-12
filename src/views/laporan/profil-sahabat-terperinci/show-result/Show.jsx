@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import "../../../../assets/styles/styles_laporan.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import PendapatanKumulatifKegiatan from "./PendapatanKumulatifKegiatan";
@@ -7,10 +8,8 @@ import PendapatanKumulatifSumberPengusaha from "./PendapatanKumulatifSumberPengu
 import PerbelanjaanKumulatifSumberPengusaha from "./PerbelanjaanKumulatifSumberPengusaha";
 import PendapatanVSPerbelanjaanSumberPengusaha from "./PendapatanVSPerbelanjaanSumberPengusaha";
 import { Breadcrumb, Button } from "react-bootstrap";
-import ErrorAlert from "../../../components/sweet-alert/ErrorAlert";
-import axiosCustom from "../../../../axios";
-import "../../../../assets/styles/styles_laporan.css";
 import { useProfilSahabatTerperinciStore } from "../../../../store/laporan/profil-sahabat-terperinci-store";
+import { useReactToPrint } from "react-to-print";
 
 function ShowProfilSahabatTerperinci() {
   // __________________________________ Frontend __________________________________
@@ -33,10 +32,18 @@ function ShowProfilSahabatTerperinci() {
     fetchProfilSahabatTerperinci(sahabatId, pembiayaanSahabatId);
   }, [fetchProfilSahabatTerperinci, sahabatId, pembiayaanSahabatId]);
 
+  // Reference to the printable area
+  const printRef = useRef();
+
+  // Print handler using react-to-print
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
+
   return (
     <>
       <div className="page-title">
-        <h1>Profil Sahabat Terperinci</h1>
+        <h1>Profail Sahabat Terperinci</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
@@ -46,7 +53,7 @@ function ShowProfilSahabatTerperinci() {
             Carian Pembiayaan Sahabat Terperinci
           </Breadcrumb.Item>
           <Breadcrumb.Item active>
-            Laporan Profil Sahabat Terperinci
+            Laporan Profail Sahabat Terperinci
           </Breadcrumb.Item>
         </Breadcrumb>
 
@@ -58,46 +65,50 @@ function ShowProfilSahabatTerperinci() {
       </div>
 
       <div className="laporan-profil-sahabat-action-bts-container">
-        <Button>Cetak</Button>{" "}
+        <Button onClick={handlePrint}>Cetak</Button>{" "}
       </div>
 
-      {/* Bahagian A: Maklumat Asas */}
-      <MaklumatAsas maklumatAsasData={profilSahabatTerperinci.maklumatAsas} />
+      {/* Printable area start */}
+      <div ref={printRef} className="printable">
+        {/* Bahagian A: Maklumat Asas */}
+        <MaklumatAsas maklumatAsasData={profilSahabatTerperinci.maklumatAsas} />
 
-      {/* Bahagian B: Maklumat Kegiatan & Modal */}
-      <MaklumatKegiatanModal
-        maklumatKegiatanModalData={
-          profilSahabatTerperinci.maklumatKegiatanModal
-        }
-      />
+        {/* Bahagian B: Maklumat Kegiatan & Modal */}
+        <MaklumatKegiatanModal
+          maklumatKegiatanModalData={
+            profilSahabatTerperinci.maklumatKegiatanModal
+          }
+        />
 
-      {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
-      <PendapatanKumulatifKegiatan
-        maklumatPendapatanKumulatifKegiatanData={
-          profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
-        }
-      />
+        {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
+        <PendapatanKumulatifKegiatan
+          maklumatPendapatanKumulatifKegiatanData={
+            profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
+          }
+        />
 
-      {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <PendapatanKumulatifSumberPengusaha
-        pendapatanKumulatifSumberData={
-          profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
-        }
-      />
+        {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
+        <PendapatanKumulatifSumberPengusaha
+          pendapatanKumulatifSumberData={
+            profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
+          }
+        />
 
-      {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
-      <PerbelanjaanKumulatifSumberPengusaha
-        perbelanjaanKumulatifSumberData={
-          profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
-        }
-      />
+        {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
+        <PerbelanjaanKumulatifSumberPengusaha
+          perbelanjaanKumulatifSumberData={
+            profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
+          }
+        />
 
-      {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
-      <PendapatanVSPerbelanjaanSumberPengusaha
-        pendapatanVSPerbelanjaanData={
-          profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
-        }
-      />
+        {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
+        <PendapatanVSPerbelanjaanSumberPengusaha
+          pendapatanVSPerbelanjaanData={
+            profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
+          }
+        />
+      </div>
+      {/* Printable area end */}
 
       <div className="kembali-btn-container">
         <Button className="kembali-btn sc-kembali-btn-sahabat" onClick={goBack}>
