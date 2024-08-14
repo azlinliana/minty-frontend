@@ -98,7 +98,7 @@ const VerticalStepper = ({
           paddingRight: 0,
           "& .MuiStepConnector-line": {
             borderLeftWidth: "1px", // Ensure the connector is visible
-            marginLeft: "0px", // Adjust margin to avoid breaking the line
+            marginLeft: "10px", // Adjust margin to avoid breaking the line
           },
         }}
       >
