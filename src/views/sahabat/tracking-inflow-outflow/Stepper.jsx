@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
   Paper,
+  StepConnector
 } from "@mui/material";
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
@@ -92,6 +93,12 @@ const VerticalStepper = ({
           },
           "& .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {
             color: "#13315C",
+          },
+          paddingLeft: 0,
+          paddingRight: 0,
+          "& .MuiStepConnector-line": {
+            borderLeftWidth: "1px", // Ensure the connector is visible
+            marginLeft: "0px", // Adjust margin to avoid breaking the line
           },
         }}
       >
