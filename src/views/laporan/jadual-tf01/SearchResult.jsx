@@ -3,12 +3,20 @@ import { Button, Table, Container } from "react-bootstrap";
 import "../../../assets/styles/styles_laporan.css";
 
 function SearchResultTF01({ resultTF01 }) {
+  // Format money value
+  const formatMoney = (value) => {
+    return value !== null && !isNaN(value)
+      ? parseFloat(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : "-";
+  };
+
   return (
     <>
       <div className="laporan-search-result-container">
-        <h3>
-          Hasil Carian: Wilayah - Perak, Cawangan - Ipoh, Pusat - Ainul Hayat
-        </h3>
+        <h3>Hasil Carian: Wilayah - , Cawangan - , Pusat -</h3>
 
         <div>
           <Table responsive striped bordered>
@@ -31,7 +39,7 @@ function SearchResultTF01({ resultTF01 }) {
                 <th>Pendapatan dari Jumlah Masuk (Inflow) (RM)</th>
                 <th>Pendapatan dari Jumlah Keluar (Outflow) (RM)</th>
                 <th>Pulangan Per RM</th>
-                <th>Bilangna Kali Pinjam</th>
+                <th>Bilangan Kali Pinjam</th>
                 <th>Pengguna Modal</th>
                 <th>Bil. Minggu Tracking</th>
                 <th>Tarikh Last Tracking</th>
@@ -55,21 +63,69 @@ function SearchResultTF01({ resultTF01 }) {
                     <td>{resultTF01Data.noKadPengenalanSahabat}</td>
                     <td></td>
                     <td>{resultTF01Data.namaSahabat}</td>
+                    <td>
+                      {resultTF01Data.dimensi.map((dimensi, index) => (
+                        <div key={index}>
+                          {dimensi}
+                          {index < resultTF01Data.dimensi.length - 1 && ","}
+                          <br />
+                        </div>
+                      ))}
+                    </td>
+                    <td>{resultTF01Data.tulenCampuran}</td>
                     <td></td>
+                    <td>
+                      {resultTF01Data.kegiatan.map((kegiatan, index) => (
+                        <div key={index}>
+                          {kegiatan}
+                          {index < resultTF01Data.kegiatan.length - 1 && ","}
+                          <br />
+                        </div>
+                      ))}
+                    </td>
+                    <td>
+                      {resultTF01Data.subKegiatan.map((subKegiatan, index) => (
+                        <div key={index}>
+                          {subKegiatan}
+                          {index < resultTF01Data.subKegiatan.length - 1 && ","}
+                          <br />
+                        </div>
+                      ))}
+                    </td>
                     <td></td>
+                    <td>{formatMoney(resultTF01Data.pendapatanDaripadaAIM)}</td>
+                    <td>
+                      {formatMoney(
+                        resultTF01Data.pendapatanDaripadaJumlahMasuk
+                      )}
+                    </td>
+                    <td>
+                      {formatMoney(
+                        resultTF01Data.pendapatanDaripadaJumlahKeluar
+                      )}
+                    </td>
+                    <td>{formatMoney(resultTF01Data.pulanganPerRM)}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      {resultTF01Data.penggunaModal.map(
+                        (penggunaModal, index) => (
+                          <div key={index}>
+                            {penggunaModal}
+                            {index < resultTF01Data.penggunaModal.length - 1 &&
+                              ","}
+                            <br />
+                          </div>
+                        )
+                      )}
+                    </td>
+                    <td>{resultTF01Data.bilanganMingguTracking}</td>
+                    <td>
+                      {" "}
+                      {new Date(
+                        resultTF01Data.tarikhAkhirTracking
+                      ).toLocaleDateString("en-GB")}
+                    </td>
+                    <td>{resultTF01Data.julatPulangan}</td>
                   </tr>
                 ))
               )}

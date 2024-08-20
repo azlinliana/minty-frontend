@@ -33,14 +33,7 @@ function SearchTf01() {
     displayCawangans,
     pusatOptions,
     displayPusats,
-  } = useLokasiStore((state) => ({
-    wilayahOptions: state.wilayahOptions,
-    displayWilayahs: state.displayWilayahs,
-    cawanganOptions: state.cawanganOptions,
-    displayCawangans: state.displayCawangans,
-    pusatOptions: state.pusatOptions,
-    displayPusats: state.displayPusats,
-  }));
+  } = useLokasiStore();
 
   useEffect(() => {
     displayWilayahs();
@@ -98,7 +91,7 @@ function SearchTf01() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("wilayahId", { required: true })}
+                        {...register("kodWilayah", { required: true })}
                         onChange={(e) => {
                           setSelectedWilayah(e.target.value);
                         }}
@@ -137,7 +130,7 @@ function SearchTf01() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("cawanganId", { required: true })}
+                        {...register("kodCawangan", { required: true })}
                         onChange={(e) => {
                           setSelectedCawangan(e.target.value);
                         }}
@@ -185,7 +178,7 @@ function SearchTf01() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("pusatId", { required: true })}
+                        {...register("kodPusat", { required: true })}
                         onChange={(e) => {
                           setSelectedPusat(e.target.value);
                         }}
