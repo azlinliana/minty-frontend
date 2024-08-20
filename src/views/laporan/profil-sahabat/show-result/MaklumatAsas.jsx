@@ -12,7 +12,7 @@ function MaklumatAsas({ maklumatAsasData }) {
         })
       : "-";
   };
-
+  
   return (
     <>
       <div className="laporan-table-container">
@@ -74,7 +74,7 @@ function MaklumatAsas({ maklumatAsasData }) {
             <tr>
               <th>Pengurusan Dana</th>
               <td>
-                : {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || "-"}
+                : {maklumatAsasData?.aktiviti?.pengurusDanaAktiviti || "-"}
               </td>
             </tr>
 
