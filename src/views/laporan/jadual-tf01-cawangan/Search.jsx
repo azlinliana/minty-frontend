@@ -5,7 +5,6 @@ import ResultTf01ByCawangan from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
 import { useLokasiStore } from "../../../store/options-store";
-
 import axiosCustom from "../../../axios";
 
 function SearchTf01ByCawangan() {
@@ -29,12 +28,8 @@ function SearchTf01ByCawangan() {
   const [selectedCawangan, setSelectedCawangan] = useState("");
 
   // Display wilayah & cawangan options
-  const { wilayahOptions, displayWilayahs, cawanganOptions, displayCawangans } = useLokasiStore((state) => ({
-    wilayahOptions: state.wilayahOptions,
-    displayWilayahs: state.displayWilayahs,
-    cawanganOptions: state.cawanganOptions,
-    displayCawangans: state.displayCawangans,
-  }));
+  const { wilayahOptions, displayWilayahs, cawanganOptions, displayCawangans } =
+    useLokasiStore();
 
   useEffect(() => {
     displayWilayahs();
@@ -50,6 +45,7 @@ function SearchTf01ByCawangan() {
         `/laporan/carian-jadual-tf01-mengikut-cawangan`,
         jadualTF01ByCawanganInput
       );
+
       if (response.status === 200) {
         setResultTF01ByCawangan(response.data);
         setIsSearchResultTf01CawanganVisible(true);
@@ -93,7 +89,7 @@ function SearchTf01ByCawangan() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("wilayahId", { required: true })}
+                        {...register("kodWilayah", { required: true })}
                         onChange={(e) => {
                           setSelectedWilayah(e.target.value);
                         }}
@@ -104,7 +100,6 @@ function SearchTf01ByCawangan() {
                           --Pilih Wilayah--
                         </option>
                         {wilayahOptions
-                          // Sort wilayah options alphabetically by namaWilayah
                           .sort((a, b) =>
                             a.namaWilayah.localeCompare(b.namaWilayah)
                           )
@@ -132,7 +127,7 @@ function SearchTf01ByCawangan() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("cawanganId", { required: true })}
+                        {...register("kodCawangan", { required: true })}
                         onChange={(e) => {
                           setSelectedCawangan(e.target.value);
                         }}
@@ -143,13 +138,11 @@ function SearchTf01ByCawangan() {
                           --Pilih Cawangan--
                         </option>
                         {cawanganOptions
-                          // Filter options based on the selected wilayah
                           .filter(
                             (item) =>
                               selectedWilayah &&
-                              item.wilayahId === selectedWilayah
+                              item.wilayahId === selectedWilayah.kodWilayah
                           )
-                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
                           .sort((a, b) =>
                             a.namaCawangan.localeCompare(b.namaCawangan)
                           )
@@ -188,6 +181,8 @@ function SearchTf01ByCawangan() {
             <div className="laporan-search-result-container">
               <ResultTf01ByCawangan
                 resultTf01ByCawangan={resultTf01ByCawangan}
+                selectedWilayah={selectedWilayah}
+                selectedCawangan={selectedCawangan}
               />
             </div>
           )}
