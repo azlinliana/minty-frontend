@@ -225,7 +225,12 @@ function SearchTf01() {
 
           {isSearchResultTf01Visible && (
             <div className="laporan-search-result-container">
-              <ResultTF01 resultTF01={resultTF01} />
+              <ResultTF01 
+                resultTF01={resultTF01}
+                selectedWilayah={selectedWilayah}
+                selectedCawangan={selectedCawangan}
+                selectedPusat={selectedPusat}
+              />
             </div>
           )}
 
