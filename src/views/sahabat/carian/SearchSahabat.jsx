@@ -71,7 +71,7 @@ function SearchSahabat() {
                 {/* Validate required field */}
                 {errors.noKadPengenalanSahabat?.type === "required" && (
                   <small className="text-danger">
-                    No. kad pengenalan sahabat diperlukan.
+                    {errors.noKadPengenalanSahabat.message}
                   </small>
                 )}
 
