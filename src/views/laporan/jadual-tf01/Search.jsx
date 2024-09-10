@@ -55,10 +55,10 @@ function SearchTf01() {
         setResultTF01(response.data);
         setIsSearchResultTf01Visible(true);
       } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
+        ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
+      ErrorAlert(error);
     }
   };
 
@@ -66,6 +66,7 @@ function SearchTf01() {
     <>
       <div className="page-title">
         <h1>Jadual TF01</h1>
+        
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Laporan
@@ -95,7 +96,7 @@ function SearchTf01() {
                         onChange={(e) => {
                           setSelectedWilayah(e.target.value);
                         }}
-                        aria-invalid={errors.wilayahId ? "true" : "false"}
+                        aria-invalid={errors.kodWilayah ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -113,7 +114,7 @@ function SearchTf01() {
                           ))}
                       </Form.Control>
 
-                      {errors.wilayahId?.type === "required" && (
+                      {errors.kodWilayah?.type === "required" && (
                         <small className="text-danger">
                           Wilayah diperlukan.
                         </small>
@@ -134,7 +135,7 @@ function SearchTf01() {
                         onChange={(e) => {
                           setSelectedCawangan(e.target.value);
                         }}
-                        aria-invalid={errors.cawanganId ? "true" : "false"}
+                        aria-invalid={errors.kodCawangan ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -161,7 +162,7 @@ function SearchTf01() {
                           ))}
                       </Form.Control>
 
-                      {errors.cawanganId?.type === "required" && (
+                      {errors.kodCawangan?.type === "required" && (
                         <small className="text-danger">
                           Cawangan diperlukan.
                         </small>
@@ -182,7 +183,7 @@ function SearchTf01() {
                         onChange={(e) => {
                           setSelectedPusat(e.target.value);
                         }}
-                        aria-invalid={errors.pusatId ? "true" : "false"}
+                        aria-invalid={errors.kodPusat ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -204,7 +205,7 @@ function SearchTf01() {
                           ))}
                       </Form.Control>
 
-                      {errors.pusatId?.type === "required" && (
+                      {errors.kodPusat?.type === "required" && (
                         <small className="text-danger">Pusat diperlukan.</small>
                       )}
                     </Form.Group>
@@ -225,12 +226,7 @@ function SearchTf01() {
 
           {isSearchResultTf01Visible && (
             <div className="laporan-search-result-container">
-              <ResultTF01 
-                resultTF01={resultTF01}
-                selectedWilayah={selectedWilayah}
-                selectedCawangan={selectedCawangan}
-                selectedPusat={selectedPusat}
-              />
+              <ResultTF01 resultTF01={resultTF01} />
             </div>
           )}
 

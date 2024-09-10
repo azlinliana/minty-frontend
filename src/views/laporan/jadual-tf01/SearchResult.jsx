@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import "../../../assets/styles/styles_laporan.css";
 
-function SearchResultTF01({ resultTF01, selectedWilayah, selectedCawangan, selectedPusat }) {
+
+function SearchResultTF01({ resultTF01 }) {
   // Format money value
   const formatMoney = (value) => {
     return value !== null && !isNaN(value)
@@ -12,14 +13,11 @@ function SearchResultTF01({ resultTF01, selectedWilayah, selectedCawangan, selec
         })
       : "-";
   };
-  
-
-  console.log(selectedWilayah);
 
   return (
     <>
       <div className="laporan-search-result-container">
-        <h3>Hasil Carian: Wilayah - {selectedWilayah} , Cawangan - {selectedCawangan} , Pusat - {selectedPusat}</h3>
+        <h3>Hasil Carian: Wilayah - , Cawangan - , Pusat -</h3>
 
         <div>
           <Table responsive striped bordered>

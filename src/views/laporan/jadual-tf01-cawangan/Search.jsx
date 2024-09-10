@@ -50,10 +50,10 @@ function SearchTf01ByCawangan() {
         setResultTF01ByCawangan(response.data);
         setIsSearchResultTf01CawanganVisible(true);
       } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
+        ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
+      ErrorAlert(error);
     }
   };
 
@@ -93,13 +93,14 @@ function SearchTf01ByCawangan() {
                         onChange={(e) => {
                           setSelectedWilayah(e.target.value);
                         }}
-                        aria-invalid={errors.wilayahId ? "true" : "false"}
+                        aria-invalid={errors.kodWilayah ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
                           --Pilih Wilayah--
                         </option>
                         {wilayahOptions
+                          // Sort wilayah options alphabetically by namaWilayah
                           .sort((a, b) =>
                             a.namaWilayah.localeCompare(b.namaWilayah)
                           )
@@ -110,7 +111,7 @@ function SearchTf01ByCawangan() {
                           ))}
                       </Form.Control>
 
-                      {errors.wilayahId?.type === "required" && (
+                      {errors.kodWilayah?.type === "required" && (
                         <small className="text-danger">
                           Wilayah diperlukan.
                         </small>
@@ -131,17 +132,18 @@ function SearchTf01ByCawangan() {
                         onChange={(e) => {
                           setSelectedCawangan(e.target.value);
                         }}
-                        aria-invalid={errors.cawanganId ? "true" : "false"}
+                        aria-invalid={errors.kodCawangan ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
                           --Pilih Cawangan--
                         </option>
                         {cawanganOptions
+                          // Filter options based on the selected wilayah
                           .filter(
                             (item) =>
                               selectedWilayah &&
-                              item.wilayahId === selectedWilayah.kodWilayah
+                              item.wilayahId === selectedWilayah
                           )
                           .sort((a, b) =>
                             a.namaCawangan.localeCompare(b.namaCawangan)
