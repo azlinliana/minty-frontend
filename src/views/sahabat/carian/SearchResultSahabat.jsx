@@ -5,15 +5,19 @@ import IndexPembiayaan from "../pembiayaan/Index";
 import { Breadcrumb, Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function SearchResultSahabat() {
-  // ___________________________________ Frontend ___________________________________
+  // _______________________________ Hook Declaration _______________________________
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // ___________________________________ Frontend ___________________________________
   const goBack = () => {
     navigate(-1);
   }; // Back button
 
-  // ____________________________________ Backend ____________________________________
-  const location = useLocation();
-  const resultSahabat = location.state.resultSahabat; // Display sahabat search result
+  // ____________________________________ Backend ___________________________________
+  // Display sahabat search result
+  const sahabatData = location.state.resultSahabat[0];
+  const sahabatId = sahabatData.id;
 
   return (
     <>
@@ -32,150 +36,148 @@ function SearchResultSahabat() {
         </Breadcrumb>
       </div>
 
-      {resultSahabat.map((sahabatData) => (
-        <div key={sahabatData.noSahabat}>
-          <div className="search-result-id">
-            <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p>
-          </div>
-
-          <div className="hasil-carian-sahabat-content">
-            <div>
-              <div className="hasil-carian-sahabat-title">
-                <h2>Maklumat Sahabat</h2>
-              </div>
-
-              <Container fluid>
-                {/* Nama sahabat */}
-                <Row>
-                  <Col xs={12}>
-                    <Form.Group>
-                      <Form.Label>Nama</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaSahabat}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                {/* No. kad pengenalan sahabat */}
-                <Row>
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>No. Kad Pengenalan</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.noKadPengenalanSahabat}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>No. Sahabat</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.noSahabat}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                {/* Wilayah sahabat */}
-                <Row>
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Wilayah</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaWilayah}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Cawangan</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaCawangan}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                {/* Blok sahabat */}
-                <Row>
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Blok</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaBlok}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Pusat</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaPusat}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                {/* Kumpulan sahabat */}
-                <Row>
-                  <Col xs={6}>
-                    <Form.Group className="sahabat-carian-spacing">
-                      <Form.Label>Kumpulan</Form.Label>
-
-                      <Form.Control
-                        type="text"
-                        value={sahabatData.namaKumpulan}
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-
-            <div className="page-content-div">
-              <hr />
-            </div>
-
-            {/* List pembiayaan */}
-            <IndexPembiayaan
-              resultSahabat={resultSahabat}
-              sahabatId={sahabatData.id}
-            />
-          </div>
-
-          <div className="kembali-btn-container">
-            <Button className="kembali-btn" onClick={goBack}>
-              Kembali
-            </Button>{" "}
-          </div>
+      <div key={sahabatData.noSahabat}>
+        <div className="search-result-id">
+          <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p>
         </div>
-      ))}
+
+        <div className="hasil-carian-sahabat-content">
+          <div>
+            <div className="hasil-carian-sahabat-title">
+              <h2>Maklumat Sahabat</h2>
+            </div>
+
+            <Container fluid>
+              {/* Nama sahabat */}
+              <Row>
+                <Col xs={12}>
+                  <Form.Group>
+                    <Form.Label>Nama</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaSahabat}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* No. kad pengenalan sahabat */}
+              <Row>
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>No. Kad Pengenalan</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.noKadPengenalanSahabat}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>No. Sahabat</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.noSahabat}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* Wilayah sahabat */}
+              <Row>
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>Wilayah</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaWilayah}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>Cawangan</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaCawangan}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* Blok sahabat */}
+              <Row>
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>Blok</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaBlok}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>Pusat</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaPusat}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* Kumpulan sahabat */}
+              <Row>
+                <Col xs={6}>
+                  <Form.Group className="sahabat-carian-spacing">
+                    <Form.Label>Kumpulan</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      value={sahabatData.namaKumpulan}
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+
+          <div className="page-content-div">
+            <hr />
+          </div>
+
+          {/* List pembiayaan */}
+          <IndexPembiayaan
+            resultSahabat={sahabatData}
+            sahabatId={sahabatId}
+          />
+        </div>
+
+        <div className="kembali-btn-container">
+          <Button className="kembali-btn" onClick={goBack}>
+            Kembali
+          </Button>{" "}
+        </div>
+      </div>
     </>
   );
 }
