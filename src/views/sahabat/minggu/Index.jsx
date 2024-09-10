@@ -6,7 +6,7 @@ import { Button, Table, Alert } from "react-bootstrap";
 import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
 function IndexMinggu({
-  resultSahabat,
+  sahabatData,
   sahabatId,
   pembiayaanId,
   pembiayaanSahabatsData,
@@ -19,7 +19,7 @@ function IndexMinggu({
   const clickKemasKiniMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
       state: {
-        resultSahabat,
+        sahabatData,
         sahabatId,
         pembiayaanId,
         mingguId,
@@ -32,7 +32,7 @@ function IndexMinggu({
   const clickLihatMinggu = (mingguId) => {
     navigate("/tracking-inflow-outflow", {
       state: {
-        resultSahabat,
+        sahabatData,
         sahabatId,
         pembiayaanId,
         mingguId,

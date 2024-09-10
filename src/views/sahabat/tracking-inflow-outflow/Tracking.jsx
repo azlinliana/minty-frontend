@@ -17,7 +17,7 @@ function TrackingInflowOutflow() {
   // Get sahabat, minggu and pembiayaan information
   const location = useLocation();
   const {
-    resultSahabat,
+    sahabatData,
     sahabatId,
     pembiayaanId,
     mingguId,
@@ -51,9 +51,7 @@ function TrackingInflowOutflow() {
         </Breadcrumb>
       </div>
 
-      {resultSahabat.map((dataSahabat) => (
-        <MaklumatSahabat key={dataSahabat.id} dataSahabat={dataSahabat} />
-      ))}
+      <MaklumatSahabat key={sahabatData.id} sahabatData={sahabatData} />
 
       <MaklumatMinggu
         sahabatId={sahabatId}

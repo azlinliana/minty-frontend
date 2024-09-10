@@ -167,7 +167,7 @@ function SearchResultSahabat() {
 
           {/* List pembiayaan */}
           <IndexPembiayaan
-            resultSahabat={sahabatData}
+            sahabatData={sahabatData}
             sahabatId={sahabatId}
           />
         </div>
