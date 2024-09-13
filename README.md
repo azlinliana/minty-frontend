@@ -51,19 +51,19 @@ Some of the key features of the project:
    - Click the `Code` dropdown button
    - Click `Open with GitHub Desktop`
    - Follow through with the next steps
-   ```
+   
 3. Navigate to the project directory:
    - You can open the repository on your VS Code
-   ```
+   
 4. Install dependencies:
    - Open the terminal on your VS Code
    - Run:
-   npm install
-   ```
+   ```npm install
+   
 5. Start the project:
    - Run:
-   npm run dev
-   ```
+   ```npm run dev
+   
 
 ## Contact
 
