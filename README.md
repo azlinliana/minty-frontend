@@ -74,9 +74,9 @@ Some of the key features of the project:
 
 ## Further information
 
-- Project Link (Front-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory-web)
-- Project Link (Back-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory)
-- Live Project Link: [GitHub Repository](http://jad.aim.gov.my/)
+- Project Link (Front-end): [GitHub Repository](https://github.com/azlinliana/pbmr-web)
+- Project Link (Back-end): [GitHub Repository](https://github.com/azlinliana/pbmr)
+- Live Project Link: [GitHub Repository](https://pbmrv2.aim.gov.my/)
 
 ## Acknowledgements
 
