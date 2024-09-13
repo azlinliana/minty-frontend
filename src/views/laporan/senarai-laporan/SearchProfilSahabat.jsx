@@ -61,7 +61,6 @@ function SearchProfilSahabat() {
       >
         Cari
       </Button>{" "}
-      
       <Modal
         show={isModalCarianLaporanProfilSahabat}
         onHide={closeModalCarianLaporanProfilSahabat}
@@ -69,7 +68,7 @@ function SearchProfilSahabat() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Carian Laporan Profil Sahabatd</Modal.Title>
+          <Modal.Title>Carian Laporan Profil Sahabat</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
