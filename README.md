@@ -65,8 +65,6 @@ Some of the key features of the project:
    - Run:
    ```sh
    npm run dev
-   
-   
 
 ## Contact
 
