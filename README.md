@@ -58,11 +58,14 @@ Some of the key features of the project:
 4. Install dependencies:
    - Open the terminal on your VS Code
    - Run:
-   `npm install`
+   ```sh
+   npm install
    
 5. Start the project:
    - Run:
-   `npm run dev`
+   ```sh
+   npm run dev
+   
    
 
 ## Contact
