@@ -11,6 +11,7 @@ PBMR (Program Berikhtiar Menambah Rezeki) is a system designed to track Sahabats
   - [Features](#features)
   - [Installation](#installation)
   - [Contact](#contact)
+  - [Further information](#further-information)
   - [Acknowledgements](#acknowledgements)
 
 ## About the Project
@@ -68,8 +69,10 @@ Some of the key features of the project:
 
 ## Contact
 
-- Nur Aina Balqis Mohamad Rosidek - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
 - Nur Azlin Liana Mohd Adlan - [LinkedIn](https://www.linkedin.com/in/nur-azlin-liana-binti-mohd-adlan-4b3220225/) - azlinliana.adlan@gmail.com
+- Nur Aina Balqis Mohamad Rosidek - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
+
+## Further information
 
 - Project Link (Front-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory-web)
 - Project Link (Back-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory)
