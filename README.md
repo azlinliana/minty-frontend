@@ -67,12 +67,12 @@ Some of the key features of the project:
 
 ## Contact
 
-Nur Aina Balqis Mohamad Rosidek - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
-Nur Azlin Liana Mohd Adlan - [LinkedIn](https://www.linkedin.com/in/nur-azlin-liana-binti-mohd-adlan-4b3220225/) - azlinliana.adlan@gmail.com
+- Nur Aina Balqis Mohamad Rosidek - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
+- Nur Azlin Liana Mohd Adlan - [LinkedIn](https://www.linkedin.com/in/nur-azlin-liana-binti-mohd-adlan-4b3220225/) - azlinliana.adlan@gmail.com
 
-Project Link (Front-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory-web)
-Project Link (Back-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory)
-Live Project Link: [GitHub Repository](http://jad.aim.gov.my/)
+- Project Link (Front-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory-web)
+- Project Link (Back-end): [GitHub Repository](https://github.com/nabbysidek/jadhistory)
+- Live Project Link: [GitHub Repository](http://jad.aim.gov.my/)
 
 ## Acknowledgements
 
