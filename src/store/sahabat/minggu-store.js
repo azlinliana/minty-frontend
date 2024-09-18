@@ -26,52 +26,32 @@ export const useMingguStore = create(
     createMingguPembiayaanSahabat: async (
       sahabatId,
       pembiayaanId,
-      mingguPembiayaanSahabatInput,
-      closeModalCreateMingguPembiayaanSahabat
+      mingguPembiayaanSahabatInput
     ) => {
-      try {
-        const response = await axiosCustom.post(
-          `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
-          mingguPembiayaanSahabatInput
-        );
+      const response = await axiosCustom.post(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu`,
+        mingguPembiayaanSahabatInput
+      );
 
-        if (response.status === 200) {
-          set((state) => ({
-            mingguPembiayaanSahabats: {
-              ...state.mingguPembiayaanSahabats,
-              [pembiayaanId]: [
-                ...state.mingguPembiayaanSahabats[pembiayaanId],
-                response.data.mingguPembiayaanSahabatData,
-              ],
-            },
-          }));
+      set((state) => ({
+        mingguPembiayaanSahabats: {
+          ...state.mingguPembiayaanSahabats,
+          [pembiayaanId]: [
+            ...state.mingguPembiayaanSahabats[pembiayaanId],
+            response.data.mingguPembiayaanSahabatData,
+          ],
+        },
+      }));
 
-          closeModalCreateMingguPembiayaanSahabat();
-
-          SuccessAlert(response.data.success);
-        } else {
-          ErrorAlert(response);
-        }
-      } catch (error) {
-        ErrorAlert(error);
-      }
+      return response;
     },
     // Show minggu pembiayaan sahabat
     showMingguPembiayaanSahabat: async (sahabatId, pembiayaanId, mingguId) => {
-      try {
-        const response = await axiosCustom.get(
-          `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
-        );
+      const response = await axiosCustom.get(
+        `/sahabat/${sahabatId}/pembiayaan/${pembiayaanId}/minggu/${mingguId}`
+      );
 
-        set((state) => ({
-          currentMingguPembiayaanSahabat: response.data,
-          mingguPembiayaanSahabats: state.mingguPembiayaanSahabats.map(
-            (minggu) => (minggu.id === mingguId ? response.data : minggu)
-          ),
-        }));
-      } catch (error) {
-        ErrorAlert(error);
-      }
+      set({ currentMingguPembiayaanSahabat: response.data });
     },
     // Edit minggu pembiayaan sahabat
     editMingguPembiayaanSahabat: async (
