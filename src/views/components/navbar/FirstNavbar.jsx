@@ -10,7 +10,7 @@ import axiosCustom from "../../../axios";
 function FirstNavbar() {
   // __________________________________ Frontend __________________________________
   // Link pages
-  const clickAIMLogo = () => navigate("/inflow-outflow");
+  const clickAIMLogo = () => navigate("/carian-sahabat");
 
   // ___________________________________ Backend __________________________________
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function FirstNavbar() {
             <Image
               src={aimLogo}
               height="40"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top org-logo"
             />
           </Navbar.Brand>
 

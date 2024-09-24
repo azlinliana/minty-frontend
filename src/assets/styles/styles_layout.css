@@ -47,6 +47,10 @@
   font-size: 26px;
   text-transform: uppercase;
 }
+
+.org-logo {
+  cursor: pointer;
+}
   
 .logout-btn {
   background-color: white;
