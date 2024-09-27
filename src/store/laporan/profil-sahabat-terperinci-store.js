@@ -9,6 +9,6 @@ export const useProfilSahabatTerperinciStore = create((set) => ({
       `/laporan/profil-sahabat-terperinci/${sahabatId}/${pembiayaanSahabatId}`
     );
 
-    set({ useProfilSahabatTerperinci: response.data });
+    set({ profilSahabatTerperinci: response.data });
   },
 }));

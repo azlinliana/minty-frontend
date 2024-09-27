@@ -16,16 +16,18 @@ const LineChart = ({ selectedChart, data }) => {
 
     let chartData;
 
+    const chartEntries = data.data; // Access the data array from the data object
+
     if (selectedChart === "Graf Inflow") {
-      chartData = createChartData(data, "Inflow", "rgba(60, 179, 113)");
+      chartData = createChartData(chartEntries, "Inflow", "rgba(60, 179, 113)");
     } else if (selectedChart === "Graf Outflow") {
-      chartData = createChartData(data, "Outflow", "rgba(255, 0, 0)");
+      chartData = createChartData(chartEntries, "Outflow", "rgba(255, 0, 0)");
     } else if (selectedChart === "Graf Inflow Outflow") {
       chartData = {
-        labels: data ? data.map((entry) => entry.minggu) : [],
+        labels: chartEntries ? chartEntries.map((entry) => entry.minggu) : [],
         datasets: [
-          createDataset(data, "Inflow", "rgba(60, 179, 113)"),
-          createDataset(data, "Outflow", "rgba(255, 0, 0)"),
+          createDataset(chartEntries, "Inflow", "rgba(60, 179, 113)"),
+          createDataset(chartEntries, "Outflow", "rgba(255, 0, 0)"),
         ],
       };
     }
@@ -47,17 +49,17 @@ const LineChart = ({ selectedChart, data }) => {
     };
   }, [selectedChart, data]);
 
-  const createChartData = (data, label, borderColor) => {
+  const createChartData = (chartEntries, label, borderColor) => {
     return {
-      labels: data ? data.map((entry) => entry.minggu) : [],
-      datasets: [createDataset(data, label, borderColor)],
+      labels: chartEntries ? chartEntries.map((entry) => entry.minggu) : [],
+      datasets: [createDataset(chartEntries, label, borderColor)],
     };
   };
 
-  const createDataset = (data, label, borderColor) => {
+  const createDataset = (chartEntries, label, borderColor) => {
     return {
       label: label,
-      data: data ? data.map((entry) => entry[label.toLowerCase()]) : [],
+      data: chartEntries ? chartEntries.map((entry) => entry[label.toLowerCase()]) : [],
       borderColor: borderColor,
       borderWidth: 2,
       fill: false,

@@ -3,17 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
 
 function SearchResultPembiayaanTerperinciSahabat({
-  resultSahabat,
+  sahabatData,
   sahabatId,
   pembiayaanSahabatTerperincis,
   selectedSkimPembiayaan,
 }) {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+  
   // _____________________________ Frontend & Backend _____________________________
   // Navigate to profil sahabat terperinci along with sahabat and pembiayaan data
-  const navigate = useNavigate();
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
     navigate("/profil-sahabat-terperinci", {
-      state: { resultSahabat, sahabatId, pembiayaanSahabatId },
+      state: { sahabatData, sahabatId, pembiayaanSahabatId },
     });
   };
 
@@ -22,7 +24,7 @@ function SearchResultPembiayaanTerperinciSahabat({
   const filteredPembiayaanSahabats = pembiayaanSahabatTerperincis.filter(
     (pembiayaan) => pembiayaan.namaSkimPembiayaan === selectedSkimPembiayaan
   );
-
+  
   return (
     <>
       <div>

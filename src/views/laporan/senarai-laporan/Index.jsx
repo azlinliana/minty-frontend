@@ -34,7 +34,7 @@ function IndexLaporan() {
             {/* Laporan Profil Sahabat */}
             <tr>
               <td className="laporan-table-index">1</td>
-              <td>Laporan Profil Sahabat</td>
+              <td>Laporan Profail Sahabat</td>
               <td>
                 <SearchProfilSahabat />
               </td>
@@ -43,7 +43,7 @@ function IndexLaporan() {
             {/* Laporan Profil Sahabat Terperinci */}
             <tr>
               <td className="laporan-table-index">2</td>
-              <td>Laporan Profil Sahabat Terperinci</td>
+              <td>Laporan Profail Sahabat Terperinci</td>
               <td>
                 <SearchProfilSahabatTerperinci />
               </td>

@@ -83,7 +83,6 @@ function IndexKodOutflow() {
                     
                     <Button
                       className="delete-btn"
-                      variant="danger"
                       onClick={() => deleteKodOutflow(kodOutflowsData.id)}
                     >
                       Padam

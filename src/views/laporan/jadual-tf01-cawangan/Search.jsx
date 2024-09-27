@@ -5,7 +5,6 @@ import ResultTf01ByCawangan from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
 import { useLokasiStore } from "../../../store/options-store";
-
 import axiosCustom from "../../../axios";
 
 function SearchTf01ByCawangan() {
@@ -29,12 +28,8 @@ function SearchTf01ByCawangan() {
   const [selectedCawangan, setSelectedCawangan] = useState("");
 
   // Display wilayah & cawangan options
-  const { wilayahOptions, displayWilayahs, cawanganOptions, displayCawangans } = useLokasiStore((state) => ({
-    wilayahOptions: state.wilayahOptions,
-    displayWilayahs: state.displayWilayahs,
-    cawanganOptions: state.cawanganOptions,
-    displayCawangans: state.displayCawangans,
-  }));
+  const { wilayahOptions, displayWilayahs, cawanganOptions, displayCawangans } =
+    useLokasiStore();
 
   useEffect(() => {
     displayWilayahs();
@@ -50,14 +45,15 @@ function SearchTf01ByCawangan() {
         `/laporan/carian-jadual-tf01-mengikut-cawangan`,
         jadualTF01ByCawanganInput
       );
+
       if (response.status === 200) {
         setResultTF01ByCawangan(response.data);
         setIsSearchResultTf01CawanganVisible(true);
       } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
+        ErrorAlert(response);
       }
     } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
+      ErrorAlert(error);
     }
   };
 
@@ -93,11 +89,11 @@ function SearchTf01ByCawangan() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("wilayahId", { required: true })}
+                        {...register("kodWilayah", { required: true })}
                         onChange={(e) => {
                           setSelectedWilayah(e.target.value);
                         }}
-                        aria-invalid={errors.wilayahId ? "true" : "false"}
+                        aria-invalid={errors.kodWilayah ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -115,7 +111,7 @@ function SearchTf01ByCawangan() {
                           ))}
                       </Form.Control>
 
-                      {errors.wilayahId?.type === "required" && (
+                      {errors.kodWilayah?.type === "required" && (
                         <small className="text-danger">
                           Wilayah diperlukan.
                         </small>
@@ -132,11 +128,11 @@ function SearchTf01ByCawangan() {
                       <Form.Control
                         as="select"
                         className="form-select"
-                        {...register("cawanganId", { required: true })}
+                        {...register("kodCawangan", { required: true })}
                         onChange={(e) => {
                           setSelectedCawangan(e.target.value);
                         }}
-                        aria-invalid={errors.cawanganId ? "true" : "false"}
+                        aria-invalid={errors.kodCawangan ? "true" : "false"}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -149,7 +145,6 @@ function SearchTf01ByCawangan() {
                               selectedWilayah &&
                               item.wilayahId === selectedWilayah
                           )
-                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
                           .sort((a, b) =>
                             a.namaCawangan.localeCompare(b.namaCawangan)
                           )
@@ -188,6 +183,8 @@ function SearchTf01ByCawangan() {
             <div className="laporan-search-result-container">
               <ResultTf01ByCawangan
                 resultTf01ByCawangan={resultTf01ByCawangan}
+                selectedWilayah={selectedWilayah}
+                selectedCawangan={selectedCawangan}
               />
             </div>
           )}

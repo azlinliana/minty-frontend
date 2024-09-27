@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { useMingguStore } from "../../../store/sahabat/minggu-store";
+import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 
 function CreateMinggu({ sahabatId, pembiayaanId }) {
   // __________________________________ Frontend __________________________________
@@ -26,20 +28,23 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
   // ___________________________________ Backend __________________________________
   // Create minggu pembiayaan sahabat
-  const { createMingguPembiayaanSahabat } = useMingguStore((state) => ({
-    createMingguPembiayaanSahabat: state.createMingguPembiayaanSahabat,
-  }));
+  const { createMingguPembiayaanSahabat } = useMingguStore();
+  
+  const handleCreateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
+    try {
+      const response = await createMingguPembiayaanSahabat(sahabatId, pembiayaanId, mingguPembiayaanSahabatInput);
 
-  // Pass input & close modal
-  const handleCreateMingguPembiayaanSahabat = (
-    addMingguPembiayaanSahabatData
-  ) => {
-    createMingguPembiayaanSahabat(
-      sahabatId,
-      pembiayaanId,
-      addMingguPembiayaanSahabatData,
-      closeModalCreateMingguPembiayaanSahabat
-    );
+      if (response.status === 200) {
+        closeModalCreateMingguPembiayaanSahabat();
+
+        SuccessAlert(response.data.success);
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      console.log(error);
+      ErrorAlert(error);
+    }
   };
 
   return (

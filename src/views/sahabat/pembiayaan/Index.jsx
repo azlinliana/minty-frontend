@@ -8,7 +8,7 @@ import { TfiArrowCircleDown, TfiArrowCircleUp } from "react-icons/tfi";
 import { useSkimPembiayaanStore } from "../../../store/options-store";
 import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
-function IndexPembiayaan({ resultSahabat, sahabatId }) {
+function IndexPembiayaan({ sahabatData, sahabatId }) {
   // __________________________________ Frontend __________________________________
   // Collapsible pembiayaan card
   const [isCardCollapsed, setIsCardCollapsed] = useState({});
@@ -39,11 +39,7 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
     pembiayaanSahabats,
     fetchPembiayaanSahabats,
     deletePembiayaanSahabat,
-  } = usePembiayaanStore((state) => ({
-    pembiayaanSahabats: state.pembiayaanSahabats,
-    fetchPembiayaanSahabats: state.fetchPembiayaanSahabats,
-    deletePembiayaanSahabat: state.deletePembiayaanSahabat,
-  }));
+  } = usePembiayaanStore();
 
   useEffect(() => {
     fetchPembiayaanSahabats(sahabatId);
@@ -191,10 +187,10 @@ function IndexPembiayaan({ resultSahabat, sahabatId }) {
                       }`}
                     >
                       <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
-                      
+
                       {/* List minggu */}
                       <IndexMinggu
-                        resultSahabat={resultSahabat}
+                        sahabatData={sahabatData}
                         sahabatId={sahabatId}
                         pembiayaanId={pembiayaanSahabatsData.id}
                         pembiayaanSahabatsData={pembiayaanSahabatsData}

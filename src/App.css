@@ -77,8 +77,8 @@ a {
 .delete-btn {
   font-size: 0.75em;
   font-weight: 700;
-  border-color: var(--error_red);
-  background-color: var(--error_red);
+  border-color: #FF0000;
+  background-color: #FF0000;
   margin-bottom: 10px;
   --bs-btn-hover-bg: #000000;
 }
@@ -115,8 +115,53 @@ a {
 /* ****** MODAL ****** */
 /* ****************** */
 
-/* .modal-primary-btn {
-  font-weight: 700;
-  border-color: var(--darkcyanblue) !important;
-  background-color: var(--darkcyanblue) !important;
-} */
+/* DeletionAlert.js */
+
+.btn-success {
+  margin: 0 5px;
+}
+
+.btn-modal-danger {
+  background-color: #808080;
+  border-color: #808080;
+}
+
+/* ******************** */
+/* ****** PRINT ****** */
+/* ****************** */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .printable {
+    margin: 0.5in; /* Adjust this value as needed */
+    padding: 0;
+    width: auto; /* Ensure the width is appropriate for printing */
+    height: auto;
+  }
+
+  .page-title,
+  .breadcrumb-previous-link,
+  .laporan-profil-sahabat-details {
+    margin-bottom: 1rem;
+  }
+
+  .page-title h1 {
+    font-size: 24pt; /* Adjust font size for print */
+  }
+
+  .laporan-profil-sahabat-action-bts-container,
+  .kembali-btn-container {
+    display: none; /* Hide buttons during print */
+  }
+
+  /* Force page breaks after certain elements */
+  .printable > * {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-top: 0; /* Reset margin-top to prevent cut off */
+    padding-top: 0.5in; /* Ensure some space at the top after page break */
+  }
+}

@@ -102,7 +102,6 @@ function IndexKodInflow() {
 
                           <Button
                             className="delete-btn"
-                            variant="danger"
                             onClick={() =>
                               deleteKodInflowWithoutKodInflowTerperinci(
                                 kodInflowsData.id
@@ -170,7 +169,6 @@ function IndexKodInflow() {
 
                             <Button
                               className="delete-btn"
-                              variant="danger"
                               onClick={() =>
                                 deleteKodInflowWithKodInflowTerperinci(
                                   kodInflowTerperincisData.id

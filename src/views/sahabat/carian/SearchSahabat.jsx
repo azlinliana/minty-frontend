@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_sahabat.css";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import { useSahabatStore } from "../../../store/sahabat/sahabat-store";
+import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
+import axiosCustom from "../../../axios";
 
 function SearchSahabat() {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+
   // __________________________________ Frontend __________________________________
   // Form validation
   const {
@@ -17,28 +21,24 @@ function SearchSahabat() {
 
   // ___________________________________ Backend __________________________________
   // Search sahabat
-  const { sahabats, searchSahabat } = useSahabatStore((state) => ({
-    sahabats: state.sahabats,
-    searchSahabat: state.searchSahabat,
-  }));
+  const handleSearchSahabat = async (noKadPengenalanSahabatInput) => {
+    try {
+      const response = await axiosCustom.post(
+        `sahabat/search`,
+        noKadPengenalanSahabatInput
+      );
 
-  // Pass input and navigate to the hasil carian sahabat page with the sahabat data
-  const [searchComplete, setSearchComplete] = useState(false);
-
-  const handleSearchSahabat = async (searchSahabatData) => {
-    await searchSahabat(searchSahabatData);
-
-    setSearchComplete(true);
-  };
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (searchComplete && sahabats.length > 0) {
-      navigate("/hasil-carian-sahabat", {
-        state: { resultSahabat: sahabats },
-      });
+      if (response.status === 200) {
+        navigate("/hasil-carian-sahabat", {
+          state: { resultSahabat: response.data },
+        });
+      } else {
+        ErrorAlert(response);
+      }
+    } catch (error) {
+      ErrorAlert(error);
     }
-  }, [sahabats, searchComplete, navigate]);
+  };
 
   return (
     <>
@@ -46,7 +46,7 @@ function SearchSahabat() {
         <h1>Carian Sahabat</h1>
       </div>
 
-      <Container fluid className="sahabat-search-container">
+      <Container className="sahabat-search-container">
         <Form className="sahabat-search-bar" onReset={reset}>
           <Row>
             {/* Carian no. kad pengenalan sahabat */}
@@ -83,7 +83,7 @@ function SearchSahabat() {
                 )}
               </Form.Group>
             </Col>
-            
+
             <Col xs={12} lg={2} className="sahabat-search-button">
               <Form.Group>
                 <div>

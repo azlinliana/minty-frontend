@@ -15,10 +15,12 @@ import {
 import { useLaporanStore } from "../../../store/laporan/laporan-store";
 
 function SearchProfilSahabatTerperinci() {
+  // ______________________________ Hook Declaration ______________________________
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // __________________________________ Frontend __________________________________
   // Back button
-  const navigate = useNavigate();
-
   const goBack = () => {
     navigate(-1);
   };
@@ -33,23 +35,19 @@ function SearchProfilSahabatTerperinci() {
 
   // ___________________________________ Backend __________________________________
   // Display sahabat search result
-  const location = useLocation();
-  const resultSahabat = location.state.resultSahabat;
-  const sahabatId = resultSahabat.id;
+  const sahabatData = location.state.resultSahabat[0];
+  const sahabatId = sahabatData.id;
 
   // List pembiayaan asscociated with sahabat
-  const {
-    pembiayaanSahabatTerperincis,
-    fetchPembiayaanProfilSahabatTerperinci,
-  } = useLaporanStore((state) => ({
-    pembiayaanSahabatTerperincis: state.pembiayaanSahabatTerperincis,
-    fetchPembiayaanProfilSahabatTerperinci:
-      state.fetchPembiayaanProfilSahabatTerperinci,
-  }));
+  const { pembiayaanSahabatTerperincis, fetchPembiayaanProfilSahabatTerperinci } =
+    useLaporanStore();
 
   useEffect(() => {
     fetchPembiayaanProfilSahabatTerperinci(sahabatId);
   }, [fetchPembiayaanProfilSahabatTerperinci, sahabatId]);
+
+  // Select skim pembiayaan from the dropdown
+  const [selectedSkimPembiayaan, setSelectedSkimPembiayaan] = useState("");
 
   // Display pembiayaan sahabat based on selected skim pembiayaan
   const [isSearchResultVisible, setIsSearchResultVisible] = useState(false);
@@ -57,8 +55,6 @@ function SearchProfilSahabatTerperinci() {
   const handleSearchResultPembiayaanVisibility = () => {
     setIsSearchResultVisible(true);
   };
-
-  const [selectedSkimPembiayaan, setSelectedSkimPembiayaan] = useState(""); // Select skim pembiayaan from the dropdown
 
   return (
     <>
@@ -75,7 +71,7 @@ function SearchProfilSahabatTerperinci() {
         </Breadcrumb>
       </div>
 
-      <React.Fragment key={resultSahabat.noSahabat}>
+      <React.Fragment key={sahabatData.noSahabat}>
         {/* Sahabat information */}
         <div>
           <div className="laporan-search-pg-header">
@@ -92,7 +88,7 @@ function SearchProfilSahabatTerperinci() {
                     <Form.Control
                       type="text"
                       {...register("namaSahabat")}
-                      value={resultSahabat.namaSahabat}
+                      value={sahabatData.namaSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -108,7 +104,7 @@ function SearchProfilSahabatTerperinci() {
 
                     <Form.Control
                       type="text"
-                      value={resultSahabat.noKadPengenalanSahabat}
+                      value={sahabatData.noKadPengenalanSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -120,7 +116,7 @@ function SearchProfilSahabatTerperinci() {
 
                     <Form.Control
                       type="text"
-                      value={resultSahabat.noSahabat}
+                      value={sahabatData.noSahabat}
                       readOnly
                     />
                   </Form.Group>
@@ -211,7 +207,7 @@ function SearchProfilSahabatTerperinci() {
         {isSearchResultVisible && (
           <div className="laporan-hasil-carian-skim-pembiayaan-container">
             <SearchResultPembiayaanTerperinciSahabat
-              resultSahabat={resultSahabat}
+              sahabatData={sahabatData}
               sahabatId={sahabatId}
               pembiayaanSahabatTerperincis={pembiayaanSahabatTerperincis}
               selectedSkimPembiayaan={selectedSkimPembiayaan}
