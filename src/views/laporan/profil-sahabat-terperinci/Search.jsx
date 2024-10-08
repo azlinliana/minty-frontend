@@ -39,8 +39,10 @@ function SearchProfilSahabatTerperinci() {
   const sahabatId = sahabatData.id;
 
   // List pembiayaan asscociated with sahabat
-  const { pembiayaanSahabatTerperincis, fetchPembiayaanProfilSahabatTerperinci } =
-    useLaporanStore();
+  const {
+    pembiayaanSahabatTerperincis,
+    fetchPembiayaanProfilSahabatTerperinci,
+  } = useLaporanStore();
 
   useEffect(() => {
     fetchPembiayaanProfilSahabatTerperinci(sahabatId);
@@ -139,11 +141,11 @@ function SearchProfilSahabatTerperinci() {
                 tracking sahabat dahulu.
               </Alert>
             ) : (
-              <Row>
-                <Form onReset={reset}>
+              <Form onReset={reset}>
+                <Row className="align-items-end">
                   <Col xs={12} xl={10}>
                     {/* Skim pembiayaan */}
-                    <Form.Group controlId="skimPembiayaanId" className="mb-3">
+                    <Form.Group controlId="skimPembiayaanId">
                       <Form.Label className="form-label">
                         Skim Pembiayaan
                       </Form.Label>
@@ -188,7 +190,7 @@ function SearchProfilSahabatTerperinci() {
                     </Form.Group>
                   </Col>
 
-                  <Col xs={12} xl={2}>
+                  <Col xs={12} xl={2} className="d-flex">
                     <Button
                       onClick={handleSubmit(
                         handleSearchResultPembiayaanVisibility
@@ -198,8 +200,8 @@ function SearchProfilSahabatTerperinci() {
                       Cari
                     </Button>
                   </Col>
-                </Form>
-              </Row>
+                </Row>
+              </Form>
             )}
           </Container>
         </div>
