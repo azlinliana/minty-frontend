@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Image } from "react-bootstrap";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
-import aimLogo from "../../../assets/aim-logo.svg";
+import mintyLogo from "../../../assets/minty-logo.svg";
 import "../../../assets/styles/styles_layout.css";
 import axiosCustom from "../../../axios";
 
 function FirstNavbar() {
   // __________________________________ Frontend __________________________________
   // Link pages
-  const clickAIMLogo = () => navigate("/carian-sahabat");
+  const clickMintyLogo = () => navigate("/carian-sahabat");
 
   // ___________________________________ Backend __________________________________
   const navigate = useNavigate();
@@ -36,9 +36,9 @@ function FirstNavbar() {
     <>
       <Navbar className="navbar-primary">
         <Container fluid>
-          <Navbar.Brand onClick={clickAIMLogo}>
+          <Navbar.Brand onClick={clickMintyLogo}>
             <Image
-              src={aimLogo}
+              src={mintyLogo}
               height="40"
               className="d-inline-block align-top org-logo"
             />
@@ -46,7 +46,7 @@ function FirstNavbar() {
 
           <Navbar.Collapse className="justify-content-center">
             <div className="d-flex justify-content-center align-items-center">
-              <h5 className="navbar-title">pbmr</h5>
+              <h5 className="navbar-title">Minty</h5>
             </div>
           </Navbar.Collapse>
 

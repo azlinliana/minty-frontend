@@ -6,7 +6,7 @@ import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { BsEyeFill } from "react-icons/bs";
-import aimLogo from "../../assets/aim-logo.svg";
+import mintyLogo from "../../assets/minty-logo.svg";
 import "../../assets/styles/styles_auth.css";
 import axiosCustom from "../../axios";
 
@@ -27,7 +27,7 @@ function SignIn() {
   ];
 
   function openLinkInNewTab() {
-    window.open("https://epenv3.aim.gov.my/", "_blank");
+    window.open("", "_blank");
   }
 
   // Form validation
@@ -70,14 +70,14 @@ function SignIn() {
         <Container fluid="md" className="signin-container">
           <Row>
             <Col md={12} lg={6} className="signin-header">
-              <img src={aimLogo} alt="aim-logo" />
-              <h1>Program Berikhtiar Menambah Rezeki (PBMR)</h1>
+              <img src={mintyLogo} alt="minty-logo" />
+              <h1>Minty</h1>
             </Col>
 
             <Col md={12} lg={6} className="signin-form-container">
               <div className="signin-form-header">
-                <h3>PBMR</h3>
-                <h2>Selamat Datang</h2>
+                <h3>Minty</h3>
+                <h2>Welcome</h2>
               </div>
 
               <Form onSubmit={handleSubmit(handleSignIn)} onReset={reset}>

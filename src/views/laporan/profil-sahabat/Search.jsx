@@ -136,14 +136,15 @@ function SearchProfilSahabat() {
                 tracking sahabat dahulu.
               </Alert>
             ) : (
-              <Form onReset={reset} >
-                <Row className="align-items-end">
+              <Row>
+                <Form onReset={reset}>
                   <Col xs={12} xl={10}>
                     {/* Skim pembiayaan */}
-                    <Form.Group controlId="skimPembiayaanId">
+                    <Form.Group controlId="skimPembiayaanId" className="mb-3">
                       <Form.Label className="form-label">
                         Skim Pembiayaan
                       </Form.Label>
+
                       <Form.Control
                         as="select"
                         className="form-select"
@@ -183,7 +184,8 @@ function SearchProfilSahabat() {
                       )}
                     </Form.Group>
                   </Col>
-                  <Col xs={12} xl={2} className="d-flex">
+
+                  <Col xs={12} xl={2}>
                     <Button
                       onClick={handleSubmit(
                         handleSearchResultPembiayaanVisibility
@@ -193,8 +195,8 @@ function SearchProfilSahabat() {
                       Cari
                     </Button>
                   </Col>
-                </Row>
-              </Form>
+                </Form>
+              </Row>
             )}
           </Container>
         </div>
