@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
+import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { BsEyeFill } from "react-icons/bs";
 import mintyLogo from "../../assets/minty-logo.svg";
 import "../../assets/styles/styles_auth.css";
-import axiosCustom from "../../axios";
 
 function SignIn() {
   // __________________________________ Frontend __________________________________
@@ -17,10 +15,10 @@ function SignIn() {
   const handleCloseModalForgotPassword = () => setIsModalForgotPassword(false);
   const handleIsModalForgotPassword = () => setIsModalForgotPassword(true);
 
-  // Redirect user to e-Penyelenggaraan
+  // Redirect user to another pages
   const clickForgotPasswordLink = [
     {
-      label: "Ke e-Penyelenggaraan",
+      label: "Redirect to another pages",
       variant: "primary",
       onClick: openLinkInNewTab,
     },
@@ -29,6 +27,13 @@ function SignIn() {
   function openLinkInNewTab() {
     window.open("", "_blank");
   }
+
+  // Redirect to dashboard
+  const navigate = useNavigate();
+
+  function clickSignIn() {
+    navigate("/dashboard");
+  };
 
   // Form validation
   const {
@@ -45,25 +50,6 @@ function SignIn() {
     setShowPassword(!showPassword);
   };
 
-  // ___________________________________ Backend __________________________________
-  const navigate = useNavigate();
-
-  const handleSignIn = async (signInInput) => {
-    try {
-      const response = await axiosCustom.post(`/auth/login`, signInInput);
-
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
-
-        navigate("/carian-sahabat");
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error); // Error related to API response or client side
-    }
-  };
-
   return (
     <>
       <div className="pg-container">
@@ -71,6 +57,7 @@ function SignIn() {
           <Row>
             <Col md={12} lg={6} className="signin-header">
               <img src={mintyLogo} alt="minty-logo" />
+
               <h1>Minty</h1>
             </Col>
 
@@ -80,35 +67,35 @@ function SignIn() {
                 <h2>Welcome</h2>
               </div>
 
-              <Form onSubmit={handleSubmit(handleSignIn)} onReset={reset}>
+              <Form onSubmit={handleSubmit()} onReset={reset}>
                 <Form.Group className="mb-3">
-                  <Form.Label className="form-label">Id Kakitangan</Form.Label>
+                  <Form.Label className="form-label">Username</Form.Label>
 
                   <Form.Control
                     type="text"
-                    {...register("idKakitangan", { required: true })}
+                    {...register("username", { required: true })}
                     aria-invalid={errors.staffId ? "true" : "false"}
-                    placeholder="Masukkan id kakitangan"
+                    placeholder="Username"
                   />
 
-                  {errors.idKakitangan?.type === "required" && (
+                  {errors.username?.type === "required" && (
                     <small className="text-danger">
-                      Id kakitangan diperlukan.
+                      Username is required.
                     </small>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label className="form-label">
-                    Kata Laluan Kakitangan
+                    Password
                   </Form.Label>
 
                   <InputGroup>
                     <Form.Control
                       type={showPassword ? "text" : "password"}
-                      {...register("kataLaluanKakitangan", { required: true })}
+                      {...register("password", { required: true })}
                       aria-invalid={errors.password ? "true" : "false"}
-                      placeholder="Masukkan kata laluan"
+                      placeholder="Password"
                     />
 
                     <InputGroup.Text
@@ -119,43 +106,42 @@ function SignIn() {
                     </InputGroup.Text>
                   </InputGroup>
 
-                  {errors.kataLaluanKakitangan?.type === "required" && (
+                  {errors.password?.type === "required" && (
                     <small className="text-danger">
-                      Kata laluan diperlukan.
+                      Password is required.
                     </small>
                   )}
                 </Form.Group>
 
                 <Button
                   className="signin-submit-button"
-                  onClick={handleSubmit(handleSignIn)}
+                  onClick={handleSubmit(clickSignIn)}
                 >
-                  Log Masuk
+                  Sign In
                 </Button>
               </Form>
 
               {/* Forgot password */}
               <div className="signin-cta">
                 <p>
-                  Terlupa kata laluan?{" "}
+                  Forgot password?{" "}
                   <Link
                     to="#"
                     className="forgot-password-anchor"
                     onClick={handleIsModalForgotPassword}
                   >
-                    Klik di sini.
+                    Click here.
                   </Link>
                 </p>
 
                 <ForgotPasswordModal
                   show={isModalForgotPassword}
                   handleClose={handleCloseModalForgotPassword}
-                  title="Tetap Semula Kata Laluan"
+                  title="Forgot Password"
                   content={
                     <p>
                       {" "}
-                      Sila tetapkan kata laluan anda semula melalui
-                      e-Penyelenggaraan.
+                      Please reset you password.
                     </p>
                   }
                   buttons={clickForgotPasswordLink}
