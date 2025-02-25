@@ -31,13 +31,6 @@ a {
 /* ****** BUTTONS ****** */
 /* ******************** */
 
-.btn {
-  font-weight: 700;
-  border-color: #13315C;
-  background-color: #13315C;
-  --bs-btn-hover-bg: #07459c;
-}
-
 .kembali-btn-container, .tambah-baru-btn-container {
   display: flex;
   justify-content: flex-end;
