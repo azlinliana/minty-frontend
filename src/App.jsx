@@ -34,6 +34,7 @@ import TooManyRequests from "./views/http_requests/TooManyRequests";
 import InternalServer from "./views/http_requests/InternalServer";
 import ServiceUnavailable from "./views/http_requests/ServiceUnavailable";
 import UnknownError from "./views/http_requests/UnknownError";
+import SignUp from "./views/auth/SignUp";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Routes>
           {/* Auth */}
           <Route path="/" element={<SignIn />} index />
+          <Route path="/sign-up" element={<SignUp />} />
 
           <Route element={<MainLayout />}>
             {/* Sahabat */}
