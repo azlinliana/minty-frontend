@@ -3,6 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
+import SignUp from "./views/auth/SignUp";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -34,7 +35,6 @@ import TooManyRequests from "./views/http_requests/TooManyRequests";
 import InternalServer from "./views/http_requests/InternalServer";
 import ServiceUnavailable from "./views/http_requests/ServiceUnavailable";
 import UnknownError from "./views/http_requests/UnknownError";
-import SignUp from "./views/auth/SignUp";
 
 function App() {
   return (

@@ -1,69 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
-import { RiEyeCloseLine } from "react-icons/ri";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
+import { RiEyeCloseLine } from "react-icons/ri";
+import { useForm } from "react-hook-form";
 import mintyLogo from "../../assets/minty-logo.svg";
-import "../../assets/styles/signup.css";
-import axiosCustom from "../../axios";
 
-export default function SignUp() {
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-      } = useForm();
+const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-      const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-  
-  useEffect(() => {
-    document.body.classList.add("signup-page");
-    return () => {
-      document.body.classList.remove("signup-page");
-    };
-  }, []);
 
-  const navigate = useNavigate();
-
-  const handleSignUp = async (signUpInput) => {
-    try {
-      const response = await axiosCustom.post(`/auth/register`, signUpInput);
-      if (response.status === 201) {
-        navigate("/signup");
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+  const handleSignUp = (data) => {
+    console.log("User Registered:", data);
+    reset();
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-box">
-        <div className="signup-left">
+    <div className="signin-container">
+      <div className="signin-box">
+        <div className="signin-left">
           <div className="logo-container">
             <img src={mintyLogo} alt="minty-logo" />
           </div>
         </div>
-        <div className="signup-right">
+        <div className="signin-right">
           <h3>Minty</h3>
-          <h2>Create an Account</h2>
+          <h2>Create Account</h2>
           <form onSubmit={handleSubmit(handleSignUp)} onReset={reset}>
             <div className="input-group">
-              <label>Full Name</label>
+              <label>Username</label>
               <input
                 type="text"
-                {...register("fullName", { required: true })}
-                placeholder="Your full name . . ."
+                {...register("username", { required: true })}
+                placeholder="Your username . . ."
+                aria-invalid={errors.username ? "true" : "false"}
               />
-              {errors.fullName && <small>Full Name is required</small>}
+              {errors.username && <small>A username is required</small>}
             </div>
 
             <div className="input-group">
@@ -72,6 +53,7 @@ export default function SignUp() {
                 type="email"
                 {...register("email", { required: true })}
                 placeholder="Your email . . ."
+                aria-invalid={errors.email ? "true" : "false"}
               />
               {errors.email && <small>Email is required</small>}
             </div>
@@ -82,7 +64,7 @@ export default function SignUp() {
                 <input
                   type={showPassword ? "text" : "password"}
                   {...register("password", { required: true })}
-                  placeholder="Your password . . ."
+                  placeholder="Create a password . . ."
                 />
                 <div className="toggle-password" onClick={toggleShowPassword}>
                   {showPassword ? <BsEyeFill /> : <RiEyeCloseLine />}
@@ -103,19 +85,21 @@ export default function SignUp() {
                   {showConfirmPassword ? <BsEyeFill /> : <RiEyeCloseLine />}
                 </div>
               </div>
-              {errors.confirmPassword && <small>Confirmation is required</small>}
+              {errors.confirmPassword && <small>Confirm Password is required</small>}
             </div>
 
-            <button type="submit" className="signup-button">Sign Up</button>
+            <button type="submit" className="signin-button">Sign Up</button>
           </form>
 
           <div className="forgot-password">
             <p>
-              Already have an account? <Link to="/signup">Sign In</Link>
+              Already have an account? <Link to="/">Sign In</Link>
             </p>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default SignUp;
