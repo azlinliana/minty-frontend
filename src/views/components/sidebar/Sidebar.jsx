@@ -36,32 +36,32 @@ function Sidebar() {
   }, []);
 
   // ___________________________________ Backend __________________________________
-  const [userSidebarInfo, setUserSidebarInfo] = useState();
+  // const [userSidebarInfo, setUserSidebarInfo] = useState();
 
-  const showUserSidebarInfo = useCallback(async () => {
-    try {
-      const response = await axiosCustom.get(`user`);
+  // const showUserSidebarInfo = useCallback(async () => {
+    // try {
+    //   const response = await axiosCustom.get(`user`);
 
-      if (response.status === 200) {
-        setUserSidebarInfo(response.data);
-      } else {
-        ErrorAlert(response); // Error from the backend or unknow error from the server side
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  }, []);
+    //   if (response.status === 200) {
+    //     setUserSidebarInfo(response.data);
+    //   } else {
+    //     ErrorAlert(response); // Error from the backend or unknow error from the server side
+    //   }
+    // } catch (error) {
+    //   ErrorAlert(error);
+    // }
+  // }, []);
 
-  useEffect(() => {
-    showUserSidebarInfo();
-  }, [showUserSidebarInfo]);
+  // useEffect(() => {
+  //   showUserSidebarInfo();
+  // }, [showUserSidebarInfo]);
 
   // Generate filtered sidebar menu based on user's roles
-  const filteredSidebarMenu = userSidebarInfo
-    ? SidebarMenu.filter(
-        (item) => item.roles.includes(Number(userSidebarInfo.perananId)) // Match string and number for perananId value
-      )
-    : [];
+  // const filteredSidebarMenu = userSidebarInfo
+  //   ? SidebarMenu.filter(
+        // (item) => item.roles.includes(Number(userSidebarInfo.perananId)) // Match string and number for perananId value
+    //   )
+    // : [];
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : "shrink"}`}>
@@ -75,27 +75,30 @@ function Sidebar() {
         </button>
       </div>
 
-      {isSidebarOpen && userSidebarInfo && (
+      {/* {isSidebarOpen && userSidebarInfo && ( */}
         <div className="sidebar-user-profile">
           <BsPersonCircle className="sidebar-user-icon" />
 
-          <h5>{userSidebarInfo.namaKakitangan}</h5>
+          {/* <h5>{userSidebarInfo.namaKakitangan}</h5> */}
+          <h5>Nama Kakitangan</h5>
 
-          <h6>{userSidebarInfo.lokasiKakitangan}</h6>
+          {/* <h6>{userSidebarInfo.lokasiKakitangan}</h6> */}
+          <h6>Lokasi Kakitangan</h6>
         </div>
-      )}
+      {/* )} */}
 
       <ListGroup variant="flush">
-        {filteredSidebarMenu.map((item, index) => (
+        {/* {filteredSidebarMenu.map((item, index) => ( */}
+          {/* <ListGroup.Item key={index}> */}
+          {SidebarMenu.map((item, index) => (
           <ListGroup.Item key={index}>
             <Link to={item.path}>
               <span className="sidebar-icon">{item.icon}</span>
-              {isSidebarOpen && (
-                <span className="sidebar-title">{item.title}</span>
-              )}
+              {isSidebarOpen && <span className="sidebar-title">{item.title}</span>}
             </Link>
           </ListGroup.Item>
-        ))}
+          ))}
+        {/* ))} */}
       </ListGroup>
     </div>
   );
