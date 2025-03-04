@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { BsEyeFill } from "react-icons/bs";
 import mintyLogo from "../../assets/minty-logo.svg";
@@ -72,7 +71,7 @@ function SignIn() {
         <div className="signin-right">
           <h3>Minty</h3>
           <h2>Welcome</h2>
-          <form onSubmit={handleSubmit(handleSignIn)} onReset={reset}>
+          <form onSubmit={handleSubmit()} onReset={reset}>
             <div className="input-group">
               <label>Username</label>
               <input
