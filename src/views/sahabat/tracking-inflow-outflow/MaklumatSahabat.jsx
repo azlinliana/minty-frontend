@@ -2,7 +2,8 @@ import React from "react";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import "../../../assets/styles/styles_sahabat.css";
 
-function MaklumatSahabat({ sahabatData }) {
+// function MaklumatSahabat({ sahabatData }) {
+function MaklumatSahabat() {
   return (
     <div className="card-tambah-minggu-sahabat-content">
       <h2>Maklumat Sahabat</h2>
@@ -16,7 +17,7 @@ function MaklumatSahabat({ sahabatData }) {
                   <Form.Label>Nama</Form.Label>
                   <Form.Control
                     type="text"
-                    value={sahabatData.namaSahabat}
+                    value="Nama Sahabat"
                     disabled
                   />
                 </Form.Group>
@@ -29,7 +30,7 @@ function MaklumatSahabat({ sahabatData }) {
                   <Form.Label>No. Kad Pengenalan</Form.Label>
                   <Form.Control
                     type="text"
-                    value={sahabatData.noKadPengenalanSahabat}
+                    value="No Kad Pengenalan Sahabat"
                     disabled
                   />
                 </Form.Group>
@@ -39,7 +40,7 @@ function MaklumatSahabat({ sahabatData }) {
                   <Form.Label>No. Sahabat</Form.Label>
                   <Form.Control
                     type="text"
-                    value={sahabatData.noSahabat}
+                    value="No Sahabat"
                     disabled
                   />
                 </Form.Group>

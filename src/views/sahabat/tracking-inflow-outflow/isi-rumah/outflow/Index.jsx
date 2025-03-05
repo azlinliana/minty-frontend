@@ -5,31 +5,32 @@ import EditTrackingOutflowIsiRumah from "./Edit";
 import { Button, Table } from "react-bootstrap";
 import { useOutflowIsiRumahStore } from "../../../../../store/sahabat/outflow-isi-rumah-store";
 
-function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodOutflowOptions }) {
+// function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodOutflowOptions }) {
+function IndexTrackingOutflowIsiRumah() {
   // ___________________________________ Backend __________________________________
   // List & delete outflow isi rumah sahabat
-  const { outflowIsiRumahs, fetchOutflowIsiRumahs, deleteOutflowIsiRumah } =
-    useOutflowIsiRumahStore((state) => ({
-      outflowIsiRumahs: state.outflowIsiRumahs[isiRumahId] || [],
-      fetchOutflowIsiRumahs: state.fetchOutflowIsiRumahs,
-      deleteOutflowIsiRumah: state.deleteOutflowIsiRumah,
-    }));
+  // const { outflowIsiRumahs, fetchOutflowIsiRumahs, deleteOutflowIsiRumah } =
+  //   useOutflowIsiRumahStore((state) => ({
+  //     outflowIsiRumahs: state.outflowIsiRumahs[isiRumahId] || [],
+  //     fetchOutflowIsiRumahs: state.fetchOutflowIsiRumahs,
+  //     deleteOutflowIsiRumah: state.deleteOutflowIsiRumah,
+  //   }));
 
-  useEffect(() => {
-    fetchOutflowIsiRumahs(isiRumahId);
-  }, [fetchOutflowIsiRumahs, isiRumahId]);
+  // useEffect(() => {
+  //   fetchOutflowIsiRumahs(isiRumahId);
+  // }, [fetchOutflowIsiRumahs, isiRumahId]);
 
   return (
     <>
       <div className="sahabat-pembiayaan-table-container">
-        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+        {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
           <div className="tambah-baru-btn-container">
             <CreateTrackingOutflowIsiRumah
-              isiRumahId={isiRumahId}
-              kodOutflowOptions={kodOutflowOptions}
+              // isiRumahId={isiRumahId}
+              // kodOutflowOptions={kodOutflowOptions}
             />
           </div>
-        ) : null}
+        {/* ) : null} */}
 
         <Table responsive>
           <thead>
@@ -38,13 +39,13 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
               <th>Kod Outflow</th>
               <th>Keterangan Kod Outflow</th>
               <th>Amaun (RM)</th>
-              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+              {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                 <th>Tindakan</th>
-              ) : null}
+              {/* ) : null} */}
             </tr>
           </thead>
           <tbody>
-            {outflowIsiRumahs.length === 0 ? (
+            {/* {outflowIsiRumahs.length === 0 ? ( */}
               <tr>
                 <td colSpan="7">
                   <center>
@@ -54,36 +55,35 @@ function IndexTrackingOutflowIsiRumah({ isiRumahId, pembiayaanSahabatsData, kodO
                   </center>
                 </td>
               </tr>
-            ) : (
-              outflowIsiRumahs.map((outflowIsiRumahsData, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{outflowIsiRumahsData.kodOutflow}</td>
-                  <td>
-                    {outflowIsiRumahsData.keteranganKodOutflow}
-                  </td>
-                  <td>{outflowIsiRumahsData.amaunOutflow}</td>
-                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            {/* ) : ( */}
+              {/* outflowIsiRumahs.map((outflowIsiRumahsData, key) => ( */}
+                {/* <tr key={key}> */}
+                <tr>
+                  <td>Bil.</td>
+                  <td>Kod Outflow</td>
+                  <td>Keterangan Kod Outflow</td>
+                  <td>Amaun Outflow</td>
+                  {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                     <td>
                       <EditTrackingOutflowIsiRumah
-                        isiRumahId={isiRumahId}
-                        outflowIsiRumahId={outflowIsiRumahsData.id}
-                        outflowIsiRumah={outflowIsiRumahsData}
-                        kodOutflowOptions={kodOutflowOptions}
+                        // isiRumahId={isiRumahId}
+                        // outflowIsiRumahId={outflowIsiRumahsData.id}
+                        // outflowIsiRumah={outflowIsiRumahsData}
+                        // kodOutflowOptions={kodOutflowOptions}
                       />
                       <Button
                         className="delete-btn"
-                        onClick={() =>
-                          deleteOutflowIsiRumah(isiRumahId, outflowIsiRumahsData.id)
-                        }
+                        // onClick={() =>
+                        //   deleteOutflowIsiRumah(isiRumahId, outflowIsiRumahsData.id)
+                        // }
                       >
                         Padam
                       </Button>{" "}
                     </td>
-                  ) : null}
+                  {/* ) : null} */}
                 </tr>
-              ))
-            )}
+              {/* )) */}
+            {/* )} */}
           </tbody>
         </Table>
       </div>

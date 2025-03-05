@@ -25,10 +25,10 @@ function IndexTrackingSahabat({
 
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
-  useEffect(() => {
-    displayKodInflows();
-    displayKodOutflows();
-  }, [displayKodInflows, displayKodOutflows]);
+  // useEffect(() => {
+  //   displayKodInflows();
+  //   displayKodOutflows();
+  // }, [displayKodInflows, displayKodOutflows]);
   // ==============================================================================
   
   return (

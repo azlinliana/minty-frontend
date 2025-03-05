@@ -3,21 +3,37 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useAktivitiStore } from "../../../../store/sahabat/aktiviti-store";
 
+// function EditAktiviti({
+//   sahabatId,
+//   pembiayaanId,
+//   aktivitiId,
+//   aktivitiSahabat,
+//   selectedAktiviti,
+//   setSelectedAktiviti,
+//   selectedKeteranganAktiviti,
+//   setSelectedKeteranganAktiviti,
+//   selectedProjekAktiviti,
+//   setSelectedProjekAktiviti,
+//   aktivitiOptions,
+//   keteranganAktivitiOptions,
+//   projekAktivitiOptions,
+//   dimensiOptions,
+// }) {
 function EditAktiviti({
-  sahabatId,
-  pembiayaanId,
-  aktivitiId,
-  aktivitiSahabat,
-  selectedAktiviti,
-  setSelectedAktiviti,
-  selectedKeteranganAktiviti,
-  setSelectedKeteranganAktiviti,
-  selectedProjekAktiviti,
-  setSelectedProjekAktiviti,
-  aktivitiOptions,
-  keteranganAktivitiOptions,
-  projekAktivitiOptions,
-  dimensiOptions,
+  // sahabatId,
+  // pembiayaanId,
+  // aktivitiId,
+  // aktivitiSahabat,
+  // selectedAktiviti,
+  // setSelectedAktiviti,
+  // selectedKeteranganAktiviti,
+  // setSelectedKeteranganAktiviti,
+  // selectedProjekAktiviti,
+  // setSelectedProjekAktiviti,
+  // aktivitiOptions,
+  // keteranganAktivitiOptions,
+  // projekAktivitiOptions,
+  // dimensiOptions,
 }) {
   // __________________________________ Frontend __________________________________
   // Form validation
@@ -31,36 +47,36 @@ function EditAktiviti({
 
   // _____________________________ Frontend & Backend _____________________________
   // Match data from zustand & backend
-  const findOptionId = (options, key, value) => {
-    const option = options.find((option) => option[key] === value);
+  // const findOptionId = (options, key, value) => {
+  //   const option = options.find((option) => option[key] === value);
 
-    return option ? option.id : "";
-  };
+  //   return option ? option.id : "";
+  // };
 
   // Match data
-  const kegiatanId = findOptionId(
-    aktivitiOptions,
-    "jenisKegiatan",
-    aktivitiSahabat.jenisKegiatan
-  );
+  // const kegiatanId = findOptionId(
+  //   aktivitiOptions,
+  //   "jenisKegiatan",
+  //   aktivitiSahabat.jenisKegiatan
+  // );
 
-  const keteranganKegiatanId = findOptionId(
-    keteranganAktivitiOptions,
-    "jenisKeteranganKegiatan",
-    aktivitiSahabat.jenisKeteranganKegiatan
-  );
+  // const keteranganKegiatanId = findOptionId(
+  //   keteranganAktivitiOptions,
+  //   "jenisKeteranganKegiatan",
+  //   aktivitiSahabat.jenisKeteranganKegiatan
+  // );
 
-  const projekKegiatanId = findOptionId(
-    projekAktivitiOptions,
-    "jenisProjekKegiatan",
-    aktivitiSahabat.jenisProjekKegiatan
-  );
+  // const projekKegiatanId = findOptionId(
+  //   projekAktivitiOptions,
+  //   "jenisProjekKegiatan",
+  //   aktivitiSahabat.jenisProjekKegiatan
+  // );
 
-  const dimensiId = findOptionId(
-    dimensiOptions,
-    "kodDimensi",
-    aktivitiSahabat.kodDimensi
-  );
+  // const dimensiId = findOptionId(
+  //   dimensiOptions,
+  //   "kodDimensi",
+  //   aktivitiSahabat.kodDimensi
+  // );
 
   // Modal
   const [isModalEditAktivitiSahabat, setIsModalEditAktivitiSahabat] =
@@ -73,70 +89,70 @@ function EditAktiviti({
     setIsModalEditAktivitiSahabat(false);
 
     // Reset previous form input
-    const resetFields = {
-      kegiatanId: kegiatanId,
-      keteranganKegiatanId: keteranganKegiatanId,
-      projekKegiatanId: projekKegiatanId,
-      dimensiId: dimensiId,
-      pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
-      keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
-      jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
-    };
+    // const resetFields = {
+    //   kegiatanId: kegiatanId,
+    //   keteranganKegiatanId: keteranganKegiatanId,
+    //   projekKegiatanId: projekKegiatanId,
+    //   dimensiId: dimensiId,
+    //   pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
+    //   keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
+    //   jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
+    // };
 
-    reset(resetFields);
+    // reset(resetFields);
   };
 
   // Set default values when the edit aktiviti modal is opened
-  const [formData, setFormData] = useState({
-    kegiatanId: "",
-    keteranganKegiatanId: "",
-    projekKegiatanId: "",
-    dimensiId: "",
-    pengurusDanaAktiviti: "",
-    keteranganLainAktiviti: "",
-    jumlahPinjamanAktiviti: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   kegiatanId: "",
+  //   keteranganKegiatanId: "",
+  //   projekKegiatanId: "",
+  //   dimensiId: "",
+  //   pengurusDanaAktiviti: "",
+  //   keteranganLainAktiviti: "",
+  //   jumlahPinjamanAktiviti: "",
+  // });
 
-  useEffect(() => {
-    // Populate form data
-    setValue("kegiatanId", kegiatanId);
-    setValue("keteranganKegiatanId", keteranganKegiatanId);
-    setValue("projekKegiatanId", projekKegiatanId);
-    setValue("dimensiId", dimensiId);
-    setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
-    setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
-    setValue(
-      "jumlahPinjamanAktiviti",
-      parseFloat(aktivitiSahabat.jumlahPinjamanAktiviti).toFixed(2)
-    );
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      kegiatanId,
-      keteranganKegiatanId,
-      projekKegiatanId,
-      dimensiId,
-      pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
-      keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
-      jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
-    }));
-  }, [aktivitiSahabat, setValue]);
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue("kegiatanId", kegiatanId);
+  //   setValue("keteranganKegiatanId", keteranganKegiatanId);
+  //   setValue("projekKegiatanId", projekKegiatanId);
+  //   setValue("dimensiId", dimensiId);
+  //   setValue("pengurusDanaAktiviti", aktivitiSahabat.pengurusDanaAktiviti);
+  //   setValue("keteranganLainAktiviti", aktivitiSahabat.keteranganLainAktiviti);
+  //   setValue(
+  //     "jumlahPinjamanAktiviti",
+  //     parseFloat(aktivitiSahabat.jumlahPinjamanAktiviti).toFixed(2)
+  //   );
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     kegiatanId,
+  //     keteranganKegiatanId,
+  //     projekKegiatanId,
+  //     dimensiId,
+  //     pengurusDanaAktiviti: aktivitiSahabat.pengurusDanaAktiviti,
+  //     keteranganLainAktiviti: aktivitiSahabat.keteranganLainAktiviti,
+  //     jumlahPinjamanAktiviti: aktivitiSahabat.jumlahPinjamanAktiviti,
+  //   }));
+  // }, [aktivitiSahabat, setValue]);
 
   // ___________________________________ Backend __________________________________
   // Edit aktiviti sahabat
-  const { editAktivitiSahabat } = useAktivitiStore((state) => ({
-    editAktivitiSahabat: state.editAktivitiSahabat,
-  }));
+  // const { editAktivitiSahabat } = useAktivitiStore((state) => ({
+  //   editAktivitiSahabat: state.editAktivitiSahabat,
+  // }));
 
   // Pass input & close modal
   const handleEditAktivitiSahabat = (editAktivitiSahabatData) => {
-    editAktivitiSahabat(
-      sahabatId,
-      pembiayaanId,
-      aktivitiId,
-      editAktivitiSahabatData,
-      closeModalEditAktivitiSahabat
-    );
+    // editAktivitiSahabat(
+    //   sahabatId,
+    //   pembiayaanId,
+    //   aktivitiId,
+    //   editAktivitiSahabatData,
+    //   closeModalEditAktivitiSahabat
+    // );
   };
 
   return (
@@ -164,27 +180,27 @@ function EditAktiviti({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("kegiatanId", { required: true })}
-                onChange={(e) => {
-                  setSelectedAktiviti(e.target.value);
-                }}
-                aria-invalid={errors.kegiatanId ? "true" : "false"}
+                // {...register("kegiatanId", { required: true })}
+                // onChange={(e) => {
+                //   setSelectedAktiviti(e.target.value);
+                // }}
+                // aria-invalid={errors.kegiatanId ? "true" : "false"}
                 defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Aktiviti--
                 </option>
 
-                {aktivitiOptions.map((aktiviti) => (
+                {/* {aktivitiOptions.map((aktiviti) => (
                   <option key={aktiviti.id} value={aktiviti.id}>
                     {aktiviti.jenisKegiatan}
                   </option>
-                ))}
+                ))} */}
               </Form.Control>
 
-              {errors.kegiatanId?.type === "required" && (
+              {/* {errors.kegiatanId?.type === "required" && ( */}
                 <small className="text-danger">Aktiviti diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Keterangan Kegiatan */}
@@ -196,18 +212,18 @@ function EditAktiviti({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("keteranganKegiatanId", { required: true })}
-                onChange={(e) => {
-                  setSelectedKeteranganAktiviti(e.target.value);
-                }}
-                aria-invalid={errors.keteranganKegiatanId ? "true" : "false"}
+                // {...register("keteranganKegiatanId", { required: true })}
+                // onChange={(e) => {
+                //   setSelectedKeteranganAktiviti(e.target.value);
+                // }}
+                // aria-invalid={errors.keteranganKegiatanId ? "true" : "false"}
                 defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Keterangan Kegiatan--
                 </option>
 
-                {keteranganAktivitiOptions
+                {/* {keteranganAktivitiOptions
                   .filter(
                     (item) =>
                       selectedAktiviti && item.kegiatanId === selectedAktiviti
@@ -219,14 +235,14 @@ function EditAktiviti({
                     >
                       {keteranganAktiviti.jenisKeteranganKegiatan}
                     </option>
-                  ))}
+                  ))} */}
               </Form.Control>
 
-              {errors.keteranganKegiatanId?.type === "required" && (
+              {/* {errors.keteranganKegiatanId?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan kegiatan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Projek Aktiviti */}
@@ -236,18 +252,18 @@ function EditAktiviti({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("projekKegiatanId", { required: true })}
-                onChange={(e) => {
-                  setSelectedProjekAktiviti(e.target.value);
-                }}
-                aria-invalid={errors.projekKegiatanId ? "true" : "false"}
+                // {...register("projekKegiatanId", { required: true })}
+                // onChange={(e) => {
+                //   setSelectedProjekAktiviti(e.target.value);
+                // }}
+                // aria-invalid={errors.projekKegiatanId ? "true" : "false"}
                 defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Projek Aktiviti--
                 </option>
 
-                {projekAktivitiOptions
+                {/* {projekAktivitiOptions
                   .filter(
                     (item) =>
                       selectedKeteranganAktiviti &&
@@ -257,14 +273,14 @@ function EditAktiviti({
                     <option key={projekAktiviti.id} value={projekAktiviti.id}>
                       {projekAktiviti.jenisProjekKegiatan}
                     </option>
-                  ))}
+                  ))} */}
               </Form.Control>
 
-              {errors.projekKegiatanId?.type === "required" && (
+              {/* {errors.projekKegiatanId?.type === "required" && ( */}
                 <small className="text-danger">
                   Projek aktiviti diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Dimensi */}
@@ -274,24 +290,24 @@ function EditAktiviti({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("dimensiId", { required: true })}
-                aria-invalid={errors.dimensiId ? "true" : "false"}
+                // {...register("dimensiId", { required: true })}
+                // aria-invalid={errors.dimensiId ? "true" : "false"}
               >
                 <option value="" disabled>
                   --Pilih Kod Dimensi--
                 </option>
-                {dimensiOptions
+                {/* {dimensiOptions
                   .sort((a, b) => a.kodDimensi.localeCompare(b.kodDimensi))
                   .map((kodDimensi) => (
                     <option key={kodDimensi.id} value={kodDimensi.id}>
                       {kodDimensi.kodDimensi} - {kodDimensi.keteranganDimensi}
                     </option>
-                  ))}
+                  ))} */}
               </Form.Control>
 
-              {errors.dimensiId?.type === "required" && (
+              {/* {errors.dimensiId?.type === "required" && ( */}
                 <small className="text-danger">Kod dimensi diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Pengurusan Dana */}
@@ -301,8 +317,8 @@ function EditAktiviti({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("pengurusDanaAktiviti", { required: true })}
-                aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
+                // {...register("pengurusDanaAktiviti", { required: true })}
+                // aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
               >
                 <option value="" disabled>
                   --Pilih Pengurus Dana Sahabat--
@@ -311,18 +327,18 @@ function EditAktiviti({
                 <option value="PS - PARTNERSHIP">PS - PARTNERSHIP</option>
                 <option value="PL - PERNIAGAAN">PL - PIPELINER</option>
 
-                {errors.pengurusDanaAktiviti?.type === "required" && (
+                {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
                   <small className="text-danger">
                     Pengurusan dana diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Control>
 
-              {errors.pengurusDanaAktiviti?.type === "required" && (
+              {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
                 <small className="text-danger">
                   Pengurusan dana diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Keterangan Lain Aktiviti */}
@@ -333,8 +349,8 @@ function EditAktiviti({
 
               <Form.Control
                 type="text"
-                {...register("keteranganLainAktiviti")}
-                aria-invalid={errors.keteranganLainAktiviti ? "true" : "false"}
+                // {...register("keteranganLainAktiviti")}
+                // aria-invalid={errors.keteranganLainAktiviti ? "true" : "false"}
                 placeholder="Masukkan keterangan untuk lain-lain"
               />
             </Form.Group>
@@ -350,40 +366,40 @@ function EditAktiviti({
                 min="0.00"
                 max="10000.00"
                 step="0.01"
-                {...register("jumlahPinjamanAktiviti", {
-                  required: "Jumlah pinjaman diperlukan.",
-                  valueAsNumber: true, // Ensure value is treated as a number
-                  validate: {
-                    isGreaterThanZero: (value) => {
-                      return (
-                        parseFloat(value) >= 0.01 ||
-                        "Jumlah pinjaman haruslah sekurang-kurangnya 0.01 atau lebih."
-                      );
-                    },
-                  },
-                })}
-                onBlur={(e) => {
-                  const currentValue = parseFloat(e.target.value);
-                  if (!isNaN(currentValue)) {
-                    setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
-                  }
-                }}                
-                aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
+                // {...register("jumlahPinjamanAktiviti", {
+                //   required: "Jumlah pinjaman diperlukan.",
+                //   valueAsNumber: true, // Ensure value is treated as a number
+                //   validate: {
+                //     isGreaterThanZero: (value) => {
+                //       return (
+                //         parseFloat(value) >= 0.01 ||
+                //         "Jumlah pinjaman haruslah sekurang-kurangnya 0.01 atau lebih."
+                //       );
+                //     },
+                //   },
+                // })}
+                // onBlur={(e) => {
+                //   const currentValue = parseFloat(e.target.value);
+                //   if (!isNaN(currentValue)) {
+                //     setValue("jumlahPinjamanAktiviti", currentValue.toFixed(2)); // Format to two decimal places
+                //   }
+                // }}                
+                // aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
                 placeholder="Masukkan jumlah pinjaman (RM)"
               />
 
-              {errors.jumlahPinjamanAktiviti?.type === "required" && (
+              {/* {errors.jumlahPinjamanAktiviti?.type === "required" && ( */}
                 <small className="text-danger">
                   Jumlah pinjaman diperlukan.
                 </small>
-              )}
+              {/* )} */}
 
-              {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && (
+              {/* {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && ( */}
                 <small className="text-danger">
                   Jumlah pinjaman aktiviti haruslah sekurang-kurangnya 0.01 atau
                   lebih.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 
