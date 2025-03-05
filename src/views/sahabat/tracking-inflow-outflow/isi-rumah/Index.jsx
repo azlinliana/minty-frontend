@@ -85,8 +85,7 @@ function IndexTrackingIsiRumah() {
             <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
               {/* {isiRumahSahabats.map((isiRumahSahabatsData, key) => ( */}
                 {/* <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}> */}
-                <Tab title="">
-                  <div>
+                <Tab eventKey="1" title="Isi Rumah 1">                  <div>
                     {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                       <div className="tabs-isi-rumah-actions-container">
                         <DropdownButton
@@ -169,14 +168,14 @@ function IndexTrackingIsiRumah() {
                         id="tracking-inflow-outflow-isi-rumah"
                         className="mb-3"
                         activeKey={activeTab.key}
-                        // onSelect={(key) =>
-                        //   handleTabInflowOutflowIsiRumahChange(
-                        //     key,
-                        //     key === "tracking-inflow-isi-rumah"
-                        //       ? "Inflow"
-                        //       : "Outflow"
-                        //   )
-                        // }
+                        onSelect={(key) =>
+                          handleTabInflowOutflowIsiRumahChange(
+                            key,
+                            key === "tracking-inflow-isi-rumah"
+                              ? "Inflow"
+                              : "Outflow"
+                          )
+                        }
                       >
                         <Tab
                           eventKey="tracking-inflow-isi-rumah"
