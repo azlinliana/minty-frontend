@@ -52,7 +52,7 @@ function EditPembiayaan({}) {
     //   statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
     // };
 
-    reset(resetFields);
+    // reset(resetFields);
   };
 
   // Set default values when the edit pembiayaan modal is opened
@@ -105,9 +105,15 @@ function EditPembiayaan({}) {
   return (
     <>
       <div>
-        <span href="#" onClick={openModalEditPembiayaanSahabat}>
+        {/* <span href="#" onClick={openModalEditPembiayaanSahabat}>
           Edit
-        </span>{" "}
+        </span>{" "} */}
+        <span 
+          role="button" 
+          onClick={openModalEditPembiayaanSahabat}
+        >
+          Edit
+        </span>
 
         <Modal
           show={isModalEditPembiayaanSahabat}
@@ -128,8 +134,8 @@ function EditPembiayaan({}) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("skimPembiayaanId", { required: true })}
-                  aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
+                  // {...register("skimPembiayaanId", { required: true })}
+                  // aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                 >
                   <option value="" disabled>
                     --Pilih Skim Pembiayaan--
@@ -142,11 +148,11 @@ function EditPembiayaan({}) {
                   ))} */}
                 </Form.Control>
 
-                {errors.skimPembiayaanId?.type === "required" && (
+                {/* {errors.skimPembiayaanId?.type === "required" && ( */}
                   <small className="text-danger">
                     Skim pembiayaan diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               {/* Status pembiayaan */}
@@ -159,8 +165,8 @@ function EditPembiayaan({}) {
                   <Form.Control
                     as="select"
                     className="form-select"
-                    {...register("statusPembiayaan", { required: true })}
-                    aria-invalid={errors.statusPembiayaan ? "true" : "false"}
+                    // {...register("statusPembiayaan", { required: true })}
+                    // aria-invalid={errors.statusPembiayaan ? "true" : "false"}
                   >
                     <option value="" disabled>
                       --Pilih Status Pembiayaan--
@@ -169,11 +175,11 @@ function EditPembiayaan({}) {
                     <option value="SELESAI">SELESAI</option>
                   </Form.Control>
 
-                  {errors.statusPembiayaan?.type === "required" && (
+                  {/* {errors.statusPembiayaan?.type === "required" && ( */}
                     <small className="text-danger">
                       Status pembiayaan diperlukan.
                     </small>
-                  )}
+                  {/* )} */}
                 </Form.Group>
               {/* )} */}
             </Modal.Body>
