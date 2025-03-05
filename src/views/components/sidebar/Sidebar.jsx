@@ -80,10 +80,12 @@ function Sidebar() {
           <BsPersonCircle className="sidebar-user-icon" />
 
           {/* <h5>{userSidebarInfo.namaKakitangan}</h5> */}
-          <h5>Nama Kakitangan</h5>
+          <h5>Hi, Azlin!</h5>
+          {/* <h5 className="sidebar-user-profile">Hi, {userSidebarInfo?.namaKakitangan || "Nama Kakitangan"}!</h5> */}
+
 
           {/* <h6>{userSidebarInfo.lokasiKakitangan}</h6> */}
-          <h6>Lokasi Kakitangan</h6>
+          {/* <h6>Lokasi Kakitangan</h6> */}
         </div>
       )}
 

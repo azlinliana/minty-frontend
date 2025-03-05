@@ -1,6 +1,5 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Navbar } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import SidebarMenu from "../sidebar/SidebarMenu";
 import "../../../assets/styles/styles_layout.css";
 
@@ -33,7 +32,8 @@ function SecondNavbar() {
     <>
       <div className="page-title-strip-container">
         <Container fluid>
-          <div className="page-title-strip">{pageTitle}</div>
+          {/* <div className="page-title-strip">{pageTitle}</div> */}
+          <div className="page-title-strip">PAGE TITLE</div>
         </Container>
       </div>
     </>

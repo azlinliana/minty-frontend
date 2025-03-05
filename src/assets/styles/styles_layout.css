@@ -21,6 +21,7 @@
 
 .navbar-primary{
   background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .logout-icon {
@@ -149,7 +150,9 @@
 }
   
 .sidebar-user-profile h5 {
+  font-weight: 600;
   font-size: 1.25em;
+  margin-top: 10px;
   padding: 10px 10px 2px 5px;
 }
   
