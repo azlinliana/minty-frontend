@@ -75,7 +75,7 @@ function Sidebar() {
         </button>
       </div>
 
-      {/* {isSidebarOpen && userSidebarInfo && ( */}
+      {isSidebarOpen && (
         <div className="sidebar-user-profile">
           <BsPersonCircle className="sidebar-user-icon" />
 
@@ -85,18 +85,18 @@ function Sidebar() {
           {/* <h6>{userSidebarInfo.lokasiKakitangan}</h6> */}
           <h6>Lokasi Kakitangan</h6>
         </div>
-      {/* )} */}
+      )}
 
       <ListGroup variant="flush">
         {/* {filteredSidebarMenu.map((item, index) => ( */}
           {/* <ListGroup.Item key={index}> */}
           {SidebarMenu.map((item, index) => (
-          <ListGroup.Item key={index}>
-            <Link to={item.path}>
-              <span className="sidebar-icon">{item.icon}</span>
-              {isSidebarOpen && <span className="sidebar-title">{item.title}</span>}
-            </Link>
-          </ListGroup.Item>
+            <ListGroup.Item key={index}>
+              <Link to={item.path}>
+                <span className="sidebar-icon">{item.icon}</span>
+                {isSidebarOpen && <span className="sidebar-title">{item.title}</span>}
+              </Link>
+            </ListGroup.Item>
           ))}
         {/* ))} */}
       </ListGroup>
