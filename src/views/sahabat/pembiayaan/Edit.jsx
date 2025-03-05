@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { Button, Modal, Form } from "react-bootstrap";
 import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
-function EditPembiayaan({
-  sahabatId,
-  pembiayaanId,
-  pembiayaanSahabat,
-  skimPembiayaanOptions,
-  checkIndexMingguConditionEachPembiayaan,
-}) {
+// function EditPembiayaan({
+//   sahabatId,
+//   pembiayaanId,
+//   pembiayaanSahabat,
+//   skimPembiayaanOptions,
+//   checkIndexMingguConditionEachPembiayaan,
+// }) {
+function EditPembiayaan({}) {
   // __________________________________ Frontend __________________________________
   // Form validation
   const {
@@ -22,18 +23,18 @@ function EditPembiayaan({
 
   // _____________________________ Frontend & Backend _____________________________
   // Match data from zustand & backend
-  const findOptionId = (options, key, value) => {
-    const option = options.find((option) => option[key] === value);
+  // const findOptionId = (options, key, value) => {
+  //   const option = options.find((option) => option[key] === value);
 
-    return option ? option.id : "";
-  };
+  //   return option ? option.id : "";
+  // };
 
   // Match data
-  const skimPembiayaanId = findOptionId(
-    skimPembiayaanOptions,
-    "namaSkimPembiayaan",
-    pembiayaanSahabat.namaSkimPembiayaan
-  );
+  // const skimPembiayaanId = findOptionId(
+  //   skimPembiayaanOptions,
+  //   "namaSkimPembiayaan",
+  //   pembiayaanSahabat.namaSkimPembiayaan
+  // );
 
   // Modal
   const [isModalEditPembiayaanSahabat, setIsModalEditPembiayaanSahabat] =
@@ -46,10 +47,10 @@ function EditPembiayaan({
     setIsModalEditPembiayaanSahabat(false);
 
     // Reset previous form input
-    const resetFields = {
-      skimPembiayaanId: skimPembiayaanId,
-      statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
-    };
+    // const resetFields = {
+    //   skimPembiayaanId: skimPembiayaanId,
+    //   statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
+    // };
 
     reset(resetFields);
   };
@@ -60,46 +61,46 @@ function EditPembiayaan({
     statusPembiayaan: "",
   });
 
-  useEffect(() => {
+  // useEffect(() => {
     // Populate form data
-    setValue("skimPembiayaanId", skimPembiayaanId);
-    setValue("statusPembiayaan", pembiayaanSahabat.statusPembiayaan);
+    // setValue("skimPembiayaanId", skimPembiayaanId);
+    // setValue("statusPembiayaan", pembiayaanSahabat.statusPembiayaan);
 
     // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      skimPembiayaanId,
-      statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
-    }));
-  }, [pembiayaanSahabat, setValue]);
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   skimPembiayaanId,
+    //   statusPembiayaan: pembiayaanSahabat.statusPembiayaan,
+    // }));
+  // }, [pembiayaanSahabat, setValue]);
 
   // ___________________________________ Backend __________________________________
   // Edit pembiayaan sahabat
-  const { editPembiayaanSahabat } = usePembiayaanStore((state) => ({
-    editPembiayaanSahabat: state.editPembiayaanSahabat,
-  }));
+  // const { editPembiayaanSahabat } = usePembiayaanStore((state) => ({
+  //   editPembiayaanSahabat: state.editPembiayaanSahabat,
+  // }));
 
   // Pass input & close modal
   const handleEditPembiayaanSahabat = (editPembiayaanSahabatData) => {
-    editPembiayaanSahabat(
-      sahabatId,
-      pembiayaanId,
-      editPembiayaanSahabatData,
-      closeModalEditPembiayaanSahabat
-    );
+    // editPembiayaanSahabat(
+    //   sahabatId,
+    //   pembiayaanId,
+    //   editPembiayaanSahabatData,
+    //   closeModalEditPembiayaanSahabat
+    // );
   };
 
   // ======================== Frontend & Backend ====================================
   // |    IndexPembiayaan, EditPembiayaan, IndexMinggu                              |
   // |    Hidden status pembiayaan case                                             |
   // ================================================================================
-  const conditionResult = checkIndexMingguConditionEachPembiayaan.find(
-    (condition) => condition.pembiayaanId === pembiayaanId
-  )?.conditionsResults;
+  // const conditionResult = checkIndexMingguConditionEachPembiayaan.find(
+  //   (condition) => condition.pembiayaanId === pembiayaanId
+  // )?.conditionsResults;
 
   // Get the result from props
   // Need to be checked as this part of hidden status pembiayaan field is not working anymore
-  const hideStatusPembiayaan = conditionResult;
+  // const hideStatusPembiayaan = conditionResult;
 
   return (
     <>
@@ -134,11 +135,11 @@ function EditPembiayaan({
                     --Pilih Skim Pembiayaan--
                   </option>
 
-                  {skimPembiayaanOptions.map((skimPembiayaan) => (
+                  {/* {skimPembiayaanOptions.map((skimPembiayaan) => (
                     <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
                       {skimPembiayaan.namaSkimPembiayaan}
                     </option>
-                  ))}
+                  ))} */}
                 </Form.Control>
 
                 {errors.skimPembiayaanId?.type === "required" && (
@@ -149,7 +150,7 @@ function EditPembiayaan({
               </Form.Group>
 
               {/* Status pembiayaan */}
-              {hideStatusPembiayaan ? null : (
+              {/* {hideStatusPembiayaan ? null : ( */}
                 <Form.Group controlId="statusPembiayaan" className="mb-3">
                   <Form.Label className="form-label">
                     Status Pembiayaan
@@ -174,7 +175,7 @@ function EditPembiayaan({
                     </small>
                   )}
                 </Form.Group>
-              )}
+              {/* )} */}
             </Modal.Body>
 
             <Modal.Footer>
