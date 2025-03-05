@@ -68,9 +68,9 @@ function CreatePembiayaan() {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("skimPembiayaanId", { required: true })}
+                  // {...register("skimPembiayaanId", { required: true })}
                   onChange={(e) => {}}
-                  aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
+                  // aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                   defaultValue=""
                 >
                   <option value="" disabled>
@@ -83,11 +83,11 @@ function CreatePembiayaan() {
                   ))} */}
                 </Form.Control>
 
-                {errors.skimPembiayaanId?.type === "required" && (
+                {/* {errors.skimPembiayaanId?.type === "required" && ( */}
                   <small className="text-danger">
                     Skim pembiayaan diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Form>
           </Modal.Body>
