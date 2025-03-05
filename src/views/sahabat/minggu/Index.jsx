@@ -215,22 +215,22 @@ function IndexMinggu() {
                           {/* Render Edit button */}
                           <Button
                             className="edit-btn"
-                            // onClick={() =>
-                            //   clickKemasKiniMinggu(
-                            //     mingguPembiayaanSahabatsData.id
-                            //   )
-                            // }
+                            onClick={() =>
+                              clickKemasKiniMinggu(
+                                // mingguPembiayaanSahabatsData.id
+                              )
+                            }
                           >
                             Edit
                           </Button>{" "}
                           {/* Render Padam button */}
                           <Button
                             className="delete-btn"
-                            // onClick={() =>
-                            //   deleteMingguPembiayaanSahabat(
-                            //     mingguPembiayaanSahabatsData.id
-                            //   )
-                            // }
+                            onClick={() =>
+                              deleteMingguPembiayaanSahabat(
+                                // mingguPembiayaanSahabatsData.id
+                              )
+                            }
                           >
                             Padam
                           </Button>{" "}
@@ -239,9 +239,11 @@ function IndexMinggu() {
                         {/* Render Lihat button when pembiayaan status is SELESAI */}
                         <Button
                           className="show-btn sc-show-btn-completed-pembiayaan"
-                          // onClick={() =>
-                          //   clickLihatMinggu(mingguPembiayaanSahabatsData.id)
-                          // }
+                          onClick={() =>
+                            clickLihatMinggu(
+                              // mingguPembiayaanSahabatsData.id
+                            )
+                          }
                         >
                           Lihat
                         </Button>

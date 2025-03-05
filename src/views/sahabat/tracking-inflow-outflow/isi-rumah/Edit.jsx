@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
 
-function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) {
+// function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) {
+function EditTrackingIsiRumah() {
   // __________________________________ Frontend __________________________________
   // Form validation
   const {
@@ -16,18 +17,18 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
 
   // _____________________________ Frontend & Backend _____________________________
   // Match data from zustand & backend
-  const findOptionId = (options, key, value) => {
-    const option = options.find((option) => option[key] === value);
+  // const findOptionId = (options, key, value) => {
+  //   const option = options.find((option) => option[key] === value);
 
-    return option ? option.id : "";
-  };
+  //   return option ? option.id : "";
+  // };
 
   // Match data
-  const hubunganId = findOptionId(
-    hubunganOptions,
-    "kodHubungan",
-    isiRumahSahabat.hubungan
-  );
+  // const hubunganId = findOptionId(
+  //   hubunganOptions,
+  //   "kodHubungan",
+  //   isiRumahSahabat.hubungan
+  // );
 
   // Modal
   const [isModalEditIsiRumah, setIsModalEditIsiRumah] = useState(false);
@@ -38,13 +39,13 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
     setIsModalEditIsiRumah(false);
 
     // Reset previous form input
-    const resetFields = {
-      noKadPengenalanIsiRumah: isiRumahSahabat.noKadPengenalanIsiRumah,
-      namaIsiRumah: isiRumahSahabat.namaIsiRumah,
-      hubunganId: hubunganId,
-    };
+    // const resetFields = {
+    //   noKadPengenalanIsiRumah: isiRumahSahabat.noKadPengenalanIsiRumah,
+    //   namaIsiRumah: isiRumahSahabat.namaIsiRumah,
+    //   hubunganId: hubunganId,
+    // };
 
-    reset(resetFields);
+    // reset(resetFields);
   };
 
   // Set default values when the edit isi rumah modal is opened
@@ -54,36 +55,36 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
     hubunganId: "",
   });
 
-  useEffect(() => {
-    // Populate form data
-    setValue(
-      "noKadPengenalanIsiRumah",
-      isiRumahSahabat.noKadPengenalanIsiRumah
-    );
-    setValue("namaIsiRumah", isiRumahSahabat.namaIsiRumah);
-    setValue("hubunganId", hubunganId);
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue(
+  //     "noKadPengenalanIsiRumah",
+  //     isiRumahSahabat.noKadPengenalanIsiRumah
+  //   );
+  //   setValue("namaIsiRumah", isiRumahSahabat.namaIsiRumah);
+  //   setValue("hubunganId", hubunganId);
 
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      noKadPengenalanIsiRumah: isiRumahSahabat.noKadPengenalanIsiRumah,
-      namaIsiRumah: isiRumahSahabat.namaIsiRumah,
-      hubunganId,
-    }));
-  }, [isiRumahSahabat, setValue]);
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     noKadPengenalanIsiRumah: isiRumahSahabat.noKadPengenalanIsiRumah,
+  //     namaIsiRumah: isiRumahSahabat.namaIsiRumah,
+  //     hubunganId,
+  //   }));
+  // }, [isiRumahSahabat, setValue]);
 
   // ___________________________________ Backend __________________________________
-  const { editIsiRumahSahabat } = useIsiRumahStore((state) => ({
-    editIsiRumahSahabat: state.editIsiRumahSahabat,
-  }));
+  // const { editIsiRumahSahabat } = useIsiRumahStore((state) => ({
+  //   editIsiRumahSahabat: state.editIsiRumahSahabat,
+  // }));
 
   // Pass input & close modal
   const handleEditIsiRumah = (editIsiRumahData) => {
-    editIsiRumahSahabat(
-      isiRumahId,
-      editIsiRumahData,
-      closeModalEditIsiRumah
-    );
+    // editIsiRumahSahabat(
+    //   isiRumahId,
+    //   editIsiRumahData,
+    //   closeModalEditIsiRumah
+    // );
   };
 
   return (
@@ -111,33 +112,33 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
 
                 <Form.Control
                   type="text"
-                  {...register("noKadPengenalanIsiRumah", {
-                    required: "No. kad pengenalan isi rumah diperlukan.",
-                    pattern: {
-                      value: /^\d{12}$/,
-                      message:
-                        "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
-                    },
-                  })}
-                  aria-invalid={
-                    errors.noKadPengenalanIsiRumah ? "true" : "false"
-                  }
+                  // {...register("noKadPengenalanIsiRumah", {
+                  //   required: "No. kad pengenalan isi rumah diperlukan.",
+                  //   pattern: {
+                  //     value: /^\d{12}$/,
+                  //     message:
+                  //       "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
+                  //   },
+                  // })}
+                  // aria-invalid={
+                  //   errors.noKadPengenalanIsiRumah ? "true" : "false"
+                  // }
                   placeholder="Masukkan no. kad pengenalan isi rumah"
                 />
 
                 {/* Validate required field */}
-                {errors.noKadPengenalanIsiRumah?.type === "required" && (
+                {/* {errors.noKadPengenalanIsiRumah?.type === "required" && ( */}
                   <small className="text-danger">
                     No. kad pengenalan isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
 
                 {/* Validate pattern field */}
-                {errors.noKadPengenalanIsiRumah?.type === "pattern" && (
+                {/* {errors.noKadPengenalanIsiRumah?.type === "pattern" && ( */}
                   <small className="text-danger">
-                    {errors.noKadPengenalanIsiRumah.message}
+                    {/* {errors.noKadPengenalanIsiRumah.message} */}
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               {/* Nama isi rumah */}
@@ -146,15 +147,15 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
 
                 <Form.Control
                   type="text"
-                  {...register("namaIsiRumah", { required: true })}
-                  aria-invalid={errors.namaIsiRumah ? "true" : "false"}
+                  // {...register("namaIsiRumah", { required: true })}
+                  // aria-invalid={errors.namaIsiRumah ? "true" : "false"}
                   placeholder="Masukkan nama isi rumah"
                 />
-                {errors.namaIsiRumah?.type === "required" && (
+                {/* {errors.namaIsiRumah?.type === "required" && ( */}
                   <small className="text-danger">
                     Nama isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               {/* Hubungan */}
@@ -164,25 +165,25 @@ function EditTrackingIsiRumah({ isiRumahId, isiRumahSahabat, hubunganOptions }) 
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("hubunganId", { required: true })}
-                  aria-invalid={errors.hubunganId ? "true" : "false"}
+                  // {...register("hubunganId", { required: true })}
+                  // aria-invalid={errors.hubunganId ? "true" : "false"}
                   defaultValue=""
                 >
                   <option value="" disabled>
                     --Pilih Hubungan--
                   </option>
-                  {hubunganOptions.map((hubungan) => (
+                  {/* {hubunganOptions.map((hubungan) => (
                     <option key={hubungan.id} value={hubungan.id}>
                       {hubungan.kodHubungan}
                     </option>
-                  ))}
+                  ))} */}
                 </Form.Control>
 
-                {errors.hubunganId?.type === "required" && (
+                {/* {errors.hubunganId?.type === "required" && ( */}
                   <small className="text-danger">
                     Hubungan isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 

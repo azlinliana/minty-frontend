@@ -7,7 +7,8 @@ import { FaPlus } from "react-icons/fa";
 import axiosCustom from "../../../../axios";
 import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
 
-function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
+// function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
+function CreateTrackingIsiRumah() {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateIsiRumah, setIsModalCreateIsiRumah] = useState(false);
@@ -29,13 +30,13 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
 
   // ___________________________________ Backend __________________________________
   // Create isi rumah
-  const { createIsiRumahSahabat } = useIsiRumahStore((state) => ({
-    createIsiRumahSahabat: state.createIsiRumahSahabat,
-  }));
+  // const { createIsiRumahSahabat } = useIsiRumahStore((state) => ({
+  //   createIsiRumahSahabat: state.createIsiRumahSahabat,
+  // }));
 
   // Pass input & close modal
   const handleCreateIsiRumah = (addIsiRumahData) => {
-    createIsiRumahSahabat(mingguId, addIsiRumahData, closeModalCreateIsiRumah);
+    // createIsiRumahSahabat(mingguId, addIsiRumahData, closeModalCreateIsiRumah);
   };
 
   return (
@@ -64,33 +65,33 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
 
                 <Form.Control
                   type="text"
-                  {...register("noKadPengenalanIsiRumah", {
-                    required: "No. kad pengenalan isi rumah diperlukan.",
-                    pattern: {
-                      value: /^\d{12}$/,
-                      message:
-                        "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
-                    },
-                  })}
-                  aria-invalid={
-                    errors.noKadPengenalanIsiRumah ? "true" : "false"
-                  }
+                  // {...register("noKadPengenalanIsiRumah", {
+                  //   required: "No. kad pengenalan isi rumah diperlukan.",
+                  //   pattern: {
+                  //     value: /^\d{12}$/,
+                  //     message:
+                  //       "No. kad pengenalan isi rumah perlu mengandungi 12 digit.",
+                  //   },
+                  // })}
+                  // aria-invalid={
+                  //   errors.noKadPengenalanIsiRumah ? "true" : "false"
+                  // }
                   placeholder="Masukkan no. kad pengenalan isi rumah"
                 />
 
                 {/* Validate required field */}
-                {errors.noKadPengenalanIsiRumah?.type === "required" && (
+                {/* {errors.noKadPengenalanIsiRumah?.type === "required" && ( */}
                   <small className="text-danger">
                     No. kad pengenalan isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
 
                 {/* Validate pattern field */}
-                {errors.noKadPengenalanIsiRumah?.type === "pattern" && (
+                {/* {errors.noKadPengenalanIsiRumah?.type === "pattern" && ( */}
                   <small className="text-danger">
-                    {errors.noKadPengenalanIsiRumah.message}
+                    {/* {errors.noKadPengenalanIsiRumah.message} */}
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="namaIsiRumah" className="mb-3">
@@ -98,16 +99,16 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
 
                 <Form.Control
                   type="text"
-                  {...register("namaIsiRumah", { required: true })}
-                  aria-invalid={errors.namaIsiRumah ? "true" : "false"}
+                  // {...register("namaIsiRumah", { required: true })}
+                  // aria-invalid={errors.namaIsiRumah ? "true" : "false"}
                   placeholder="Masukkan nama isi rumah"
                 />
 
-                {errors.namaIsiRumah?.type === "required" && (
+                {/* {errors.namaIsiRumah?.type === "required" && ( */}
                   <small className="text-danger">
                     Nama isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="hubunganId" className="mb-3">
@@ -116,25 +117,25 @@ function CreateTrackingIsiRumah({ mingguId, hubunganOptions }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("hubunganId", { required: true })}
-                  aria-invalid={errors.hubunganId ? "true" : "false"}
+                  // {...register("hubunganId", { required: true })}
+                  // aria-invalid={errors.hubunganId ? "true" : "false"}
                   defaultValue=""
                 >
                   <option value="" disabled>
                     --Pilih Hubungan--
                   </option>
-                  {hubunganOptions.map((hubungan) => (
+                  {/* {hubunganOptions.map((hubungan) => (
                     <option key={hubungan.id} value={hubungan.id}>
                       {hubungan.kodHubungan}
                     </option>
-                  ))}
+                  ))} */}
                 </Form.Control>
 
-                {errors.hubunganId?.type === "required" && (
+                {/* {errors.hubunganId?.type === "required" && ( */}
                   <small className="text-danger">
                     Hubungan isi rumah diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 

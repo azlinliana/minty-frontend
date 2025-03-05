@@ -45,9 +45,9 @@ const VerticalStepper = ({
 
   // Expand the stepper when statusPembiayaan is SELESAI
   const [expandedSteps, setExpandedSteps] = useState(
-    pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
-      ? steps.map((_, index) => index)
-      : []
+    // pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
+    //   ? steps.map((_, index) => index)
+    //   : []
   );
   const [aktivitiDataAvailable, setAktivitiDataAvailable] = useState(true);
 
@@ -102,91 +102,92 @@ const VerticalStepper = ({
           },
         }}
       >
-        {steps.map((step, index) => (
-          <Step key={index} expanded={expandedSteps.includes(index)}>
+        {/* {steps.map((step, index) => ( */}
+          {/* <Step key={index} expanded={expandedSteps.includes(index)}> */}
+          <Step>
             <StepLabel
               optional={
-                index === steps.length - 1 ? (
+                // index === steps.length - 1 ? (
                   <Typography variant="caption">
                     Borang tamat di sini
                   </Typography>
-                ) : null
+                // ) : null
               }
             >
-              {step.label}
+              Step Label
             </StepLabel>
 
             <StepContent>
-              {index === 0 ? (
+              {/* {index === 0 ? ( */}
                 <IndexAktiviti
-                  sahabatId={sahabatId}
-                  pembiayaanId={pembiayaanId}
-                  pembiayaanSahabatsData={pembiayaanSahabatsData}
-                  onDataAvailableChange={setAktivitiDataAvailable} // Pass the function to IndexAktiviti
-                  aktivitiOptions={aktivitiOptions}
-                  displayAktivitis={displayAktivitis}
-                  keteranganAktivitiOptions={keteranganAktivitiOptions}
-                  displayKeteranganAktivitis={displayKeteranganAktivitis}
-                  projekAktivitiOptions={projekAktivitiOptions}
-                  displayProjekAktivitis={displayProjekAktivitis}
-                  dimensiOptions={dimensiOptions}
-                  displayDimensis={displayDimensis}
+                  // sahabatId={sahabatId}
+                  // pembiayaanId={pembiayaanId}
+                  // pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  // onDataAvailableChange={setAktivitiDataAvailable} // Pass the function to IndexAktiviti
+                  // aktivitiOptions={aktivitiOptions}
+                  // displayAktivitis={displayAktivitis}
+                  // keteranganAktivitiOptions={keteranganAktivitiOptions}
+                  // displayKeteranganAktivitis={displayKeteranganAktivitis}
+                  // projekAktivitiOptions={projekAktivitiOptions}
+                  // displayProjekAktivitis={displayProjekAktivitis}
+                  // dimensiOptions={dimensiOptions}
+                  // displayDimensis={displayDimensis}
                 />
-              ) : null}
+              {/* ) : null} */}
 
-              {index === 1 ? (
+              {/* {index === 1 ? ( */}
                 <IndexTrackingSahabat
-                  mingguId={mingguId}
-                  pembiayaanSahabatsData={pembiayaanSahabatsData}
-                  kodInflowOptions={kodInflowOptions}
-                  displayKodInflows={displayKodInflows}
-                  kodOutflowOptions={kodOutflowOptions}
-                  displayKodOutflows={displayKodOutflows}
+                  // mingguId={mingguId}
+                  // pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  // kodInflowOptions={kodInflowOptions}
+                  // displayKodInflows={displayKodInflows}
+                  // kodOutflowOptions={kodOutflowOptions}
+                  // displayKodOutflows={displayKodOutflows}
                 />
-              ) : null}
+              {/* ) : null} */}
 
-              {index === 2 ? (
+              {/* {index === 2 ? ( */}
                 <IndexTrackingIsiRumah
-                  mingguId={mingguId}
-                  pembiayaanSahabatsData={pembiayaanSahabatsData}
-                  kodInflowOptions={kodInflowOptions}
-                  displayKodInflows={displayKodInflows}
-                  kodOutflowOptions={kodOutflowOptions}
-                  displayKodOutflows={displayKodOutflows}
-                  hubunganOptions={hubunganOptions}
-                  displayHubungans={displayHubungans}
+                  // mingguId={mingguId}
+                  // pembiayaanSahabatsData={pembiayaanSahabatsData}
+                  // kodInflowOptions={kodInflowOptions}
+                  // displayKodInflows={displayKodInflows}
+                  // kodOutflowOptions={kodOutflowOptions}
+                  // displayKodOutflows={displayKodOutflows}
+                  // hubunganOptions={hubunganOptions}
+                  // displayHubungans={displayHubungans}
                 />
-              ) : null}
+              {/* ) : null} */}
 
               <Box sx={{ mb: 2 }}>
-                {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                   <div>
                     <Button
                       variant="contained"
                       onClick={handleNext}
-                      disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
+                      // disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
                       sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
                     >
-                      {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
+                      {/* {index === steps.length - 1 ? "Tamat" : "Seterusnya"} */}
                     </Button>
 
                     <Button
-                      disabled={index === 0}
+                      // disabled={index === 0}
                       onClick={handleBack}
                       sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
                     >
                       Kembali
                     </Button>
                   </div>
-                ) : null}
+                {/* ) : null} */}
               </Box>
             </StepContent>
           </Step>
-        ))}
+        {/* ))} */}
       </Stepper>
 
-      {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" &&
-        activeStep === steps.length && (
+      {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" && */}
+        {/* activeStep === steps.length && ( */}
           <Paper square elevation={0} sx={{ p: 3 }}>
             <Typography>
               Maklumat tracking minggu ini telah selesai diisi.
@@ -196,7 +197,7 @@ const VerticalStepper = ({
               Isi Semula
             </Button>
           </Paper>
-        )}
+        {/* )} */}
     </Box>
   );
 };
