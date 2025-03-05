@@ -1,12 +1,14 @@
-.signin-container {
+.signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Ensure it takes the full height */
     background-color: #f4f4f4;
-  }
-  
-  .signin-box {
+    padding: 20px; /* Prevent cutoff */
+    box-sizing: border-box;
+}
+
+.signup-box {
     display: flex;
     width: 80%;
     max-width: 900px;
@@ -14,82 +16,72 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
-  }
-  
-  .signin-left {
+}
+
+.signup-left {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #007bff;
     padding: 20px;
-  }
-  
-  .signin-left img {
+}
+
+.signup-left img {
     width: 100%;
-  }
-  
-  .signin-right {
+}
+
+.signup-right {
     flex: 1;
     padding: 40px;
     text-align: center;
-  }
-
-  .input-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns labels to the left */
+    justify-content: center; /* Ensures content is centered */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 20px;
     width: 100%;
-  }
-  
-  .input-group label {
+}
+
+.input-group label {
     font-weight: bold;
     margin-bottom: 5px;
-  }
-  
-  .input-group input {
+}
+
+.input-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  .password-container {
+}
+
+.password-container {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
-  }
-  
-  .password-container input {
+}
+
+.password-container input {
     flex: 1;
     padding-right: 40px;
-  }
-  
-  .toggle-password {
+}
+
+.toggle-password {
     position: absolute;
     right: 10px;
     cursor: pointer;
     font-size: 18px;
     color: #666;
-  }
-  
-  /* Ensures password input is styled the same as username */
-  .password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .password-container input {
-    flex: 1;
-    padding-right: 40px; /* Ensures text does not overlap with the icon */
-  }  
+}
 
-  .signin-button {
+.signup-button {
     width: 100%;
     padding: 12px;
     background-color: #007bff;
@@ -101,40 +93,42 @@
     cursor: pointer;
     transition: background 0.3s ease-in-out;
     margin-top: 10px;
-  }
-  
-  .signin-button:hover {
+}
+
+.signup-button:hover {
     background-color: #0056b3;
-  }
-  
-  .signin-button:active {
+}
+
+.signup-button:active {
     background-color: #003d82;
-  }
-  
-  .forgot-password {
+}
+
+.signup-footer {
     margin-top: 15px;
     text-align: center;
-  }
-  
-  .forgot-password a {
+}
+
+.signup-footer a {
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
-  }
-  
-  .forgot-password a:hover {
+}
+
+.signup-footer a:hover {
     text-decoration: underline;
-  }
-  
-  
-  @media (max-width: 768px) {
-    .signin-box {
-      flex-direction: column;
-      text-align: center;
+}
+
+@media (max-width: 768px) {
+    .signup-box {
+        flex-direction: column;
+        text-align: center;
     }
-  
-    .signin-left {
-      display: none;
+
+    .signup-left {
+        display: none;
     }
-  }
-  
+
+    .signup-right {
+        padding: 30px;
+    }
+}
