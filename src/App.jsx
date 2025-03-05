@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
 import Dashboard from "./views/Dashboard";
+import SignUp from "./views/auth/SignUp";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           {/* Auth */}
           <Route path="/" element={<SignIn />} index />
+          <Route path="/sign-up" element={<SignUp />} />
 
           <Route element={<MainLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
