@@ -6,7 +6,8 @@ import { useMingguStore } from "../../../store/sahabat/minggu-store";
 import SuccessAlert from "../../components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 
-function CreateMinggu({ sahabatId, pembiayaanId }) {
+// function CreateMinggu({ sahabatId, pembiayaanId }) {
+function CreateMinggu() {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateMingguPembiayaanSahabat, setIsModalCreateMingguPembiayaanSahabat] = useState(false);
@@ -28,23 +29,23 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
   // ___________________________________ Backend __________________________________
   // Create minggu pembiayaan sahabat
-  const { createMingguPembiayaanSahabat } = useMingguStore();
+  // const { createMingguPembiayaanSahabat } = useMingguStore();
   
   const handleCreateMingguPembiayaanSahabat = async (mingguPembiayaanSahabatInput) => {
-    try {
-      const response = await createMingguPembiayaanSahabat(sahabatId, pembiayaanId, mingguPembiayaanSahabatInput);
+    // try {
+    //   const response = await createMingguPembiayaanSahabat(sahabatId, pembiayaanId, mingguPembiayaanSahabatInput);
 
-      if (response.status === 200) {
-        closeModalCreateMingguPembiayaanSahabat();
+    //   if (response.status === 200) {
+    //     closeModalCreateMingguPembiayaanSahabat();
 
-        SuccessAlert(response.data.success);
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      console.log(error);
-      ErrorAlert(error);
-    }
+    //     SuccessAlert(response.data.success);
+    //   } else {
+    //     ErrorAlert(response);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   ErrorAlert(error);
+    // }
   };
 
   return (
@@ -74,16 +75,16 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
                 <Form.Control
                   type="number"
-                  {...register("bilanganMinggu", { required: true })}
-                  aria-invalid={errors.bilanganMinggu ? "true" : "false"}
+                  // {...register("bilanganMinggu", { required: true })}
+                  // aria-invalid={errors.bilanganMinggu ? "true" : "false"}
                   placeholder="Masukkan minggu ke berapa"
                 />
 
-                {errors.bilanganMinggu?.type === "required" && (
+                {/* {errors.bilanganMinggu?.type === "required" && ( */}
                   <small className="text-danger">
                     Bilangan minggu diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               {/* Tarikh borang minggu */}
@@ -94,16 +95,16 @@ function CreateMinggu({ sahabatId, pembiayaanId }) {
 
                 <Form.Control
                   type="date"
-                  {...register("tarikhBorangMinggu", { required: true })}
-                  aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
+                  // {...register("tarikhBorangMinggu", { required: true })}
+                  // aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
                   placeholder="Masukkan tarikh borang minggu"
                 />
 
-                {errors.tarikhBorangMinggu?.type === "required" && (
+                {/* {errors.tarikhBorangMinggu?.type === "required" && ( */}
                   <small className="text-danger">
                     Tarikh borang minggu diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Form>
           </Modal.Body>
