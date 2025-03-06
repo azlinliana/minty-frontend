@@ -17,19 +17,7 @@ import { useAktivitiStore } from "../../../../store/sahabat/aktiviti-store";
 //   projekAktivitiOptions,
 //   dimensiOptions,
 // }) {
-function CreateAktiviti({
-  sahabatId,
-  pembiayaanId,
-  selectedAktiviti,
-  setSelectedAktiviti,
-  selectedKeteranganAktiviti,
-  setSelectedKeteranganAktiviti,
-  setSelectedProjekAktiviti,
-  aktivitiOptions,
-  keteranganAktivitiOptions,
-  projekAktivitiOptions,
-  dimensiOptions,
-}) {
+function CreateAktiviti() {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreateAktivitiSahabat, setIsModalCreateAktivitiSahabat] =
@@ -111,9 +99,11 @@ function CreateAktiviti({
                 ))} */}
               </Form.Control>
 
-              {errors.kegiatanId?.type === "required" && (
-                <small className="text-danger">Aktiviti diperlukan.</small>
-              )}
+              {/* {errors.aktiviti?.type === "required" && ( */}
+                <small className="text-danger">
+                  Aktiviti diperlukan.
+                </small>
+              {/* )} */}
             </Form.Group>
 
             {/* Keterangan Kegiatan */}
@@ -151,11 +141,11 @@ function CreateAktiviti({
                   ))} */}
               </Form.Control>
 
-              {errors.keteranganKegiatanId?.type === "required" && (
+              {/* {errors.keteranganKegiatanId?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan kegiatan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Projek Aktiviti */}
@@ -205,7 +195,7 @@ function CreateAktiviti({
                 className="form-select"
                 // {...register("dimensiId", { required: true })}
                 // onChange={(e) => {}}
-                aria-invalid={errors.dimensiId ? "true" : "false"}
+                // aria-invalid={errors.dimensiId ? "true" : "false"}
                 defaultValue=""
               >
                 <option value="" disabled>
@@ -234,21 +224,21 @@ function CreateAktiviti({
                 className="form-select"
                 // {...register("pengurusDanaAktiviti", { required: true })}
                 // onChange={(e) => {}}
-                aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
+                // aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
                 defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Pengurus Dana Sahabat--
                 </option>
-                <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
+                {/* <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
                 <option value="PS - PARTNERSHIP">PS - PARTNERSHIP</option>
-                <option value="PL - PERNIAGAAN">PL - PIPELINER</option>
+                <option value="PL - PERNIAGAAN">PL - PIPELINER</option> */}
 
-                {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
+                {errors.pengurusDanaAktiviti?.type === "required" && (
                   <small className="text-danger">
                     Pengurusan dana diperlukan.
                   </small>
-                {/* )} */}
+                )}
               </Form.Control>
 
               {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
