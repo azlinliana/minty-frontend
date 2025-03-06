@@ -23,22 +23,22 @@ function EditAdmin({ admin }) {
 
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini admin modal is opened
-  useEffect(() => {
-    setValue("idKakitangan", admin.user.idKakitangan);
-    setValue("namaKakitangan", admin.user.namaKakitangan);
-    setValue("lokasiKakitangan", admin.user.lokasiKakitangan);
-    setValue("jawatanKakitangan", admin.user.jawatanKakitangan);
-    setValue("statusAdmin", admin.statusAdmin);
-  }, [admin, setValue]);
+  // useEffect(() => {
+  //   setValue("idKakitangan", admin.user.idKakitangan);
+  //   setValue("namaKakitangan", admin.user.namaKakitangan);
+  //   setValue("lokasiKakitangan", admin.user.lokasiKakitangan);
+  //   setValue("jawatanKakitangan", admin.user.jawatanKakitangan);
+  //   setValue("statusAdmin", admin.statusAdmin);
+  // }, [admin, setValue]);
 
   // Edit admin
-  const { editAdmin } = useAdminStore((state) => ({
-    editAdmin: state.editAdmin,
-  }));
+  // const { editAdmin } = useAdminStore((state) => ({
+  //   editAdmin: state.editAdmin,
+  // }));
 
   // Pass input & close modal
   const handleEditAdmin = (editAdminData) => {
-    editAdmin(admin.id, editAdminData, closeModalEditAdmin);
+    // editAdmin(admin.id, editAdminData, closeModalEditAdmin);
   };
 
   return (
@@ -65,7 +65,7 @@ function EditAdmin({ admin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("idKakitangan", { required: true })}
+                  // {...register("idKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -75,7 +75,7 @@ function EditAdmin({ admin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("namaKakitangan", { required: true })}
+                  // {...register("namaKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -87,7 +87,7 @@ function EditAdmin({ admin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("lokasiKakitangan", { required: true })}
+                  // {...register("lokasiKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -99,7 +99,7 @@ function EditAdmin({ admin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("jawatanKakitangan", { required: true })}
+                  // {...register("jawatanKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -110,8 +110,8 @@ function EditAdmin({ admin }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("statusAdmin", { required: true })}
-                  aria-invalid={errors.statusAdmin ? "true" : "false"}
+                  // {...register("statusAdmin", { required: true })}
+                  // aria-invalid={errors.statusAdmin ? "true" : "false"}
                 >
                   <option value="" disabled>
                     --Pilih Status Admin--
@@ -120,11 +120,11 @@ function EditAdmin({ admin }) {
                   <option value="DISEKAT">DISEKAT</option>
                 </Form.Control>
 
-                {errors.statusAdmin?.type === "required" && (
+                {/* {errors.statusAdmin?.type === "required" && ( */}
                   <small className="text-danger">
                     Status admin diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 

@@ -24,14 +24,14 @@ function SearchAdmin() {
 
   // ___________________________________ Backend __________________________________
   // Search user to add as admin
-  const { penggunas, searchUserToAddAsAdmin } = useUserStore((state) => ({
-    penggunas: state.penggunas,
-    searchUserToAddAsAdmin: state.searchUserToAddAsAdmin,
-  }));
+  // const { penggunas, searchUserToAddAsAdmin } = useUserStore((state) => ({
+  //   penggunas: state.penggunas,
+  //   searchUserToAddAsAdmin: state.searchUserToAddAsAdmin,
+  // }));
 
   // Pass input & close modal
   const handleSearchUser = (searchUserData) => {
-    searchUserToAddAsAdmin(searchUserData, openModalCreateAdmin);
+    // searchUserToAddAsAdmin(searchUserData, openModalCreateAdmin);
   };
 
   return (
@@ -47,23 +47,24 @@ function SearchAdmin() {
               <Form.Control
                 className="pengguna-carian-input-field"
                 type="text"
-                {...register("idKakitangan", { required: true })}
-                aria-invalid={errors.idKakitangan ? "true" : "false"}
+                // {...register("idKakitangan", { required: true })}
+                // aria-invalid={errors.idKakitangan ? "true" : "false"}
                 placeholder="Masukkan no. id kakitangan"
               />
 
-              {errors.idKakitangan?.type === "required" && (
+              {/* {errors.idKakitangan?.type === "required" && ( */}
                 <small className="text-danger">
                   No. id kakitangan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group className="col-md-2">
               <CreateAdmin
                 isModalCreateAdmin={isModalCreateAdmin}
+                openModalCreateAdmin={openModalCreateAdmin}
                 closeModalCreateAdmin={closeModalCreateAdmin}
-                searchStaffResult={penggunas}
+                // searchStaffResult={penggunas}
               />
             </Form.Group>
           </Row>

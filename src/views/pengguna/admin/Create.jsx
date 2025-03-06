@@ -5,8 +5,9 @@ import { useAdminStore } from "../../../store/pengguna/admin-store";
 
 function CreateAdmin({
   isModalCreateAdmin,
+  openModalCreateAdmin,
   closeModalCreateAdmin,
-  searchStaffResult,
+  // searchStaffResult,
 }) {
   // __________________________________ Frontend __________________________________
   // Form validation
@@ -14,29 +15,29 @@ function CreateAdmin({
 
   // ___________________________________ Backend __________________________________
   // Set default values when searchStaffResult changes for each field
-  useEffect(() => {
-    if (searchStaffResult) {
-      setValue("id", searchStaffResult.id);
-      setValue("idKakitangan", searchStaffResult.idKakitangan);
-      setValue("namaKakitangan", searchStaffResult.namaKakitangan);
-      setValue("lokasiKakitangan", searchStaffResult.lokasiKakitangan);
-      setValue("jawatanKakitangan", searchStaffResult.jawatanKakitangan);
-    }
-  }, [searchStaffResult, setValue]);
+  // useEffect(() => {
+  //   if (searchStaffResult) {
+  //     setValue("id", searchStaffResult.id);
+  //     setValue("idKakitangan", searchStaffResult.idKakitangan);
+  //     setValue("namaKakitangan", searchStaffResult.namaKakitangan);
+  //     setValue("lokasiKakitangan", searchStaffResult.lokasiKakitangan);
+  //     setValue("jawatanKakitangan", searchStaffResult.jawatanKakitangan);
+  //   }
+  // }, [searchStaffResult, setValue]);
 
   // Create admin
-  const { createAdmin } = useAdminStore((state) => ({
-    createAdmin: state.createAdmin,
-  }));
+  // const { createAdmin } = useAdminStore((state) => ({
+  //   createAdmin: state.createAdmin,
+  // }));
 
   // Pass input & close modal
   const handleCreateAdmin = (addAdminData) => {
-    createAdmin(addAdminData, closeModalCreateAdmin);
+    // createAdmin(addAdminData, closeModalCreateAdmin);
   };
 
   return (
     <>
-      <Button className="pengguna-carian-search-btn" type="submit">
+      <Button className="pengguna-carian-search-btn" onClick={openModalCreateAdmin}>
         Cari
       </Button>
 
@@ -58,7 +59,7 @@ function CreateAdmin({
 
               <Form.Control
                 type="text"
-                {...register("idKakitangan", { required: true })}
+                // {...register("idKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -68,7 +69,7 @@ function CreateAdmin({
 
               <Form.Control
                 type="text"
-                {...register("namaKakitangan", { required: true })}
+                // {...register("namaKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -78,7 +79,7 @@ function CreateAdmin({
 
               <Form.Control
                 type="text"
-                {...register("lokasiKakitangan", { required: true })}
+                // {...register("lokasiKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -88,7 +89,7 @@ function CreateAdmin({
 
               <Form.Control
                 type="text"
-                {...register("jawatanKakitangan", { required: true })}
+                // {...register("jawatanKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -101,7 +102,9 @@ function CreateAdmin({
 
             <Button
               onClick={handleSubmit(() =>
-                handleCreateAdmin({ userId: searchStaffResult.id })
+                handleCreateAdmin(
+                  // { userId: searchStaffResult.id }
+                )
               )}
             >
               Simpan
