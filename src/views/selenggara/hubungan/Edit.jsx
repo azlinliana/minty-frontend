@@ -23,35 +23,35 @@ function EditHubungan({ hubungan }) {
 
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini hubungan modal is opened
-  const [formData, setFormData] = useState({
-    kodHubungan: "",
-    keteranganHubungan: "",
-    statusHubungan: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   kodHubungan: "",
+  //   keteranganHubungan: "",
+  //   statusHubungan: "",
+  // });
 
-  useEffect(() => {
-    // Populate form data
-    setValue("kodHubungan", hubungan.kodHubungan);
-    setValue("keteranganHubungan", hubungan.keteranganHubungan);
-    setValue("statusHubungan", hubungan.statusHubungan);
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue("kodHubungan", hubungan.kodHubungan);
+  //   setValue("keteranganHubungan", hubungan.keteranganHubungan);
+  //   setValue("statusHubungan", hubungan.statusHubungan);
 
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      kodHubungan: hubungan.kodHubungan,
-      keteranganHubungan: hubungan.keteranganHubungan,
-      statusHubungan: hubungan.statusHubungan,
-    }));
-  }, [hubungan, setValue]);
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     kodHubungan: hubungan.kodHubungan,
+  //     keteranganHubungan: hubungan.keteranganHubungan,
+  //     statusHubungan: hubungan.statusHubungan,
+  //   }));
+  // }, [hubungan, setValue]);
 
   // Edit hubungan
-  const { editHubungan } = useHubunganStore((state) => ({
-    editHubungan: state.editHubungan,
-  }));
+  // const { editHubungan } = useHubunganStore((state) => ({
+  //   editHubungan: state.editHubungan,
+  // }));
 
   // Pass input & close modal
   const handleEditHubungan = (editHubunganData) => {
-    editHubungan(hubungan.id, editHubunganData, closeModalEditHubungan);
+    // editHubungan(hubungan.id, editHubunganData, closeModalEditHubungan);
   };
 
   return (
@@ -77,14 +77,14 @@ function EditHubungan({ hubungan }) {
 
               <Form.Control
                 type="text"
-                {...register("kodHubungan", { required: true })}
-                aria-invalid={errors.kodHubungan ? "true" : "false"}
+                // {...register("kodHubungan", { required: true })}
+                // aria-invalid={errors.kodHubungan ? "true" : "false"}
                 placeholder="Masukkan kod hubungan"
               />
 
-              {errors.kodHubungan?.type === "required" && (
+              {/* {errors.kodHubungan?.type === "required" && ( */}
                 <small className="text-danger">Kod hubungan diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganHubungan" className="mb-3">
@@ -94,16 +94,16 @@ function EditHubungan({ hubungan }) {
 
               <Form.Control
                 as="textarea"
-                {...register("keteranganHubungan", { required: true })}
-                aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                // {...register("keteranganHubungan", { required: true })}
+                // aria-invalid={errors.keteranganHubungan ? "true" : "false"}
                 placeholder="Masukkan keterangan hubungan"
               />
 
-              {errors.keteranganHubungan?.type === "required" && (
+              {/* {errors.keteranganHubungan?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan hubungan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="statusHubungan" className="mb-3">
@@ -112,8 +112,8 @@ function EditHubungan({ hubungan }) {
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("statusHubungan", { required: true })}
-                aria-invalid={errors.statusHubungan ? "true" : "false"}
+                // {...register("statusHubungan", { required: true })}
+                // aria-invalid={errors.statusHubungan ? "true" : "false"}
                 placeholder="Masukkan status hubungan"
               >
                 <option value="" disabled>
@@ -123,11 +123,11 @@ function EditHubungan({ hubungan }) {
                 <option value="TIDAK AKTIF">TIDAK AKTIF</option>
               </Form.Control>
 
-              {errors.statusHubungan?.type === "required" && (
+              {/* {errors.statusHubungan?.type === "required" && ( */}
                 <small className="text-danger">
                   Status hubungan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 
