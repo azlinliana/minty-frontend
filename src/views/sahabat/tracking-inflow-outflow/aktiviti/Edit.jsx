@@ -292,6 +292,7 @@ function EditAktiviti({
                 className="form-select"
                 // {...register("dimensiId", { required: true })}
                 // aria-invalid={errors.dimensiId ? "true" : "false"}
+                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Kod Dimensi--
@@ -319,19 +320,20 @@ function EditAktiviti({
                 className="form-select"
                 // {...register("pengurusDanaAktiviti", { required: true })}
                 // aria-invalid={errors.pengurusDanaAktiviti ? "true" : "false"}
+                defaultValue=""
               >
                 <option value="" disabled>
                   --Pilih Pengurus Dana Sahabat--
                 </option>
-                <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
+                {/* <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
                 <option value="PS - PARTNERSHIP">PS - PARTNERSHIP</option>
-                <option value="PL - PERNIAGAAN">PL - PIPELINER</option>
+                <option value="PL - PERNIAGAAN">PL - PIPELINER</option> */}
 
-                {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
+                {errors.pengurusDanaAktiviti?.type === "required" && (
                   <small className="text-danger">
                     Pengurusan dana diperlukan.
                   </small>
-                {/* )} */}
+                )}
               </Form.Control>
 
               {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
