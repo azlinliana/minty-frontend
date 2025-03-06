@@ -5,8 +5,9 @@ import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
 
 function CreateSuperAdmin({
   isModalCreateSuperAdmin,
+  openModalCreateSuperAdmin,
   closeModalCreateSuperAdmin,
-  searchStaffResult,
+  // searchStaffResult,
 }) {
   // __________________________________ Frontend __________________________________
   // Form validation
@@ -14,29 +15,29 @@ function CreateSuperAdmin({
 
   // ___________________________________ Backend __________________________________
   // Set default values when searchStaffResult changes for each field
-  useEffect(() => {
-    if (searchStaffResult) {
-      setValue("id", searchStaffResult.id);
-      setValue("idKakitangan", searchStaffResult.idKakitangan);
-      setValue("namaKakitangan", searchStaffResult.namaKakitangan);
-      setValue("lokasiKakitangan", searchStaffResult.lokasiKakitangan);
-      setValue("jawatanKakitangan", searchStaffResult.jawatanKakitangan);
-    }
-  }, [searchStaffResult, setValue]);
+  // useEffect(() => {
+  //   if (searchStaffResult) {
+  //     setValue("id", searchStaffResult.id);
+  //     setValue("idKakitangan", searchStaffResult.idKakitangan);
+  //     setValue("namaKakitangan", searchStaffResult.namaKakitangan);
+  //     setValue("lokasiKakitangan", searchStaffResult.lokasiKakitangan);
+  //     setValue("jawatanKakitangan", searchStaffResult.jawatanKakitangan);
+  //   }
+  // }, [searchStaffResult, setValue]);
 
   // Create super admin
-  const { createSuperAdmin } = useSuperAdminStore((state) => ({
-    createSuperAdmin: state.createSuperAdmin,
-  }));
+  // const { createSuperAdmin } = useSuperAdminStore((state) => ({
+  //   createSuperAdmin: state.createSuperAdmin,
+  // }));
 
   // Pass input & close modal
   const handleCreateSuperAdmin = (addSuperAdminData) => {
-    createSuperAdmin(addSuperAdminData, closeModalCreateSuperAdmin);
+    // createSuperAdmin(addSuperAdminData, closeModalCreateSuperAdmin);
   };
 
   return (
     <>
-      <Button className="pengguna-carian-search-btn" type="submit">
+      <Button className="pengguna-carian-search-btn" onClick={openModalCreateSuperAdmin}>
         Cari
       </Button>
 
@@ -58,7 +59,7 @@ function CreateSuperAdmin({
 
               <Form.Control
                 type="text"
-                {...register("idKakitangan", { required: true })}
+                // {...register("idKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -68,7 +69,7 @@ function CreateSuperAdmin({
 
               <Form.Control
                 type="text"
-                {...register("namaKakitangan", { required: true })}
+                // {...register("namaKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -78,7 +79,7 @@ function CreateSuperAdmin({
 
               <Form.Control
                 type="text"
-                {...register("lokasiKakitangan", { required: true })}
+                // {...register("lokasiKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -88,7 +89,7 @@ function CreateSuperAdmin({
 
               <Form.Control
                 type="text"
-                {...register("jawatanKakitangan", { required: true })}
+                // {...register("jawatanKakitangan", { required: true })}
                 readOnly
               />
             </Form.Group>
@@ -100,9 +101,9 @@ function CreateSuperAdmin({
             </Button>
 
             <Button
-              onClick={handleSubmit(() =>
-                handleCreateSuperAdmin({ userId: searchStaffResult.id })
-              )}
+              // onClick={handleSubmit(() =>
+              //   handleCreateSuperAdmin({ userId: searchStaffResult.id })
+              // )}
             >
               Simpan
             </Button>

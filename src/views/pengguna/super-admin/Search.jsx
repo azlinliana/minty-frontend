@@ -24,14 +24,14 @@ function SearchSuperAdmin() {
 
   // ___________________________________ Backend __________________________________
   // Search user to add as super admin
-  const { penggunas, searchUserToAddAsSuperAdmin } = useUserStore((state) => ({
-    penggunas: state.penggunas,
-    searchUserToAddAsSuperAdmin: state.searchUserToAddAsSuperAdmin,
-  }));
+  // const { penggunas, searchUserToAddAsSuperAdmin } = useUserStore((state) => ({
+  //   penggunas: state.penggunas,
+  //   searchUserToAddAsSuperAdmin: state.searchUserToAddAsSuperAdmin,
+  // }));
 
   // Pass input & close modal
   const handleSearchUser = (searchUserData) => {
-    searchUserToAddAsSuperAdmin(searchUserData, openModalCreateSuperAdmin);
+    // searchUserToAddAsSuperAdmin(searchUserData, openModalCreateSuperAdmin);
   };
 
   return (
@@ -47,23 +47,24 @@ function SearchSuperAdmin() {
               <Form.Control
                 className="pengguna-carian-input-field"
                 type="text"
-                {...register("idKakitangan", { required: true })}
-                aria-invalid={errors.idKakitangan ? "true" : "false"}
+                // {...register("idKakitangan", { required: true })}
+                // aria-invalid={errors.idKakitangan ? "true" : "false"}
                 placeholder="Masukkan no. id kakitangan"
               />
 
-              {errors.idKakitangan?.type === "required" && (
+              {/* {errors.idKakitangan?.type === "required" && ( */}
                 <small className="text-danger">
                   No. id kakitangan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group className="col-md-2">
               <CreateSuperAdmin
                 isModalCreateSuperAdmin={isModalCreateSuperAdmin}
+                openModalCreateSuperAdmin={openModalCreateSuperAdmin}
                 closeModalCreateSuperAdmin={closeModalCreateSuperAdmin}
-                searchStaffResult={penggunas}
+                // searchStaffResult={penggunas}
               />
             </Form.Group>
           </Row>

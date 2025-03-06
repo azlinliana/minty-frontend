@@ -23,22 +23,22 @@ function EditSuperAdmin({ superAdmin }) {
 
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini super admin modal is opened
-  useEffect(() => {
-    setValue("idKakitangan", superAdmin.user.idKakitangan);
-    setValue("namaKakitangan", superAdmin.user.namaKakitangan);
-    setValue("lokasiKakitangan", superAdmin.user.lokasiKakitangan);
-    setValue("jawatanKakitangan", superAdmin.user.jawatanKakitangan);
-    setValue("statusSuperAdmin", superAdmin.statusSuperAdmin);
-  }, [superAdmin, setValue]);
+  // useEffect(() => {
+  //   setValue("idKakitangan", superAdmin.user.idKakitangan);
+  //   setValue("namaKakitangan", superAdmin.user.namaKakitangan);
+  //   setValue("lokasiKakitangan", superAdmin.user.lokasiKakitangan);
+  //   setValue("jawatanKakitangan", superAdmin.user.jawatanKakitangan);
+  //   setValue("statusSuperAdmin", superAdmin.statusSuperAdmin);
+  // }, [superAdmin, setValue]);
 
   // Edit super admin
-  const { editSuperAdmin } = useSuperAdminStore((state) => ({
-    editSuperAdmin: state.editSuperAdmin,
-  }));
+  // const { editSuperAdmin } = useSuperAdminStore((state) => ({
+  //   editSuperAdmin: state.editSuperAdmin,
+  // }));
 
   // Pass input & close modal
   const handleEditSuperAdmin = (editSuperAdminData) => {
-    editSuperAdmin(superAdmin.id, editSuperAdminData, closeModalEditSuperAdmin);
+    // editSuperAdmin(superAdmin.id, editSuperAdminData, closeModalEditSuperAdmin);
   };
 
   return (
@@ -65,7 +65,7 @@ function EditSuperAdmin({ superAdmin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("idKakitangan", { required: true })}
+                  // {...register("idKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -75,7 +75,7 @@ function EditSuperAdmin({ superAdmin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("namaKakitangan", { required: true })}
+                  // {...register("namaKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -87,7 +87,7 @@ function EditSuperAdmin({ superAdmin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("lokasiKakitangan", { required: true })}
+                  // {...register("lokasiKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -99,7 +99,7 @@ function EditSuperAdmin({ superAdmin }) {
 
                 <Form.Control
                   type="text"
-                  {...register("jawatanKakitangan", { required: true })}
+                  // {...register("jawatanKakitangan", { required: true })}
                   readOnly
                 />
               </Form.Group>
@@ -112,8 +112,8 @@ function EditSuperAdmin({ superAdmin }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("statusSuperAdmin", { required: true })}
-                  aria-invalid={errors.statusSuperAdmin ? "true" : "false"}
+                  // {...register("statusSuperAdmin", { required: true })}
+                  // aria-invalid={errors.statusSuperAdmin ? "true" : "false"}
                 >
                   <option value="" disabled>
                     --Pilih Status Super Admin--
@@ -122,11 +122,11 @@ function EditSuperAdmin({ superAdmin }) {
                   <option value="DISEKAT">DISEKAT</option>
                 </Form.Control>
 
-                {errors.statusSuperAdmin?.type === "required" && (
+                {/* {errors.statusSuperAdmin?.type === "required" && ( */}
                   <small className="text-danger">
                     Status super admin diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 
