@@ -8,26 +8,26 @@ function IndexSelenggara() {
   // Link pages
   const navigate = useNavigate();
 
-  const clickLihatKodInflow = () => navigate("/kod-inflow");
-  const clickLihatKodOutflow = () => navigate("/kod-outflow");
-  const clickLihatDimensi = () => navigate("/dimensi");
-  const clickLihatHubungan = () => navigate("/hubungan");
+  const clickViewInflowCode = () => navigate("/kod-inflow");
+  const clickViewOutflowCode = () => navigate("/kod-outflow");
+  const clickViewLoan = () => navigate("/dimensi");
+  const clickViewRelationship = () => navigate("/hubungan");
 
   return (
     <>
       <div>
         <div className="page-title">
-          <h1>Senarai Selenggara</h1>
+          <h1>Settings List</h1>
         </div>
 
         <div className="selenggara-table-container">
           <Table responsive>
             <thead>
               <tr>
-                <th className="selenggara-table-index">Bil.</th>
-                <th>Keterangan</th>
+                <th className="selenggara-table-index">No.</th>
+                <th>Items</th>
                 <th className="selenggara-table-action-btn-container">
-                  Tindakan
+                  Action
                 </th>
               </tr>
             </thead>
@@ -35,52 +35,52 @@ function IndexSelenggara() {
             <tbody>
               <tr>
                 <td className="selenggara-table-index">1</td>
-                <td>Kod Inflow</td>
+                <td>Inflow Code</td>
                 <td>
                   <Button
                     className="selenggara-table-action-btn"
-                    onClick={clickLihatKodInflow}
+                    onClick={clickViewInflowCode}
                   >
-                    Lihat
+                    View
                   </Button>{" "}
                 </td>
               </tr>
 
               <tr>
                 <td className="selenggara-table-index">2</td>
-                <td>Kod Outflow</td>
+                <td>Outflow Code</td>
                 <td>
                   <Button
                     className="selenggara-table-action-btn"
-                    onClick={clickLihatKodOutflow}
+                    onClick={clickViewOutflowCode}
                   >
-                    Lihat
+                    View
                   </Button>{" "}
                 </td>
               </tr>
 
               <tr>
                 <td className="selenggara-table-index">3</td>
-                <td>Dimensi</td>
+                <td>Loan</td>
                 <td>
                   <Button
                     className="selenggara-table-action-btn"
-                    onClick={clickLihatDimensi}
+                    onClick={clickViewLoan}
                   >
-                    Lihat
+                    View
                   </Button>{" "}
                 </td>
               </tr>
 
               <tr>
                 <td className="selenggara-table-index">4</td>
-                <td>Hubungan</td>
+                <td>Relationship</td>
                 <td>
                   <Button
                     className="selenggara-table-action-btn"
-                    onClick={clickLihatHubungan}
+                    onClick={clickViewRelationship}
                   >
-                    Lihat
+                    View
                   </Button>{" "}
                 </td>
               </tr>
