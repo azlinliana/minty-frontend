@@ -18,23 +18,23 @@ function IndexKodInflow() {
 
   // ___________________________________ Backend _________________________________________________________
   // List, delete kod inflow without kod inflow terperinci & delete kod inflow with kod inflow terperinci
-  const {
-    kodInflows,
-    fetchKodInflows,
-    deleteKodInflowWithoutKodInflowTerperinci,
-    deleteKodInflowWithKodInflowTerperinci,
-  } = useKodInflowStore((state) => ({
-    kodInflows: state.kodInflows,
-    fetchKodInflows: state.fetchKodInflows,
-    deleteKodInflowWithoutKodInflowTerperinci:
-      state.deleteKodInflowWithoutKodInflowTerperinci,
-    deleteKodInflowWithKodInflowTerperinci:
-      state.deleteKodInflowWithKodInflowTerperinci,
-  }));
+  // const {
+  //   kodInflows,
+  //   fetchKodInflows,
+  //   deleteKodInflowWithoutKodInflowTerperinci,
+  //   deleteKodInflowWithKodInflowTerperinci,
+  // } = useKodInflowStore((state) => ({
+  //   kodInflows: state.kodInflows,
+  //   fetchKodInflows: state.fetchKodInflows,
+  //   deleteKodInflowWithoutKodInflowTerperinci:
+  //     state.deleteKodInflowWithoutKodInflowTerperinci,
+  //   deleteKodInflowWithKodInflowTerperinci:
+  //     state.deleteKodInflowWithKodInflowTerperinci,
+  // }));
 
-  useEffect(() => {
-    fetchKodInflows();
-  }, [fetchKodInflows]);
+  // useEffect(() => {
+  //   fetchKodInflows();
+  // }, [fetchKodInflows]);
 
   return (
     <>
@@ -73,7 +73,7 @@ function IndexKodInflow() {
             </thead>
 
             <tbody>
-              {kodInflows.length === 0 ? (
+              {/* {kodInflows.length === 0 ? ( */}
                 <tr>
                   <td colSpan="8">
                     <center>
@@ -82,108 +82,106 @@ function IndexKodInflow() {
                     </center>
                   </td>
                 </tr>
-              ) : (
-                kodInflows.map((kodInflowsData, index) => (
-                  <React.Fragment key={index}>
-                    {kodInflowsData.kod_inflow_terperincis.length === 0 ? (
-                      // Render row for kod inflow without kod inflow terperinci
+              {/* ) : (
+                kodInflows.map((kodInflowsData, index) => ( */}
+                  <React.Fragment 
+                    // key={index}
+                  >
+                    {/* {kodInflowsData.kod_inflow_terperincis.length === 0 ? ( */}
+                      {/* Render row for kod inflow without kod inflow terperinci */}
                       <tr>
-                        <td>{index + 1}</td>
-                        <td>{kodInflowsData.kodInflow}</td>
-                        <td>{kodInflowsData.keteranganKodInflow}</td>
-                        <td>{kodInflowsData.statusKodInflow}</td>
+                        <td>Bil.</td>
+                        <td>Kod Inflow</td>
+                        <td>Keterangan Kod Inflow</td>
+                        <td>Status Kod Inflow</td>
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
                         <td>
                           <EditWithoutKodInflowTerperinci
-                            kodInflow={kodInflowsData}
+                            // kodInflow={kodInflowsData}
                           />
 
                           <Button
                             className="delete-btn"
-                            onClick={() =>
-                              deleteKodInflowWithoutKodInflowTerperinci(
-                                kodInflowsData.id
-                              )
-                            }
+                            // onClick={() =>
+                            //   deleteKodInflowWithoutKodInflowTerperinci(
+                            //     kodInflowsData.id
+                            //   )
+                            // }
                           >
                             Padam
                           </Button>{" "}
                         </td>
                       </tr>
-                    ) : (
-                      // Render row for kod inflow with kod inflow terperinci
+                    {/* ) : ( */}
+                      {/* // Render row for kod inflow with kod inflow terperinci */}
                       <tr>
                         <td
-                          rowSpan={
-                            kodInflowsData.kod_inflow_terperincis.length + 1
-                          }
+                          // rowSpan={
+                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          // }
                         >
-                          {index + 1}
+                          {/* {index + 1} */}
                         </td>
                         <td
-                          rowSpan={
-                            kodInflowsData.kod_inflow_terperincis.length + 1
-                          }
+                          // rowSpan={
+                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          // }
                         >
-                          {kodInflowsData.kodInflow}
+                          kodInflow
                         </td>
                         <td
-                          rowSpan={
-                            kodInflowsData.kod_inflow_terperincis.length + 1
-                          }
+                          // rowSpan={
+                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          // }
                         >
-                          {kodInflowsData.keteranganKodInflow}
+                          Keterangan Kod Inflow
                         </td>
                         <td
-                          rowSpan={
-                            kodInflowsData.kod_inflow_terperincis.length + 1
-                          }
+                          // rowSpan={
+                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          // }
                         >
-                          {kodInflowsData.statusKodInflow}
+                          status Kod Inflow
                         </td>
                       </tr>
-                    )}
+                    {/* )} */}
 
                     {/* Displaying kod inflow terperinci */}
-                    {kodInflowsData.kod_inflow_terperincis.map(
-                      (kodInflowTerperincisData, subIndex) => (
-                        <tr key={subIndex}>
+                    {/* {kodInflowsData.kod_inflow_terperincis.map(
+                      (kodInflowTerperincisData, subIndex) => ( */}
+                        <tr 
+                          // key={subIndex}
+                        >
                           <td>
-                            {kodInflowTerperincisData.kodInflowTerperinci}
+                            Kod Inflow Terperinci
                           </td>
-                          <td>
-                            {
-                              kodInflowTerperincisData.keteranganKodInflowTerperinci
-                            }
-                          </td>
-                          <td>
-                            {kodInflowTerperincisData.statusKodInflowTerperinci}
-                          </td>
+                          <td>Keterangan Kod Inflow Terperinci</td>
+                          <td>Status Kod Inflow Terperinci</td>
                           <td>
                             <EditWithKodInflowTerperinci
-                              kodInflow={kodInflowsData}
-                              kodInflowTerperinci={kodInflowTerperincisData}
+                              // kodInflow={kodInflowsData}
+                              // kodInflowTerperinci={kodInflowTerperincisData}
                             />
 
                             <Button
                               className="delete-btn"
-                              onClick={() =>
-                                deleteKodInflowWithKodInflowTerperinci(
-                                  kodInflowTerperincisData.id
-                                )
-                              }
+                              // onClick={() =>
+                              //   deleteKodInflowWithKodInflowTerperinci(
+                              //     kodInflowTerperincisData.id
+                              //   )
+                              // }
                             >
                               Padam
                             </Button>{" "}
                           </td>
                         </tr>
-                      )
-                    )}
+                      {/* )
+                    )} */}
                   </React.Fragment>
-                ))
-              )}
+                {/* ))
+              )} */}
             </tbody>
           </Table>
 
