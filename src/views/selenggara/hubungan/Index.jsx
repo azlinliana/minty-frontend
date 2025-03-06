@@ -17,17 +17,17 @@ function IndexHubungan() {
 
   // ___________________________________ Backend __________________________________
   // List & delete hubungan
-  const { hubungans, fetchHubungans, deleteHubungan } = useHubunganStore(
-    (state) => ({
-      hubungans: state.hubungans,
-      fetchHubungans: state.fetchHubungans,
-      deleteHubungan: state.deleteHubungan,
-    })
-  );
+  // const { hubungans, fetchHubungans, deleteHubungan } = useHubunganStore(
+  //   (state) => ({
+  //     hubungans: state.hubungans,
+  //     fetchHubungans: state.fetchHubungans,
+  //     deleteHubungan: state.deleteHubungan,
+  //   })
+  // );
 
-  useEffect(() => {
-    fetchHubungans();
-  }, [fetchHubungans]);
+  // useEffect(() => {
+  //   fetchHubungans();
+  // }, [fetchHubungans]);
 
   return (
     <>
@@ -62,7 +62,7 @@ function IndexHubungan() {
           </thead>
 
           <tbody>
-            {hubungans.length === 0 ? (
+            {/* {hubungans.length === 0 ? ( */}
               <tr>
                 <td colSpan="5">
                   <center>
@@ -71,26 +71,30 @@ function IndexHubungan() {
                   </center>
                 </td>
               </tr>
-            ) : (
-              hubungans.map((hubungansData, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{hubungansData.kodHubungan}</td>
-                  <td>{hubungansData.keteranganHubungan}</td>
-                  <td>{hubungansData.statusHubungan}</td>
+            {/* ) : (
+              hubungans.map((hubungansData, key) => ( */}
+                <tr 
+                  // key={key}
+                >
+                  <td>Bil.</td>
+                  <td>Kod Hubungan</td>
+                  <td>Keterangan Hubungan</td>
+                  <td>Status Hubungan</td>
                   <td>
-                    <EditHubungan hubungan={hubungansData} />
+                    <EditHubungan 
+                      // hubungan={hubungansData} 
+                    />
                     
                     <Button
                       className="delete-btn"
-                      onClick={() => deleteHubungan(hubungansData.id)}
+                      // onClick={() => deleteHubungan(hubungansData.id)}
                     >
                       Padam
                     </Button>{" "}
                   </td>
                 </tr>
-              ))
-            )}
+              {/* ))
+            )} */}
           </tbody>
         </Table>
 

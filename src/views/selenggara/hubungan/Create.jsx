@@ -24,13 +24,13 @@ function CreateHubungan() {
 
   // ___________________________________ Backend __________________________________
   // Create hubungan
-  const { createHubungan } = useHubunganStore((state) => ({
-    createHubungan: state.createHubungan,
-  }));
+  // const { createHubungan } = useHubunganStore((state) => ({
+  //   createHubungan: state.createHubungan,
+  // }));
 
   // Pass input & close modal
   const handleCreateHubungan = (addHubunganData) => {
-    createHubungan(addHubunganData, closeModalCreateHubungan);
+    // createHubungan(addHubunganData, closeModalCreateHubungan);
   };
 
   return (
@@ -56,14 +56,14 @@ function CreateHubungan() {
 
               <Form.Control
                 type="text"
-                {...register("kodHubungan", { required: true })}
-                aria-invalid={errors.kodHubungan ? "true" : "false"}
+                // {...register("kodHubungan", { required: true })}
+                // aria-invalid={errors.kodHubungan ? "true" : "false"}
                 placeholder="Masukkan kod hubungan"
               />
 
-              {errors.kodHubungan?.type === "required" && (
+              {/* {errors.kodHubungan?.type === "required" && ( */}
                 <small className="text-danger">Kod hubungan diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganHubungan" className="mb-3">
@@ -73,16 +73,16 @@ function CreateHubungan() {
 
               <Form.Control
                 as="textarea"
-                {...register("keteranganHubungan", { required: true })}
-                aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                // {...register("keteranganHubungan", { required: true })}
+                // aria-invalid={errors.keteranganHubungan ? "true" : "false"}
                 placeholder="Masukkan keterangan hubungan"
               />
 
-              {errors.keteranganHubungan?.type === "required" && (
+              {/* {errors.keteranganHubungan?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan hubungan diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 
