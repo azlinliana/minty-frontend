@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
 import { RiEyeCloseLine } from "react-icons/ri";
@@ -97,6 +97,12 @@ function SignIn() {
               content={<p>Reset password is unavailable at the moment</p>}
               buttons={clickForgotPasswordLink}
             />
+          </div>
+
+          <div className="signup-link">
+            <p>
+              Don't have an account? <Link to="/sign-up">Sign Up</Link>
+            </p>
           </div>
         </div>
       </div>
