@@ -24,13 +24,13 @@ function CreateKodOutflow() {
 
   // ___________________________________ Backend __________________________________
   // Create kod outflow
-  const { createKodOutflow } = useKodOutflowStore((state) => ({
-    createKodOutflow: state.createKodOutflow,
-  }));
+  // const { createKodOutflow } = useKodOutflowStore((state) => ({
+  //   createKodOutflow: state.createKodOutflow,
+  // }));
 
   // Pass input & close modal
   const handleCreateKodOutflow = (addKodOutflowData) => {
-    createKodOutflow(addKodOutflowData, closeModalCreateKodOutflow);
+    // createKodOutflow(addKodOutflowData, closeModalCreateKodOutflow);
   };
 
   return (
@@ -56,14 +56,14 @@ function CreateKodOutflow() {
 
               <Form.Control
                 type="text"
-                {...register("kodOutflow", { required: true })}
-                aria-invalid={errors.kodOutflow ? "true" : "false"}
+                // {...register("kodOutflow", { required: true })}
+                // aria-invalid={errors.kodOutflow ? "true" : "false"}
                 placeholder="Masukkan kod outflow"
               />
 
-              {errors.kodOutflow?.type === "required" && (
+              {/* {errors.kodOutflow?.type === "required" && ( */}
                 <small className="text-danger">Kod outflow diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganKodOutflow" className="mb-3">
@@ -73,16 +73,16 @@ function CreateKodOutflow() {
 
               <Form.Control
                 type="text"
-                {...register("keteranganKodOutflow", { required: true })}
-                aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
+                // {...register("keteranganKodOutflow", { required: true })}
+                // aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
                 placeholder="Masukkan keterangan kod outflow"
               />
 
-              {errors.keteranganKodOutflow?.type === "required" && (
+              {/* {errors.keteranganKodOutflow?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan kod outflow diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 
