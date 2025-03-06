@@ -17,17 +17,17 @@ function IndexKodOutflow() {
 
   // ___________________________________ Backend __________________________________
   // List & delete kod outflow
-  const { kodOutflows, fetchKodOutflows, deleteKodOutflow } = useKodOutflowStore(
-    (state) => ({
-      kodOutflows: state.kodOutflows,
-      fetchKodOutflows: state.fetchKodOutflows,
-      deleteKodOutflow: state.deleteKodOutflow,
-    })
-  );
+  // const { kodOutflows, fetchKodOutflows, deleteKodOutflow } = useKodOutflowStore(
+  //   (state) => ({
+  //     kodOutflows: state.kodOutflows,
+  //     fetchKodOutflows: state.fetchKodOutflows,
+  //     deleteKodOutflow: state.deleteKodOutflow,
+  //   })
+  // );
 
-  useEffect(() => {
-    fetchKodOutflows();
-  }, [fetchKodOutflows]);
+  // useEffect(() => {
+  //   fetchKodOutflows();
+  // }, [fetchKodOutflows]);
 
   return (
     <>
@@ -62,7 +62,7 @@ function IndexKodOutflow() {
           </thead>
 
           <tbody>
-            {kodOutflows.length === 0 ? (
+            {/* {kodOutflows.length === 0 ? ( */}
               <tr>
                 <td colSpan="6">
                   <center>
@@ -71,26 +71,30 @@ function IndexKodOutflow() {
                   </center>
                 </td>
               </tr>
-            ) : (
-              kodOutflows.map((kodOutflowsData, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{kodOutflowsData.kodOutflow}</td>
-                  <td>{kodOutflowsData.keteranganKodOutflow}</td>
-                  <td>{kodOutflowsData.statusKodOutflow}</td>
+            {/* ) : (
+              kodOutflows.map((kodOutflowsData, index) => ( */}
+                <tr 
+                  // key={index}
+                >
+                  <td>Bil.</td>
+                  <td>KodOutflow</td>
+                  <td>Keterangan Kod Outflow</td>
+                  <td>Status Kod Outflow</td>
                   <td>
-                    <EditKodOutflow kodOutflow={kodOutflowsData} />
+                    <EditKodOutflow 
+                      // kodOutflow={kodOutflowsData} 
+                    />
                     
                     <Button
                       className="delete-btn"
-                      onClick={() => deleteKodOutflow(kodOutflowsData.id)}
+                      // onClick={() => deleteKodOutflow(kodOutflowsData.id)}
                     >
                       Padam
                     </Button>{" "}
                   </td>
                 </tr>
-              ))
-            )}
+              {/* ))
+            )} */}
           </tbody>
         </Table>
 
