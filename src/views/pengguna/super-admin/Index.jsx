@@ -16,16 +16,16 @@ function IndexSuperAdmin() {
 
   // ___________________________________ Backend __________________________________
   // List & delete super admin
-  const { superAdmins, fetchSuperAdmins, deleteSuperAdmin } =
-    useSuperAdminStore((state) => ({
-      superAdmins: state.superAdmins,
-      fetchSuperAdmins: state.fetchSuperAdmins,
-      deleteSuperAdmin: state.deleteSuperAdmin,
-    }));
+  // const { superAdmins, fetchSuperAdmins, deleteSuperAdmin } =
+  //   useSuperAdminStore((state) => ({
+  //     superAdmins: state.superAdmins,
+  //     fetchSuperAdmins: state.fetchSuperAdmins,
+  //     deleteSuperAdmin: state.deleteSuperAdmin,
+  //   }));
 
-  useEffect(() => {
-    fetchSuperAdmins();
-  }, [fetchSuperAdmins]);
+  // useEffect(() => {
+  //   fetchSuperAdmins();
+  // }, [fetchSuperAdmins]);
 
   return (
     <>
@@ -68,7 +68,7 @@ function IndexSuperAdmin() {
               </thead>
 
               <tbody>
-                {superAdmins.length === 0 ? (
+                {/* {superAdmins.length === 0 ? ( */}
                   <tr>
                     <td colSpan={7}>
                       <center>
@@ -77,28 +77,32 @@ function IndexSuperAdmin() {
                       </center>
                     </td>
                   </tr>
-                ) : (
-                  superAdmins.map((superAdminsData, key) => (
-                    <tr key={key}>
-                      <td>{key + 1}</td>
-                      <td>{superAdminsData.user.idKakitangan}</td>
-                      <td>{superAdminsData.user.namaKakitangan}</td>
-                      <td>{superAdminsData.user.lokasiKakitangan}</td>
-                      <td>{superAdminsData.user.jawatanKakitangan}</td>
-                      <td>{superAdminsData.statusSuperAdmin}</td>
+                {/* ) : (
+                  superAdmins.map((superAdminsData, key) => ( */}
+                    <tr 
+                      // key={key}
+                    >
+                      <td>Bil.</td>
+                      <td>Id Kakitangan</td>
+                      <td>Nama Kakitangan</td>
+                      <td>Lokasi Kakitangan</td>
+                      <td>Jawatan Kakitangan</td>
+                      <td>Status Super Admin</td>
                       <td>
-                        <EditSuperAdmin superAdmin={superAdminsData} />
+                        <EditSuperAdmin 
+                          // superAdmin={superAdminsData} 
+                        />
                         
                         <Button
                           className="delete-btn"
-                          onClick={() => deleteSuperAdmin(superAdminsData.id)}
+                          // onClick={() => deleteSuperAdmin(superAdminsData.id)}
                         >
                           Padam
                         </Button>{" "}
                       </td>
                     </tr>
-                  ))
-                )}
+                  {/* ))
+                )} */}
               </tbody>
             </Table>
 
