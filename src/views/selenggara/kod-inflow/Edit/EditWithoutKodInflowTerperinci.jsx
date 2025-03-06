@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useKodInflowStore } from "../../../../store/selenggara/kod-inflow-store";
 
-function EditWithoutKodInflowTerperinci({ kodInflow }) {
+function EditWithoutKodInflowTerperinci(
+  // { kodInflow }
+) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [
@@ -27,36 +29,36 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
 
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini kod inflow modal is opened
-  const [formData, setFormData] = useState({
-    kodInflow: "",
-    keteranganKodInflow: "",
-    statusKodInflow: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   kodInflow: "",
+  //   keteranganKodInflow: "",
+  //   statusKodInflow: "",
+  // });
 
-  useEffect(() => {
-    // Populate form data
-    setValue("kodInflow", kodInflow.kodInflow);
-    setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
-    setValue("statusKodInflow", kodInflow.statusKodInflow);
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue("kodInflow", kodInflow.kodInflow);
+  //   setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
+  //   setValue("statusKodInflow", kodInflow.statusKodInflow);
 
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      kodInflow: kodInflow.kodInflow,
-      keteranganKodInflow: kodInflow.keteranganKodInflow,
-      statusKodInflow: kodInflow.statusKodInflow,
-    }));
-  }, [kodInflow, setValue]);
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     kodInflow: kodInflow.kodInflow,
+  //     keteranganKodInflow: kodInflow.keteranganKodInflow,
+  //     statusKodInflow: kodInflow.statusKodInflow,
+  //   }));
+  // }, [kodInflow, setValue]);
 
 
-  // Edit dimensi
-  const { editKodInflowWithoutKodInflowTerperinci } = useKodInflowStore((state) => ({
-    editKodInflowWithoutKodInflowTerperinci: state.editKodInflowWithoutKodInflowTerperinci,
-  }));
+  // Edit kod inflow without kod inflow terperinci
+  // const { editKodInflowWithoutKodInflowTerperinci } = useKodInflowStore((state) => ({
+  //   editKodInflowWithoutKodInflowTerperinci: state.editKodInflowWithoutKodInflowTerperinci,
+  // }));
 
   // Pass input & close modal
   const handleEditKodInflowWithoutKodInflowTerperinci = (editKodInflowData) => {
-    editKodInflowWithoutKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithoutKodInflowTerperinci);
+    // editKodInflowWithoutKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithoutKodInflowTerperinci);
   };
 
 
@@ -87,14 +89,14 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
 
                 <Form.Control
                   type="text"
-                  {...register("kodInflow", { required: true })}
-                  aria-invalid={errors.kodInflow ? "true" : "false"}
+                  // {...register("kodInflow", { required: true })}
+                  // aria-invalid={errors.kodInflow ? "true" : "false"}
                   placeholder="Masukkan kod inflow"
                 />
 
-                {errors.kodInflow?.type === "required" && (
+                {/* {errors.kodInflow?.type === "required" && ( */}
                   <small className="text-danger">Kod inflow diperlukan.</small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="keteranganKodInflow" className="mb-3">
@@ -104,16 +106,16 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
 
                 <Form.Control
                   as="textarea"
-                  {...register("keteranganKodInflow", { required: true })}
-                  aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
+                  // {...register("keteranganKodInflow", { required: true })}
+                  // aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
                   placeholder="Masukkan keterangan kod inflow"
                 />
 
-                {errors.keteranganKodInflow?.type === "required" && (
+                {/* {errors.keteranganKodInflow?.type === "required" && ( */}
                   <small className="text-danger">
                     Keterangan kod inflow diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="statusKodInflow" className="mb-3">
@@ -124,8 +126,8 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("statusKodInflow", { required: true })}
-                  aria-invalid={errors.statusKodInflow ? "true" : "false"}
+                  // {...register("statusKodInflow", { required: true })}
+                  // aria-invalid={errors.statusKodInflow ? "true" : "false"}
                   placeholder="Masukkan status kod inflow"
                 >
                   <option value="" disabled>
@@ -135,11 +137,11 @@ function EditWithoutKodInflowTerperinci({ kodInflow }) {
                   <option value="TIDAK AKTIF">TIDAK AKTIF</option>
                 </Form.Control>
 
-                {errors.statusKodInflow?.type === "required" && (
+                {/* {errors.statusKodInflow?.type === "required" && ( */}
                   <small className="text-danger">
                     Status kod inflow diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 
