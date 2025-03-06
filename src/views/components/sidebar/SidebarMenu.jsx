@@ -3,23 +3,23 @@ import { BsBarChartLineFill, BsTools, BsPersonFillGear } from "react-icons/bs";
 
 const SidebarMenu = [
   {
-    title: "Sahabat",
+    title: "Customer",
     path: "/carian-sahabat",
     icon: <FaUsers />,
     subRoutes: [
       {
-        title: "Sahabat",
+        title: "Customer",
         path: "/hasil-carian-sahabat",
       },
       {
-        title: "Sahabat",
+        title: "Customer",
         path: "/tracking-inflow-outflow",
       },
     ],
     roles: [1, 2, 3],
   },
   {
-    title: "Laporan",
+    title: "Report",
     path: "/laporan",
     icon: <BsBarChartLineFill />,
     subRoutes: [
@@ -55,7 +55,7 @@ const SidebarMenu = [
     roles: [1, 2, 3],
   },
   {
-    title: "Selenggara",
+    title: "Settings",
     path: "/selenggara",
     icon: <BsTools />,
     subRoutes: [
@@ -83,7 +83,7 @@ const SidebarMenu = [
     roles: [2, 3],
   },
   {
-    title: "Pengguna",
+    title: "User",
     path: "/tetapan-pengguna",
     icon: <BsPersonFillGear />,
     subRoutes: [
