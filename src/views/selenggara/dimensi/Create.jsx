@@ -24,13 +24,13 @@ function CreateDimensi() {
 
   // ___________________________________ Backend __________________________________
   // Create dimensi
-  const { createDimensi } = useDimensiStore((state) => ({
-    createDimensi: state.createDimensi,
-  }));
+  // const { createDimensi } = useDimensiStore((state) => ({
+  //   createDimensi: state.createDimensi,
+  // }));
 
   // Pass input & close modal
   const handleCreateDimensi = (addDimensiData) => {
-    createDimensi(addDimensiData, closeModalCreateDimensi);
+    // createDimensi(addDimensiData, closeModalCreateDimensi);
   };
 
   return (
@@ -56,14 +56,14 @@ function CreateDimensi() {
 
               <Form.Control
                 type="text"
-                {...register("kodDimensi", { required: true })}
-                aria-invalid={errors.kodDimensi ? "true" : "false"}
+                // {...register("kodDimensi", { required: true })}
+                // aria-invalid={errors.kodDimensi ? "true" : "false"}
                 placeholder="Masukkan kod dimensi"
               />
 
-              {errors.kodDimensi?.type === "required" && (
+              {/* {errors.kodDimensi?.type === "required" && ( */}
                 <small className="text-danger">Kod dimensi diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganDimensi" className="mb-3">
@@ -71,16 +71,16 @@ function CreateDimensi() {
 
               <Form.Control
                 as="textarea"
-                {...register("keteranganDimensi", { required: true })}
-                aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                // {...register("keteranganDimensi", { required: true })}
+                // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
                 placeholder="Masukkan keterangan dimensi"
               />
 
-              {errors.keteranganDimensi?.type === "required" && (
+              {/* {errors.keteranganDimensi?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan dimensi diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 

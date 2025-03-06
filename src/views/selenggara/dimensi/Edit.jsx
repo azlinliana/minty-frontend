@@ -23,35 +23,35 @@ function EditDimensi({ dimensi }) {
 
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini dimensi modal is opened
-  const [formData, setFormData] = useState({
-    kodDimensi: "",
-    keteranganDimensi: "",
-    statusDimensi: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   kodDimensi: "",
+  //   keteranganDimensi: "",
+  //   statusDimensi: "",
+  // });
 
-  useEffect(() => {
-    // Populate form data
-    setValue("kodDimensi", dimensi.kodDimensi);
-    setValue("keteranganDimensi", dimensi.keteranganDimensi);
-    setValue("statusDimensi", dimensi.statusDimensi);
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue("kodDimensi", dimensi.kodDimensi);
+  //   setValue("keteranganDimensi", dimensi.keteranganDimensi);
+  //   setValue("statusDimensi", dimensi.statusDimensi);
 
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      kodDimensi: dimensi.kodDimensi,
-      keteranganDimensi: dimensi.keteranganDimensi,
-      statusDimensi: dimensi.statusDimensi,
-    }));
-  }, [dimensi, setValue]);
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     kodDimensi: dimensi.kodDimensi,
+  //     keteranganDimensi: dimensi.keteranganDimensi,
+  //     statusDimensi: dimensi.statusDimensi,
+  //   }));
+  // }, [dimensi, setValue]);
 
   // Edit dimensi
-  const { editDimensi } = useDimensiStore((state) => ({
-    editDimensi: state.editDimensi,
-  }));
+  // const { editDimensi } = useDimensiStore((state) => ({
+  //   editDimensi: state.editDimensi,
+  // }));
 
   // Pass input & close modal
   const handleEditDimensi = (editDimensiData) => {
-    editDimensi(dimensi.id, editDimensiData, closeModalEditDimensi);
+    // editDimensi(dimensi.id, editDimensiData, closeModalEditDimensi);
   };
 
   return (
@@ -77,14 +77,14 @@ function EditDimensi({ dimensi }) {
 
               <Form.Control
                 type="text"
-                {...register("kodDimensi", { required: true })}
-                aria-invalid={errors.kodDimensi ? "true" : "false"}
+                // {...register("kodDimensi", { required: true })}
+                // aria-invalid={errors.kodDimensi ? "true" : "false"}
                 placeholder="Masukkan kod dimensi"
               />
 
-              {errors.kodDimensi?.type === "required" && (
+              {/* {errors.kodDimensi?.type === "required" && ( */}
                 <small className="text-danger">Kod dimensi diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganDimensi" className="mb-3">
@@ -92,16 +92,16 @@ function EditDimensi({ dimensi }) {
 
               <Form.Control
                 as="textarea"
-                {...register("keteranganDimensi", { required: true })}
-                aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                // {...register("keteranganDimensi", { required: true })}
+                // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
                 placeholder="Masukkan keterangan dimensi"
               />
 
-              {errors.keteranganDimensi?.type === "required" && (
+              {/* {errors.keteranganDimensi?.type === "required" && ( */}
                 <small className="text-danger">
                   Keterangan dimensi diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="statusDimensi" className="mb-3">
@@ -110,8 +110,8 @@ function EditDimensi({ dimensi }) {
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("statusDimensi", { required: true })}
-                aria-invalid={errors.statusDimensi ? "true" : "false"}
+                // {...register("statusDimensi", { required: true })}
+                // aria-invalid={errors.statusDimensi ? "true" : "false"}
                 placeholder="Masukkan status dimensi"
               >
                 <option value="" disabled>
@@ -121,11 +121,11 @@ function EditDimensi({ dimensi }) {
                 <option value="TIDAK AKTIF">TIDAK AKTIF</option>
               </Form.Control>
 
-              {errors.statusDimensi?.type === "required" && (
+              {/* {errors.statusDimensi?.type === "required" && ( */}
                 <small className="text-danger">
                   Status dimensi diperlukan.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 
