@@ -17,17 +17,17 @@ function IndexDimensi() {
 
   // ___________________________________ Backend __________________________________
   // List & delete dimensi
-  const { dimensis, fetchDimensis, deleteDimensi } = useDimensiStore(
-    (state) => ({
-      dimensis: state.dimensis,
-      fetchDimensis: state.fetchDimensis,
-      deleteDimensi: state.deleteDimensi,
-    })
-  );
+  // const { dimensis, fetchDimensis, deleteDimensi } = useDimensiStore(
+  //   (state) => ({
+  //     dimensis: state.dimensis,
+  //     fetchDimensis: state.fetchDimensis,
+  //     deleteDimensi: state.deleteDimensi,
+  //   })
+  // );
 
-  useEffect(() => {
-    fetchDimensis();
-  }, [fetchDimensis]);
+  // useEffect(() => {
+  //   fetchDimensis();
+  // }, [fetchDimensis]);
 
   return (
     <>
@@ -62,7 +62,7 @@ function IndexDimensi() {
           </thead>
 
           <tbody>
-            {dimensis.length === 0 ? (
+            {/* {dimensis.length === 0 ? ( */}
               <tr>
                 <td colSpan="5">
                   <center>
@@ -71,15 +71,19 @@ function IndexDimensi() {
                   </center>
                 </td>
               </tr>
-            ) : (
-              dimensis.map((dimensisData, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{dimensisData.kodDimensi}</td>
-                  <td>{dimensisData.keteranganDimensi}</td>
-                  <td>{dimensisData.statusDimensi}</td>
+            {/* ) : (
+              dimensis.map((dimensisData, key) => ( */}
+                <tr 
+                  // key={key}
+                >
+                  <td>Bil.</td>
+                  <td>Kod Dimensi</td>
+                  <td>Keterangan Dimensi</td>
+                  <td>Status Dimensi</td>
                   <td>
-                    <EditDimensi dimensi={dimensisData} />
+                    <EditDimensi 
+                      // dimensi={dimensisData} 
+                    />
                     
                     <Button
                       className="delete-btn"
@@ -89,8 +93,8 @@ function IndexDimensi() {
                     </Button>{" "}
                   </td>
                 </tr>
-              ))
-            )}
+              {/* ))
+            )} */}
           </tbody>
         </Table>
 
