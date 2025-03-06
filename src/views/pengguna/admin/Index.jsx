@@ -16,15 +16,15 @@ function IndexAdmin() {
 
   // ___________________________________ Backend __________________________________
   // List & delete admin
-  const { admins, fetchAdmins, deleteAdmin } = useAdminStore((state) => ({
-    admins: state.admins,
-    fetchAdmins: state.fetchAdmins,
-    deleteAdmin: state.deleteAdmin,
-  }));
+  // const { admins, fetchAdmins, deleteAdmin } = useAdminStore((state) => ({
+  //   admins: state.admins,
+  //   fetchAdmins: state.fetchAdmins,
+  //   deleteAdmin: state.deleteAdmin,
+  // }));
 
-  useEffect(() => {
-    fetchAdmins();
-  }, [fetchAdmins]);
+  // useEffect(() => {
+  //   fetchAdmins();
+  // }, [fetchAdmins]);
 
   return (
     <>
@@ -67,7 +67,7 @@ function IndexAdmin() {
               </thead>
 
               <tbody>
-                {admins.length === 0 ? (
+                {/* {admins.length === 0 ? ( */}
                   <tr>
                     <td colSpan={7}>
                       <center>
@@ -76,28 +76,32 @@ function IndexAdmin() {
                       </center>
                     </td>
                   </tr>
-                ) : (
-                  admins.map((adminsData, key) => (
-                    <tr key={key}>
-                      <td>{key + 1}</td>
-                      <td>{adminsData.user.idKakitangan}</td>
-                      <td>{adminsData.user.namaKakitangan}</td>
-                      <td>{adminsData.user.lokasiKakitangan}</td>
-                      <td>{adminsData.user.jawatanKakitangan}</td>
-                      <td>{adminsData.statusAdmin}</td>
+                {/* ) : (
+                  admins.map((adminsData, key) => ( */}
+                    <tr 
+                      // key={key}
+                    >
+                      <td>Bil.</td>
+                      <td>Id Kakitangan</td>
+                      <td>Nama Kakitangan</td>
+                      <td>Lokasi Kakitangan</td>
+                      <td>Jawatan Kakitangan</td>
+                      <td>Status Admin</td>
                       <td>
-                        <EditAdmin admin={adminsData} />
+                        <EditAdmin 
+                          // admin={adminsData} 
+                        />
                         
                         <Button
                           className="delete-btn"
-                          onClick={() => deleteAdmin(adminsData.id)}
+                          // onClick={() => deleteAdmin(adminsData.id)}
                         >
                           Padam
                         </Button>{" "}
                       </td>
                     </tr>
-                  ))
-                )}
+                  {/* ))
+                )} */}
               </tbody>
             </Table>
 
