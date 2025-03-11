@@ -13,14 +13,14 @@
 /* *********************** */
 
 #root {
-  --white: #FFFFFF;
-  --black: #000000;
-  --darkcyanblue: #13315C;
-  --lightgray: #D9D9D9;
-  --darkgray: #808080;
-  --activegreen: #008000;
-  --noticeyellow: #ffae42;
-  --error_red: #FF0000;
+  --primary-color: #235239;
+  --secondary-color: #2D664F;
+  --tertiary-color: #102018;
+  --primary-hover-color: #75A589;
+  --primary-details-color: #CBFFE1;
+  --grayscale-offwhite: #F5F5F5;
+  --grayscale-white: #FFFFFF;
+  --grayscale-black: #000000;
 }
 
 a {
@@ -38,16 +38,16 @@ a {
 }
 
 .kembali-btn {
-  border-color: var(--white);
-  background-color: var(--white);
-  color: var(--black);
+  border-color: var(--grayscale-var(--grayscale-white));
+  background-color: var(--grayscale-var(--grayscale-white));
+  color: var(--grayscale-black);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .batal-btn {
   background-color: var(--lightgray);
-  border-color: var(--black);
-  color: var(--black);
+  border-color: var(--grayscale-black);
+  color: var(--grayscale-black);
 }
 
 .download-btn-container {
@@ -96,7 +96,7 @@ a {
 /* ******************************* */
 
 .breadcrumb-previous-link a {
-  color: var(--darkcyanblue);
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
