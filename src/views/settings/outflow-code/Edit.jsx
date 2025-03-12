@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
+import { useoutflowCodeStore } from "../../../store/selenggara/kod-outflow-store";
 
 function EditOutflowCode(
-  // { kodOutflow }
+  // { outflowCode }
 ) {
   // __________________________________ Frontend __________________________________
   // Modal
@@ -24,36 +24,36 @@ function EditOutflowCode(
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini kod outflow modal is opened
+  // Set default values when the kemas kini outflow code modal is opened
   // const [formData, setFormData] = useState({
-  //   kodOutflow: "",
-  //   keteranganKodOutflow: "",
-  //   statusKodOutflow: "",
+  //   outflowCode: "",
+  //   keteranganoutflowCode: "",
+  //   statusoutflowCode: "",
   // });
 
   // useEffect(() => {
   //   // Populate form data
-  //   setValue("kodOutflow", kodOutflow.kodOutflow);
-  //   setValue("keteranganKodOutflow", kodOutflow.keteranganKodOutflow);
-  //   setValue("statusKodOutflow", kodOutflow.statusKodOutflow);
+  //   setValue("outflowCode", outflowCode.outflowCode);
+  //   setValue("keteranganoutflowCode", outflowCode.keteranganoutflowCode);
+  //   setValue("statusoutflowCode", outflowCode.statusoutflowCode);
 
   //   // Set default values for formData
   //   setFormData((prevData) => ({
   //     ...prevData,
-  //     kodOutflow: kodOutflow.kodOutflow,
-  //     keteranganKodOutflow: kodOutflow.keteranganKodOutflow,
-  //     statusKodOutflow: kodOutflow.statusKodOutflow,
+  //     outflowCode: outflowCode.outflowCode,
+  //     keteranganoutflowCode: outflowCode.keteranganoutflowCode,
+  //     statusoutflowCode: outflowCode.statusoutflowCode,
   //   }));
-  // }, [kodOutflow, setValue]);
+  // }, [outflowCode, setValue]);
 
-  // Edit kod outflow
-  // const { EditOutflowCode } = useKodOutflowStore((state) => ({
+  // Edit outflow code
+  // const { EditOutflowCode } = useoutflowCodeStore((state) => ({
   //   EditOutflowCode: state.EditOutflowCode,
   // }));
 
   // Pass input & close modal
   const handleEditOutflowCode = (EditOutflowCodeData) => {
-    // EditOutflowCode(kodOutflow.id, EditOutflowCodeData, closeModalEditOutflowCode);
+    // EditOutflowCode(outflowCode.id, EditOutflowCodeData, closeModalEditOutflowCode);
   };
 
 
@@ -75,48 +75,48 @@ function EditOutflowCode(
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodOutflow" className="mb-3">
+            <Form.Group controlId="outflowCode" className="mb-3">
               <Form.Label className="form-label">Outflow Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodOutflow", { required: true })}
-                // aria-invalid={errors.kodOutflow ? "true" : "false"}
+                // {...register("outflowCode", { required: true })}
+                // aria-invalid={errors.outflowCode ? "true" : "false"}
                 placeholder="Insert outflow code"
               />
 
-              {/* {errors.kodOutflow?.type === "required" && ( */}
+              {/* {errors.outflowCode?.type === "required" && ( */}
                 <small className="text-danger">Outflow code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganKodOutflow" className="mb-3">
+            <Form.Group controlId="keteranganoutflowCode" className="mb-3">
               <Form.Label className="form-label">
                 Outflow Code Description
               </Form.Label>
 
               <Form.Control
                 as="textarea"
-                // {...register("keteranganKodOutflow", { required: true })}
-                // aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
+                // {...register("keteranganoutflowCode", { required: true })}
+                // aria-invalid={errors.keteranganoutflowCode ? "true" : "false"}
                 placeholder="Insert outflow code description"
               />
 
-              {/* {errors.keteranganKodOutflow?.type === "required" && ( */}
+              {/* {errors.keteranganoutflowCode?.type === "required" && ( */}
                 <small className="text-danger">
                   Outflow code description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="statusKodOutflow" className="mb-3">
+            <Form.Group controlId="statusoutflowCode" className="mb-3">
               <Form.Label className="form-label"> Outflow Code Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
-                // {...register("statusKodOutflow", { required: true })}
-                // aria-invalid={errors.statusKodOutflow ? "true" : "false"}
+                // {...register("statusoutflowCode", { required: true })}
+                // aria-invalid={errors.statusoutflowCode ? "true" : "false"}
                 placeholder="Insert outflow code status"
               >
                 <option value="" disabled>
@@ -126,7 +126,7 @@ function EditOutflowCode(
                 <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
-              {/* {errors.statusKodOutflow?.type === "required" && ( */}
+              {/* {errors.statusoutflowCode?.type === "required" && ( */}
                 <small className="text-danger">
                   Outflow code status is required.
                 </small>
