@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
+import { useLoanStore } from "../../../store/settings/loan-store";
 
-function EditLoan({ dimensi }) {
+function EditLoan({ loan }) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditLoan, setIsModalEditLoan] = useState(false);
@@ -22,36 +22,36 @@ function EditLoan({ dimensi }) {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini dimensi modal is opened
+  // Set default values when the kemas kini loan modal is opened
   // const [formData, setFormData] = useState({
-  //   kodDimensi: "",
-  //   keteranganDimensi: "",
-  //   statusDimensi: "",
+  //   kodloan: "",
+  //   keteranganloan: "",
+  //   statusloan: "",
   // });
 
   // useEffect(() => {
   //   // Populate form data
-  //   setValue("kodDimensi", dimensi.kodDimensi);
-  //   setValue("keteranganDimensi", dimensi.keteranganDimensi);
-  //   setValue("statusDimensi", dimensi.statusDimensi);
+  //   setValue("kodloan", loan.kodloan);
+  //   setValue("keteranganloan", loan.keteranganloan);
+  //   setValue("statusloan", loan.statusloan);
 
   //   // Set default values for formData
   //   setFormData((prevData) => ({
   //     ...prevData,
-  //     kodDimensi: dimensi.kodDimensi,
-  //     keteranganDimensi: dimensi.keteranganDimensi,
-  //     statusDimensi: dimensi.statusDimensi,
+  //     kodloan: loan.kodloan,
+  //     keteranganloan: loan.keteranganloan,
+  //     statusloan: loan.statusloan,
   //   }));
-  // }, [dimensi, setValue]);
+  // }, [loan, setValue]);
 
-  // Edit dimensi
-  // const { EditLoan } = useDimensiStore((state) => ({
+  // Edit loan
+  // const { EditLoan } = useloanStore((state) => ({
   //   EditLoan: state.EditLoan,
   // }));
 
   // Pass input & close modal
   const handleEditLoan = (EditLoanData) => {
-    // EditLoan(dimensi.id, EditLoanData, closeModalEditLoan);
+    // EditLoan(loan.id, EditLoanData, closeModalEditLoan);
   };
 
   return (
@@ -72,47 +72,47 @@ function EditLoan({ dimensi }) {
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodDimensi" className="mb-3">
+            <Form.Group controlId="kodloan" className="mb-3">
               <Form.Label className="form-label">Loan Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodDimensi", { required: true })}
-                // aria-invalid={errors.kodDimensi ? "true" : "false"}
+                // {...register("kodloan", { required: true })}
+                // aria-invalid={errors.kodloan ? "true" : "false"}
                 placeholder="Insert loan code"
               />
 
-              {/* {errors.kodDimensi?.type === "required" && ( */}
+              {/* {errors.kodloan?.type === "required" && ( */}
                 <small className="text-danger">Loan code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganDimensi" className="mb-3">
+            <Form.Group controlId="keteranganloan" className="mb-3">
               <Form.Label className="form-label">Loan Description</Form.Label>
 
               <Form.Control
                 as="textarea"
-                // {...register("keteranganDimensi", { required: true })}
-                // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                // {...register("keteranganloan", { required: true })}
+                // aria-invalid={errors.keteranganloan ? "true" : "false"}
                 placeholder="Insert loan description"
               />
 
-              {/* {errors.keteranganDimensi?.type === "required" && ( */}
+              {/* {errors.keteranganloan?.type === "required" && ( */}
                 <small className="text-danger">
                   Loan description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="statusDimensi" className="mb-3">
+            <Form.Group controlId="statusloan" className="mb-3">
               <Form.Label className="form-label">Loan Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
-                // {...register("statusDimensi", { required: true })}
-                // aria-invalid={errors.statusDimensi ? "true" : "false"}
-                placeholder="Insert status dimensi"
+                // {...register("statusloan", { required: true })}
+                // aria-invalid={errors.statusloan ? "true" : "false"}
+                placeholder="Insert status loan"
               >
                 <option value="" disabled>
                   --Choose Loan Status--
@@ -121,7 +121,7 @@ function EditLoan({ dimensi }) {
                 <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
-              {/* {errors.statusDimensi?.type === "required" && ( */}
+              {/* {errors.statusloan?.type === "required" && ( */}
                 <small className="text-danger">
                   Loan status is required.
                 </small>
