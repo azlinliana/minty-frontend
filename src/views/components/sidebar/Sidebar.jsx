@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import "../../../assets/styles/styles_layout.css";

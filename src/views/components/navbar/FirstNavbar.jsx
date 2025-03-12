@@ -47,7 +47,7 @@ function FirstNavbar() {
               <span className="logout-icon-container">
                 <FaArrowRightFromBracket className="logout-icon" size={18} />
               </span>
-              <span className="logout-text-visibility" style={{ fontWeight: "bold" }}>Log out</span>
+              <span className="logout-text-visibility logout-btn-text">Log out</span>
             </button>
           </div>
         </Container>
