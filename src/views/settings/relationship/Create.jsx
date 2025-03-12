@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
+import { useRelationshipStore } from "../../../store/settings/relationship-store";
 
 function CreateRelationship() {
   // __________________________________ Frontend __________________________________
@@ -23,14 +23,14 @@ function CreateRelationship() {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Create hubungan
-  // const { CreateRelationship } = useHubunganStore((state) => ({
-  //   CreateRelationship: state.CreateRelationship,
+  // Create relationship
+  // const { CreateRelationship } = useRelationshipStore((state) => ({
+  //   createRelationship: state.createRelationship,
   // }));
 
   // Pass input & close modal
-  const handleCreateRelationship = (addHubunganData) => {
-    // CreateRelationship(addHubunganData, closeModalCreateRelationship);
+  const handleCreateRelationship = (addRelationshipData) => {
+    // createRelationship(addrelationshipData, closeModalCreateRelationship);
   };
 
   return (
@@ -51,34 +51,34 @@ function CreateRelationship() {
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodHubungan" className="mb-3">
+            <Form.Group controlId="kodrelationship" className="mb-3">
               <Form.Label className="form-label">Relationship Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodHubungan", { required: true })}
-                // aria-invalid={errors.kodHubungan ? "true" : "false"}
+                // {...register("kodrelationship", { required: true })}
+                // aria-invalid={errors.kodrelationship ? "true" : "false"}
                 placeholder="Insert relationship code"
               />
 
-              {/* {errors.kodHubungan?.type === "required" && ( */}
+              {/* {errors.kodrelationship?.type === "required" && ( */}
                 <small className="text-danger">Relationship code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganHubungan" className="mb-3">
+            <Form.Group controlId="keteranganrelationship" className="mb-3">
               <Form.Label className="form-label">
                 Relationship Description
               </Form.Label>
 
               <Form.Control
                 as="textarea"
-                // {...register("keteranganHubungan", { required: true })}
-                // aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                // {...register("keteranganrelationship", { required: true })}
+                // aria-invalid={errors.keteranganrelationship ? "true" : "false"}
                 placeholder="Insert relationship description"
               />
 
-              {/* {errors.keteranganHubungan?.type === "required" && ( */}
+              {/* {errors.keteranganrelationship?.type === "required" && ( */}
                 <small className="text-danger">
                   Relationship description is required.
                 </small>

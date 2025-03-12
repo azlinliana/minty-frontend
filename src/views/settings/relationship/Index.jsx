@@ -4,7 +4,7 @@ import "../../../assets/styles/styles_selenggara.css";
 import CreateRelationship from "./Create";
 import EditRelationship from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
+import { useRelationshipStore } from "../../../store/settings/relationship-store";
 
 function IndexRelationship() {
   // __________________________________ Frontend __________________________________
@@ -16,18 +16,18 @@ function IndexRelationship() {
   };
 
   // ___________________________________ Backend __________________________________
-  // List & delete hubungan
-  // const { hubungans, fetchHubungans, deleteHubungan } = useHubunganStore(
+  // List & delete relationship
+  // const { relationships, fetchRelationships, deleteRelationship } = useRelationshipStore(
   //   (state) => ({
-  //     hubungans: state.hubungans,
-  //     fetchHubungans: state.fetchHubungans,
-  //     deleteHubungan: state.deleteHubungan,
+  //     relationships: state.relationships,
+  //     fetchRelationships: state.fetchRelationships,
+  //     deleteRelationship: state.deleteRelationship,
   //   })
   // );
 
   // useEffect(() => {
-  //   fetchHubungans();
-  // }, [fetchHubungans]);
+  //   fetchRelationships();
+  // }, [fetchRelationships]);
 
   return (
     <>
@@ -62,7 +62,7 @@ function IndexRelationship() {
           </thead>
 
           <tbody>
-            {/* {hubungans.length === 0 ? ( */}
+            {/* {relationships.length === 0 ? ( */}
               <tr>
                 <td colSpan="5">
                   <center>
@@ -72,7 +72,7 @@ function IndexRelationship() {
                 </td>
               </tr>
             {/* ) : (
-              hubungans.map((hubungansData, key) => ( */}
+              relationships.map((relationshipsData, key) => ( */}
                 <tr 
                   // key={key}
                 >
@@ -82,12 +82,12 @@ function IndexRelationship() {
                   <td>Relationship Status</td>
                   <td>
                     <EditRelationship 
-                      // hubungan={hubungansData} 
+                      // relationship={relationshipsData} 
                     />
                     
                     <Button
                       className="delete-btn"
-                      // onClick={() => deleteHubungan(hubungansData.id)}
+                      // onClick={() => deleteRelationship(relationshipsData.id)}
                     >
                       Delete
                     </Button>{" "}
