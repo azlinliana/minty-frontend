@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
+import { useOutflowCodeStore } from "../../../store/selenggara/kod-outflow-store";
 
 function CreateOutflowCode() {
   // __________________________________ Frontend __________________________________
@@ -23,14 +23,14 @@ function CreateOutflowCode() {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Create kod outflow
-  // const { CreateOutflowCode } = useKodOutflowStore((state) => ({
+  // Create outflow code
+  // const { CreateOutflowCode } = useOutflowCodeStore((state) => ({
   //   CreateOutflowCode: state.CreateOutflowCode,
   // }));
 
   // Pass input & close modal
-  const handleCreateOutflowCode = (addKodOutflowData) => {
-    // CreateOutflowCode(addKodOutflowData, closeModalCreateOutflowCode);
+  const handleCreateOutflowCode = (addOutflowCodeData) => {
+    // CreateOutflowCode(addOutflowCodeData, closeModalCreateOutflowCode);
   };
 
   return (
@@ -51,34 +51,34 @@ function CreateOutflowCode() {
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodOutflow" className="mb-3">
+            <Form.Group controlId="OutflowCode" className="mb-3">
               <Form.Label className="form-label">Outflow Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodOutflow", { required: true })}
-                // aria-invalid={errors.kodOutflow ? "true" : "false"}
+                // {...register("OutflowCode", { required: true })}
+                // aria-invalid={errors.OutflowCode ? "true" : "false"}
                 placeholder="Insert outflow code"
               />
 
-              {/* {errors.kodOutflow?.type === "required" && ( */}
+              {/* {errors.OutflowCode?.type === "required" && ( */}
                 <small className="text-danger">Outflow code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganKodOutflow" className="mb-3">
+            <Form.Group controlId="keteranganOutflowCode" className="mb-3">
               <Form.Label className="form-label">
                 Outflow Code Description
               </Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("keteranganKodOutflow", { required: true })}
-                // aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
+                // {...register("keteranganOutflowCode", { required: true })}
+                // aria-invalid={errors.keteranganOutflowCode ? "true" : "false"}
                 placeholder="Insert outflow code description"
               />
 
-              {/* {errors.keteranganKodOutflow?.type === "required" && ( */}
+              {/* {errors.keteranganOutflowCode?.type === "required" && ( */}
                 <small className="text-danger">
                   Outflow code description is required.
                 </small>

@@ -4,7 +4,7 @@ import "../../../assets/styles/styles_selenggara.css";
 import CreateOutflowCode from "./Create";
 import EditOutflowCode from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import { useKodOutflowStore } from "../../../store/selenggara/kod-outflow-store";
+import { useOutflowCodeStore } from "../../../store/settings/outflow-code-store";
 
 function IndexOutflowCode() {
   // __________________________________ Frontend __________________________________
@@ -16,18 +16,18 @@ function IndexOutflowCode() {
   };
 
   // ___________________________________ Backend __________________________________
-  // List & delete kod outflow
-  // const { kodOutflows, fetchKodOutflows, deleteKodOutflow } = useKodOutflowStore(
+  // List & delete outflow code
+  // const { outflowCodes, fetchOutflowCodes, deleteOutflowCode } = useoutflowCodeStore(
   //   (state) => ({
-  //     kodOutflows: state.kodOutflows,
-  //     fetchKodOutflows: state.fetchKodOutflows,
-  //     deleteKodOutflow: state.deleteKodOutflow,
+  //     outflowCodes: state.outflowCodes,
+  //     fetchoutflowCodes: state.fetchoutflowCodes,
+  //     deleteoutflowCode: state.deleteoutflowCode,
   //   })
   // );
 
   // useEffect(() => {
-  //   fetchKodOutflows();
-  // }, [fetchKodOutflows]);
+  //   fetchoutflowCodes();
+  // }, [fetchoutflowCodes]);
 
   return (
     <>
@@ -62,7 +62,7 @@ function IndexOutflowCode() {
           </thead>
 
           <tbody>
-            {/* {kodOutflows.length === 0 ? ( */}
+            {/* {outflowCodes.length === 0 ? ( */}
               <tr>
                 <td colSpan="6">
                   <center>
@@ -72,7 +72,7 @@ function IndexOutflowCode() {
                 </td>
               </tr>
             {/* ) : (
-              kodOutflows.map((kodOutflowsData, index) => ( */}
+              outflowCodes.map((outflowCodesData, index) => ( */}
                 <tr 
                   // key={index}
                 >
@@ -82,12 +82,12 @@ function IndexOutflowCode() {
                   <td>Outflow Code Status</td>
                   <td>
                     <EditOutflowCode 
-                      // kodOutflow={kodOutflowsData} 
+                      // outflowCode={outflowCodesData} 
                     />
                     
                     <Button
                       className="delete-btn"
-                      // onClick={() => deleteKodOutflow(kodOutflowsData.id)}
+                      // onClick={() => deleteoutflowCode(outflowCodesData.id)}
                     >
                       Delete
                     </Button>{" "}
