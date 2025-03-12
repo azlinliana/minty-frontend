@@ -4,7 +4,7 @@ import SuccessAlert from "../../views/components/sweet-alert/SuccessAlert";
 import ErrorAlert from "../../views/components/sweet-alert/ErrorAlert";
 import DeletionAlert from "../../views/components/sweet-alert/DeletionAlert";
 
-const URL = "settings/kod-outflow";
+const URL = "settings/outflow-code";
 
 export const useOutflowCodeStore = create((set) => ({
   outflowCodes: [],
