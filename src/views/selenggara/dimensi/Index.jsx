@@ -32,16 +32,16 @@ function IndexDimensi() {
   return (
     <>
       <div className="page-title">
-        <h1>Dimensi</h1>
+        <h1>Loan</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
             href="selenggara"
           >
-            Senarai Selenggara
+            Settings List
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Dimensi</Breadcrumb.Item>
+          <Breadcrumb.Item active>Loan</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -53,11 +53,11 @@ function IndexDimensi() {
         <Table responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
-              <th>Kod Dimensi</th>
-              <th>Keterangan Dimensi</th>
+              <th>No.</th>
+              <th>Loan Code</th>
+              <th>Loan Description</th>
               <th>Status</th>
-              <th>Tindakan</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -66,8 +66,8 @@ function IndexDimensi() {
               <tr>
                 <td colSpan="5">
                   <center>
-                    Tiada maklumat. Sila klik butang "Tambah" untuk merekodkan
-                    dimensi baharu.
+                    No loan information available. 
+                    Please click the "Add" button to record a new loan.
                   </center>
                 </td>
               </tr>
@@ -76,10 +76,10 @@ function IndexDimensi() {
                 <tr 
                   // key={key}
                 >
-                  <td>Bil.</td>
-                  <td>Kod Dimensi</td>
-                  <td>Keterangan Dimensi</td>
-                  <td>Status Dimensi</td>
+                  <td>No.</td>
+                  <td>Loan Code</td>
+                  <td>Loan Description</td>
+                  <td>Loan Status</td>
                   <td>
                     <EditDimensi 
                       // dimensi={dimensisData} 
@@ -89,7 +89,7 @@ function IndexDimensi() {
                       className="delete-btn"
                       onClick={() => deleteDimensi(dimensisData.id)}
                     >
-                      Padam
+                      Delete
                     </Button>{" "}
                   </td>
                 </tr>
