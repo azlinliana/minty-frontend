@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useKodInflowStore } from "../../../../store/selenggara/kod-inflow-store";
+import { useInflowCodeStore } from "../../../../store/settings/inflow-code-store";
 
 function EditWithoutDetailedInflowCode(
-  // { kodInflow }
+  // { inflowCode }
 ) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [
-    isModalEditKodInflowWithoutKodInflowTerperinci,
-    setIsModalEditKodInflowWithoutKodInflowTerperinci,
+    isModalEditinflowCodeWithoutinflowCodeTerperinci,
+    setIsModalEditinflowCodeWithoutinflowCodeTerperinci,
   ] = useState(false);
-  const openModalEditKodInflowWithoutKodInflowTerperinci = () =>
-    setIsModalEditKodInflowWithoutKodInflowTerperinci(true);
-  const closeModalEditKodInflowWithoutKodInflowTerperinci = () => {
-    setIsModalEditKodInflowWithoutKodInflowTerperinci(false);
+  const openModalEditinflowCodeWithoutinflowCodeTerperinci = () =>
+    setIsModalEditinflowCodeWithoutinflowCodeTerperinci(true);
+  const closeModalEditinflowCodeWithoutinflowCodeTerperinci = () => {
+    setIsModalEditinflowCodeWithoutinflowCodeTerperinci(false);
   };
 
   // Form validation
@@ -28,37 +28,37 @@ function EditWithoutDetailedInflowCode(
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini kod inflow modal is opened
+  // Set default values when the kemas kini inflow code modal is opened
   // const [formData, setFormData] = useState({
-  //   kodInflow: "",
-  //   keteranganKodInflow: "",
-  //   statusKodInflow: "",
+  //   inflowCode: "",
+  //   keteranganinflowCode: "",
+  //   statusinflowCode: "",
   // });
 
   // useEffect(() => {
   //   // Populate form data
-  //   setValue("kodInflow", kodInflow.kodInflow);
-  //   setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
-  //   setValue("statusKodInflow", kodInflow.statusKodInflow);
+  //   setValue("inflowCode", inflowCode.inflowCode);
+  //   setValue("keteranganinflowCode", inflowCode.keteranganinflowCode);
+  //   setValue("statusinflowCode", inflowCode.statusinflowCode);
 
   //   // Set default values for formData
   //   setFormData((prevData) => ({
   //     ...prevData,
-  //     kodInflow: kodInflow.kodInflow,
-  //     keteranganKodInflow: kodInflow.keteranganKodInflow,
-  //     statusKodInflow: kodInflow.statusKodInflow,
+  //     inflowCode: inflowCode.inflowCode,
+  //     keteranganinflowCode: inflowCode.keteranganinflowCode,
+  //     statusinflowCode: inflowCode.statusinflowCode,
   //   }));
-  // }, [kodInflow, setValue]);
+  // }, [inflowCode, setValue]);
 
 
-  // Edit kod inflow without kod inflow terperinci
-  // const { editKodInflowWithoutKodInflowTerperinci } = useKodInflowStore((state) => ({
-  //   editKodInflowWithoutKodInflowTerperinci: state.editKodInflowWithoutKodInflowTerperinci,
+  // Edit inflow code without inflow code terperinci
+  // const { editinflowCodeWithoutinflowCodeTerperinci } = useinflowCodeStore((state) => ({
+  //   editinflowCodeWithoutinflowCodeTerperinci: state.editinflowCodeWithoutinflowCodeTerperinci,
   // }));
 
   // Pass input & close modal
-  const handleEditKodInflowWithoutKodInflowTerperinci = (editKodInflowData) => {
-    // editKodInflowWithoutKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithoutKodInflowTerperinci);
+  const handleEditinflowCodeWithoutinflowCodeTerperinci = (editinflowCodeData) => {
+    // editinflowCodeWithoutinflowCodeTerperinci(inflowCode.id, editinflowCodeData, closeModalEditinflowCodeWithoutinflowCodeTerperinci);
   };
 
 
@@ -67,14 +67,14 @@ function EditWithoutDetailedInflowCode(
       <div>
         <Button
           className="edit-btn"
-          onClick={openModalEditKodInflowWithoutKodInflowTerperinci}
+          onClick={openModalEditinflowCodeWithoutinflowCodeTerperinci}
         >
           Edit
         </Button>{" "}
         
         <Modal
-          show={isModalEditKodInflowWithoutKodInflowTerperinci}
-          onHide={closeModalEditKodInflowWithoutKodInflowTerperinci}
+          show={isModalEditinflowCodeWithoutinflowCodeTerperinci}
+          onHide={closeModalEditinflowCodeWithoutinflowCodeTerperinci}
           backdrop="static"
           keyboard={false}
         >
@@ -84,41 +84,41 @@ function EditWithoutDetailedInflowCode(
 
           <Form onReset={reset}>
             <Modal.Body>
-              <Form.Group controlId="kodInflow" className="mb-3">
+              <Form.Group controlId="inflowCode" className="mb-3">
                 <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("kodInflow", { required: true })}
-                  // aria-invalid={errors.kodInflow ? "true" : "false"}
+                  // {...register("inflowCode", { required: true })}
+                  // aria-invalid={errors.inflowCode ? "true" : "false"}
                   placeholder="Insert inflow code"
                 />
 
-                {/* {errors.kodInflow?.type === "required" && ( */}
+                {/* {errors.inflowCode?.type === "required" && ( */}
                   <small className="text-danger">Inflow code is required.</small>
                 {/* )} */}
               </Form.Group>
 
-              <Form.Group controlId="keteranganKodInflow" className="mb-3">
+              <Form.Group controlId="keteranganinflowCode" className="mb-3">
                 <Form.Label className="form-label">
                   Inflow Code Description
                 </Form.Label>
 
                 <Form.Control
                   as="textarea"
-                  // {...register("keteranganKodInflow", { required: true })}
-                  // aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
+                  // {...register("keteranganinflowCode", { required: true })}
+                  // aria-invalid={errors.keteranganinflowCode ? "true" : "false"}
                   placeholder="Insert inflow code description"
                 />
 
-                {/* {errors.keteranganKodInflow?.type === "required" && ( */}
+                {/* {errors.keteranganinflowCode?.type === "required" && ( */}
                   <small className="text-danger">
                     Inflow code description is required.
                   </small>
                 {/* )} */}
               </Form.Group>
 
-              <Form.Group controlId="statusKodInflow" className="mb-3">
+              <Form.Group controlId="statusinflowCode" className="mb-3">
                 <Form.Label className="form-label">
                   Inflow Code Status
                 </Form.Label>
@@ -126,8 +126,8 @@ function EditWithoutDetailedInflowCode(
                 <Form.Control
                   as="select"
                   className="form-select"
-                  // {...register("statusKodInflow", { required: true })}
-                  // aria-invalid={errors.statusKodInflow ? "true" : "false"}
+                  // {...register("statusinflowCode", { required: true })}
+                  // aria-invalid={errors.statusinflowCode ? "true" : "false"}
                   placeholder="Insert inflow code status"
                 >
                   <option value="" disabled>
@@ -137,7 +137,7 @@ function EditWithoutDetailedInflowCode(
                   <option value="INACTIVE">INACTIVE</option>
                 </Form.Control>
 
-                {/* {errors.statusKodInflow?.type === "required" && ( */}
+                {/* {errors.statusinflowCode?.type === "required" && ( */}
                   <small className="text-danger">
                     Code inflow status is required.
                   </small>
@@ -148,14 +148,14 @@ function EditWithoutDetailedInflowCode(
             <Modal.Footer>
               <Button
                 className="batal-btn"
-                onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}
+                onClick={closeModalEditinflowCodeWithoutinflowCodeTerperinci}
               >
                 Cancel
               </Button>
 
               <Button
                 onClick={handleFormSubmit(
-                  handleEditKodInflowWithoutKodInflowTerperinci
+                  handleEditinflowCodeWithoutinflowCodeTerperinci
                 )}
               >
                 Edit

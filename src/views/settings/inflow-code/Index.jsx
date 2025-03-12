@@ -5,7 +5,7 @@ import CreateInflowCode from "./Create";
 import EditWithoutDetailedInflowCode from "./Edit/EditWithoutDetailedInflowCode";
 import EditWithDetailedInflowCode from "./Edit/EditWithDetailedInflowCode";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import { useKodInflowStore } from "../../../store/selenggara/kod-inflow-store";
+import { useInflowCodeStore } from "../../../store/settings/inflow-code-store";
 
 function IndexInflowCode() {
   // __________________________________ Frontend __________________________________
@@ -17,24 +17,24 @@ function IndexInflowCode() {
   };
 
   // ___________________________________ Backend _________________________________________________________
-  // List, delete kod inflow without kod inflow terperinci & delete kod inflow with kod inflow terperinci
+  // List, delete inflow code without inflow code terperinci & delete inflow code with inflow code terperinci
   // const {
-  //   kodInflows,
-  //   fetchKodInflows,
-  //   deleteKodInflowWithoutKodInflowTerperinci,
-  //   deleteKodInflowWithKodInflowTerperinci,
-  // } = useKodInflowStore((state) => ({
-  //   kodInflows: state.kodInflows,
-  //   fetchKodInflows: state.fetchKodInflows,
-  //   deleteKodInflowWithoutKodInflowTerperinci:
-  //     state.deleteKodInflowWithoutKodInflowTerperinci,
-  //   deleteKodInflowWithKodInflowTerperinci:
-  //     state.deleteKodInflowWithKodInflowTerperinci,
+  //   inflowCodes,
+  //   fetchinflowCodes,
+  //   deleteinflowCodeWithoutinflowCodeTerperinci,
+  //   deleteinflowCodeWithinflowCodeTerperinci,
+  // } = useinflowCodeStore((state) => ({
+  //   inflowCodes: state.inflowCodes,
+  //   fetchinflowCodes: state.fetchinflowCodes,
+  //   deleteinflowCodeWithoutinflowCodeTerperinci:
+  //     state.deleteinflowCodeWithoutinflowCodeTerperinci,
+  //   deleteinflowCodeWithinflowCodeTerperinci:
+  //     state.deleteinflowCodeWithinflowCodeTerperinci,
   // }));
 
   // useEffect(() => {
-  //   fetchKodInflows();
-  // }, [fetchKodInflows]);
+  //   fetchinflowCodes();
+  // }, [fetchinflowCodes]);
 
   return (
     <>
@@ -73,7 +73,7 @@ function IndexInflowCode() {
             </thead>
 
             <tbody>
-              {/* {kodInflows.length === 0 ? ( */}
+              {/* {inflowCodes.length === 0 ? ( */}
                 <tr>
                   <td colSpan="8">
                     <center>
@@ -83,12 +83,12 @@ function IndexInflowCode() {
                   </td>
                 </tr>
               {/* ) : (
-                kodInflows.map((kodInflowsData, index) => ( */}
+                inflowCodes.map((inflowCodesData, index) => ( */}
                   <React.Fragment 
                     // key={index}
                   >
-                    {/* {kodInflowsData.kod_inflow_terperincis.length === 0 ? ( */}
-                      {/* Render row for kod inflow without kod inflow terperinci */}
+                    {/* {inflowCodesData.kod_inflow_terperincis.length === 0 ? ( */}
+                      {/* Render row for inflow code without inflow code terperinci */}
                       <tr>
                         <td>No.</td>
                         <td>Inflow Code</td>
@@ -99,14 +99,14 @@ function IndexInflowCode() {
                         <td>-</td>
                         <td>
                           <EditWithoutDetailedInflowCode
-                            // kodInflow={kodInflowsData}
+                            // inflowCode={inflowCodesData}
                           />
 
                           <Button
                             className="delete-btn"
                             // onClick={() =>
-                            //   deleteKodInflowWithoutKodInflowTerperinci(
-                            //     kodInflowsData.id
+                            //   deleteinflowCodeWithoutinflowCodeTerperinci(
+                            //     inflowCodesData.id
                             //   )
                             // }
                           >
@@ -115,32 +115,32 @@ function IndexInflowCode() {
                         </td>
                       </tr>
                     {/* ) : ( */}
-                      {/* // Render row for kod inflow with kod inflow terperinci */}
+                      {/* // Render row for inflow code with inflow code terperinci */}
                       <tr>
                         <td
                           // rowSpan={
-                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          //   inflowCodesData.kod_inflow_terperincis.length + 1
                           // }
                         >
                           {/* {index + 1} */}
                         </td>
                         <td
                           // rowSpan={
-                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          //   inflowCodesData.kod_inflow_terperincis.length + 1
                           // }
                         >
                           Inflow Code
                         </td>
                         <td
                           // rowSpan={
-                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          //   inflowCodesData.kod_inflow_terperincis.length + 1
                           // }
                         >
                           Inflow Code Description
                         </td>
                         <td
                           // rowSpan={
-                          //   kodInflowsData.kod_inflow_terperincis.length + 1
+                          //   inflowCodesData.kod_inflow_terperincis.length + 1
                           // }
                         >
                           Inflow Code Status
@@ -148,9 +148,9 @@ function IndexInflowCode() {
                       </tr>
                     {/* )} */}
 
-                    {/* Displaying kod inflow terperinci */}
-                    {/* {kodInflowsData.kod_inflow_terperincis.map(
-                      (kodInflowTerperincisData, subIndex) => ( */}
+                    {/* Displaying inflow code terperinci */}
+                    {/* {inflowCodesData.kod_inflow_terperincis.map(
+                      (inflowCodeTerperincisData, subIndex) => ( */}
                         <tr 
                           // key={subIndex}
                         >
@@ -161,15 +161,15 @@ function IndexInflowCode() {
                           <td>Detailed Inflow Code Status</td>
                           <td>
                             <EditWithDetailedInflowCode
-                              // kodInflow={kodInflowsData}
-                              // kodInflowTerperinci={kodInflowTerperincisData}
+                              // inflowCode={inflowCodesData}
+                              // inflowCodeTerperinci={inflowCodeTerperincisData}
                             />
 
                             <Button
                               className="delete-btn"
                               // onClick={() =>
-                              //   deleteKodInflowWithKodInflowTerperinci(
-                              //     kodInflowTerperincisData.id
+                              //   deleteinflowCodeWithinflowCodeTerperinci(
+                              //     inflowCodeTerperincisData.id
                               //   )
                               // }
                             >
