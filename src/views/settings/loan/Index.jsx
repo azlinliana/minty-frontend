@@ -4,7 +4,7 @@ import "../../../assets/styles/styles_selenggara.css";
 import CreateLoan from "./Create";
 import EditLoan from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
+import { useLoanStore } from "../../../store/settings/loan-store";
 
 function IndexLoan() {
   // __________________________________ Frontend __________________________________
@@ -16,18 +16,18 @@ function IndexLoan() {
   };
 
   // ___________________________________ Backend __________________________________
-  // List & delete dimensi
-  // const { dimensis, fetchDimensis, deleteDimensi } = useDimensiStore(
+  // List & delete loan
+  // const { loans, fetchLoans, deleteLoan } = useLoanStore(
   //   (state) => ({
-  //     dimensis: state.dimensis,
-  //     fetchDimensis: state.fetchDimensis,
-  //     deleteDimensi: state.deleteDimensi,
+  //     loans: state.loans,
+  //     fetchLoans: state.fetchLoans,
+  //     deleteLoan: state.deleteLoan,
   //   })
   // );
 
   // useEffect(() => {
-  //   fetchDimensis();
-  // }, [fetchDimensis]);
+  //   fetchLoans();
+  // }, [fetchLoans]);
 
   return (
     <>

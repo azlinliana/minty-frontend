@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { useDimensiStore } from "../../../store/selenggara/dimensi-store";
+import { useLoanStore } from "../../../store/settings/loan-store";
 
 function CreateLoan() {
   // __________________________________ Frontend __________________________________
@@ -23,14 +23,14 @@ function CreateLoan() {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Create dimensi
-  // const { CreateLoan } = useDimensiStore((state) => ({
+  // Create loan
+  // const { CreateLoan } = useloanStore((state) => ({
   //   CreateLoan: state.CreateLoan,
   // }));
 
   // Pass input & close modal
-  const handleCreateLoan = (addDimensiData) => {
-    // CreateLoan(addDimensiData, closeModalCreateLoan);
+  const handleCreateLoan = (addloanData) => {
+    // CreateLoan(addloanData, closeModalCreateLoan);
   };
 
   return (
@@ -51,32 +51,32 @@ function CreateLoan() {
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodDimensi" className="mb-3">
+            <Form.Group controlId="kodloan" className="mb-3">
               <Form.Label className="form-label">Loan Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodDimensi", { required: true })}
-                // aria-invalid={errors.kodDimensi ? "true" : "false"}
+                // {...register("kodloan", { required: true })}
+                // aria-invalid={errors.kodloan ? "true" : "false"}
                 placeholder="Insert loan code"
               />
 
-              {/* {errors.kodDimensi?.type === "required" && ( */}
+              {/* {errors.kodloan?.type === "required" && ( */}
                 <small className="text-danger">Loan code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganDimensi" className="mb-3">
+            <Form.Group controlId="keteranganloan" className="mb-3">
               <Form.Label className="form-label">Loan Description</Form.Label>
 
               <Form.Control
                 as="textarea"
-                // {...register("keteranganDimensi", { required: true })}
-                // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
+                // {...register("keteranganloan", { required: true })}
+                // aria-invalid={errors.keteranganloan ? "true" : "false"}
                 placeholder="Insert loan description"
               />
 
-              {/* {errors.keteranganDimensi?.type === "required" && ( */}
+              {/* {errors.keteranganloan?.type === "required" && ( */}
                 <small className="text-danger">
                   Loan description is required.
                 </small>
