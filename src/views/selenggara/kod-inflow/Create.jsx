@@ -55,7 +55,7 @@ function CreateKodInflow() {
     <>
       <div>
         <Button onClick={openModalCreateKodInflow}>
-          <FaPlus style={{ fontSize: "10px" }} /> Tambah
+          <FaPlus style={{ fontSize: "10px" }} /> Add
         </Button>{" "}
         
         <Modal
@@ -65,25 +65,25 @@ function CreateKodInflow() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tambah Kod Inflow</Modal.Title>
+            <Modal.Title>Add Inflow Code</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
               {/* Existing kod inflow */}
               <Form.Group controlId="kodInflowId" className="mb-3">
-                <Form.Label className="form-label">Kod Inflow</Form.Label>
+                <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   as="select"
                   className="form-select"
                   // {...register("kodInflowId", { required: true })}
                   // aria-invalid={errors.kodInflowId ? "true" : "false"}
-                  placeholder="Masukkan kod inflow"
+                  placeholder="Insert inflow code"
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    --Pilih Kod Inflow--
+                    --Choose Inflow Code--
                   </option>
 
                   {/* {kodInflows.map((kodInflow) => (
@@ -91,11 +91,11 @@ function CreateKodInflow() {
                       {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                     </option>
                   ))} */}
-                  <option value="KOD INFLOW BAHARU">KOD INFLOW BAHARU</option>
+                  <option value="KOD INFLOW BAHARU">New Inflow Code</option>
                 </Form.Control>
 
                 {/* {errors.kodInflowId?.type === "required" && ( */}
-                  <small className="text-danger">Kod inflow diperlukan.</small>
+                  <small className="text-danger">Inflow code is required.</small>
                 {/* )} */}
               </Form.Group>
 
@@ -104,19 +104,19 @@ function CreateKodInflow() {
                 <>
                   <Form.Group controlId="kodInflowBaharu" className="mb-3">
                     <Form.Label className="form-label">
-                      Kod Inflow Baharu
+                      New Inflow Code
                     </Form.Label>
 
                     <Form.Control
                       type="text"
                       // {...register("kodInflowBaharu", { required: true })}
                       // aria-invalid={errors.kodInflowBaharu ? "true" : "false"}
-                      placeholder="Masukkan kod inflow baharu"
+                      placeholder="Insert new inflow code"
                     />
 
                     {/* {errors.kodInflowBaharu?.type === "required" && ( */}
                       <small className="text-danger">
-                        Kod inflow baharu diperlukan.
+                      New inflow code is required.
                       </small>
                     {/* )} */}
                   </Form.Group>
@@ -126,7 +126,7 @@ function CreateKodInflow() {
                     className="mb-3"
                   >
                     <Form.Label className="form-label">
-                      Keterangan Kod Inflow Baharu
+                      New inflow code Description
                     </Form.Label>
 
                     <Form.Control
@@ -137,12 +137,12 @@ function CreateKodInflow() {
                       // aria-invalid={
                       //   errors.keteranganKodInflowBaharu ? "true" : "false"
                       // }
-                      placeholder="Masukkan keterangan kod inflow baharu"
+                      placeholder="Insert new inflow code description"
                     />
 
                     {/* {errors.keteranganKodInflowBaharu?.type === "required" && ( */}
                       <small className="text-danger">
-                        Keterangan kod inflow baharu diperlukan.
+                        New inflow code description is needed.
                       </small>
                     {/* )} */}
                   </Form.Group>
@@ -151,19 +151,19 @@ function CreateKodInflow() {
 
               <Form.Group controlId="kodInflowTerperinci" className="mb-3">
                 <Form.Label className="form-label">
-                  Kod Inflow Terperinci
+                  Detailed Inflow Code
                 </Form.Label>
 
                 <Form.Control
                   type="text"
                   // {...register("kodInflowTerperinci", { required: true })}
                   // aria-invalid={errors.kodInflowTerperinci ? "true" : "false"}
-                  placeholder="Masukkan kod inflow terperinci"
+                  placeholder="Insert detailed inflow code"
                 />
 
                 {/* {errors.kodInflowTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
-                    Kod inflow terperinci diperlukan.
+                    Detailed inflow code is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -173,7 +173,7 @@ function CreateKodInflow() {
                 className="mb-3"
               >
                 <Form.Label className="form-label">
-                  Keterangan Kod Inflow Terperinci
+                  Detailed Inflow Code Description
                 </Form.Label>
 
                 <Form.Control
@@ -184,12 +184,12 @@ function CreateKodInflow() {
                   // aria-invalid={
                   //   errors.keteranganKodInflowTerperinci ? "true" : "false"
                   // }
-                  placeholder="Masukkan keterangan kod inflow terperinci"
+                  placeholder="Insert detailed inflow code description."
                 />
 
                 {/* {errors.keteranganKodInflowTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
-                    Keterangan kod inflow terperinci diperlukan.
+                    Detailed inflow code description is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -197,11 +197,11 @@ function CreateKodInflow() {
 
             <Modal.Footer>
               <Button className="batal-btn" onClick={closeModalCreateKodInflow}>
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleCreateKodInflow)}>
-                Simpan
+                Add
               </Button>
             </Modal.Footer>
           </Form>

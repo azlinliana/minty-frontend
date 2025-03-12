@@ -79,48 +79,48 @@ function EditWithoutKodInflowTerperinci(
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Edit Kod Inflow</Modal.Title>
+            <Modal.Title>Edit Inflow Code</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="kodInflow" className="mb-3">
-                <Form.Label className="form-label">Kod Inflow</Form.Label>
+                <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   type="text"
                   // {...register("kodInflow", { required: true })}
                   // aria-invalid={errors.kodInflow ? "true" : "false"}
-                  placeholder="Masukkan kod inflow"
+                  placeholder="Insert inflow code"
                 />
 
                 {/* {errors.kodInflow?.type === "required" && ( */}
-                  <small className="text-danger">Kod inflow diperlukan.</small>
+                  <small className="text-danger">Inflow code is required.</small>
                 {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="keteranganKodInflow" className="mb-3">
                 <Form.Label className="form-label">
-                  Keterangan Kod Inflow
+                  Inflow Code Description
                 </Form.Label>
 
                 <Form.Control
                   as="textarea"
                   // {...register("keteranganKodInflow", { required: true })}
                   // aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
-                  placeholder="Masukkan keterangan kod inflow"
+                  placeholder="Insert inflow code description"
                 />
 
                 {/* {errors.keteranganKodInflow?.type === "required" && ( */}
                   <small className="text-danger">
-                    Keterangan kod inflow diperlukan.
+                    Inflow code description is required.
                   </small>
                 {/* )} */}
               </Form.Group>
 
               <Form.Group controlId="statusKodInflow" className="mb-3">
                 <Form.Label className="form-label">
-                  Status Kod Inflow
+                  Inflow Code Status
                 </Form.Label>
 
                 <Form.Control
@@ -128,18 +128,18 @@ function EditWithoutKodInflowTerperinci(
                   className="form-select"
                   // {...register("statusKodInflow", { required: true })}
                   // aria-invalid={errors.statusKodInflow ? "true" : "false"}
-                  placeholder="Masukkan status kod inflow"
+                  placeholder="Insert inflow code status"
                 >
                   <option value="" disabled>
-                    --Pilih Status Kod Inflow--
+                    --Choose inflow code status--
                   </option>
-                  <option value="AKTIF">AKTIF</option>
-                  <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
                 </Form.Control>
 
                 {/* {errors.statusKodInflow?.type === "required" && ( */}
                   <small className="text-danger">
-                    Status kod inflow diperlukan.
+                    Code inflow status is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -150,7 +150,7 @@ function EditWithoutKodInflowTerperinci(
                 className="batal-btn"
                 onClick={closeModalEditKodInflowWithoutKodInflowTerperinci}
               >
-                Batal
+                Cancel
               </Button>
 
               <Button
@@ -158,7 +158,7 @@ function EditWithoutKodInflowTerperinci(
                   handleEditKodInflowWithoutKodInflowTerperinci
                 )}
               >
-                Simpan
+                Edit
               </Button>
             </Modal.Footer>
           </Form>
