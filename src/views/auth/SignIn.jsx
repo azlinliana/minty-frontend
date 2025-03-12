@@ -6,7 +6,6 @@ import { RiEyeCloseLine } from "react-icons/ri";
 import { BsEyeFill } from "react-icons/bs";
 import mintyLogo from "../../assets/minty-logo.svg";
 import "../../assets/styles/signin.css";
-import axiosCustom from "../../axios";
 
 function SignIn() {
   const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
@@ -43,22 +42,6 @@ function SignIn() {
       document.body.classList.remove("signin-page");
     };
   }, []);
-
-  const navigate = useNavigate();
-
-  const handleSignIn = async (signInInput) => {
-    try {
-      const response = await axiosCustom.post(`/auth/login`, signInInput);
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/carian-sahabat");
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
 
   return (
     <div className="signin-container">
