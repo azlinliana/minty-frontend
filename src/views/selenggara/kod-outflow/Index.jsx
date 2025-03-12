@@ -32,16 +32,16 @@ function IndexKodOutflow() {
   return (
     <>
       <div className="page-title">
-        <h1>Kod Outflow</h1>
+        <h1>Outflow Code</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
             href="selenggara"
           >
-            Senarai Selenggara
+            Settings List
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Kod Outflow</Breadcrumb.Item>
+          <Breadcrumb.Item active>Outflow Code</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -53,11 +53,11 @@ function IndexKodOutflow() {
         <Table responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
-              <th>Kod Outflow</th>
-              <th>Keterangan Kod Outflow</th>
+              <th>No.</th>
+              <th>Outflow Code</th>
+              <th>Outflow Code Description</th>
               <th>Status</th>
-              <th>Tindakan</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -66,8 +66,8 @@ function IndexKodOutflow() {
               <tr>
                 <td colSpan="6">
                   <center>
-                    Tiada maklumat kod outflow. Sila klik butang "Tambah" untuk
-                    merekodkan kod outflow baharu.
+                    No outflow code information available. 
+                    Please click the "Add" button to record a new outflow code.
                   </center>
                 </td>
               </tr>
@@ -76,10 +76,10 @@ function IndexKodOutflow() {
                 <tr 
                   // key={index}
                 >
-                  <td>Bil.</td>
-                  <td>KodOutflow</td>
-                  <td>Keterangan Kod Outflow</td>
-                  <td>Status Kod Outflow</td>
+                  <td>No.</td>
+                  <td>Outflow Code</td>
+                  <td>Outflow Code Description</td>
+                  <td>Outflow Code Status</td>
                   <td>
                     <EditKodOutflow 
                       // kodOutflow={kodOutflowsData} 
@@ -89,7 +89,7 @@ function IndexKodOutflow() {
                       className="delete-btn"
                       // onClick={() => deleteKodOutflow(kodOutflowsData.id)}
                     >
-                      Padam
+                      Delete
                     </Button>{" "}
                   </td>
                 </tr>
@@ -100,7 +100,7 @@ function IndexKodOutflow() {
 
         <div className="kembali-btn-container">
           <Button className="kembali-btn" onClick={goBack}>
-            Kembali
+            Back
           </Button>{" "}
         </div>
       </div>

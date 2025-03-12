@@ -70,65 +70,65 @@ function EditKodOutflow(
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Kod Outflow</Modal.Title>
+          <Modal.Title>Edit Outflow Code</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodOutflow" className="mb-3">
-              <Form.Label className="form-label">Kod Outflow</Form.Label>
+              <Form.Label className="form-label">Outflow Code</Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("kodOutflow", { required: true })}
                 // aria-invalid={errors.kodOutflow ? "true" : "false"}
-                placeholder="Masukkan kod outflow"
+                placeholder="Insert outflow code"
               />
 
               {/* {errors.kodOutflow?.type === "required" && ( */}
-                <small className="text-danger">Kod outflow diperlukan.</small>
+                <small className="text-danger">Outflow code is required.</small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganKodOutflow" className="mb-3">
               <Form.Label className="form-label">
-                Keterangan Kod Outflow
+                Outflow Code Description
               </Form.Label>
 
               <Form.Control
                 as="textarea"
                 // {...register("keteranganKodOutflow", { required: true })}
                 // aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
-                placeholder="Masukkan keterangan kod outflow"
+                placeholder="Insert outflow code description"
               />
 
               {/* {errors.keteranganKodOutflow?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan kod outflow diperlukan.
+                  Outflow code description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="statusKodOutflow" className="mb-3">
-              <Form.Label className="form-label">Status Kod Outflow</Form.Label>
+              <Form.Label className="form-label"> Outflow Code Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
                 // {...register("statusKodOutflow", { required: true })}
                 // aria-invalid={errors.statusKodOutflow ? "true" : "false"}
-                placeholder="Masukkan status kod outflow"
+                placeholder="Insert outflow code status"
               >
                 <option value="" disabled>
-                  --Pilih Status Kod Outflow--
+                  --Choose Outflow Code Status--
                 </option>
-                <option value="AKTIF">AKTIF</option>
-                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
               {/* {errors.statusKodOutflow?.type === "required" && ( */}
                 <small className="text-danger">
-                  Status kod outflow diperlukan.
+                  Outflow code status is required.
                 </small>
               {/* )} */}
             </Form.Group>

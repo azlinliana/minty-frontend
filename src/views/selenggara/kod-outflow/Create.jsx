@@ -36,7 +36,7 @@ function CreateKodOutflow() {
   return (
     <>
       <Button onClick={openModalCreateKodOutflow}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+        <FaPlus style={{ fontSize: "10px" }} /> Add
       </Button>{" "}
       
       <Modal
@@ -46,41 +46,41 @@ function CreateKodOutflow() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Kod Outflow</Modal.Title>
+          <Modal.Title>Add Outflow Code</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodOutflow" className="mb-3">
-              <Form.Label className="form-label">Kod Outflow</Form.Label>
+              <Form.Label className="form-label">Outflow Code</Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("kodOutflow", { required: true })}
                 // aria-invalid={errors.kodOutflow ? "true" : "false"}
-                placeholder="Masukkan kod outflow"
+                placeholder="Insert outflow code"
               />
 
               {/* {errors.kodOutflow?.type === "required" && ( */}
-                <small className="text-danger">Kod outflow diperlukan.</small>
+                <small className="text-danger">Outflow code is required.</small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganKodOutflow" className="mb-3">
               <Form.Label className="form-label">
-                Keterangan Kod Outflow
+                Outflow Code Description
               </Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("keteranganKodOutflow", { required: true })}
                 // aria-invalid={errors.keteranganKodOutflow ? "true" : "false"}
-                placeholder="Masukkan keterangan kod outflow"
+                placeholder="Insert outflow code description"
               />
 
               {/* {errors.keteranganKodOutflow?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan kod outflow diperlukan.
+                  Outflow code description is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -88,10 +88,10 @@ function CreateKodOutflow() {
 
           <Modal.Footer>
             <Button className="batal-btn" onClick={closeModalCreateKodOutflow}>
-              Batal
+              Cancel
             </Button>
 
-            <Button onClick={handleSubmit(handleCreateKodOutflow)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateKodOutflow)}>Add</Button>
           </Modal.Footer>
         </Form>
       </Modal>
