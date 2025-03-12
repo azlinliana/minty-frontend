@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useHubunganStore } from "../../../store/selenggara/hubungan-store";
+import { useRelationshipStore } from "../../../store/settings/relationship-store";
 
-function EditRelationship({ hubungan }) {
+function EditRelationship({ relationship }) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalEditRelationship, setIsModalEditRelationship] = useState(false);
@@ -22,36 +22,36 @@ function EditRelationship({ hubungan }) {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini hubungan modal is opened
+  // Set default values when the kemas kini relationship modal is opened
   // const [formData, setFormData] = useState({
-  //   kodHubungan: "",
-  //   keteranganHubungan: "",
-  //   statusHubungan: "",
+  //   kodrelationship: "",
+  //   keteranganrelationship: "",
+  //   statusrelationship: "",
   // });
 
   // useEffect(() => {
   //   // Populate form data
-  //   setValue("kodHubungan", hubungan.kodHubungan);
-  //   setValue("keteranganHubungan", hubungan.keteranganHubungan);
-  //   setValue("statusHubungan", hubungan.statusHubungan);
+  //   setValue("kodrelationship", relationship.kodrelationship);
+  //   setValue("keteranganrelationship", relationship.keteranganrelationship);
+  //   setValue("statusrelationship", relationship.statusrelationship);
 
   //   // Set default values for formData
   //   setFormData((prevData) => ({
   //     ...prevData,
-  //     kodHubungan: hubungan.kodHubungan,
-  //     keteranganHubungan: hubungan.keteranganHubungan,
-  //     statusHubungan: hubungan.statusHubungan,
+  //     kodrelationship: relationship.kodrelationship,
+  //     keteranganrelationship: relationship.keteranganrelationship,
+  //     statusrelationship: relationship.statusrelationship,
   //   }));
-  // }, [hubungan, setValue]);
+  // }, [relationship, setValue]);
 
-  // Edit hubungan
-  // const { EditRelationship } = useHubunganStore((state) => ({
+  // Edit relationship
+  // const { EditRelationship } = userelationshipStore((state) => ({
   //   EditRelationship: state.EditRelationship,
   // }));
 
   // Pass input & close modal
   const handleEditRelationship = (EditRelationshipData) => {
-    // EditRelationship(hubungan.id, EditRelationshipData, closeModalEditRelationship);
+    // EditRelationship(relationship.id, EditRelationshipData, closeModalEditRelationship);
   };
 
   return (
@@ -72,49 +72,49 @@ function EditRelationship({ hubungan }) {
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="kodHubungan" className="mb-3">
+            <Form.Group controlId="kodrelationship" className="mb-3">
               <Form.Label className="form-label">Relationship Code</Form.Label>
 
               <Form.Control
                 type="text"
-                // {...register("kodHubungan", { required: true })}
-                // aria-invalid={errors.kodHubungan ? "true" : "false"}
+                // {...register("kodrelationship", { required: true })}
+                // aria-invalid={errors.kodrelationship ? "true" : "false"}
                 placeholder="Insert relationship code"
               />
 
-              {/* {errors.kodHubungan?.type === "required" && ( */}
+              {/* {errors.kodrelationship?.type === "required" && ( */}
                 <small className="text-danger">Relationship code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="keteranganHubungan" className="mb-3">
+            <Form.Group controlId="keteranganrelationship" className="mb-3">
               <Form.Label className="form-label">
                 Relationship Description
               </Form.Label>
 
               <Form.Control
                 as="textarea"
-                // {...register("keteranganHubungan", { required: true })}
-                // aria-invalid={errors.keteranganHubungan ? "true" : "false"}
+                // {...register("keteranganrelationship", { required: true })}
+                // aria-invalid={errors.keteranganrelationship ? "true" : "false"}
                 placeholder="Insert relationship description"
               />
 
-              {/* {errors.keteranganHubungan?.type === "required" && ( */}
+              {/* {errors.keteranganrelationship?.type === "required" && ( */}
                 <small className="text-danger">
                   Relationship description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
-            <Form.Group controlId="statusHubungan" className="mb-3">
+            <Form.Group controlId="statusrelationship" className="mb-3">
               <Form.Label className="form-label">Relationship Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
-                // {...register("statusHubungan", { required: true })}
-                // aria-invalid={errors.statusHubungan ? "true" : "false"}
-                placeholder="Insert status hubungan"
+                // {...register("statusrelationship", { required: true })}
+                // aria-invalid={errors.statusrelationship ? "true" : "false"}
+                placeholder="Insert status relationship"
               >
                 <option value="" disabled>
                   --Choose Relationship Status--
@@ -123,7 +123,7 @@ function EditRelationship({ hubungan }) {
                 <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
-              {/* {errors.statusHubungan?.type === "required" && ( */}
+              {/* {errors.statusrelationship?.type === "required" && ( */}
                 <small className="text-danger">
                   Relationship status is required.
                 </small>
