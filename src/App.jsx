@@ -19,11 +19,11 @@ import SearchTf02 from "./views/laporan/jadual-tf02/Search";
 import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
 import SearchProfilSahabat from "./views/laporan/profil-sahabat/Search";
 import SearchProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Search";
-import IndexSelenggara from "./views/selenggara/Index";
-import IndexKodInflow from "./views/selenggara/kod-inflow/Index";
-import IndexKodOutflow from "./views/selenggara/kod-outflow/Index";
-import IndexDimensi from "./views/selenggara/dimensi/Index";
-import IndexHubungan from "./views/selenggara/hubungan/Index";
+import IndexSettings from "./views/settings/Index";
+import IndexInflowCode from "./views/settings/inflow-code/Index";
+import IndexOutflowCode from "./views/settings/outflow-code/Index";
+import IndexLoan from "./views/settings/loan/Index";
+import IndexRelationship from "./views/settings/relationship/Index";
 import IndexPengguna from "./views/pengguna/Index";
 import IndexAdmin from "./views/pengguna/admin/Index";
 import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
@@ -90,11 +90,11 @@ function App() {
             <Route path="result-tf02" element={<ResultTf02 />} />
 
             {/* Selenggara */}
-            <Route path="selenggara" element={<IndexSelenggara />} />
-            <Route path="kod-inflow" element={<IndexKodInflow />} />
-            <Route path="kod-outflow" element={<IndexKodOutflow />} />
-            <Route path="dimensi" element={<IndexDimensi />} />
-            <Route path="hubungan" element={<IndexHubungan />} />
+            <Route path="settings" element={<IndexSettings />} />
+            <Route path="inflow-code" element={<IndexInflowCode />} />
+            <Route path="outflow-code" element={<IndexOutflowCode />} />
+            <Route path="loan" element={<IndexLoan />} />
+            <Route path="relationship" element={<IndexRelationship />} />
 
             {/* Pengguna */}
             <Route path="tetapan-pengguna" element={<IndexPengguna />} />
