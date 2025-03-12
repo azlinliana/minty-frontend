@@ -136,10 +136,10 @@ function EditKodOutflow(
 
           <Modal.Footer>
             <Button className="batal-btn" onClick={closeModalEditKodOutflow}>
-              Batal
+              Cancel
             </Button>
 
-            <Button onClick={handleSubmit(handleEditKodOutflow)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditKodOutflow)}>Edit</Button>
           </Modal.Footer>
         </Form>
       </Modal>
