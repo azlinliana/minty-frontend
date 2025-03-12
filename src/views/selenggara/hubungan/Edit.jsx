@@ -67,65 +67,65 @@ function EditHubungan({ hubungan }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Hubungan</Modal.Title>
+          <Modal.Title>Edit Relationship</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodHubungan" className="mb-3">
-              <Form.Label className="form-label">Kod Hubungan</Form.Label>
+              <Form.Label className="form-label">Relationship Code</Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("kodHubungan", { required: true })}
                 // aria-invalid={errors.kodHubungan ? "true" : "false"}
-                placeholder="Masukkan kod hubungan"
+                placeholder="Insert relationship code"
               />
 
               {/* {errors.kodHubungan?.type === "required" && ( */}
-                <small className="text-danger">Kod hubungan diperlukan.</small>
+                <small className="text-danger">Relationship code is required.</small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganHubungan" className="mb-3">
               <Form.Label className="form-label">
-                Keterangan Hubungan
+                Relationship Description
               </Form.Label>
 
               <Form.Control
                 as="textarea"
                 // {...register("keteranganHubungan", { required: true })}
                 // aria-invalid={errors.keteranganHubungan ? "true" : "false"}
-                placeholder="Masukkan keterangan hubungan"
+                placeholder="Insert relationship description"
               />
 
               {/* {errors.keteranganHubungan?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan hubungan diperlukan.
+                  Relationship description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="statusHubungan" className="mb-3">
-              <Form.Label className="form-label">Status Hubungan</Form.Label>
+              <Form.Label className="form-label">Relationship Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
                 // {...register("statusHubungan", { required: true })}
                 // aria-invalid={errors.statusHubungan ? "true" : "false"}
-                placeholder="Masukkan status hubungan"
+                placeholder="Insert status hubungan"
               >
                 <option value="" disabled>
-                  --Pilih Status Hubungan--
+                  --Choose Relationship Status--
                 </option>
-                <option value="AKTIF">AKTIF</option>
-                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
               {/* {errors.statusHubungan?.type === "required" && ( */}
                 <small className="text-danger">
-                  Status hubungan diperlukan.
+                  Relationship status is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -133,10 +133,10 @@ function EditHubungan({ hubungan }) {
 
           <Modal.Footer>
             <Button className="batal-btn" onClick={closeModalEditHubungan}>
-              Batal
+              Cancel
             </Button>
 
-            <Button onClick={handleSubmit(handleEditHubungan)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditHubungan)}>Edit</Button>
           </Modal.Footer>
         </Form>
       </Modal>
