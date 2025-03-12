@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { useOutflowCodeStore } from "../../../store/selenggara/kod-outflow-store";
+import { useOutflowCodeStore } from "../../../store/settings/outflow-code-store";
 
 function CreateOutflowCode() {
   // __________________________________ Frontend __________________________________
