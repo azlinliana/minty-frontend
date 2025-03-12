@@ -56,28 +56,28 @@ const SidebarMenu = [
   },
   {
     title: "Settings",
-    path: "/selenggara",
+    path: "/settings",
     icon: <BsTools />,
     subRoutes: [
       {
         title: "Selenggara",
-        path: "/selenggara",
+        path: "/settings",
       },
       {
         title: "Selenggara",
-        path: "/kod-inflow",
+        path: "/inflow-code",
       },
       {
         title: "Selenggara",
-        path: "/kod-outflow",
+        path: "/outflow-code",
       },
       {
         title: "Selenggara",
-        path: "/dimensi",
+        path: "/loan",
       },
       {
         title: "Selenggara",
-        path: "/hubungan",
+        path: "/relationship",
       },
     ],
     roles: [2, 3],

@@ -8,10 +8,10 @@ function IndexSettings() {
   // Link pages
   const navigate = useNavigate();
 
-  const clickViewInflowCode = () => navigate("/kod-inflow");
-  const clickViewOutflowCode = () => navigate("/kod-outflow");
-  const clickViewLoan = () => navigate("/dimensi");
-  const clickViewRelationship = () => navigate("/hubungan");
+  const clickViewInflowCode = () => navigate("/inflow-code");
+  const clickViewOutflowCode = () => navigate("/outflow-code");
+  const clickViewLoan = () => navigate("/loan");
+  const clickViewRelationship = () => navigate("/relationship");
 
   return (
     <>

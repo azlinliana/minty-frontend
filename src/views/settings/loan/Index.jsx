@@ -37,7 +37,7 @@ function IndexLoan() {
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
-            href="selenggara"
+            href="settings"
           >
             Settings List
           </Breadcrumb.Item>
