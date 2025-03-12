@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useoutflowCodeStore } from "../../../store/selenggara/kod-outflow-store";
+import { useOutflowCodeStore } from "../../../store/settings/outflow-code-store";
 
 function EditOutflowCode(
   // { outflowCode }
