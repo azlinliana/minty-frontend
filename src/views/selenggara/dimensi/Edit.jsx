@@ -67,63 +67,63 @@ function EditDimensi({ dimensi }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Dimensi</Modal.Title>
+          <Modal.Title>Edit Loan</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodDimensi" className="mb-3">
-              <Form.Label className="form-label">Kod Dimensi</Form.Label>
+              <Form.Label className="form-label">Loan Code</Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("kodDimensi", { required: true })}
                 // aria-invalid={errors.kodDimensi ? "true" : "false"}
-                placeholder="Masukkan kod dimensi"
+                placeholder="Insert loan code"
               />
 
               {/* {errors.kodDimensi?.type === "required" && ( */}
-                <small className="text-danger">Kod dimensi diperlukan.</small>
+                <small className="text-danger">Loan code is required.</small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganDimensi" className="mb-3">
-              <Form.Label className="form-label">Keterangan Dimensi</Form.Label>
+              <Form.Label className="form-label">Loan Description</Form.Label>
 
               <Form.Control
                 as="textarea"
                 // {...register("keteranganDimensi", { required: true })}
                 // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
-                placeholder="Masukkan keterangan dimensi"
+                placeholder="Insert loan description"
               />
 
               {/* {errors.keteranganDimensi?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan dimensi diperlukan.
+                  Loan description is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="statusDimensi" className="mb-3">
-              <Form.Label className="form-label">Status Dimensi</Form.Label>
+              <Form.Label className="form-label">Loan Status</Form.Label>
 
               <Form.Control
                 as="select"
                 className="form-select"
                 // {...register("statusDimensi", { required: true })}
                 // aria-invalid={errors.statusDimensi ? "true" : "false"}
-                placeholder="Masukkan status dimensi"
+                placeholder="Insert status dimensi"
               >
                 <option value="" disabled>
-                  --Pilih Status Dimensi--
+                  --Choose Loan Status--
                 </option>
-                <option value="AKTIF">AKTIF</option>
-                <option value="TIDAK AKTIF">TIDAK AKTIF</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
               </Form.Control>
 
               {/* {errors.statusDimensi?.type === "required" && ( */}
                 <small className="text-danger">
-                  Status dimensi diperlukan.
+                  Loan status is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -131,10 +131,10 @@ function EditDimensi({ dimensi }) {
 
           <Modal.Footer>
             <Button className="batal-btn" onClick={closeModalEditDimensi}>
-              Batal
+              Cancel
             </Button>
 
-            <Button onClick={handleSubmit(handleEditDimensi)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleEditDimensi)}>Edit</Button>
           </Modal.Footer>
         </Form>
       </Modal>

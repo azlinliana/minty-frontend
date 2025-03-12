@@ -36,7 +36,7 @@ function CreateDimensi() {
   return (
     <>
       <Button onClick={openModalCreateDimensi}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+        <FaPlus style={{ fontSize: "10px" }} /> Add
       </Button>{" "}
       
       <Modal
@@ -46,39 +46,39 @@ function CreateDimensi() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Dimensi</Modal.Title>
+          <Modal.Title>Add Loan</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             <Form.Group controlId="kodDimensi" className="mb-3">
-              <Form.Label className="form-label">Kod Dimensi</Form.Label>
+              <Form.Label className="form-label">Loan Code</Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("kodDimensi", { required: true })}
                 // aria-invalid={errors.kodDimensi ? "true" : "false"}
-                placeholder="Masukkan kod dimensi"
+                placeholder="Insert loan code"
               />
 
               {/* {errors.kodDimensi?.type === "required" && ( */}
-                <small className="text-danger">Kod dimensi diperlukan.</small>
+                <small className="text-danger">Loan code is required.</small>
               {/* )} */}
             </Form.Group>
 
             <Form.Group controlId="keteranganDimensi" className="mb-3">
-              <Form.Label className="form-label">Keterangan Dimensi</Form.Label>
+              <Form.Label className="form-label">Loan Description</Form.Label>
 
               <Form.Control
                 as="textarea"
                 // {...register("keteranganDimensi", { required: true })}
                 // aria-invalid={errors.keteranganDimensi ? "true" : "false"}
-                placeholder="Masukkan keterangan dimensi"
+                placeholder="Insert loan description"
               />
 
               {/* {errors.keteranganDimensi?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan dimensi diperlukan.
+                  Loan description is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -86,10 +86,10 @@ function CreateDimensi() {
 
           <Modal.Footer>
             <Button className="batal-btn" onClick={closeModalCreateDimensi}>
-              Batal
+              Cancel
             </Button>
 
-            <Button onClick={handleSubmit(handleCreateDimensi)}>Simpan</Button>
+            <Button onClick={handleSubmit(handleCreateDimensi)}>Add</Button>
           </Modal.Footer>
         </Form>
       </Modal>
