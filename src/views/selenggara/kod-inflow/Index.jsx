@@ -40,16 +40,16 @@ function IndexKodInflow() {
     <>
       <div>
         <div className="page-title">
-          <h1>Kod Inflow</h1>
+          <h1>Inflow Code</h1>
 
           <Breadcrumb>
             <Breadcrumb.Item
               className="breadcrumb-previous-link"
               href="selenggara"
             >
-              Senarai Selenggara
+              Settings List
             </Breadcrumb.Item>
-            <Breadcrumb.Item active>Kod Inflow</Breadcrumb.Item>
+            <Breadcrumb.Item active>Inflow Code</Breadcrumb.Item>
           </Breadcrumb>
         </div>
 
@@ -61,14 +61,14 @@ function IndexKodInflow() {
           <Table bordered responsive>
             <thead>
               <tr>
-                <th>Bil.</th>
-                <th>Kod Inflow</th>
-                <th>Keterangan Kod Inflow</th>
-                <th>Status Kod Inflow</th>
-                <th>Kod Inflow Terperinci</th>
-                <th>Keterangan Kod Inflow Terperinci</th>
-                <th>Status Kod Inflow Terperinci</th>
-                <th>Tindakan</th>
+                <th>No.</th>
+                <th>Inflow Code</th>
+                <th>Inflow Code Description</th>
+                <th>Inflow Code Status</th>
+                <th>Detailed Inflow Code</th>
+                <th>Detailed Inflow Code Description</th>
+                <th>Detailed Inflow Code Status</th>
+                <th>Action</th>
               </tr>
             </thead>
 
@@ -77,8 +77,8 @@ function IndexKodInflow() {
                 <tr>
                   <td colSpan="8">
                     <center>
-                      Tiada maklumat kod inflow. Sila klik butang "Tambah" untuk
-                      merekodkan kod inflow baharu.
+                    No inflow code information available. 
+                    Please click the "Add" button to record a new inflow code.
                     </center>
                   </td>
                 </tr>
@@ -90,10 +90,10 @@ function IndexKodInflow() {
                     {/* {kodInflowsData.kod_inflow_terperincis.length === 0 ? ( */}
                       {/* Render row for kod inflow without kod inflow terperinci */}
                       <tr>
-                        <td>Bil.</td>
-                        <td>Kod Inflow</td>
-                        <td>Keterangan Kod Inflow</td>
-                        <td>Status Kod Inflow</td>
+                        <td>No.</td>
+                        <td>Inflow Code</td>
+                        <td>Inflow Code Description</td>
+                        <td>Inflow Code Status</td>
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
@@ -110,7 +110,7 @@ function IndexKodInflow() {
                             //   )
                             // }
                           >
-                            Padam
+                            Delete
                           </Button>{" "}
                         </td>
                       </tr>
@@ -129,21 +129,21 @@ function IndexKodInflow() {
                           //   kodInflowsData.kod_inflow_terperincis.length + 1
                           // }
                         >
-                          kodInflow
+                          Inflow Code
                         </td>
                         <td
                           // rowSpan={
                           //   kodInflowsData.kod_inflow_terperincis.length + 1
                           // }
                         >
-                          Keterangan Kod Inflow
+                          Inflow Code Description
                         </td>
                         <td
                           // rowSpan={
                           //   kodInflowsData.kod_inflow_terperincis.length + 1
                           // }
                         >
-                          status Kod Inflow
+                          Inflow Code Status
                         </td>
                       </tr>
                     {/* )} */}
@@ -155,10 +155,10 @@ function IndexKodInflow() {
                           // key={subIndex}
                         >
                           <td>
-                            Kod Inflow Terperinci
+                            Detailed Inflow Code
                           </td>
-                          <td>Keterangan Kod Inflow Terperinci</td>
-                          <td>Status Kod Inflow Terperinci</td>
+                          <td>Detailed Inflow Code Description</td>
+                          <td>Detailed Inflow Code Status</td>
                           <td>
                             <EditWithKodInflowTerperinci
                               // kodInflow={kodInflowsData}
@@ -173,7 +173,7 @@ function IndexKodInflow() {
                               //   )
                               // }
                             >
-                              Padam
+                              Delete
                             </Button>{" "}
                           </td>
                         </tr>
@@ -187,7 +187,7 @@ function IndexKodInflow() {
 
           <div className="kembali-btn-container">
             <Button className="kembali-btn" onClick={goBack}>
-              Kembali
+              Back
             </Button>{" "}
           </div>
         </div>
