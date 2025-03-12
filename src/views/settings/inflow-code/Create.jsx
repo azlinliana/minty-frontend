@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { useKodInflowStore } from "../../../store/selenggara/kod-inflow-store";
-import { useSelenggaraStore } from "../../../store/options-store";
+import { useInflowCodeStore } from "../../../store/settings/inflow-code-store";
 
 function CreateInflowCode() {
   // __________________________________ Frontend __________________________________
@@ -25,30 +24,30 @@ function CreateInflowCode() {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // // Fetch kod inflow data
-  // const { kodInflowOptions, displayKodInflows } = useKodInflowStore((state) => ({
-  //   kodInflowOptions: state.kodInflowOptions,
-  //   displayKodInflows: state.displayKodInflows
+  // // Fetch inflow code data
+  // const { inflowCodeOptions, displayinflowCodes } = useinflowCodeStore((state) => ({
+  //   inflowCodeOptions: state.inflowCodeOptions,
+  //   displayinflowCodes: state.displayinflowCodes
   // }));
 
   // useEffect(() => {
-  //   displayKodInflows();
-  // }, [displayKodInflows]);
+  //   displayinflowCodes();
+  // }, [displayinflowCodes]);
 
-  // Create kod inflow
-  // const { kodInflows, displayKodInflows, CreateInflowCode } = useKodInflowStore((state) => ({
-  //   kodInflows: state.kodInflows,
-  //   displayKodInflows: state. displayKodInflows,
+  // Create inflow code
+  // const { inflowCodes, displayinflowCodes, CreateInflowCode } = useinflowCodeStore((state) => ({
+  //   inflowCodes: state.inflowCodes,
+  //   displayinflowCodes: state. displayinflowCodes,
   //   CreateInflowCode: state.CreateInflowCode,
   // }));
 
   // useEffect(() => {
-  //   displayKodInflows();
-  // }, [displayKodInflows]);
+  //   displayinflowCodes();
+  // }, [displayinflowCodes]);
 
   // Pass input & close modal
-  const handleCreateInflowCode = (addKodInflowData) => {
-    // CreateInflowCode(addKodInflowData, closeModalCreateInflowCode);
+  const handleCreateInflowCode = (addinflowCodeData) => {
+    // CreateInflowCode(addinflowCodeData, closeModalCreateInflowCode);
   };
 
   return (
@@ -70,15 +69,15 @@ function CreateInflowCode() {
 
           <Form onReset={reset}>
             <Modal.Body>
-              {/* Existing kod inflow */}
-              <Form.Group controlId="kodInflowId" className="mb-3">
+              {/* Existing inflow code */}
+              <Form.Group controlId="inflowCodeId" className="mb-3">
                 <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   as="select"
                   className="form-select"
-                  // {...register("kodInflowId", { required: true })}
-                  // aria-invalid={errors.kodInflowId ? "true" : "false"}
+                  // {...register("inflowCodeId", { required: true })}
+                  // aria-invalid={errors.inflowCodeId ? "true" : "false"}
                   placeholder="Insert inflow code"
                   defaultValue=""
                 >
@@ -86,35 +85,35 @@ function CreateInflowCode() {
                     --Choose Inflow Code--
                   </option>
 
-                  {/* {kodInflows.map((kodInflow) => (
-                    <option key={kodInflow.id} value={kodInflow.id}>
-                      {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
+                  {/* {inflowCodes.map((inflowCode) => (
+                    <option key={inflowCode.id} value={inflowCode.id}>
+                      {inflowCode.inflowCode} - {inflowCode.keteranganinflowCode}
                     </option>
                   ))} */}
-                  <option value="KOD INFLOW BAHARU">New Inflow Code</option>
+                  <option value="inflow code BAHARU">New Inflow Code</option>
                 </Form.Control>
 
-                {/* {errors.kodInflowId?.type === "required" && ( */}
+                {/* {errors.inflowCodeId?.type === "required" && ( */}
                   <small className="text-danger">Inflow code is required.</small>
                 {/* )} */}
               </Form.Group>
 
-              {/* New kod inflow - If choosing KOD INFLOW BAHARU from kod inflow option*/}
-              {watch("kodInflowId") === "KOD INFLOW BAHARU" && (
+              {/* New inflow code - If choosing inflow code BAHARU from inflow code option*/}
+              {watch("inflowCodeId") === "inflow code BAHARU" && (
                 <>
-                  <Form.Group controlId="kodInflowBaharu" className="mb-3">
+                  <Form.Group controlId="inflowCodeBaharu" className="mb-3">
                     <Form.Label className="form-label">
                       New Inflow Code
                     </Form.Label>
 
                     <Form.Control
                       type="text"
-                      // {...register("kodInflowBaharu", { required: true })}
-                      // aria-invalid={errors.kodInflowBaharu ? "true" : "false"}
+                      // {...register("inflowCodeBaharu", { required: true })}
+                      // aria-invalid={errors.inflowCodeBaharu ? "true" : "false"}
                       placeholder="Insert new inflow code"
                     />
 
-                    {/* {errors.kodInflowBaharu?.type === "required" && ( */}
+                    {/* {errors.inflowCodeBaharu?.type === "required" && ( */}
                       <small className="text-danger">
                       New inflow code is required.
                       </small>
@@ -122,7 +121,7 @@ function CreateInflowCode() {
                   </Form.Group>
 
                   <Form.Group
-                    controlId="keteranganKodInflowBaharu"
+                    controlId="keteranganinflowCodeBaharu"
                     className="mb-3"
                   >
                     <Form.Label className="form-label">
@@ -131,16 +130,16 @@ function CreateInflowCode() {
 
                     <Form.Control
                       type="text"
-                      // {...register("keteranganKodInflowBaharu", {
+                      // {...register("keteranganinflowCodeBaharu", {
                       //   required: true,
                       // })}
                       // aria-invalid={
-                      //   errors.keteranganKodInflowBaharu ? "true" : "false"
+                      //   errors.keteranganinflowCodeBaharu ? "true" : "false"
                       // }
                       placeholder="Insert new inflow code description"
                     />
 
-                    {/* {errors.keteranganKodInflowBaharu?.type === "required" && ( */}
+                    {/* {errors.keteranganinflowCodeBaharu?.type === "required" && ( */}
                       <small className="text-danger">
                         New inflow code description is needed.
                       </small>
@@ -149,19 +148,19 @@ function CreateInflowCode() {
                 </>
               )}
 
-              <Form.Group controlId="kodInflowTerperinci" className="mb-3">
+              <Form.Group controlId="inflowCodeTerperinci" className="mb-3">
                 <Form.Label className="form-label">
                   Detailed Inflow Code
                 </Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("kodInflowTerperinci", { required: true })}
-                  // aria-invalid={errors.kodInflowTerperinci ? "true" : "false"}
+                  // {...register("inflowCodeTerperinci", { required: true })}
+                  // aria-invalid={errors.inflowCodeTerperinci ? "true" : "false"}
                   placeholder="Insert detailed inflow code"
                 />
 
-                {/* {errors.kodInflowTerperinci?.type === "required" && ( */}
+                {/* {errors.inflowCodeTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
                     Detailed inflow code is required.
                   </small>
@@ -169,7 +168,7 @@ function CreateInflowCode() {
               </Form.Group>
 
               <Form.Group
-                controlId="keteranganKodInflowTerperinci"
+                controlId="keteranganinflowCodeTerperinci"
                 className="mb-3"
               >
                 <Form.Label className="form-label">
@@ -178,16 +177,16 @@ function CreateInflowCode() {
 
                 <Form.Control
                   type="text"
-                  // {...register("keteranganKodInflowTerperinci", {
+                  // {...register("keteranganinflowCodeTerperinci", {
                   //   required: true,
                   // })}
                   // aria-invalid={
-                  //   errors.keteranganKodInflowTerperinci ? "true" : "false"
+                  //   errors.keteranganinflowCodeTerperinci ? "true" : "false"
                   // }
                   placeholder="Insert detailed inflow code description."
                 />
 
-                {/* {errors.keteranganKodInflowTerperinci?.type === "required" && ( */}
+                {/* {errors.keteranganinflowCodeTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
                     Detailed inflow code description is required.
                   </small>

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useKodInflowStore } from "../../../../store/selenggara/kod-inflow-store";
+import { useInflowCodeStore } from "../../../../store/settings/inflow-code-store";
 
-function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
+function EditWithDetailedInflowCode({ inflowCode, inflowCodeTerperinci }) {
   // __________________________________ Frontend __________________________________
   // Modal
   const [
-    isModalEditKodInflowWithKodInflowTerperinci,
-    setIsModalEditKodInflowWithKodInflowTerperinci,
+    isModalEditinflowCodeWithinflowCodeTerperinci,
+    setIsModalEditinflowCodeWithinflowCodeTerperinci,
   ] = useState(false);
-  const openModalEditKodInflowWithKodInflowTerperinci = () =>
-    setIsModalEditKodInflowWithKodInflowTerperinci(true);
-  const closeModalEditKodInflowWithKodInflowTerperinci = () => {
-    setIsModalEditKodInflowWithKodInflowTerperinci(false);
+  const openModalEditinflowCodeWithinflowCodeTerperinci = () =>
+    setIsModalEditinflowCodeWithinflowCodeTerperinci(true);
+  const closeModalEditinflowCodeWithinflowCodeTerperinci = () => {
+    setIsModalEditinflowCodeWithinflowCodeTerperinci(false);
   };
 
   // Form validation
@@ -26,52 +26,52 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
   } = useForm();
 
   // ___________________________________ Backend __________________________________
-  // Set default values when the kemas kini kod inflow modal is opened
+  // Set default values when the kemas kini inflow code modal is opened
   // const [formData, setFormData] = useState({
-  //   kodInflow: "",
-  //   keteranganKodInflow: "",
-  //   statusKodInflow: "",
-  //   kodInflowTerperinci: "",
-  //   keteranganKodInflowTerperinci: "",
-  //   statusKodInflowTerperinci: "",
+  //   inflowCode: "",
+  //   keteranganinflowCode: "",
+  //   statusinflowCode: "",
+  //   inflowCodeTerperinci: "",
+  //   keteranganinflowCodeTerperinci: "",
+  //   statusinflowCodeTerperinci: "",
   // });
 
   // useEffect(() => {
   //   // Populate form data
-  //   setValue("kodInflow", kodInflow.kodInflow);
-  //   setValue("keteranganKodInflow", kodInflow.keteranganKodInflow);
-  //   setValue("statusKodInflow", kodInflow.statusKodInflow);
-  //   setValue("kodInflowTerperinci", kodInflowTerperinci.kodInflowTerperinci);
+  //   setValue("inflowCode", inflowCode.inflowCode);
+  //   setValue("keteranganinflowCode", inflowCode.keteranganinflowCode);
+  //   setValue("statusinflowCode", inflowCode.statusinflowCode);
+  //   setValue("inflowCodeTerperinci", inflowCodeTerperinci.inflowCodeTerperinci);
   //   setValue(
-  //     "keteranganKodInflowTerperinci",
-  //     kodInflowTerperinci.keteranganKodInflowTerperinci
+  //     "keteranganinflowCodeTerperinci",
+  //     inflowCodeTerperinci.keteranganinflowCodeTerperinci
   //   );
   //   setValue(
-  //     "statusKodInflowTerperinci",
-  //     kodInflowTerperinci.statusKodInflowTerperinci
+  //     "statusinflowCodeTerperinci",
+  //     inflowCodeTerperinci.statusinflowCodeTerperinci
   //   );
 
     // Set default values for formData
   //   setFormData((prevData) => ({
   //     ...prevData,
-  //     kodInflow: kodInflow.kodInflow,
-  //     keteranganKodInflow: kodInflow.keteranganKodInflow,
-  //     statusKodInflow: kodInflow.statusKodInflow,
-  //     kodInflowTerperinci: kodInflowTerperinci.kodInflowTerperinci,
-  //     keteranganKodInflowTerperinci:
-  //       kodInflowTerperinci.keteranganKodInflowTerperinci,
-  //     statusKodInflowTerperinci: kodInflowTerperinci.statusKodInflowTerperinci,
+  //     inflowCode: inflowCode.inflowCode,
+  //     keteranganinflowCode: inflowCode.keteranganinflowCode,
+  //     statusinflowCode: inflowCode.statusinflowCode,
+  //     inflowCodeTerperinci: inflowCodeTerperinci.inflowCodeTerperinci,
+  //     keteranganinflowCodeTerperinci:
+  //       inflowCodeTerperinci.keteranganinflowCodeTerperinci,
+  //     statusinflowCodeTerperinci: inflowCodeTerperinci.statusinflowCodeTerperinci,
   //   }));
-  // }, [kodInflow, kodInflowTerperinci, setValue]);
+  // }, [inflowCode, inflowCodeTerperinci, setValue]);
 
-  // Edit kod inflow with kod inflow terperinci
-  // const { editKodInflowWithKodInflowTerperinci } = useKodInflowStore((state) => ({
-  //   editKodInflowWithKodInflowTerperinci: state.editKodInflowWithKodInflowTerperinci,
+  // Edit inflow code with inflow code terperinci
+  // const { editinflowCodeWithinflowCodeTerperinci } = useinflowCodeStore((state) => ({
+  //   editinflowCodeWithinflowCodeTerperinci: state.editinflowCodeWithinflowCodeTerperinci,
   // }));
 
   // Pass input & close modal
-  const handleEditKodInflowWithKodInflowTerperinci = (editKodInflowData) => {
-    // editKodInflowWithKodInflowTerperinci(kodInflow.id, editKodInflowData, closeModalEditKodInflowWithKodInflowTerperinci);
+  const handleEditinflowCodeWithinflowCodeTerperinci = (editinflowCodeData) => {
+    // editinflowCodeWithinflowCodeTerperinci(inflowCode.id, editinflowCodeData, closeModalEditinflowCodeWithinflowCodeTerperinci);
   };
 
   return (
@@ -79,14 +79,14 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
       <div>
         <Button
           className="edit-btn"
-          onClick={openModalEditKodInflowWithKodInflowTerperinci}
+          onClick={openModalEditinflowCodeWithinflowCodeTerperinci}
         >
           Edit
         </Button>{" "}
         
         <Modal
-          show={isModalEditKodInflowWithKodInflowTerperinci}
-          onHide={closeModalEditKodInflowWithKodInflowTerperinci}
+          show={isModalEditinflowCodeWithinflowCodeTerperinci}
+          onHide={closeModalEditinflowCodeWithinflowCodeTerperinci}
           backdrop="static"
           keyboard={false}
         >
@@ -96,41 +96,41 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
 
           <Form onReset={reset}>
             <Modal.Body>
-              <Form.Group controlId="kodInflow" className="mb-3">
+              <Form.Group controlId="inflowCode" className="mb-3">
                 <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("kodInflow", { required: true })}
-                  // aria-invalid={errors.kodInflow ? "true" : "false"}
+                  // {...register("inflowCode", { required: true })}
+                  // aria-invalid={errors.inflowCode ? "true" : "false"}
                   placeholder="Insert inflow code"
                 />
 
-                {/* {errors.kodInflow?.type === "required" && ( */}
+                {/* {errors.inflowCode?.type === "required" && ( */}
                   <small className="text-danger">Inflow code is required.</small>
                 {/* )} */}
               </Form.Group>
 
-              <Form.Group controlId="keteranganKodInflow" className="mb-3">
+              <Form.Group controlId="keteranganinflowCode" className="mb-3">
                 <Form.Label className="form-label">
                   Inflow Code Description
                 </Form.Label>
 
                 <Form.Control
                   as="textarea"
-                  // {...register("keteranganKodInflow", { required: true })}
-                  // aria-invalid={errors.keteranganKodInflow ? "true" : "false"}
+                  // {...register("keteranganinflowCode", { required: true })}
+                  // aria-invalid={errors.keteranganinflowCode ? "true" : "false"}
                   placeholder="Insert inflow code description"
                 />
 
-                {/* {errors.keteranganKodInflow?.type === "required" && ( */}
+                {/* {errors.keteranganinflowCode?.type === "required" && ( */}
                   <small className="text-danger">
                     Inflow code description is required.
                   </small>
                 {/* )} */}
               </Form.Group>
 
-              <Form.Group controlId="statusKodInflow" className="mb-3">
+              <Form.Group controlId="statusinflowCode" className="mb-3">
                 <Form.Label className="form-label">
                   Inflow Code Status
                 </Form.Label>
@@ -138,8 +138,8 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  // {...register("statusKodInflow", { required: true })}
-                  // aria-invalid={errors.statusKodInflow ? "true" : "false"}
+                  // {...register("statusinflowCode", { required: true })}
+                  // aria-invalid={errors.statusinflowCode ? "true" : "false"}
                   placeholder="Insert inflow code status"
                 >
                   <option value="" disabled>
@@ -149,26 +149,26 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
                   <option value="INACTIVE">INACTIVE</option>
                 </Form.Control>
 
-                {/* {errors.statusKodInflow?.type === "required" && ( */}
+                {/* {errors.statusinflowCode?.type === "required" && ( */}
                   <small className="text-danger">
                     Inflow code status is required.
                   </small>
                 {/* )} */}
               </Form.Group>
 
-              <Form.Group controlId="kodInflowTerperinci" className="mb-3">
+              <Form.Group controlId="inflowCodeTerperinci" className="mb-3">
                 <Form.Label className="form-label">
                   Detailed Inflow Code
                 </Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("kodInflowTerperinci", { required: true })}
-                  // aria-invalid={errors.kodInflowTerperinci ? "true" : "false"}
+                  // {...register("inflowCodeTerperinci", { required: true })}
+                  // aria-invalid={errors.inflowCodeTerperinci ? "true" : "false"}
                   placeholder="Insert detailed inflow code"
                 />
 
-                {/* {errors.kodInflowTerperinci?.type === "required" && ( */}
+                {/* {errors.inflowCodeTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
                     Detailed inflow code is required.
                   </small>
@@ -176,7 +176,7 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
               </Form.Group>
 
               <Form.Group
-                controlId="keteranganKodInflowTerperinci"
+                controlId="keteranganinflowCodeTerperinci"
                 className="mb-3"
               >
                 <Form.Label className="form-label">
@@ -185,16 +185,16 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
 
                 <Form.Control
                   as="textarea"
-                  // {...register("keteranganKodInflowTerperinci", {
+                  // {...register("keteranganinflowCodeTerperinci", {
                   //   required: true,
                   // })}
                   // aria-invalid={
-                  //   errors.keteranganKodInflowTerperinci ? "true" : "false"
+                  //   errors.keteranganinflowCodeTerperinci ? "true" : "false"
                   // }
                   placeholder="Insert detailed inflow code description"
                 />
 
-                {/* {errors.keteranganKodInflowTerperinci?.type === "required" && ( */}
+                {/* {errors.keteranganinflowCodeTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
                     Detailed inflow code description is required.
                   </small>
@@ -202,7 +202,7 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
               </Form.Group>
 
               <Form.Group
-                controlId="statusKodInflowTerperinci"
+                controlId="statusinflowCodeTerperinci"
                 className="mb-3"
               >
                 <Form.Label className="form-label">
@@ -212,11 +212,11 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  // {...register("statusKodInflowTerperinci", { required: true })}
+                  // {...register("statusinflowCodeTerperinci", { required: true })}
                   // aria-invalid={
-                  //   errors.statusKodInflowTerperinci ? "true" : "false"
+                  //   errors.statusinflowCodeTerperinci ? "true" : "false"
                   // }
-                  placeholder="Insert status kod inflow terperinci"
+                  placeholder="Insert status inflow code terperinci"
                 >
                   <option value="" disabled>
                     --Choose Detailed Inflow Code Status--
@@ -225,7 +225,7 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
                   <option value="INACTIVE">INACTIVE</option>
                 </Form.Control>
 
-                {/* {errors.statusKodInflowTerperinci?.type === "required" && ( */}
+                {/* {errors.statusinflowCodeTerperinci?.type === "required" && ( */}
                   <small className="text-danger">
                     Detailed inflow code status is required.
                   </small>
@@ -236,7 +236,7 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
             <Modal.Footer>
               <Button
                 variant="secondary"
-                onClick={closeModalEditKodInflowWithKodInflowTerperinci}
+                onClick={closeModalEditinflowCodeWithinflowCodeTerperinci}
               >
                 Cancel
               </Button>
@@ -244,7 +244,7 @@ function EditWithDetailedInflowCode({ kodInflow, kodInflowTerperinci }) {
               <Button
                 variant="primary"
                 onClick={handleFormSubmit(
-                  handleEditKodInflowWithKodInflowTerperinci
+                  handleEditinflowCodeWithinflowCodeTerperinci
                 )}
               >
                 Edit
