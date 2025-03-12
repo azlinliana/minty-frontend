@@ -32,16 +32,16 @@ function IndexHubungan() {
   return (
     <>
       <div className="page-title">
-        <h1>Hubungan</h1>
+        <h1>Relationship</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
             href="selenggara"
           >
-            Senarai Selenggara
+            Settings List
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Hubungan</Breadcrumb.Item>
+          <Breadcrumb.Item active>Relationship</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -53,11 +53,11 @@ function IndexHubungan() {
         <Table responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
-              <th>Kod Hubungan</th>
-              <th>Keterangan Kod Hubungan</th>
+              <th>No.</th>
+              <th>Relationship Code</th>
+              <th>Relationship Description</th>
               <th>Status</th>
-              <th>Tindakan</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -66,8 +66,8 @@ function IndexHubungan() {
               <tr>
                 <td colSpan="5">
                   <center>
-                    Tiada maklumat. Sila klik butang "Tambah" untuk merekodkan
-                    hubungan baharu.
+                    No relationship information available. 
+                    Please click the "Add" button to record a new relationship.
                   </center>
                 </td>
               </tr>
@@ -76,10 +76,10 @@ function IndexHubungan() {
                 <tr 
                   // key={key}
                 >
-                  <td>Bil.</td>
-                  <td>Kod Hubungan</td>
-                  <td>Keterangan Hubungan</td>
-                  <td>Status Hubungan</td>
+                  <td>No.</td>
+                  <td>Relationship Code</td>
+                  <td>Relationship Description</td>
+                  <td>Relationship Status</td>
                   <td>
                     <EditHubungan 
                       // hubungan={hubungansData} 
@@ -89,7 +89,7 @@ function IndexHubungan() {
                       className="delete-btn"
                       // onClick={() => deleteHubungan(hubungansData.id)}
                     >
-                      Padam
+                      Delete
                     </Button>{" "}
                   </td>
                 </tr>
@@ -100,7 +100,7 @@ function IndexHubungan() {
 
         <div className="kembali-btn-container">
           <Button className="kembali-btn" onClick={goBack}>
-            Kembali
+            Back
           </Button>{" "}
         </div>
       </div>
