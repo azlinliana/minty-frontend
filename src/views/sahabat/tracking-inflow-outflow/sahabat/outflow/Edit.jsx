@@ -188,11 +188,11 @@ function EditTrackingOutflowSahabat() {
                 className="batal-btn"
                 onClick={closeModalEditOutflowSahabat}
               >
-                Cancel
+                Batal
               </Button>
 
               <Button onClick={handleSubmit(handleEditOutflowSahabat)}>
-                Edit
+                Simpan
               </Button>
             </Modal.Footer>
           </Form>
