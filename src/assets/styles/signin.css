@@ -3,14 +3,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: var(--grayscale-offwhite);
   }
   
   .signin-box {
     display: flex;
     width: 80%;
     max-width: 900px;
-    background: white;
+    background: var(--grayscale-white);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #007bff;
+    background-color: var(--quaternary-color);
     padding: 20px;
   }
   
@@ -74,7 +74,7 @@
     right: 10px;
     cursor: pointer;
     font-size: 18px;
-    color: #666;
+    color: var(--tertiary-color);
   }
   
   /* Ensures password input is styled the same as username */
@@ -93,8 +93,8 @@
   .signin-button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--grayscale-white);
     font-size: 16px;
     font-weight: bold;
     border: none;
@@ -105,11 +105,11 @@
   }
   
   .signin-button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
   }
   
   .signin-button:active {
-    background-color: #003d82;
+    background-color: var(--tertiary-color);
   }
   
   .forgot-password {
@@ -118,7 +118,7 @@
   }
   
   .forgot-password a {
-    color: #007bff;
+    color: var(--quaternary-color);
     text-decoration: none;
     font-weight: bold;
   }

@@ -26,17 +26,17 @@
 
 .signin-header {
   text-align: left;
-  color: var(--white);
+  color: var(--grayscale-var(--grayscale-white));
 }
 
 .signin-form-container {
-  color: var(--white);
+  color: var(--grayscale-var(--grayscale-white));
   background-color: rgba(255, 255, 255, 0.25);
 }
 
 .signin-form-header {
   margin: 20px 4px;
-  color: var(--white);
+  color: var(--grayscale-var(--grayscale-white));
   text-align: center;
 }
 
@@ -44,28 +44,28 @@
   width: 100%;
   font-size: 1.15em;
   font-weight: 700;
-  color: var(--white);
-  background-color: var(--darkcyanblue);
+  color: var(--grayscale-var(--grayscale-white));
+  background-color: var(--primary-color);
 }
 
 .signin-submit-button:hover {
-  background-color: var(--white);
+  background-color: var(--grayscale-var(--grayscale-white));
 }
 
 .signin-cta p {
   margin-top: 12px;
-  color: var(--white);
+  color: var(--grayscale-var(--grayscale-white));
   text-align: center;
 }
 
 .forgot-password-anchor {
   font-weight: 500;
-  color: var(--white);
+  color: var(--grayscale-var(--grayscale-white));
   text-decoration:underline;
 }
 
 .forgot-password-anchor:hover {
-  color: var(--darkcyanblue);
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

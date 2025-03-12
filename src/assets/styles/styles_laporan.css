@@ -36,14 +36,14 @@
 }
 
 .laporan-maklumat-sahabat-details {
-    background-color: var(--white);
+    background-color: var(--grayscale-var(--grayscale-white));
     padding: 10px 20px 20px 20px;
 }
 
 .laporan-carian-skim-pembiayaan-sahabat-container {
     margin: 30px 15px;
     padding: 15px 15px 30px 15px;
-    background-color: var(--white);
+    background-color: var(--grayscale-var(--grayscale-white));
 }
 
 .laporan-carian-skim-pembiayaan-sahabat-container h3 {
@@ -57,7 +57,7 @@
 .laporan-hasil-carian-skim-pembiayaan-container {
   margin: 30px 15px;
   padding: 20px;
-  background-color: var(--white);
+  background-color: var(--grayscale-var(--grayscale-white));
 }
 
 .sc-kembali-btn-sahabat {
@@ -73,8 +73,8 @@
 }
 
 .laporan-profil-sahabat-details {
-    background-color: #fff;
-    border: 1px solid #fff;
+    background-color: var(--grayscale-white);
+    border: 1px solid var(--grayscale-white);
     border-radius: 5px;
     margin: 10px 20px 20px 0;
     padding: 10px;
@@ -110,7 +110,7 @@
 .laporan-table-header {
   border: 1px solid #000;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--grayscale-white);
   margin: 30px auto 10px auto;
 }
 
@@ -133,7 +133,7 @@
 .laporan-profil-sahabat-bhgn-c-styling {
   width: 200px;
   height: 400px;
-  background-color: white;
+  background-color: var(--grayscale-white);
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -143,7 +143,7 @@
   padding-bottom: 5px;
   border: 1px solid #000;
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--grayscale-white);
 }
 
 .sc-laporan-penerangan-kod p {
@@ -172,7 +172,7 @@
 .jadual-search-bar {
     margin: 20px auto;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--grayscale-white);
     padding: 30px;
     border: 1px solid #dedede;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
@@ -185,7 +185,7 @@
 }
 
 .laporan-search-result-container {
-    background-color: var(--white);
+    background-color: var(--grayscale-var(--grayscale-white));
     padding: 10px;
 }
 

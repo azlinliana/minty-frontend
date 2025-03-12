@@ -7,7 +7,7 @@
 	.st1{fill:#552F2F;}
 	.st2{fill:#55AB99;}
 	.st3{fill:#2F4555;}
-	.st4{fill:#FFFFFF;}
+	.st4{fill:var(--grayscale-white)FFF;}
 	.st5{fill:#ED6B5A;}
 	.st6{fill:#0C2C48;}
 	.st7{fill:#F1CC4B;}
@@ -23,9 +23,9 @@
 	.st17{fill:#628185;}
 	.st18{fill:#BABABA;}
 	.st19{fill:#698391;}
-	.st20{opacity:0.41;fill:#FFFFFF;}
+	.st20{opacity:0.41;fill:var(--grayscale-white)FFF;}
 	.st21{fill:#F6A09C;}
-	.st22{fill:#FFF3C9;}
+	.st22{fill:var(--grayscale-white)3C9;}
 	.st23{fill:#2384AB;}
 	.st24{fill:#BABFC5;}
 	.st25{clip-path:url(#SVGID_4_);}
@@ -35,7 +35,7 @@
 	.st29{fill:#3B4A52;}
 	.st30{clip-path:url(#SVGID_6_);}
 	.st31{clip-path:url(#SVGID_8_);fill:#F6A09C;}
-	.st32{opacity:0.21;fill:#FFFFFF;}
+	.st32{opacity:0.21;fill:var(--grayscale-white)FFF;}
 	.st33{clip-path:url(#SVGID_10_);fill:#F6A09C;}
 	.st34{clip-path:url(#SVGID_12_);}
 	.st35{fill:#FFD3B5;}

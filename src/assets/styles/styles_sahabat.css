@@ -3,7 +3,7 @@
 /* ************************** */
 .sahabat-search-container {
     border-radius: 10px;
-    background-color: #fff;
+    background-color: var(--grayscale-white);
     border: 1px solid #dedede;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
     width: 96%;
@@ -42,7 +42,7 @@
 .hasil-carian-sahabat-content {
   margin: 0 15px;
   padding: 15px;
-  background-color: var(--white);
+  background-color: var(--grayscale-var(--grayscale-white));
 }
 
 .hasil-carian-sahabat-title {
@@ -81,7 +81,7 @@
 }
 
 .sahabat-pembiayaan-tab-container {
-  background-color: var(--white);
+  background-color: var(--grayscale-var(--grayscale-white));
 }
 
 .sc-tracking-minggu-warning td {
@@ -130,8 +130,8 @@
 .card-skim-pembiayaan-arrow-position svg {
   box-shadow: 1px 2px #cfcece;
   border-radius: 100%;
-  background-color: #13315C;
-  fill: var(--white);
+  background-color: var(--primary-color);
+  fill: var(--grayscale-var(--grayscale-white));
 }
 
 .sc-skim-pembiayaan-completed-indicator .sc-completion-indicator {
@@ -201,7 +201,7 @@
 /********* THE DREADED STEPPER *********/
 /* ************************************ */
 .MuiButton {
-  background-color: #13315C;
+  background-color: var(--primary-color);
 }
 
 .css-0 {

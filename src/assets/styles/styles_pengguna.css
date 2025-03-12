@@ -42,7 +42,7 @@
 
 .pengguna-search-bar {
   margin: 20px 0;
-  background-color: #fff;
+  background-color: var(--grayscale-white);
   border: 1px solid #dedede;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
   padding: 15px 20px 10px 10px;
@@ -58,7 +58,7 @@
 }
 
 .pengguna-search-result-container {
-  background-color: var(--white);
+  background-color: var(--grayscale-var(--grayscale-white));
   padding: 10px;
   margin-left: 20px;
   margin-right: 10px;

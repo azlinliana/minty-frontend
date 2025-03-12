@@ -89,10 +89,10 @@ const VerticalStepper = ({
         orientation="vertical"
         sx={{
           ".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
-            color: "#13315C",
+            color: "var(--primary-color)",
           },
           "& .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {
-            color: "#13315C",
+            color: "var(--primary-color)",
           },
           paddingLeft: 0,
           paddingRight: 0,
@@ -165,7 +165,7 @@ const VerticalStepper = ({
                       variant="contained"
                       onClick={handleNext}
                       disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
-                      sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
+                      sx={{ mt: 1, mr: 1, backgroundColor: "var(--primary-color)" }}
                     >
                       {index === steps.length - 1 ? "Tamat" : "Seterusnya"}
                     </Button>

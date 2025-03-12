@@ -41,15 +41,15 @@
 }
 
 .kembaliBtn {
-    border-color: var(--white);
-    background-color: var(--white);
-    color: var(--black);
+    border-color: var(--grayscale-var(--grayscale-white));
+    background-color: var(--grayscale-var(--grayscale-white));
+    color: var(--grayscale-black);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Breadcrumb */
 .previousLink a {
-    color: #13315C;
+    color: var(--primary-color);
     text-decoration: underline;
 }
 

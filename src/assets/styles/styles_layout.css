@@ -8,7 +8,7 @@
 }
   
 .content {
-  background-color: #F1F3F4;
+  background-color: var(--grayscale-white);
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
@@ -20,7 +20,7 @@
 /***************/
 
 .navbar-primary{
-  background-color: white;
+  background-color: var(--primary-color);
 }
 
 .logout-icon {
@@ -29,7 +29,7 @@
 }
   
 .page-title-strip-container {
-  background-color: #13315C;
+  background-color: var(--grayscale-offwhite);
   font-weight: 500;
   padding: 12px 0 12px 0;
 }
@@ -38,7 +38,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-left: 12px;
-  color: var(--white);
+  color: var(--grayscale-secondary-black);
 }
   
 .navbar-title {
@@ -46,6 +46,7 @@
   font-weight: 900;
   font-size: 26px;
   text-transform: uppercase;
+  color: var(--grayscale-white);
 }
 
 .org-logo {
@@ -53,10 +54,15 @@
 }
   
 .logout-btn {
-  background-color: white;
+  background-color: var(--primary-color);
   border: none;
   font-size: 14px;
   font-weight: bold;
+}
+
+.logout-btn-text {
+  color: var(--grayscale-white);
+  font-weight: 600;
 }
   
 .logout-icon-container {
@@ -66,7 +72,7 @@
   border-radius: 50%;
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.55);
   transition: background-color 0.3s, box-shadow 0.3s;
-  background-color: #fff;
+  background-color: var(--grayscale-white);
 }
 
 @media (max-width: 768px) {
@@ -85,10 +91,11 @@
   padding-top: 30px;
   position: relative;
   transition: width 0.3s ease;
+  background-color: var(--primary-color);
 }
 
 .sidebar a {
-  color: var(--black);
+  color: var(--grayscale-black);
 }
   
 .sidebar a:hover {
@@ -136,8 +143,8 @@
 
 .toggle-button svg {
   border-radius: 100%;
-  background-color: #13315C;
-  fill: white;
+  background-color: var(--primary-color);
+  fill: var(--grayscale-white);
 }
   
 .sidebar-user-profile {
