@@ -16,11 +16,12 @@
   --primary-color: #235239;
   --secondary-color: #2D664F;
   --tertiary-color: #102018;
-  --primary-hover-color: #75A589;
+  --quaternary-color: #75A589;
   --primary-details-color: #CBFFE1;
   --grayscale-offwhite: #F5F5F5;
   --grayscale-white: #FFFFFF;
   --grayscale-black: #000000;
+  --grayscale-secondary-black: #2c2c2c;
 }
 
 a {
