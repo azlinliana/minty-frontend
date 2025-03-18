@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
@@ -34,6 +33,7 @@ import TooManyRequests from "./views/http_requests/TooManyRequests";
 import InternalServer from "./views/http_requests/InternalServer";
 import ServiceUnavailable from "./views/http_requests/ServiceUnavailable";
 import UnknownError from "./views/http_requests/UnknownError";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
