@@ -89,7 +89,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-left: 12px;
-  color: var(--grayscale-secondary-black);
+  color: var(--primary-color);
 }
   
 .navbar-title {

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
+import Dashboard from "./views/Dashboard";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/" element={<SignIn />} index />
 
           <Route element={<MainLayout />}>
+          <Route path="dashboard" element={<Dashboard/>}/>
             {/* Sahabat */}
             <Route path="carian-sahabat" element={<SearchSahabat />} />
             <Route
