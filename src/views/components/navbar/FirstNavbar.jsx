@@ -1,9 +1,22 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Container, Image } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Image,
+  Dropdown,
+  Badge,
+  Row,
+  Col,
+} from "react-bootstrap";
 import ErrorAlert from "../sweet-alert/ErrorAlert";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
 import mintyLogo from "../../../assets/minty-logo.svg";
+import profileImg from "../../../assets/profile.png";
+import {
+  BsGear,
+  BsMoon,
+  BsQuestionCircle,
+  BsArrowLeftCircle,
+} from "react-icons/bs";
 import "../../../assets/styles/styles_layout.css";
 import axiosCustom from "../../../axios";
 
@@ -39,24 +52,62 @@ function FirstNavbar() {
           <Navbar.Brand onClick={clickMintyLogo}>
             <Image
               src={mintyLogo}
-              height="40"
+              height="60"
               className="d-inline-block align-top org-logo"
             />
           </Navbar.Brand>
-
-          <Navbar.Collapse className="justify-content-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <h5 className="navbar-title">Minty</h5>
-            </div>
-          </Navbar.Collapse>
-
           <div className="ml-auto">
-            <button className="logout-btn" onClick={handleSignOut}>
-              <span className="logout-icon-container">
-                <FaArrowRightFromBracket className="logout-icon" size={16} />
-              </span>
-              <span className="logout-text-visibility">Log Keluar</span>
-            </button>
+            <Dropdown className="navbar-primary-dropdown" align="end" id="dropdown-menu-align-end">
+              <Dropdown.Toggle className="name-showcase">
+                azlinliana_{" "}
+                <Badge className="navbar-badge py-2 mx-2">user role</Badge>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Header className="dropdown-header">
+                  <Row className="gx-5">
+                    <Col xs={3}>
+                      <Image src={profileImg} height="50" />
+                    </Col>
+                    <Col xs={7}>
+                      <Row className="flex username">azlinliana_</Row>
+                      <Row className="flex email">azlinliana@gmail.com</Row>
+                    </Col>
+                  </Row>
+                </Dropdown.Header>
+                <Dropdown.Item>
+                  <Row>
+                    <Col xs={2}>
+                      <BsGear />
+                    </Col>
+                    <Col>Profile Settings</Col>
+                  </Row>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Row>
+                    <Col xs={2}>
+                      <BsMoon />
+                    </Col>
+                    <Col>Dark Mode</Col>
+                  </Row>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Row>
+                    <Col xs={2}>
+                      <BsQuestionCircle />
+                    </Col>
+                    <Col>Help Center</Col>
+                  </Row>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={handleSignOut}>
+                  <Row>
+                    <Col xs={2}>
+                      <BsArrowLeftCircle />
+                    </Col>
+                    <Col>Sign Out</Col>
+                  </Row>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </Container>
       </Navbar>
