@@ -24,9 +24,9 @@ import IndexInflowCode from "./views/settings/inflow-code/Index";
 import IndexOutflowCode from "./views/settings/outflow-code/Index";
 import IndexLoan from "./views/settings/loan/Index";
 import IndexRelationship from "./views/settings/relationship/Index";
-import IndexPengguna from "./views/pengguna/Index";
-import IndexAdmin from "./views/pengguna/admin/Index";
-import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
+import IndexUser from "./views/user/Index";
+import IndexAdmin from "./views/user/admin/Index";
+import IndexSuperAdmin from "./views/user/super-admin/Index";
 import BadRequest from "./views/http_requests/BadRequest";
 import Unauthorized from "./views/http_requests/Unauthorized";
 import Forbidden from "./views/http_requests/Forbidden";
@@ -97,9 +97,9 @@ function App() {
             <Route path="relationship" element={<IndexRelationship />} />
 
             {/* Pengguna */}
-            <Route path="tetapan-pengguna" element={<IndexPengguna />} />
-            <Route path="senarai-admin" element={<IndexAdmin />} />
-            <Route path="senarai-super-admin" element={<IndexSuperAdmin />} />
+            <Route path="user-settings" element={<IndexUser />} />
+            <Route path="admin-list" element={<IndexAdmin />} />
+            <Route path="super-admin-list" element={<IndexSuperAdmin />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
