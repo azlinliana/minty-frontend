@@ -84,16 +84,16 @@ const SidebarMenu = [
   },
   {
     title: "User",
-    path: "/tetapan-pengguna",
+    path: "/user-settings",
     icon: <BsPersonFillGear />,
     subRoutes: [
       {
-        title: "Pengguna",
-        path: "/senarai-admin",
+        title: "User",
+        path: "/admin-list",
       },
       {
-        title: "Pengguna",
-        path: "/senarai-super-admin",
+        title: "User",
+        path: "/super-admin-list",
       },
     ],
     roles: [3],
