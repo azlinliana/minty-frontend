@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/styles/styles_pengguna.css";
 import { Table, Button } from "react-bootstrap";
 
-function IndexPengguna() {
+function IndexUser() {
   // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
@@ -13,23 +13,23 @@ function IndexPengguna() {
   };
 
   // Link pages
-  const clickAdmin = () => navigate("/senarai-admin");
+  const clickAdmin = () => navigate("/admin-list");
 
-  const clickSuperAdmin = () => navigate("/senarai-super-admin");
+  const clickSuperAdmin = () => navigate("/super-admin-list");
 
   return (
     <>
       <div className="page-title">
-        <h1>Senarai Pengguna</h1>
+        <h1>User List</h1>
       </div>
 
       <div className="pengguna-table-container">
         <Table responsive>
           <thead>
             <tr>
-              <th className="pengguna-table-index">Bil.</th>
-              <th>Jenis Pengguna</th>
-              <th className="pengguna-table-cta">Tindakan</th>
+              <th className="pengguna-table-index">No.</th>
+              <th>User Type</th>
+              <th className="pengguna-table-cta">Action</th>
             </tr>
           </thead>
 
@@ -39,7 +39,7 @@ function IndexPengguna() {
               <td>Admin</td>
               <td>
                 <Button className="pengguna-index-pg-btn" onClick={clickAdmin}>
-                  Lihat
+                  View
                 </Button>{" "}
               </td>
             </tr>
@@ -52,7 +52,7 @@ function IndexPengguna() {
                   className="pengguna-index-pg-btn"
                   onClick={clickSuperAdmin}
                 >
-                  Lihat
+                  View
                 </Button>{" "}
               </td>
             </tr>
@@ -62,11 +62,11 @@ function IndexPengguna() {
 
       <div className="kembali-btn-container">
         <Button className="kembali-btn" onClick={goBack}>
-          Kembali
+          Back
         </Button>{" "}
       </div>
     </>
   );
 }
 
-export default IndexPengguna;
+export default IndexUser;

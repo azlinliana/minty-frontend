@@ -49,12 +49,12 @@ function SearchAdmin() {
                 type="text"
                 // {...register("idKakitangan", { required: true })}
                 // aria-invalid={errors.idKakitangan ? "true" : "false"}
-                placeholder="Masukkan no. id kakitangan"
+                placeholder="Insert staff id"
               />
 
               {/* {errors.idKakitangan?.type === "required" && ( */}
                 <small className="text-danger">
-                  No. id kakitangan diperlukan.
+                  Staff id is required.
                 </small>
               {/* )} */}
             </Form.Group>

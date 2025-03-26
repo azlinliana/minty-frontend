@@ -61,7 +61,7 @@ function EditAdmin({ admin }) {
           <Form onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="idKakitangan" className="mb-3">
-                <Form.Label className="form-label">Id Kakitangan</Form.Label>
+                <Form.Label className="form-label">Staff Id</Form.Label>
 
                 <Form.Control
                   type="text"
@@ -71,7 +71,7 @@ function EditAdmin({ admin }) {
               </Form.Group>
 
               <Form.Group controlId="namaKakitangan" className="mb-3">
-                <Form.Label className="form-label">Nama Kakitangan</Form.Label>
+                <Form.Label className="form-label">Staff Name</Form.Label>
 
                 <Form.Control
                   type="text"
@@ -82,7 +82,7 @@ function EditAdmin({ admin }) {
 
               <Form.Group controlId="lokasiKakitangan" className="mb-3">
                 <Form.Label className="form-label">
-                  Lokasi Kakitangan
+                  Staff Location
                 </Form.Label>
 
                 <Form.Control
@@ -94,7 +94,7 @@ function EditAdmin({ admin }) {
 
               <Form.Group controlId="jawatanKakitangan" className="mb-3">
                 <Form.Label className="form-label">
-                  Jawatan Kakitangan
+                  Staff Position
                 </Form.Label>
 
                 <Form.Control
@@ -105,7 +105,7 @@ function EditAdmin({ admin }) {
               </Form.Group>
 
               <Form.Group controlId="statusAdmin" className="mb-3">
-                <Form.Label className="form-label">Status Admin</Form.Label>
+                <Form.Label className="form-label">Admin Status</Form.Label>
 
                 <Form.Control
                   as="select"
@@ -114,15 +114,15 @@ function EditAdmin({ admin }) {
                   // aria-invalid={errors.statusAdmin ? "true" : "false"}
                 >
                   <option value="" disabled>
-                    --Pilih Status Admin--
+                    --Choose Admin Status--
                   </option>
-                  <option value="DIBENARKAN">DIBENARKAN</option>
-                  <option value="DISEKAT">DISEKAT</option>
+                  <option value="ALLOW">ALLOW</option>
+                  <option value="BLOCK">BLOCK</option>
                 </Form.Control>
 
                 {/* {errors.statusAdmin?.type === "required" && ( */}
                   <small className="text-danger">
-                    Status admin diperlukan.
+                    Admin status is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -130,10 +130,10 @@ function EditAdmin({ admin }) {
 
             <Modal.Footer>
               <Button className="batal-btn" onClick={closeModalEditAdmin}>
-                Batal
+                Cancel
               </Button>
 
-              <Button onClick={handleSubmit(handleEditAdmin)}>Simpan</Button>
+              <Button onClick={handleSubmit(handleEditAdmin)}>Edit</Button>
             </Modal.Footer>
           </Form>
         </Modal>

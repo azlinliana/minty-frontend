@@ -61,7 +61,7 @@ function EditSuperAdmin({ superAdmin }) {
           <Form onReset={reset}>
             <Modal.Body>
               <Form.Group controlId="idKakitangan" className="mb-3">
-                <Form.Label className="form-label">Id Kakitangan</Form.Label>
+                <Form.Label className="form-label">Staff Id</Form.Label>
 
                 <Form.Control
                   type="text"
@@ -71,7 +71,7 @@ function EditSuperAdmin({ superAdmin }) {
               </Form.Group>
 
               <Form.Group controlId="namaKakitangan" className="mb-3">
-                <Form.Label className="form-label">Nama Kakitangan</Form.Label>
+                <Form.Label className="form-label">Staff Name</Form.Label>
 
                 <Form.Control
                   type="text"
@@ -82,7 +82,7 @@ function EditSuperAdmin({ superAdmin }) {
 
               <Form.Group controlId="lokasiKakitangan" className="mb-3">
                 <Form.Label className="form-label">
-                  Lokasi Kakitangan
+                  Staff Location
                 </Form.Label>
 
                 <Form.Control
@@ -94,7 +94,7 @@ function EditSuperAdmin({ superAdmin }) {
 
               <Form.Group controlId="jawatanKakitangan" className="mb-3">
                 <Form.Label className="form-label">
-                  Jawatan Kakitangan
+                  Staff Position
                 </Form.Label>
 
                 <Form.Control
@@ -106,7 +106,7 @@ function EditSuperAdmin({ superAdmin }) {
 
               <Form.Group controlId="statusSuperAdmin" className="mb-3">
                 <Form.Label className="form-label">
-                  Status Super Admin
+                  Super Admin Status
                 </Form.Label>
 
                 <Form.Control
@@ -116,15 +116,15 @@ function EditSuperAdmin({ superAdmin }) {
                   // aria-invalid={errors.statusSuperAdmin ? "true" : "false"}
                 >
                   <option value="" disabled>
-                    --Pilih Status Super Admin--
+                    --Choose Super Admin Status--
                   </option>
-                  <option value="DIBENARKAN">DIBENARKAN</option>
-                  <option value="DISEKAT">DISEKAT</option>
+                  <option value="ALLOW">ALLOW</option>
+                  <option value="BLOCK">BLOCK</option>
                 </Form.Control>
 
                 {/* {errors.statusSuperAdmin?.type === "required" && ( */}
                   <small className="text-danger">
-                    Status super admin diperlukan.
+                    Super admin status is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -132,11 +132,11 @@ function EditSuperAdmin({ superAdmin }) {
 
             <Modal.Footer>
               <Button className="batal-btn" onClick={closeModalEditSuperAdmin}>
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleEditSuperAdmin)}>
-                Simpan
+                Edit
               </Button>
             </Modal.Footer>
           </Form>

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Form, Button } from "react-bootstrap";
-import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
+import { useAdminStore } from "../../../store/pengguna/admin-store";
 
-function CreateSuperAdmin({
-  isModalCreateSuperAdmin,
-  openModalCreateSuperAdmin,
-  closeModalCreateSuperAdmin,
+function CreateAdmin({
+  isModalCreateAdmin,
+  openModalCreateAdmin,
+  closeModalCreateAdmin,
   // searchStaffResult,
 }) {
   // __________________________________ Frontend __________________________________
@@ -25,37 +25,37 @@ function CreateSuperAdmin({
   //   }
   // }, [searchStaffResult, setValue]);
 
-  // Create super admin
-  // const { createSuperAdmin } = useSuperAdminStore((state) => ({
-  //   createSuperAdmin: state.createSuperAdmin,
+  // Create admin
+  // const { createAdmin } = useAdminStore((state) => ({
+  //   createAdmin: state.createAdmin,
   // }));
 
   // Pass input & close modal
-  const handleCreateSuperAdmin = (addSuperAdminData) => {
-    // createSuperAdmin(addSuperAdminData, closeModalCreateSuperAdmin);
+  const handleCreateAdmin = (addAdminData) => {
+    // createAdmin(addAdminData, closeModalCreateAdmin);
   };
 
   return (
     <>
-      <Button className="pengguna-carian-search-btn" onClick={openModalCreateSuperAdmin}>
-        Cari
+      <Button className="pengguna-carian-search-btn" onClick={openModalCreateAdmin}>
+        Search
       </Button>
 
       <Modal
-        show={isModalCreateSuperAdmin}
-        onHide={closeModalCreateSuperAdmin}
+        show={isModalCreateAdmin}
+        onHide={closeModalCreateAdmin}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Super Admin</Modal.Title>
+          <Modal.Title>Add Admin</Modal.Title>
         </Modal.Header>
 
         <Form>
           <Modal.Body>
             {/* Display search staff result */}
             <Form.Group controlId="idKakitangan" className="mb-3">
-              <Form.Label className="form-label">Id Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Id</Form.Label>
 
               <Form.Control
                 type="text"
@@ -65,7 +65,7 @@ function CreateSuperAdmin({
             </Form.Group>
 
             <Form.Group controlId="namaKakitangan" className="mb-3">
-              <Form.Label className="form-label">Nama Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Name</Form.Label>
 
               <Form.Control
                 type="text"
@@ -75,7 +75,7 @@ function CreateSuperAdmin({
             </Form.Group>
 
             <Form.Group controlId="lokasiKakitangan" className="mb-3">
-              <Form.Label className="form-label">Lokasi Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Location</Form.Label>
 
               <Form.Control
                 type="text"
@@ -85,7 +85,7 @@ function CreateSuperAdmin({
             </Form.Group>
 
             <Form.Group controlId="jawatanKakitangan" className="mb-3">
-              <Form.Label className="form-label">Jawatan Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Position</Form.Label>
 
               <Form.Control
                 type="text"
@@ -96,16 +96,18 @@ function CreateSuperAdmin({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateSuperAdmin}>
-              Batal
+            <Button className="batal-btn" onClick={closeModalCreateAdmin}>
+              Cancel
             </Button>
 
             <Button
-              // onClick={handleSubmit(() =>
-              //   handleCreateSuperAdmin({ userId: searchStaffResult.id })
-              // )}
+              onClick={handleSubmit(() =>
+                handleCreateAdmin(
+                  // { userId: searchStaffResult.id }
+                )
+              )}
             >
-              Simpan
+              Add
             </Button>
           </Modal.Footer>
         </Form>
@@ -114,4 +116,4 @@ function CreateSuperAdmin({
   );
 }
 
-export default CreateSuperAdmin;
+export default CreateAdmin;

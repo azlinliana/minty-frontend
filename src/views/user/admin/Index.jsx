@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_pengguna.css";
-import SearchSuperAdmin from "./Search";
-import EditSuperAdmin from "./Edit";
+import SearchAdmin from "./Search";
+import EditAdmin from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
-import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
+import { useAdminStore } from "../../../store/pengguna/admin-store";
 
-function IndexSuperAdmin() {
+function IndexAdmin() {
   // __________________________________ Frontend __________________________________
   const navigate = useNavigate();
 
@@ -15,89 +15,87 @@ function IndexSuperAdmin() {
   };
 
   // ___________________________________ Backend __________________________________
-  // List & delete super admin
-  // const { superAdmins, fetchSuperAdmins, deleteSuperAdmin } =
-  //   useSuperAdminStore((state) => ({
-  //     superAdmins: state.superAdmins,
-  //     fetchSuperAdmins: state.fetchSuperAdmins,
-  //     deleteSuperAdmin: state.deleteSuperAdmin,
-  //   }));
+  // List & delete admin
+  // const { admins, fetchAdmins, deleteAdmin } = useAdminStore((state) => ({
+  //   admins: state.admins,
+  //   fetchAdmins: state.fetchAdmins,
+  //   deleteAdmin: state.deleteAdmin,
+  // }));
 
   // useEffect(() => {
-  //   fetchSuperAdmins();
-  // }, [fetchSuperAdmins]);
+  //   fetchAdmins();
+  // }, [fetchAdmins]);
 
   return (
     <>
       <div className="page-title">
-        <h1>Super Admin</h1>
+        <h1>Admin</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
             href="/tetapan-pengguna"
           >
-            Senarai Pengguna
+            User List
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Super Admin</Breadcrumb.Item>
+          <Breadcrumb.Item active>Admin</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div>
         <div className="pengguna-search-pg-header">
-          <h2>Cari & Tambah Super Admin</h2>
+          <h2>Search & Add Admin</h2>
 
-          <SearchSuperAdmin />
+          <SearchAdmin />
         </div>
 
         <div className="pengguna-search-result-container">
-          <h2>Senarai Super Admin</h2>
+          <h2>Admin List</h2>
 
           <div>
             <Table responsive striped bordered>
               <thead>
                 <tr>
                   <th>Bil.</th>
-                  <th>Id Kakitangan</th>
-                  <th>Nama Kakitangan</th>
-                  <th>Lokasi Kakitangan</th>
-                  <th>Jawatan Kakitangan</th>
+                  <th>Staff Id</th>
+                  <th>Staff Name</th>
+                  <th>Staff Location</th>
+                  <th>Staff Position</th>
                   <th>Status</th>
-                  <th>Tindakan</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                {/* {superAdmins.length === 0 ? ( */}
+                {/* {admins.length === 0 ? ( */}
                   <tr>
                     <td colSpan={7}>
                       <center>
-                        Tiada maklumat. Sila klik "Cari & Tambah Super Admin"
-                        untuk merekodkan super admin baharu.
+                        No information available. Please "Search & Add Admin" to record a new admin.
                       </center>
                     </td>
                   </tr>
                 {/* ) : (
-                  superAdmins.map((superAdminsData, key) => ( */}
+                  admins.map((adminsData, key) => ( */}
                     <tr 
                       // key={key}
                     >
-                      <td>Bil.</td>
-                      <td>Id Kakitangan</td>
-                      <td>Nama Kakitangan</td>
-                      <td>Lokasi Kakitangan</td>
-                      <td>Jawatan Kakitangan</td>
-                      <td>Status Super Admin</td>
+                      <td>No.</td>
+                      <td>Staff Id</td>
+                      <td>Staff Name</td>
+                      <td>Staff Location</td>
+                      <td>Staff Position</td>
+                      <td>Status Admin</td>
                       <td>
-                        <EditSuperAdmin 
-                          // superAdmin={superAdminsData} 
+                        <EditAdmin 
+                          // admin={adminsData} 
                         />
                         
                         <Button
                           className="delete-btn"
-                          // onClick={() => deleteSuperAdmin(superAdminsData.id)}
+                          // onClick={() => deleteAdmin(adminsData.id)}
                         >
-                          Padam
+                          Delete
                         </Button>{" "}
                       </td>
                     </tr>
@@ -108,7 +106,7 @@ function IndexSuperAdmin() {
 
             <div className="kembali-btn-container">
               <Button className="kembali-btn" onClick={goBack}>
-                Kembali
+                Back
               </Button>{" "}
             </div>
           </div>
@@ -118,4 +116,4 @@ function IndexSuperAdmin() {
   );
 }
 
-export default IndexSuperAdmin;
+export default IndexAdmin;

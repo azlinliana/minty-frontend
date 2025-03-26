@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Form, Button } from "react-bootstrap";
-import { useAdminStore } from "../../../store/pengguna/admin-store";
+import { useSuperAdminStore } from "../../../store/pengguna/super-admin-store";
 
-function CreateAdmin({
-  isModalCreateAdmin,
-  openModalCreateAdmin,
-  closeModalCreateAdmin,
+function CreateSuperAdmin({
+  isModalCreateSuperAdmin,
+  openModalCreateSuperAdmin,
+  closeModalCreateSuperAdmin,
   // searchStaffResult,
 }) {
   // __________________________________ Frontend __________________________________
@@ -26,36 +26,36 @@ function CreateAdmin({
   // }, [searchStaffResult, setValue]);
 
   // Create admin
-  // const { createAdmin } = useAdminStore((state) => ({
-  //   createAdmin: state.createAdmin,
+  // const { CreateSuperAdmin } = useSuperAdminStore((state) => ({
+  //   CreateSuperAdmin: state.CreateSuperAdmin,
   // }));
 
   // Pass input & close modal
-  const handleCreateAdmin = (addAdminData) => {
-    // createAdmin(addAdminData, closeModalCreateAdmin);
+  const handleCreateSuperAdmin = (addAdminData) => {
+    // CreateSuperAdmin(addAdminData, closeModalCreateSuperAdmin);
   };
 
   return (
     <>
-      <Button className="pengguna-carian-search-btn" onClick={openModalCreateAdmin}>
-        Cari
+      <Button className="pengguna-carian-search-btn" onClick={openModalCreateSuperAdmin}>
+        Search
       </Button>
 
       <Modal
-        show={isModalCreateAdmin}
-        onHide={closeModalCreateAdmin}
+        show={isModalCreateSuperAdmin}
+        onHide={closeModalCreateSuperAdmin}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Admin</Modal.Title>
+          <Modal.Title>Add Admin</Modal.Title>
         </Modal.Header>
 
         <Form>
           <Modal.Body>
             {/* Display search staff result */}
             <Form.Group controlId="idKakitangan" className="mb-3">
-              <Form.Label className="form-label">Id Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Id</Form.Label>
 
               <Form.Control
                 type="text"
@@ -65,7 +65,7 @@ function CreateAdmin({
             </Form.Group>
 
             <Form.Group controlId="namaKakitangan" className="mb-3">
-              <Form.Label className="form-label">Nama Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Name</Form.Label>
 
               <Form.Control
                 type="text"
@@ -75,7 +75,7 @@ function CreateAdmin({
             </Form.Group>
 
             <Form.Group controlId="lokasiKakitangan" className="mb-3">
-              <Form.Label className="form-label">Lokasi Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Location</Form.Label>
 
               <Form.Control
                 type="text"
@@ -85,7 +85,7 @@ function CreateAdmin({
             </Form.Group>
 
             <Form.Group controlId="jawatanKakitangan" className="mb-3">
-              <Form.Label className="form-label">Jawatan Kakitangan</Form.Label>
+              <Form.Label className="form-label">Staff Position</Form.Label>
 
               <Form.Control
                 type="text"
@@ -96,18 +96,18 @@ function CreateAdmin({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateAdmin}>
-              Batal
+            <Button className="batal-btn" onClick={closeModalCreateSuperAdmin}>
+              Cancel
             </Button>
 
             <Button
               onClick={handleSubmit(() =>
-                handleCreateAdmin(
+                handleCreateSuperAdmin(
                   // { userId: searchStaffResult.id }
                 )
               )}
             >
-              Simpan
+              Add
             </Button>
           </Modal.Footer>
         </Form>
@@ -116,4 +116,4 @@ function CreateAdmin({
   );
 }
 
-export default CreateAdmin;
+export default CreateSuperAdmin;
