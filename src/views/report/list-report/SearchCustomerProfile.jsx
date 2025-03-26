@@ -34,11 +34,11 @@ function SearchCustomerProfile() {
 
   // ___________________________________ Backend __________________________________
   // Search profil sahabat
-  const handleSearchCustomerProfile = async (noKadPengenalanSahabatInput) => {
+  const handleSearchCustomerProfile = async (customerIcInput) => {
     try {
       const response = await axiosCustom.post(
         `laporan/search`,
-        noKadPengenalanSahabatInput
+        customerIcInput
       );
 
       if (response.status === 200) {
@@ -68,37 +68,37 @@ function SearchCustomerProfile() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Carian Laporan Profil Sahabat</Modal.Title>
+          <Modal.Title>Search Customer Profile Report</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="noKadPengenalanSahabat" className="mb-3">
+            <Form.Group controlId="customerIc" className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="Masukkan no. kad pengenalan sahabat"
-                {...register("noKadPengenalanSahabat", {
-                  required: "No. kad pengenalan sahabat diperlukan.",
+                placeholder="Insert customer's IC"
+                {...register("customerIc", {
+                  required: "Customer IC is required.",
                   pattern: {
                     value: /^\d{12}$/,
                     message:
-                      "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                      "Customer IC must contain 12 digits",
                   },
                 })}
-                aria-invalid={errors.noKadPengenalanSahabat ? "true" : "false"}
+                aria-invalid={errors.customerIc ? "true" : "false"}
               />
 
               {/* Validate required field */}
-              {errors.noKadPengenalanSahabat?.type === "required" && (
+              {errors.customerIc?.type === "required" && (
                 <small className="text-danger">
-                  No. kad pengenalan sahabat diperlukan.
+                  Customer ic is required.
                 </small>
               )}
 
               {/* Validate pattern field */}
-              {errors.noKadPengenalanSahabat?.type === "pattern" && (
+              {errors.customerIc?.type === "pattern" && (
                 <small className="text-danger">
-                  {errors.noKadPengenalanSahabat.message}
+                  {errors.customerIc.message}
                 </small>
               )}
             </Form.Group>
@@ -109,10 +109,10 @@ function SearchCustomerProfile() {
               className="batal-btn"
               onClick={closeModalCarianLaporanProfilSahabat}
             >
-              Batal
+              Cancel
             </Button>
             <Button onClick={handleSubmit(handleSearchCustomerProfile)}>
-              Cari
+              Search
             </Button>
           </Modal.Footer>
         </Form>
