@@ -18,16 +18,17 @@ import {
 } from "react-bootstrap";
 import { useIsiRumahStore } from "../../../../store/sahabat/isi-rumah-store";
 
-function IndexTrackingIsiRumah({
-  mingguId,
-  pembiayaanSahabatsData,
-  kodInflowOptions,
-  displayKodInflows,
-  kodOutflowOptions,
-  displayKodOutflows,
-  hubunganOptions,
-  displayHubungans,
-}) {
+// function IndexTrackingIsiRumah({
+//   mingguId,
+//   pembiayaanSahabatsData,
+//   kodInflowOptions,
+//   displayKodInflows,
+//   kodOutflowOptions,
+//   displayKodOutflows,
+//   hubunganOptions,
+//   displayHubungans,
+// }) {
+function IndexTrackingIsiRumah() {
   // __________________________________ Frontend __________________________________
   // Tab tracking isi rumah
   const [activeTab, setActiveTab] = useState({
@@ -41,24 +42,24 @@ function IndexTrackingIsiRumah({
 
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
-  useEffect(() => {
-    displayHubungans();
-    displayKodInflows();
-    displayKodOutflows();
-  }, [displayHubungans, displayKodInflows, displayKodOutflows]);
+  // useEffect(() => {
+  //   displayHubungans();
+  //   displayKodInflows();
+  //   displayKodOutflows();
+  // }, [displayHubungans, displayKodInflows, displayKodOutflows]);
   // ==============================================================================
 
   // List & delete isi rumah sahabat
-  const { isiRumahSahabats, fetchIsiRumahSahabats, deleteIsiRumahSahabat } =
-    useIsiRumahStore((state) => ({
-      isiRumahSahabats: state.isiRumahSahabats,
-      fetchIsiRumahSahabats: state.fetchIsiRumahSahabats,
-      deleteIsiRumahSahabat: state.deleteIsiRumahSahabat,
-    }));
+  // const { isiRumahSahabats, fetchIsiRumahSahabats, deleteIsiRumahSahabat } =
+  //   useIsiRumahStore((state) => ({
+  //     isiRumahSahabats: state.isiRumahSahabats,
+  //     fetchIsiRumahSahabats: state.fetchIsiRumahSahabats,
+  //     deleteIsiRumahSahabat: state.deleteIsiRumahSahabat,
+  //   }));
 
-  useEffect(() => {
-    fetchIsiRumahSahabats(mingguId);
-  }, [fetchIsiRumahSahabats, mingguId]);
+  // useEffect(() => {
+  //   fetchIsiRumahSahabats(mingguId);
+  // }, [fetchIsiRumahSahabats, mingguId]);
 
   return (
     <>
@@ -66,26 +67,26 @@ function IndexTrackingIsiRumah({
         <h2>Maklumat Tracking Isi Rumah</h2>
 
         <div className="sahabat-pembiayaan-table-container">
-          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
             <div className="tambah-baru-btn-container">
               <CreateTrackingIsiRumah
-                mingguId={mingguId}
-                hubunganOptions={hubunganOptions}
+                // mingguId={mingguId}
+                // hubunganOptions={hubunganOptions}
               />
             </div>
-          ) : null}
+          {/* ) : null} */}
 
-          {isiRumahSahabats.length === 0 ? (
+          {/* {isiRumahSahabats.length === 0 ? ( */}
             <Alert variant="secondary">
               Sahabat masih tiada maklumat isi rumah untuk minggu ini. Sila
               tambah isi rumah.
             </Alert>
-          ) : (
+          {/* ) : ( */}
             <Tabs id="tab-isi-rumah-sahabat" className="mb-3">
-              {isiRumahSahabats.map((isiRumahSahabatsData, key) => (
-                <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}>
-                  <div>
-                    {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+              {/* {isiRumahSahabats.map((isiRumahSahabatsData, key) => ( */}
+                {/* <Tab key={key} eventKey={key} title={`Isi Rumah ${key + 1}`}> */}
+                <Tab eventKey="1" title="Isi Rumah 1">                  <div>
+                    {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                       <div className="tabs-isi-rumah-actions-container">
                         <DropdownButton
                           align="end"
@@ -94,23 +95,23 @@ function IndexTrackingIsiRumah({
                         >
                           <Dropdown.Item eventKey="1">
                             <EditTrackingIsiRumah
-                              isiRumahId={isiRumahSahabatsData.id}
-                              isiRumahSahabat={isiRumahSahabatsData}
-                              hubunganOptions={hubunganOptions}
+                              // isiRumahId={isiRumahSahabatsData.id}
+                              // isiRumahSahabat={isiRumahSahabatsData}
+                              // hubunganOptions={hubunganOptions}
                             />
                           </Dropdown.Item>
 
                           <Dropdown.Item
                             eventKey="2"
-                            onClick={() =>
-                              deleteIsiRumahSahabat(isiRumahSahabatsData.id)
-                            }
+                            // onClick={() =>
+                            //   deleteIsiRumahSahabat(isiRumahSahabatsData.id)
+                            // }
                           >
                             Padam
                           </Dropdown.Item>
                         </DropdownButton>
                       </div>
-                    ) : null}
+                    {/* ) : null} */}
 
                     <Card>
                       <Card.Body>
@@ -122,9 +123,7 @@ function IndexTrackingIsiRumah({
 
                                 <Form.Control
                                   type="text"
-                                  defaultValue={
-                                    isiRumahSahabatsData.namaIsiRumah
-                                  }
+                                  defaultValue="Nama Isi Rumah"
                                   disabled
                                 />
                               </Form.Group>
@@ -138,9 +137,7 @@ function IndexTrackingIsiRumah({
 
                                 <Form.Control
                                   type="text"
-                                  defaultValue={
-                                    isiRumahSahabatsData.noKadPengenalanIsiRumah
-                                  }
+                                  defaultValue="No. Kad Pengenalan Isi Rumah"
                                   disabled
                                 />
                               </Form.Group>
@@ -154,7 +151,7 @@ function IndexTrackingIsiRumah({
 
                                 <Form.Control
                                   type="text"
-                                  defaultValue={isiRumahSahabatsData.hubungan}
+                                  defaultValue="Hubungan Isi Rumah"
                                   disabled
                                 />
                               </Form.Group>
@@ -185,9 +182,9 @@ function IndexTrackingIsiRumah({
                           title="Inflow"
                         >
                           <IndexTrackingInflowIsiRumah
-                            isiRumahId={isiRumahSahabatsData.id}
-                            pembiayaanSahabatsData={pembiayaanSahabatsData}
-                            kodInflowOptions={kodInflowOptions}
+                            // isiRumahId={isiRumahSahabatsData.id}
+                            // pembiayaanSahabatsData={pembiayaanSahabatsData}
+                            // kodInflowOptions={kodInflowOptions}
                           />
                         </Tab>
 
@@ -196,18 +193,18 @@ function IndexTrackingIsiRumah({
                           title="Outflow"
                         >
                           <IndexTrackingOutflowIsiRumah
-                            isiRumahId={isiRumahSahabatsData.id}
-                            pembiayaanSahabatsData={pembiayaanSahabatsData}
-                            kodOutflowOptions={kodOutflowOptions}
+                            // isiRumahId={isiRumahSahabatsData.id}
+                            // pembiayaanSahabatsData={pembiayaanSahabatsData}
+                            // kodOutflowOptions={kodOutflowOptions}
                           />
                         </Tab>
                       </Tabs>
                     </div>
                   </div>
                 </Tab>
-              ))}
+              {/* ))} */}
             </Tabs>
-          )}
+          {/* )} */}
         </div>
       </div>
     </>

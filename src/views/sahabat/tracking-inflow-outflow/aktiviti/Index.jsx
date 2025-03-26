@@ -5,20 +5,21 @@ import EditAktiviti from "./Edit";
 import { Button, Table } from "react-bootstrap";
 import { useAktivitiStore } from "../../../../store/sahabat/aktiviti-store";
 
-function IndexAktiviti({
-  sahabatId,
-  pembiayaanId,
-  pembiayaanSahabatsData,
-  onDataAvailableChange,
-  aktivitiOptions,
-  displayAktivitis,
-  keteranganAktivitiOptions,
-  displayKeteranganAktivitis,
-  projekAktivitiOptions,
-  displayProjekAktivitis,
-  dimensiOptions,
-  displayDimensis,
-}) {
+// function IndexAktiviti({
+//   sahabatId,
+//   pembiayaanId,
+//   pembiayaanSahabatsData,
+//   onDataAvailableChange,
+//   aktivitiOptions,
+//   displayAktivitis,
+//   keteranganAktivitiOptions,
+//   displayKeteranganAktivitis,
+//   projekAktivitiOptions,
+//   displayProjekAktivitis,
+//   dimensiOptions,
+//   displayDimensis,
+// }) {
+function IndexAktiviti() {
   // ___________________________________ Backend __________________________________
   // ============================== Dropdown Options ==============================
   // Display aktiviti, keterangan aktiviti, and projek aktiviti options
@@ -29,30 +30,30 @@ function IndexAktiviti({
 
   const [selectedProjekAktiviti, setSelectedProjekAktiviti] = useState("");
 
-  useEffect(() => {
-    displayAktivitis();
-    displayKeteranganAktivitis();
-    displayProjekAktivitis();
-    displayDimensis();
-  }, [
-    displayAktivitis,
-    displayKeteranganAktivitis,
-    displayProjekAktivitis,
-    displayDimensis,
-  ]);
+  // useEffect(() => {
+  //   displayAktivitis();
+  //   displayKeteranganAktivitis();
+  //   displayProjekAktivitis();
+  //   displayDimensis();
+  // }, [
+  //   displayAktivitis,
+  //   displayKeteranganAktivitis,
+  //   displayProjekAktivitis,
+  //   displayDimensis,
+  // ]);
   // ==============================================================================
 
   // List & delete aktiviti sahabat
-  const { aktivitiSahabats, fetchAktivitiSahabats, deleteAktivitiSahabat } =
-    useAktivitiStore((state) => ({
-      aktivitiSahabats: state.aktivitiSahabats,
-      fetchAktivitiSahabats: state.fetchAktivitiSahabats,
-      deleteAktivitiSahabat: state.deleteAktivitiSahabat,
-    }));
+  // const { aktivitiSahabats, fetchAktivitiSahabats, deleteAktivitiSahabat } =
+  //   useAktivitiStore((state) => ({
+  //     aktivitiSahabats: state.aktivitiSahabats,
+  //     fetchAktivitiSahabats: state.fetchAktivitiSahabats,
+  //     deleteAktivitiSahabat: state.deleteAktivitiSahabat,
+  //   }));
 
-  useEffect(() => {
-    fetchAktivitiSahabats(sahabatId, pembiayaanId);
-  }, [fetchAktivitiSahabats, sahabatId, pembiayaanId]);
+  // useEffect(() => {
+  //   fetchAktivitiSahabats(sahabatId, pembiayaanId);
+  // }, [fetchAktivitiSahabats, sahabatId, pembiayaanId]);
 
   return (
     <>
@@ -60,25 +61,25 @@ function IndexAktiviti({
         <h2>Maklumat Aktiviti Sahabat</h2>
 
         <div className="sahabat-pembiayaan-table-container">
-          {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+          {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
             <div className="tambah-baru-btn-container">
               <CreateAktiviti
-                sahabatId={sahabatId}
-                pembiayaanId={pembiayaanId}
-                selectedAktiviti={selectedAktiviti}
-                setSelectedAktiviti={setSelectedAktiviti}
-                selectedKeteranganAktiviti={selectedKeteranganAktiviti}
-                setSelectedKeteranganAktiviti={setSelectedKeteranganAktiviti}
-                selectedProjekAktiviti={selectedProjekAktiviti}
-                setSelectedProjekAktiviti={setSelectedProjekAktiviti}
-                aktivitiOptions={aktivitiOptions}
-                keteranganAktivitiOptions={keteranganAktivitiOptions}
-                projekAktivitiOptions={projekAktivitiOptions}
-                dimensiOptions={dimensiOptions}
-                onDataAvailableChange={onDataAvailableChange}
+                // sahabatId={sahabatId}
+                // pembiayaanId={pembiayaanId}
+                // selectedAktiviti={selectedAktiviti}
+                // setSelectedAktiviti={setSelectedAktiviti}
+                // selectedKeteranganAktiviti={selectedKeteranganAktiviti}
+                // setSelectedKeteranganAktiviti={setSelectedKeteranganAktiviti}
+                // selectedProjekAktiviti={selectedProjekAktiviti}
+                // setSelectedProjekAktiviti={setSelectedProjekAktiviti}
+                // aktivitiOptions={aktivitiOptions}
+                // keteranganAktivitiOptions={keteranganAktivitiOptions}
+                // projekAktivitiOptions={projekAktivitiOptions}
+                // dimensiOptions={dimensiOptions}
+                // onDataAvailableChange={onDataAvailableChange}
               />
             </div>
-          ) : null}
+          {/* ) : null} */}
 
           <Table responsive>
             <thead>
@@ -91,14 +92,14 @@ function IndexAktiviti({
                 <th>Pengurus Dana</th>
                 <th>Keterangan Lain-lain</th>
                 <th>Jumlah Pinjaman (RM)</th>
-                {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                   <th>Tindakan</th>
-                ) : null}
+                {/* ) : null} */}
               </tr>
             </thead>
 
             <tbody>
-              {aktivitiSahabats.length === 0 ? (
+              {/* {aktivitiSahabats.length === 0 ? ( */}
                 <tr>
                   <td colSpan="9">
                     <center>
@@ -107,52 +108,53 @@ function IndexAktiviti({
                     </center>
                   </td>
                 </tr>
-              ) : (
-                aktivitiSahabats.map((aktivitisData, key) => (
-                  <tr key={key}>
-                    <td>{key + 1}</td>
-                    <td>{aktivitisData.jenisKegiatan}</td>
-                    <td>{aktivitisData.jenisKeteranganKegiatan}</td>
-                    <td>{aktivitisData.jenisProjekKegiatan}</td>
-                    <td>{aktivitisData.kodDimensi}</td>
-                    <td>{aktivitisData.pengurusDanaAktiviti}</td>
-                    <td>{aktivitisData.keteranganLainAktiviti}</td>
-                    <td>{aktivitisData.jumlahPinjamanAktiviti}</td>
-                    {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+              {/* ) : ( */}
+                {/* aktivitiSahabats.map((aktivitisData, key) => ( */}
+                  {/* <tr key={key}> */}
+                  <tr>
+                    <td>Bil.</td>
+                    <td>Jenis Kegiatan</td>
+                    <td>Jenis Keterangan Kegiatan</td>
+                    <td>Jenis Projek Kegiatan</td>
+                    <td>Kod Dimensi</td>
+                    <td>Pengurus Dana Aktiviti</td>
+                    <td>Keterangan Lain Aktiviti</td>
+                    <td>Jumlah Pinjaman Aktiviti</td>
+                    {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                       <td>
                         <EditAktiviti
-                          sahabatId={sahabatId}
-                          pembiayaanId={pembiayaanId}
-                          aktivitiId={aktivitisData.id}
-                          aktivitiSahabat={aktivitisData}
-                          selectedAktiviti={selectedAktiviti}
-                          setSelectedAktiviti={setSelectedAktiviti}
-                          selectedKeteranganAktiviti={
-                            selectedKeteranganAktiviti
-                          }
-                          setSelectedKeteranganAktiviti={
-                            setSelectedKeteranganAktiviti
-                          }
-                          setSelectedProjekAktiviti={setSelectedProjekAktiviti}
-                          aktivitiOptions={aktivitiOptions}
-                          keteranganAktivitiOptions={keteranganAktivitiOptions}
-                          projekAktivitiOptions={projekAktivitiOptions}
-                          dimensiOptions={dimensiOptions}
+                          // sahabatId={sahabatId}
+                          // pembiayaanId={pembiayaanId}
+                          // aktivitiId={aktivitisData.id}
+                          // aktivitiSahabat={aktivitisData}
+                          // selectedAktiviti={selectedAktiviti}
+                          // setSelectedAktiviti={setSelectedAktiviti}
+                          // selectedKeteranganAktiviti={
+                          //   selectedKeteranganAktiviti
+                          // }
+                          // setSelectedKeteranganAktiviti={
+                          //   setSelectedKeteranganAktiviti
+                          // }
+                          // setSelectedProjekAktiviti={setSelectedProjekAktiviti}
+                          // aktivitiOptions={aktivitiOptions}
+                          // keteranganAktivitiOptions={keteranganAktivitiOptions}
+                          // projekAktivitiOptions={projekAktivitiOptions}
+                          // dimensiOptions={dimensiOptions}
                         />
 
                         <Button
                           className="delete-btn"
-                          onClick={() =>
-                            deleteAktivitiSahabat(aktivitisData.id)
-                          }
+                          // onClick={() =>
+                          //   deleteAktivitiSahabat(aktivitisData.id)
+                          // }
                         >
                           Padam
                         </Button>
                       </td>
-                    ) : null}
+                    {/* ) : null} */}
                   </tr>
-                ))
-              )}
+                  {/* )) */}
+                {/* )} */}
             </tbody>
           </Table>
         </div>

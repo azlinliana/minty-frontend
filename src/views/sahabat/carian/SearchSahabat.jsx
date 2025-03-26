@@ -22,22 +22,22 @@ function SearchSahabat() {
   // ___________________________________ Backend __________________________________
   // Search sahabat
   const handleSearchSahabat = async (noKadPengenalanSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `sahabat/search`,
-        noKadPengenalanSahabatInput
-      );
+    // try {
+    //   const response = await axiosCustom.post(
+    //     `sahabat/search`,
+    //     noKadPengenalanSahabatInput
+    //   );
 
-      if (response.status === 200) {
-        navigate("/hasil-carian-sahabat", {
-          state: { resultSahabat: response.data },
-        });
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    //   if (response.status === 200) {
+    //     navigate("/hasil-carian-sahabat", {
+    //       state: { resultSahabat: response.data },
+    //     });
+    //   } else {
+    //     ErrorAlert(response);
+    //   }
+    // } catch (error) {
+    //   ErrorAlert(error);
+    // }
   };
 
   return (

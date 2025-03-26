@@ -4,7 +4,8 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
-function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
+// function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
+function CreatePembiayaan() {
   // __________________________________ Frontend __________________________________
   // Modal
   const [isModalCreatePembiayaanSahabat, setIsModalCreatePembiayaanSahabat] =
@@ -28,17 +29,17 @@ function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
 
   // ___________________________________ Backend __________________________________
   // Create pembiayaan sahabat
-  const { createPembiayaanSahabat } = usePembiayaanStore((state) => ({
-    createPembiayaanSahabat: state.createPembiayaanSahabat,
-  }));
+  // const { createPembiayaanSahabat } = usePembiayaanStore((state) => ({
+  //   createPembiayaanSahabat: state.createPembiayaanSahabat,
+  // }));
 
   // Pass input & close modal
   const handleCreatePembiayaanSahabat = (addPembiayaanSahabatData) => {
-    createPembiayaanSahabat(
-      sahabatId,
-      addPembiayaanSahabatData,
-      closeModalCreatePembiayaanSahabat
-    );
+    // createPembiayaanSahabat(
+    //   sahabatId,
+    //   addPembiayaanSahabatData,
+    //   closeModalCreatePembiayaanSahabat
+    // );
   };
   
   return (
@@ -67,26 +68,26 @@ function CreatePembiayaan({ sahabatId, skimPembiayaanOptions }) {
                 <Form.Control
                   as="select"
                   className="form-select"
-                  {...register("skimPembiayaanId", { required: true })}
+                  // {...register("skimPembiayaanId", { required: true })}
                   onChange={(e) => {}}
-                  aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
+                  // aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                   defaultValue=""
                 >
                   <option value="" disabled>
                     --Pilih Skim Pembiayaan--
                   </option>
-                  {skimPembiayaanOptions.map((skimPembiayaan) => (
+                  {/* {skimPembiayaanOptions.map((skimPembiayaan) => (
                     <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
                       {skimPembiayaan.namaSkimPembiayaan}
                     </option>
-                  ))}
+                  ))} */}
                 </Form.Control>
 
-                {errors.skimPembiayaanId?.type === "required" && (
+                {/* {errors.skimPembiayaanId?.type === "required" && ( */}
                   <small className="text-danger">
                     Skim pembiayaan diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Form>
           </Modal.Body>

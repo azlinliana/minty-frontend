@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useInflowSahabatStore } from "../../../../../store/sahabat/inflow-sahabat-store";
 
-function EditTrackingInflowSahabat({
-  mingguId,
-  inflowSahabatId,
-  inflowSahabat,
-  kodInflowOptions,
-}) {
+// function EditTrackingInflowSahabat({
+//   mingguId,
+//   inflowSahabatId,
+//   inflowSahabat,
+//   kodInflowOptions,
+// }) {
+function EditTrackingInflowSahabat() {
   // __________________________________ Frontend __________________________________
   // Form validation
   const {
@@ -28,18 +29,18 @@ function EditTrackingInflowSahabat({
   const [previousKodInflow, setPreviousKodInflow] = useState(null);
 
   // Match data from zustand & backend
-  const findOptionId = (options, key, value) => {
-    const option = options.find((option) => option[key] === value);
+  // const findOptionId = (options, key, value) => {
+  //   const option = options.find((option) => option[key] === value);
 
-    return option ? option.id : "";
-  };
+  //   return option ? option.id : "";
+  // };
 
   // Match data
-  const kodInflowId = findOptionId(
-    kodInflowOptions,
-    "kodInflow",
-    inflowSahabat.kodInflow
-  );
+  // const kodInflowId = findOptionId(
+  //   kodInflowOptions,
+  //   "kodInflow",
+  //   inflowSahabat.kodInflow
+  // );
 
   // Modal
   const [isModalEditInflowSahabat, setIsModalEditInflowSahabat] =
@@ -51,18 +52,18 @@ function EditTrackingInflowSahabat({
     setIsModalEditInflowSahabat(false);
 
     // Reset previous form input
-    const resetFields = {
-      kodInflowId: kodInflowId,
-      amaunInflow: inflowSahabat.amaunInflow,
-    };
+    // const resetFields = {
+    //   kodInflowId: kodInflowId,
+    //   amaunInflow: inflowSahabat.amaunInflow,
+    // };
 
-    inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
-      resetFields[
-        `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
-      ] = terperinci.keteranganInflowTerperinci;
-    });
+    // inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
+    //   resetFields[
+    //     `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
+    //   ] = terperinci.keteranganInflowTerperinci;
+    // });
 
-    reset(resetFields);
+    // reset(resetFields);
   };
 
   // Set default values when the edit inflow sahabat modal is opened
@@ -72,108 +73,108 @@ function EditTrackingInflowSahabat({
     kodInflowTerperinci: {},
   });
 
-  useEffect(() => {
-    if (inflowSahabat) {
-      // Populate form data
-      setValue("kodInflowId", kodInflowId);
-      setValue(
-        "amaunInflow",
-        parseFloat(inflowSahabat.amaunInflow).toFixed(2)
-      );
+  // useEffect(() => {
+  //   if (inflowSahabat) {
+  //     // Populate form data
+  //     setValue("kodInflowId", kodInflowId);
+  //     setValue(
+  //       "amaunInflow",
+  //       parseFloat(inflowSahabat.amaunInflow).toFixed(2)
+  //     );
 
-      // Set selected kod inflow and terperinci data
-      setSelectedKodInflow(inflowSahabat.kodInflow);
-      setShowKodInflowTerperinci(inflowSahabat.kodInflowTerperinci);
+  //     // Set selected kod inflow and terperinci data
+  //     setSelectedKodInflow(inflowSahabat.kodInflow);
+  //     setShowKodInflowTerperinci(inflowSahabat.kodInflowTerperinci);
 
-      // Set terperinci values
-      inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
-        setValue(
-          `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
-          terperinci.keteranganInflowTerperinci
-        );
-      });
+  //     // Set terperinci values
+  //     inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
+  //       setValue(
+  //         `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
+  //         terperinci.keteranganInflowTerperinci
+  //       );
+  //     });
 
-      // Set default values for formData
-      setFormData((prevData) => ({
-        ...prevData,
-        kodInflowId,
-        amaunInflow: inflowSahabat.amaunInflow,
-        kodInflowTerperinci: inflowSahabat.inflowSahabatTerperinci.reduce(
-          (item, terperinci) => {
-            item[
-              `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
-            ] = terperinci.keteranganInflowTerperinci;
+  //     // Set default values for formData
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       kodInflowId,
+  //       amaunInflow: inflowSahabat.amaunInflow,
+  //       kodInflowTerperinci: inflowSahabat.inflowSahabatTerperinci.reduce(
+  //         (item, terperinci) => {
+  //           item[
+  //             `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`
+  //           ] = terperinci.keteranganInflowTerperinci;
 
-            return item;
-          },
-          {}
-        ),
-      }));
-    }
-  }, [inflowSahabat, setValue]);
+  //           return item;
+  //         },
+  //         {}
+  //       ),
+  //     }));
+  //   }
+  // }, [inflowSahabat, setValue]);
 
   const handleKodInflowChange = (selectedValue) => {
-    const selectedKodInflowData = kodInflowOptions.find(
-      (item) => item.id === parseInt(selectedValue)
-    );
+    // const selectedKodInflowData = kodInflowOptions.find(
+    //   (item) => item.id === parseInt(selectedValue)
+    // );
 
-    setSelectedKodInflow(selectedKodInflowData.kodInflow);
+    // setSelectedKodInflow(selectedKodInflowData.kodInflow);
 
-    if (selectedValue === previousKodInflow) {
-      // User selected the previous Kod Inflow, restore the previous data
-      setValue("kodInflowId", previousKodInflow);
+    // if (selectedValue === previousKodInflow) {
+    //   // User selected the previous Kod Inflow, restore the previous data
+    //   setValue("kodInflowId", previousKodInflow);
 
-      // Restore terperinci values
-      inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
-        setValue(
-          `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
-          terperinci.keteranganInflowTerperinci
-        );
-      });
-    } else {
-      // User selected a new Kod Inflow, set the associated terperinci fields
-      setPreviousKodInflow(selectedValue);
+    //   // Restore terperinci values
+    //   inflowSahabat.inflowSahabatTerperinci.forEach((terperinci) => {
+    //     setValue(
+    //       `keteranganInflowTerperinci_${terperinci.kodInflowTerperinciId}`,
+    //       terperinci.keteranganInflowTerperinci
+    //     );
+    //   });
+    // } else {
+    //   // User selected a new Kod Inflow, set the associated terperinci fields
+    //   setPreviousKodInflow(selectedValue);
 
-      setShowKodInflowTerperinci(selectedKodInflowData.kodInflowTerperinci);
-    }
+    //   setShowKodInflowTerperinci(selectedKodInflowData.kodInflowTerperinci);
+    // }
   };
 
   const handleInputChange = (name, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      kodInflowTerperinci: {
-        ...prevData.kodInflowTerperinci,
-        [name]: value,
-      },
-    }));
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   kodInflowTerperinci: {
+    //     ...prevData.kodInflowTerperinci,
+    //     [name]: value,
+    //   },
+    // }));
   };
 
   // ___________________________________ Backend __________________________________
   // Edit inflow sahabat
-  const { editInflowSahabat } = useInflowSahabatStore((state) => ({
-    editInflowSahabat: state.editInflowSahabat,
-  }));
+  // const { editInflowSahabat } = useInflowSahabatStore((state) => ({
+  //   editInflowSahabat: state.editInflowSahabat,
+  // }));
 
   // Pass input & close modal
   const handleCreateInflowSahabat = (addInflowSahabatData) => {
     // Filter out unnecessary fields - Only submit current data with their respective kod inflow id
-    const filteredData = {
-      kodInflowId: addInflowSahabatData.kodInflowId,
-      amaunInflow: addInflowSahabatData.amaunInflow,
-    };
+    // const filteredData = {
+    //   kodInflowId: addInflowSahabatData.kodInflowId,
+    //   amaunInflow: addInflowSahabatData.amaunInflow,
+    // };
 
-    // Add terperinci fields to filteredData
-    showKodInflowTerperinci.forEach((terperinci) => {
-      const terperinciField = `keteranganInflowTerperinci_${terperinci.id}`;
-      filteredData[terperinciField] = addInflowSahabatData[terperinciField];
-    });
+    // // Add terperinci fields to filteredData
+    // showKodInflowTerperinci.forEach((terperinci) => {
+    //   const terperinciField = `keteranganInflowTerperinci_${terperinci.id}`;
+    //   filteredData[terperinciField] = addInflowSahabatData[terperinciField];
+    // });
 
-    editInflowSahabat(
-      mingguId,
-      inflowSahabatId,
-      addInflowSahabatData,
-      closeModalEditInflowSahabat
-    );
+    // editInflowSahabat(
+    //   mingguId,
+    //   inflowSahabatId,
+    //   addInflowSahabatData,
+    //   closeModalEditInflowSahabat
+    // );
   };
 
   return (
@@ -201,73 +202,75 @@ function EditTrackingInflowSahabat({
               <Form.Control
                 as="select"
                 className="form-select"
-                {...register("kodInflowId", { required: true })}
-                onChange={(e) => {
-                  handleKodInflowChange(e.target.value);
-                }}
-                aria-invalid={errors.kodInflowId ? "true" : "false"}
+                // {...register("kodInflowId", { required: true })}
+                // onChange={(e) => {
+                //   handleKodInflowChange(e.target.value);
+                // }}
+                // aria-invalid={errors.kodInflowId ? "true" : "false"}
               >
                 <option value="" disabled>
                   --Pilih Kod Inflow--
                 </option>
-                {kodInflowOptions.map((kodInflow) => (
+                {/* {kodInflowOptions.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
                     {kodInflow.kodInflow} - {kodInflow.keteranganKodInflow}
                   </option>
-                ))}
+                ))} */}
               </Form.Control>
 
-              {errors.kodInflowId?.type === "required" && (
+              {/* {errors.kodInflowId?.type === "required" && ( */}
                 <small className="text-danger">Kod inflow diperlukan.</small>
-              )}
+              {/* )} */}
             </Form.Group>
 
             {/* Dynamic form input based on current and selected kod inflow */}
-            {showKodInflowTerperinci && showKodInflowTerperinci.length > 0 && (
+            {/* {showKodInflowTerperinci && showKodInflowTerperinci.length > 0 && ( */}
               <React.Fragment>
-                {showKodInflowTerperinci.map((terperinci) => (
+                {/* {showKodInflowTerperinci.map((terperinci) => ( */}
                   <Form.Group
-                    key={terperinci.id}
-                    controlId={`keteranganInflowTerperinci_${terperinci.id}`}
+                    // key={terperinci.id}
+                    // controlId={`keteranganInflowTerperinci_${terperinci.id}`}
                     className="mb-3"
                   >
                     <Form.Label
-                      className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
+                      // className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
                     >
-                      {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`}
+                      Keterangan Kod Inflow Terperinci
+                      {/* {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`} */}
                     </Form.Label>
 
                     <Form.Control
                       type="text"
-                      {...register(
-                        `keteranganInflowTerperinci_${terperinci.id}`,
-                        { required: true }
-                      )}
-                      onChange={(e) => {
-                        handleInputChange(
-                          `keteranganInflowTerperinci_${terperinci.id}`,
-                          e.target.value
-                        );
-                      }}
-                      aria-invalid={
-                        errors[`keteranganInflowTerperinci_${terperinci.id}`]
-                          ? "true"
-                          : "false"
-                      }
+                      // {...register(
+                      //   `keteranganInflowTerperinci_${terperinci.id}`,
+                      //   { required: true }
+                      // )}
+                      // onChange={(e) => {
+                      //   handleInputChange(
+                      //     `keteranganInflowTerperinci_${terperinci.id}`,
+                      //     e.target.value
+                      //   );
+                      // }}
+                      // aria-invalid={
+                      //   errors[`keteranganInflowTerperinci_${terperinci.id}`]
+                      //     ? "true"
+                      //     : "false"
+                      // }
                       placeholder="Keterangan inflow terperinci diperlukan"
                     />
 
-                    {errors[`keteranganInflowTerperinci_${terperinci.id}`]
-                      ?.type === "required" && (
+                    {/* {errors[`keteranganInflowTerperinci_${terperinci.id}`]
+                      ?.type === "required" && ( */}
                       <small className="text-danger">
-                        Keterangan terperinci {terperinci.kodInflowTerperinci}{" "}
+                        Keterangan terperinci 
+                        {/* {terperinci.kodInflowTerperinci}{" "} */}
                         diperlukan.
                       </small>
-                    )}
+                    {/* )} */}
                   </Form.Group>
-                ))}
+                {/* ))} */}
               </React.Fragment>
-            )}
+            {/* )} */}
 
             {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
@@ -275,37 +278,37 @@ function EditTrackingInflowSahabat({
 
               <Form.Control
                 type="text"
-                {...register("amaunInflow", {
-                  required: "Amaun inflow diperlukan.",
-                  valueAsNumber: true, // Ensure value is treated as a number
-                  validate: {
-                    isGreaterThanZero: (value) => {
-                      return (
-                        parseFloat(value) >= 0.01 ||
-                        "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
-                      );
-                    },
-                  },
-                })}
-                onBlur={(e) => {
-                  const currentValue = parseFloat(e.target.value);
-                  if (!isNaN(currentValue)) {
-                    setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
-                  }
-                }}                
-                aria-invalid={errors.amaunInflow ? "true" : "false"}
+                // {...register("amaunInflow", {
+                //   required: "Amaun inflow diperlukan.",
+                //   valueAsNumber: true, // Ensure value is treated as a number
+                //   validate: {
+                //     isGreaterThanZero: (value) => {
+                //       return (
+                //         parseFloat(value) >= 0.01 ||
+                //         "Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih."
+                //       );
+                //     },
+                //   },
+                // })}
+                // onBlur={(e) => {
+                //   const currentValue = parseFloat(e.target.value);
+                //   if (!isNaN(currentValue)) {
+                //     setValue("amaunInflow", currentValue.toFixed(2)); // Format to two decimal places
+                //   }
+                // }}                
+                // aria-invalid={errors.amaunInflow ? "true" : "false"}
                 placeholder="Masukkan amaun inflow"
               />
 
-              {errors.amaunInflow?.type === "required" && (
+              {/* {errors.amaunInflow?.type === "required" && ( */}
                 <small className="text-danger">Amaun inflow diperlukan.</small>
-              )}
+              {/* )} */}
 
-              {errors.amaunInflow?.type === "isGreaterThanZero" && (
+              {/* {errors.amaunInflow?.type === "isGreaterThanZero" && ( */}
                 <small className="text-danger">
                   Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
                 </small>
-              )}
+              {/* )} */}
             </Form.Group>
           </Modal.Body>
 

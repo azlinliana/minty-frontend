@@ -3,11 +3,17 @@ import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useMingguStore } from "../../../store/sahabat/minggu-store";
 
+// function EditMinggu({
+//   sahabatId,
+//   pembiayaanId,
+//   mingguId,
+//   currentMingguPembiayaanSahabat,
+// }) { 
 function EditMinggu({
-  sahabatId,
-  pembiayaanId,
-  mingguId,
-  currentMingguPembiayaanSahabat,
+  // sahabatId,
+  // pembiayaanId,
+  // mingguId,
+  // currentMingguPembiayaanSahabat,
 }) { 
   // __________________________________ Frontend __________________________________
   // Modal
@@ -34,43 +40,43 @@ function EditMinggu({
 
   // ___________________________________ Backend __________________________________
   // Set default values when the edit minggu modal is opened
-  const [formData, setFormData] = useState({
-    bilanganMinggu: "",
-    tarikhBorangMinggu: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   bilanganMinggu: "",
+  //   tarikhBorangMinggu: "",
+  // });
 
-  useEffect(() => {
-    // Populate form data
-    setValue("bilanganMinggu", currentMingguPembiayaanSahabat.bilanganMinggu);
-    setValue(
-      "tarikhBorangMinggu",
-      currentMingguPembiayaanSahabat.tarikhBorangMinggu
-    );
+  // useEffect(() => {
+  //   // Populate form data
+  //   setValue("bilanganMinggu", currentMingguPembiayaanSahabat.bilanganMinggu);
+  //   setValue(
+  //     "tarikhBorangMinggu",
+  //     currentMingguPembiayaanSahabat.tarikhBorangMinggu
+  //   );
 
-    // Set default values for formData
-    setFormData((prevData) => ({
-      ...prevData,
-      bilanganMinggu: currentMingguPembiayaanSahabat.bilanganMinggu,
-      tarikhBorangMinggu: currentMingguPembiayaanSahabat.tarikhBorangMinggu,
-    }));
-  }, [currentMingguPembiayaanSahabat, setValue]);
+  //   // Set default values for formData
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     bilanganMinggu: currentMingguPembiayaanSahabat.bilanganMinggu,
+  //     tarikhBorangMinggu: currentMingguPembiayaanSahabat.tarikhBorangMinggu,
+  //   }));
+  // }, [currentMingguPembiayaanSahabat, setValue]);
 
   // Edit minggu pembiayaan sahabat
-  const { editMingguPembiayaanSahabat } = useMingguStore((state) => ({
-    editMingguPembiayaanSahabat: state.editMingguPembiayaanSahabat,
-  }));
+  // const { editMingguPembiayaanSahabat } = useMingguStore((state) => ({
+  //   editMingguPembiayaanSahabat: state.editMingguPembiayaanSahabat,
+  // }));
 
   // Pass input & close modal
   const handleEditMingguPembiayaanSahabat = (
     editMingguPembiayaanSahabatData
   ) => {
-    editMingguPembiayaanSahabat(
-      sahabatId,
-      pembiayaanId,
-      mingguId,
-      editMingguPembiayaanSahabatData,
-      closeModalEditMingguPembiayaanSahabat
-    );
+    // editMingguPembiayaanSahabat(
+    //   sahabatId,
+    //   pembiayaanId,
+    //   mingguId,
+    //   editMingguPembiayaanSahabatData,
+    //   closeModalEditMingguPembiayaanSahabat
+    // );
   };
 
   return (
@@ -98,16 +104,16 @@ function EditMinggu({
 
                 <Form.Control
                   type="number"
-                  {...register("bilanganMinggu", { required: true })}
-                  aria-invalid={errors.bilanganMinggu ? "true" : "false"}
+                  // {...register("bilanganMinggu", { required: true })}
+                  // aria-invalid={errors.bilanganMinggu ? "true" : "false"}
                   placeholder="Masukkan minggu ke berapa"
                 />
 
-                {errors.bilanganMinggu?.type === "required" && (
+                {/* {errors.bilanganMinggu?.type === "required" && ( */}
                   <small className="text-danger">
                     Bilangan minggu diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
 
               {/* Tarikh borang minggu */}
@@ -118,16 +124,16 @@ function EditMinggu({
 
                 <Form.Control
                   type="date"
-                  {...register("tarikhBorangMinggu", { required: true })}
-                  aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
+                  // {...register("tarikhBorangMinggu", { required: true })}
+                  // aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
                   placeholder="Masukkan tarikh borang minggu"
                 />
 
-                {errors.tarikhBorangMinggu?.type === "required" && (
+                {/* {errors.tarikhBorangMinggu?.type === "required" && ( */}
                   <small className="text-danger">
                     Tarikh borang minggu diperlukan.
                   </small>
-                )}
+                {/* )} */}
               </Form.Group>
             </Modal.Body>
 

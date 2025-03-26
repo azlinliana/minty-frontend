@@ -3,6 +3,7 @@ import "./App.css";
 import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
 import Dashboard from "./views/Dashboard";
+import SignUp from "./views/auth/SignUp";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -17,14 +18,14 @@ import SearchTf02 from "./views/laporan/jadual-tf02/Search";
 import ResultTf02 from "./views/laporan/jadual-tf02/SearchResult";
 import SearchProfilSahabat from "./views/laporan/profil-sahabat/Search";
 import SearchProfilSahabatTerperinci from "./views/laporan/profil-sahabat-terperinci/Search";
-import IndexSelenggara from "./views/selenggara/Index";
-import IndexKodInflow from "./views/selenggara/kod-inflow/Index";
-import IndexKodOutflow from "./views/selenggara/kod-outflow/Index";
-import IndexDimensi from "./views/selenggara/dimensi/Index";
-import IndexHubungan from "./views/selenggara/hubungan/Index";
-import IndexPengguna from "./views/pengguna/Index";
-import IndexAdmin from "./views/pengguna/admin/Index";
-import IndexSuperAdmin from "./views/pengguna/super-admin/Index";
+import IndexSettings from "./views/settings/Index";
+import IndexInflowCode from "./views/settings/inflow-code/Index";
+import IndexOutflowCode from "./views/settings/outflow-code/Index";
+import IndexLoan from "./views/settings/loan/Index";
+import IndexRelationship from "./views/settings/relationship/Index";
+import IndexUser from "./views/user/Index";
+import IndexAdmin from "./views/user/admin/Index";
+import IndexSuperAdmin from "./views/user/super-admin/Index";
 import BadRequest from "./views/http_requests/BadRequest";
 import Unauthorized from "./views/http_requests/Unauthorized";
 import Forbidden from "./views/http_requests/Forbidden";
@@ -43,9 +44,11 @@ function App() {
         <Routes>
           {/* Auth */}
           <Route path="/" element={<SignIn />} index />
+          <Route path="/sign-up" element={<SignUp />} />
 
           <Route element={<MainLayout />}>
-          <Route path="dashboard" element={<Dashboard/>}/>
+            <Route path="dashboard" element={<Dashboard />} />
+
             {/* Sahabat */}
             <Route path="carian-sahabat" element={<SearchSahabat />} />
             <Route
@@ -87,16 +90,16 @@ function App() {
             <Route path="result-tf02" element={<ResultTf02 />} />
 
             {/* Selenggara */}
-            <Route path="selenggara" element={<IndexSelenggara />} />
-            <Route path="kod-inflow" element={<IndexKodInflow />} />
-            <Route path="kod-outflow" element={<IndexKodOutflow />} />
-            <Route path="dimensi" element={<IndexDimensi />} />
-            <Route path="hubungan" element={<IndexHubungan />} />
+            <Route path="settings" element={<IndexSettings />} />
+            <Route path="inflow-code" element={<IndexInflowCode />} />
+            <Route path="outflow-code" element={<IndexOutflowCode />} />
+            <Route path="loan" element={<IndexLoan />} />
+            <Route path="relationship" element={<IndexRelationship />} />
 
             {/* Pengguna */}
-            <Route path="tetapan-pengguna" element={<IndexPengguna />} />
-            <Route path="senarai-admin" element={<IndexAdmin />} />
-            <Route path="senarai-super-admin" element={<IndexSuperAdmin />} />
+            <Route path="user-settings" element={<IndexUser />} />
+            <Route path="admin-list" element={<IndexAdmin />} />
+            <Route path="super-admin-list" element={<IndexSuperAdmin />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

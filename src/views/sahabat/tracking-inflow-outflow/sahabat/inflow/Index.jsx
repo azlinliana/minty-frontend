@@ -5,35 +5,40 @@ import EditTrackingInflowSahabat from "./Edit";
 import { Button, Table } from "react-bootstrap";
 import { useInflowSahabatStore } from "../../../../../store/sahabat/inflow-sahabat-store";
 
+// function IndexTrackingInflowSahabat({
+//   mingguId,
+//   pembiayaanSahabatsData,
+//   kodInflowOptions,
+// }) {
 function IndexTrackingInflowSahabat({
-  mingguId,
-  pembiayaanSahabatsData,
-  kodInflowOptions,
+  // mingguId,
+  // pembiayaanSahabatsData,
+  // kodInflowOptions,
 }) {
   // ___________________________________ Backend __________________________________
   // List & delete inflow sahabat
-  const { inflowSahabats, fetchInflowSahabats, deleteInflowSahabat } =
-    useInflowSahabatStore((state) => ({
-      inflowSahabats: state.inflowSahabats,
-      fetchInflowSahabats: state.fetchInflowSahabats,
-      deleteInflowSahabat: state.deleteInflowSahabat,
-    }));
+  // const { inflowSahabats, fetchInflowSahabats, deleteInflowSahabat } =
+  //   useInflowSahabatStore((state) => ({
+  //     inflowSahabats: state.inflowSahabats,
+  //     fetchInflowSahabats: state.fetchInflowSahabats,
+  //     deleteInflowSahabat: state.deleteInflowSahabat,
+  //   }));
 
-  useEffect(() => {
-    fetchInflowSahabats(mingguId);
-  }, [fetchInflowSahabats, mingguId]);
+  // useEffect(() => {
+  //   fetchInflowSahabats(mingguId);
+  // }, [fetchInflowSahabats, mingguId]);
 
   return (
     <>
       <div className="sahabat-pembiayaan-table-container">
-        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+        {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
           <div className="tambahBtnPlacement">
             <CreateTrackingInflowSahabat
-              mingguId={mingguId}
-              kodInflowOptions={kodInflowOptions}
+              // mingguId={mingguId}
+              // kodInflowOptions={kodInflowOptions}
             />
           </div>
-        ) : null}
+        {/* ) : null} */}
 
         <Table bordered responsive>
           <thead>
@@ -45,14 +50,14 @@ function IndexTrackingInflowSahabat({
               <th>Keterangan Kod Inflow Terperinci</th>
               <th>Maklumat Terperinci</th>
               <th>Amaun (RM)</th>
-              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+              {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                 <th>Tindakan</th>
-              ) : null}
+              {/* ) : null} */}
             </tr>
           </thead>
 
           <tbody>
-            {inflowSahabats.length === 0 ? (
+            {/* {inflowSahabats.length === 0 ? ( */}
               <tr>
                 <td colSpan="8">
                   <center>
@@ -61,77 +66,75 @@ function IndexTrackingInflowSahabat({
                   </center>
                 </td>
               </tr>
-            ) : (
-              inflowSahabats.map((inflowSahabatsData, index) => (
-                <React.Fragment key={index}>
-                  {inflowSahabatsData.kodInflowTerperinci.length === 0 ? (
-                    // Render row for inflow sahabat without kod inflow terperinci
+            {/* ) : ( */}
+              {/* inflowSahabats.map((inflowSahabatsData, index) => ( */}
+                {/* <React.Fragment key={index}> */}
+                <React.Fragment>
+                  {/* {inflowSahabatsData.kodInflowTerperinci.length === 0 ? ( */}
+                    {/* // Render row for inflow sahabat without kod inflow terperinci */}
                     <tr>
-                      <td>{index + 1}</td>
-                      <td>{inflowSahabatsData.kodInflow}</td>
-                      <td>{inflowSahabatsData.keteranganKodInflow}</td>
+                      <td>Bil.</td>
+                      <td>Kod Inflow</td>
+                      <td>Keterangan Kod Inflow</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>{inflowSahabatsData.amaunInflow}</td>
-                      {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+                      <td>Amaun Inflow</td>
+                      {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                         <td>
                           <EditTrackingInflowSahabat
-                            mingguId={mingguId}
-                            inflowSahabatId={inflowSahabatsData.id}
-                            inflowSahabat={inflowSahabatsData}
-                            kodInflowOptions={kodInflowOptions}
+                            // mingguId={mingguId}
+                            // inflowSahabatId={inflowSahabatsData.id}
+                            // inflowSahabat={inflowSahabatsData}
+                            // kodInflowOptions={kodInflowOptions}
                           />
                           <Button
                             className="delete-btn"
-                            onClick={() =>
-                              deleteInflowSahabat(inflowSahabatsData.id)
-                            }
+                            // onClick={() =>
+                            //   deleteInflowSahabat(inflowSahabatsData.id)
+                            // }
                           >
                             Padam
                           </Button>{" "}
                         </td>
-                      ) : null}
+                      {/* ) : null} */}
                     </tr>
-                  ) : (
-                    // Render row for inflow sahabat with kod inflow terperinci
+                  {/* ) : ( */}
+                    {/* // Render row for inflow sahabat with kod inflow terperinci */}
                     <tr>
                       <td
-                        rowSpan={
-                          inflowSahabatsData.kodInflowTerperinci.length + 1
-                        }
+                        // rowSpan={
+                        //   inflowSahabatsData.kodInflowTerperinci.length + 1
+                        // }
                       >
-                        {index + 1}
+                        {/* {index + 1} */}
                       </td>
                       <td
-                        rowSpan={
-                          inflowSahabatsData.kodInflowTerperinci.length + 1
-                        }
+                        // rowSpan={
+                        //   inflowSahabatsData.kodInflowTerperinci.length + 1
+                        // }
                       >
-                        {inflowSahabatsData.kodInflow}
+                        Kod Inflow
                       </td>
                       <td
-                        rowSpan={
-                          inflowSahabatsData.kodInflowTerperinci.length + 1
-                        }
+                        // rowSpan={
+                        //   inflowSahabatsData.kodInflowTerperinci.length + 1
+                        // }
                       >
-                        {inflowSahabatsData.keteranganKodInflow}
+                        KeteranganKodInflow
                       </td>
                     </tr>
-                  )}
+                  {/* )} */}
                   {/* Displaying Kod Inflow Terperinci */}
-                  {inflowSahabatsData.kodInflowTerperinci.map(
-                    (kodInflowTerperincisData, subIndex) => (
-                      // Render rows for kod inflow terperinci
-                      <tr key={subIndex}>
-                        <td>{kodInflowTerperincisData.kodInflowTerperinci}</td>
+                  {/* {inflowSahabatsData.kodInflowTerperinci.map( */}
+                    {/* (kodInflowTerperincisData, subIndex) => ( */}
+                      {/* // Render rows for kod inflow terperinci */}
+                      {/* <tr key={subIndex}> */}
+                      <tr>
+                        <td>Kod Inflow Terperinci</td>
+                        <td>Keterangan Kod Inflow Terperinci</td>
                         <td>
-                          {
-                            kodInflowTerperincisData.keteranganKodInflowTerperinci
-                          }
-                        </td>
-                        <td>
-                          {inflowSahabatsData.inflowSahabatTerperinci &&
+                          {/* {inflowSahabatsData.inflowSahabatTerperinci &&
                             inflowSahabatsData.inflowSahabatTerperinci.length >
                               0 &&
                             inflowSahabatsData.inflowSahabatTerperinci
@@ -144,57 +147,54 @@ function IndexTrackingInflowSahabat({
 
                                 return String(kodId) === String(terperinciId);
                               })
-                              .map((inflowTerperinciData, innerIndex) => (
-                                <React.Fragment key={innerIndex}>
-                                  {
-                                    inflowTerperinciData.keteranganInflowTerperinci
-                                  }
-                                </React.Fragment>
-                              ))}
+                              .map((inflowTerperinciData, innerIndex) => ( */}
+                                {/* <React.Fragment key={innerIndex}> */}
+                                <React.Fragment>KeteranganInflowTerperinci</React.Fragment>
+                              {/* ))} */}
                         </td>
 
                         {/* Displaying Amaun and Tindakan for the first row only */}
-                        {subIndex === 0 && (
+                        {/* {subIndex === 0 && ( */}
                           <React.Fragment>
                             <td
-                              rowSpan={
-                                inflowSahabatsData.kodInflowTerperinci.length
-                              }
+                              // rowSpan={
+                              //   inflowSahabatsData.kodInflowTerperinci.length
+                              // }
                             >
-                              {inflowSahabatsData.amaunInflow}
+                              Amaun Inflow
                             </td>
 
-                            {pembiayaanSahabatsData.statusPembiayaan !==
-                            "SELESAI" ? (
+                            {/* {pembiayaanSahabatsData.statusPembiayaan !==
+                            "SELESAI" ? ( */}
                               <td
-                                rowSpan={
-                                  inflowSahabatsData.kodInflowTerperinci.length
-                                }
+                                // rowSpan={
+                                //   inflowSahabatsData.kodInflowTerperinci.length
+                                // }
                               >
                                 <EditTrackingInflowSahabat
-                                  mingguId={mingguId}
-                                  inflowSahabatId={inflowSahabatsData.id}
-                                  inflowSahabat={inflowSahabatsData}
-                                  kodInflowOptions={kodInflowOptions}
+                                  // mingguId={mingguId}
+                                  // inflowSahabatId={inflowSahabatsData.id}
+                                  // inflowSahabat={inflowSahabatsData}
+                                  // kodInflowOptions={kodInflowOptions}
                                 />
                                 <Button
                                   className="delete-btn"
-                                  onClick={() =>
-                                    deleteInflowSahabat(inflowSahabatsData.id)
-                                  }
+                                  // onClick={() =>
+                                  //   deleteInflowSahabat(inflowSahabatsData.id)
+                                  // }
                                 >
                                   Padam
                                 </Button>{" "}
                               </td>
-                            ) : null}
+                            {/* ) : null} */}
                           </React.Fragment>
-                        )}
+                        {/* )} */}
                       </tr>
-                    )
-                  )}
+                    {/* )
+                  )} */}
                 </React.Fragment>
-              ))
-            )}
+              {/* ))
+            )} */}
           </tbody>
         </Table>
       </div>

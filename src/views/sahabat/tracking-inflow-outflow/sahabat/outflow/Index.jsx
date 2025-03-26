@@ -5,35 +5,36 @@ import EditTrackingOutflowSahabat from "./Edit";
 import { Button, Table } from "react-bootstrap";
 import { useOutflowSahabatStore } from "../../../../../store/sahabat/outflow-sahabat-store";
 
-function IndexTrackingOutflowSahabat({
-  mingguId,
-  pembiayaanSahabatsData,
-  kodOutflowOptions,
-}) {
+// function IndexTrackingOutflowSahabat({
+//   mingguId,
+//   pembiayaanSahabatsData,
+//   kodOutflowOptions,
+// }) {
+function IndexTrackingOutflowSahabat() {
   // ___________________________________ Backend __________________________________
   // List & delete outflow sahabat
-  const { outflowSahabats, fetchOutflowSahabats, deleteOutflowSahabat } =
-    useOutflowSahabatStore((state) => ({
-      outflowSahabats: state.outflowSahabats,
-      fetchOutflowSahabats: state.fetchOutflowSahabats,
-      deleteOutflowSahabat: state.deleteOutflowSahabat,
-    }));
+  // const { outflowSahabats, fetchOutflowSahabats, deleteOutflowSahabat } =
+  //   useOutflowSahabatStore((state) => ({
+  //     outflowSahabats: state.outflowSahabats,
+  //     fetchOutflowSahabats: state.fetchOutflowSahabats,
+  //     deleteOutflowSahabat: state.deleteOutflowSahabat,
+  //   }));
 
-  useEffect(() => {
-    fetchOutflowSahabats(mingguId);
-  }, [fetchOutflowSahabats, mingguId]);
+  // useEffect(() => {
+  //   fetchOutflowSahabats(mingguId);
+  // }, [fetchOutflowSahabats, mingguId]);
 
   return (
     <>
       <div className="sahabat-pembiayaan-table-container">
-        {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+        {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
           <div className="tambah-baru-btn-container">
             <CreateTrackingOutflowSahabat
-              mingguId={mingguId}
-              kodOutflowOptions={kodOutflowOptions}
+              // mingguId={mingguId}
+              // kodOutflowOptions={kodOutflowOptions}
             />
           </div>
-        ) : null}
+        {/* ) : null} */}
 
         <Table responsive>
           <thead>
@@ -42,13 +43,13 @@ function IndexTrackingOutflowSahabat({
               <th>Kod Outflow</th>
               <th>Keterangan Kod Outflow</th>
               <th>Amaun (RM)</th>
-              {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+              {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                 <th>Tindakan</th>
-              ) : null}
+              {/* ) : null} */}
             </tr>
           </thead>
           <tbody>
-            {outflowSahabats.length === 0 ? (
+            {/* {outflowSahabats.length === 0 ? ( */}
               <tr>
                 <td colSpan="5">
                   <center>
@@ -57,36 +58,35 @@ function IndexTrackingOutflowSahabat({
                   </center>
                 </td>
               </tr>
-            ) : (
-              outflowSahabats.map((outflowSahabatsData, key) => (
-                <tr key={key}>
-                  <td>{key + 1}</td>
-                  <td>{outflowSahabatsData.kodOutflow}</td>
-                  <td>
-                    {outflowSahabatsData.keteranganKodOutflow}
-                  </td>
-                  <td>{outflowSahabatsData.amaunOutflow}</td>
-                  {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? (
+            {/* ) : ( */}
+              {/* outflowSahabats.map((outflowSahabatsData, key) => ( */}
+                {/* <tr key={key}> */}
+                <tr>
+                  <td>Bil</td>
+                  <td>Kod Outflow</td>
+                  <td>Keterangan Kod Outflow</td>
+                  <td>Amaun Outflow</td>
+                  {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                     <td>
                       <EditTrackingOutflowSahabat
-                        mingguId={mingguId}
-                        outflowSahabatId={outflowSahabatsData.id}
-                        outflowSahabat={outflowSahabatsData}
-                        kodOutflowOptions={kodOutflowOptions}
+                        // mingguId={mingguId}
+                        // outflowSahabatId={outflowSahabatsData.id}
+                        // outflowSahabat={outflowSahabatsData}
+                        // kodOutflowOptions={kodOutflowOptions}
                       />
                       <Button
                         className="delete-btn"
-                        onClick={() =>
-                          deleteOutflowSahabat(outflowSahabatsData.id)
-                        }
+                        // onClick={() =>
+                        //   deleteOutflowSahabat(outflowSahabatsData.id)
+                        // }
                       >
                         Padam
                       </Button>{" "}
                     </td>
-                  ) : null}
+                  {/* ) : null} */}
                 </tr>
-              ))
-            )}
+              {/* )) */}
+            {/* )} */}
           </tbody>
         </Table>
       </div>

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "./ForgotPasswordModal/ForgotPasswordModal";
-import ErrorAlert from "../components/sweet-alert/ErrorAlert";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { BsEyeFill } from "react-icons/bs";
 import mintyLogo from "../../assets/minty-logo.svg";
 import "../../assets/styles/signin.css";
-import axiosCustom from "../../axios";
 
 function SignIn() {
   const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
@@ -45,22 +43,6 @@ function SignIn() {
     };
   }, []);
 
-  const navigate = useNavigate();
-
-  const handleSignIn = async (signInInput) => {
-    try {
-      const response = await axiosCustom.post(`/auth/login`, signInInput);
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/carian-sahabat");
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
-  };
-
   return (
     <div className="signin-container">
       <div className="signin-box">
@@ -72,7 +54,7 @@ function SignIn() {
         <div className="signin-right">
           <h3>Minty</h3>
           <h2>Welcome</h2>
-          <form onSubmit={handleSubmit(handleSignIn)} onReset={reset}>
+          <form onSubmit={handleSubmit()} onReset={reset}>
             <div className="input-group">
               <label>Username</label>
               <input
@@ -115,6 +97,12 @@ function SignIn() {
               content={<p>Reset password is unavailable at the moment</p>}
               buttons={clickForgotPasswordLink}
             />
+          </div>
+
+          <div className="signup-link">
+            <p>
+              Don't have an account? <Link to="/sign-up">Sign Up</Link>
+            </p>
           </div>
         </div>
       </div>

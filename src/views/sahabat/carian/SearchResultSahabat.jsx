@@ -16,8 +16,8 @@ function SearchResultSahabat() {
 
   // ____________________________________ Backend ___________________________________
   // Display sahabat search result
-  const sahabatData = location.state.resultSahabat[0];
-  const sahabatId = sahabatData.id;
+  // const sahabatData = location.state.resultSahabat[0];
+  // const sahabatId = sahabatData.id;
 
   return (
     <>
@@ -36,9 +36,11 @@ function SearchResultSahabat() {
         </Breadcrumb>
       </div>
 
-      <div key={sahabatData.noSahabat}>
+      {/* <div key={sahabatData.noSahabat}> */}
+      <div>
         <div className="search-result-id">
-          <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p>
+          {/* <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p> */}
+          <p>Hasil Carian: No Kad Pengenalan Sahabat</p>
         </div>
 
         <div className="hasil-carian-sahabat-content">
@@ -56,7 +58,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaSahabat}
+                      value="Nama Sahabat"
                       disabled
                     />
                   </Form.Group>
@@ -71,7 +73,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.noKadPengenalanSahabat}
+                      value="No Kad Pengenalan Sahabat"
                       disabled
                     />
                   </Form.Group>
@@ -83,7 +85,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.noSahabat}
+                      value="No Sahabat"
                       disabled
                     />
                   </Form.Group>
@@ -98,7 +100,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaWilayah}
+                      value="Nama Wilayah"
                       disabled
                     />
                   </Form.Group>
@@ -110,7 +112,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaCawangan}
+                      value="Nama Cawangan"
                       disabled
                     />
                   </Form.Group>
@@ -125,7 +127,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaBlok}
+                      value="Nama Blok"
                       disabled
                     />
                   </Form.Group>
@@ -137,7 +139,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaPusat}
+                      value="Nama Pusat"
                       disabled
                     />
                   </Form.Group>
@@ -152,7 +154,7 @@ function SearchResultSahabat() {
 
                     <Form.Control
                       type="text"
-                      value={sahabatData.namaKumpulan}
+                      value="Nama Kumpulan"
                       disabled
                     />
                   </Form.Group>
@@ -167,8 +169,8 @@ function SearchResultSahabat() {
 
           {/* List pembiayaan */}
           <IndexPembiayaan
-            sahabatData={sahabatData}
-            sahabatId={sahabatId}
+            // sahabatData={sahabatData}
+            // sahabatId={sahabatId}
           />
         </div>
 

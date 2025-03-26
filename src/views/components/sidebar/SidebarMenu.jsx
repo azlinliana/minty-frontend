@@ -3,23 +3,23 @@ import { BsFillHouseHeartFill, BsPersonHeart, BsCoin } from "react-icons/bs";
 
 const SidebarMenu = [
   {
-    title: "Dashboard",
-    path: "/dashboard",
-    icon: <BsFillHouseHeartFill />,
-    // subRoutes: [
-    //   {
-    //     title: "Sahabat",
-    //     path: "/hasil-carian-sahabat",
-    //   },
-    //   {
-    //     title: "Sahabat",
-    //     path: "/tracking-inflow-outflow",
-    //   },
-    // ],
+    title: "Customer",
+    path: "/carian-sahabat",
+    icon: <FaUsers />,
+    subRoutes: [
+      {
+        title: "Customer",
+        path: "/hasil-carian-sahabat",
+      },
+      {
+        title: "Customer",
+        path: "/tracking-inflow-outflow",
+      },
+    ],
     roles: [1, 2, 3],
   },
   {
-    title: "Family",
+    title: "Report",
     path: "/laporan",
     icon: <BsPersonHeart />,
     // subRoutes: [
@@ -55,49 +55,49 @@ const SidebarMenu = [
     roles: [1, 2, 3],
   },
   {
-    title: "Expenses",
-    path: "/selenggara",
-    icon: <BsCoin />,
+    title: "Settings",
+    path: "/settings",
+    icon: <BsTools />,
     subRoutes: [
       {
-        title: "Categories",
-        path: "/selenggara",
+        title: "Selenggara",
+        path: "/settings",
       },
       {
-        title: "Tracking",
-        path: "/kod-inflow",
+        title: "Selenggara",
+        path: "/inflow-code",
       },
-      // {
-      //   title: "Selenggara",
-      //   path: "/kod-outflow",
-      // },
-      // {
-      //   title: "Selenggara",
-      //   path: "/dimensi",
-      // },
-      // {
-      //   title: "Selenggara",
-      //   path: "/hubungan",
-      // },
+      {
+        title: "Selenggara",
+        path: "/outflow-code",
+      },
+      {
+        title: "Selenggara",
+        path: "/loan",
+      },
+      {
+        title: "Selenggara",
+        path: "/relationship",
+      },
     ],
     roles: [2, 3],
   },
-  // {
-  //   title: "Pengguna",
-  //   path: "/tetapan-pengguna",
-  //   icon: <BsPersonFillGear />,
-  //   subRoutes: [
-  //     {
-  //       title: "Pengguna",
-  //       path: "/senarai-admin",
-  //     },
-  //     {
-  //       title: "Pengguna",
-  //       path: "/senarai-super-admin",
-  //     },
-  //   ],
-  //   roles: [3],
-  // },
+  {
+    title: "User",
+    path: "/user-settings",
+    icon: <BsPersonFillGear />,
+    subRoutes: [
+      {
+        title: "User",
+        path: "/admin-list",
+      },
+      {
+        title: "User",
+        path: "/super-admin-list",
+      },
+    ],
+    roles: [3],
+  },
 ];
 
 export default SidebarMenu;
