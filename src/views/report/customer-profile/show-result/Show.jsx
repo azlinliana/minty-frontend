@@ -11,7 +11,7 @@ import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { useReactToPrint } from "react-to-print";
 
-function ShowProfilSahabat() {
+function ShowCustomerProfile() {
   // ______________________________ Hook Declaration ______________________________
   const navigate = useNavigate();
   const location = useLocation();
@@ -236,4 +236,4 @@ function ShowProfilSahabat() {
   );
 }
 
-export default ShowProfilSahabat;
+export default ShowCustomerProfile;

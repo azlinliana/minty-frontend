@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import { useLaporanStore } from "../../../store/laporan/laporan-store";
 
-function SearchProfilSahabat() {
+function SearchCustomerProfile() {
   // ______________________________ Hook Declaration ______________________________
   const navigate = useNavigate();
   const location = useLocation();
@@ -222,4 +222,4 @@ function SearchProfilSahabat() {
   );
 }
 
-export default SearchProfilSahabat;
+export default SearchCustomerProfile;

@@ -11,7 +11,7 @@ import { Breadcrumb, Button } from "react-bootstrap";
 import { useProfilSahabatTerperinciStore } from "../../../../store/laporan/profil-sahabat-terperinci-store";
 import { useReactToPrint } from "react-to-print";
 
-function ShowProfilSahabatTerperinci() {
+function ShowCustomerDetailedProfile() {
   // __________________________________ Frontend __________________________________
   // Back button
   const navigate = useNavigate();
@@ -119,4 +119,4 @@ function ShowProfilSahabatTerperinci() {
   );
 }
 
-export default ShowProfilSahabatTerperinci;
+export default ShowCustomerDetailedProfile;
