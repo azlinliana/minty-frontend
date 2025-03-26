@@ -7,7 +7,7 @@ import SignUp from "./views/auth/SignUp";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
-import IndexLaporan from "./views/report/senarai-laporan/Index";
+import IndexReport from "./views/report/list-report/Index";
 import ShowProfilSahabat from "./views/report/profil-sahabat/show-result/Show";
 import ShowProfilSahabatTerperinci from "./views/report/profil-sahabat-terperinci/show-result/Show";
 import SearchTf01 from "./views/report/jadual-tf01/Search";
@@ -61,7 +61,7 @@ function App() {
             />
 
             {/* Laporan */}
-            <Route path="laporan" element={<IndexLaporan />} />
+            <Route path="laporan" element={<IndexReport />} />
             <Route
               path="pembiayaan-sahabat"
               element={<SearchProfilSahabat />}

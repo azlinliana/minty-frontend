@@ -5,7 +5,7 @@ import SearchProfilSahabat from "./SearchProfilSahabat";
 import SearchProfilSahabatTerperinci from "./SearchProfilSahabatTerperinci";
 import { Table, Button } from "react-bootstrap";
 
-function IndexLaporan() {
+function IndexReport() {
   // __________________________________ Frontend __________________________________
   // Link pages
   const navigate = useNavigate();
@@ -97,4 +97,4 @@ function IndexLaporan() {
   );
 }
 
-export default IndexLaporan;
+export default IndexReport;
