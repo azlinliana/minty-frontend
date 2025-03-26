@@ -1,7 +1,13 @@
-import { FaUsers } from "react-icons/fa";
-import { BsFillHouseHeartFill, BsPersonHeart, BsCoin } from "react-icons/bs";
+import { FaUsers, FaHome } from "react-icons/fa";
+import { BsPersonHeart, BsTools, BsPersonFillGear } from "react-icons/bs";
 
 const SidebarMenu = [
+  {
+    title: "Dashboard & Reports",
+    path: "/dashboard",
+    icon: <FaHome />,
+    roles: [1, 2, 3],
+  },
   {
     title: "Customer",
     path: "/carian-sahabat",
