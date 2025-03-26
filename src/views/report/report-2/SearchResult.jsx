@@ -1,9 +1,11 @@
-import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import "../../../assets/styles/styles_laporan.css";
 
-
-function SearchResultTF01({ resultTF01 }) {
+function SearchResultReport2({
+  resultTf01ByCawangan,
+  selectedWilayah,
+  selectedCawangan,
+}) {
   // Format money value
   const formatMoney = (value) => {
     return value !== null && !isNaN(value)
@@ -13,11 +15,15 @@ function SearchResultTF01({ resultTF01 }) {
         })
       : "-";
   };
-
   return (
     <>
       <div className="laporan-search-result-container">
-        <h3>Hasil Carian: Wilayah - , Cawangan - , Pusat -</h3>
+        <div>
+          <h3>
+            Hasil Carian: Wilayah - {selectedWilayah.namaWilayah} , Cawangan -{" "}
+            {selectedCawangan.namaCawangan}
+          </h3>
+        </div>
 
         <div>
           <Table responsive striped bordered>
@@ -28,11 +34,8 @@ function SearchResultTF01({ resultTF01 }) {
                 <th>Nama Blok</th>
                 <th>Nama Pusat</th>
                 <th>No. KP Sahabat</th>
-                <th>No. Kakitangan</th>
                 <th>Nama Sahabat/Sampel</th>
                 <th>Dimensi</th>
-                <th>Tulen/Campuran</th>
-                <th>Julat</th>
                 <th>Kegiatan</th>
                 <th>Sub Kegiatan</th>
                 <th>Pembiayaan + Caj (RM)</th>
@@ -44,69 +47,71 @@ function SearchResultTF01({ resultTF01 }) {
                 <th>Pengguna Modal</th>
                 <th>Bil. Minggu Tracking</th>
                 <th>Tarikh Akhir Tracking</th>
-                <th>Julat Pulangan</th>
               </tr>
             </thead>
 
             <tbody>
-              {resultTF01.length === 0 ? (
+              {resultTf01ByCawangan.length === 0 ? (
                 <tr>
-                  <td colSpan={22}>
+                  <td colSpan={21}>
                     <center>Tiada maklumat.</center>
                   </td>
                 </tr>
               ) : (
-                resultTF01.map((resultTF01Data, index) => (
+                resultTf01ByCawangan.map((resultTf01ByCawanganData, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{resultTF01Data.namaCawangan}</td>
+                    <td>{resultTf01ByCawanganData.namaCawangan}</td>
                     <td></td>
-                    <td>{resultTF01Data.namaPusat}</td>
-                    <td>{resultTF01Data.noKadPengenalanSahabat}</td>
+                    <td>{resultTf01ByCawanganData.namaPusat}</td>
+                    <td>{resultTf01ByCawanganData.noKadPengenalanSahabat}</td>
+                    <td>{resultTf01ByCawanganData.namaSahabat}</td>
+                    <td>{resultTf01ByCawanganData.dimensi.join(", ")}</td>
+                    <td>{resultTf01ByCawanganData.kegiatan.join(", ")}</td>
+                    <td>{resultTf01ByCawanganData.subKegiatan.join(", ")}</td>
                     <td></td>
-                    <td>{resultTF01Data.namaSahabat}</td>
-                    <td>{resultTF01Data.dimensi.join(", ")}</td>
-                    <td>{resultTF01Data.tulenCampuran}</td>
-                    <td></td>
-                    <td>{resultTF01Data.kegiatan.join(", ")}</td>
-                    <td>{resultTF01Data.subKegiatan.join(", ")}</td>
-                    <td></td>
-                    <td>{formatMoney(resultTF01Data.pendapatanDaripadaAIM)}</td>
                     <td>
                       {formatMoney(
-                        resultTF01Data.pendapatanDaripadaJumlahMasuk
+                        resultTf01ByCawanganData.pendapatanDaripadaAIM
                       )}
                     </td>
                     <td>
                       {formatMoney(
-                        resultTF01Data.pendapatanDaripadaJumlahKeluar
+                        resultTf01ByCawanganData.pendapatanDaripadaJumlahMasuk
                       )}
                     </td>
-                    <td>{formatMoney(resultTF01Data.pulanganPerRM)}</td>
+                    <td>
+                      {formatMoney(
+                        resultTf01ByCawanganData.pendapatanDaripadaJumlahKeluar
+                      )}
+                    </td>
+                    <td>
+                      {formatMoney(resultTf01ByCawanganData.pulanganPerRM)}
+                    </td>
                     <td></td>
-                    <td>{resultTF01Data.penggunaModal.join(", ")}</td>
-                    <td>{resultTF01Data.bilanganMingguTracking}</td>
+                    <td>{resultTf01ByCawanganData.penggunaModal.join(", ")}</td>
+                    <td>{resultTf01ByCawanganData.bilanganMingguTracking}</td>
                     <td>
                       {new Date(
-                        resultTF01Data.tarikhAkhirTracking
+                        resultTf01ByCawanganData.tarikhAkhirTracking
                       ).toLocaleDateString("en-GB")}
                     </td>
-                    <td>{resultTF01Data.julatPulangan}</td>
+                    <td>{resultTf01ByCawanganData.julatPulangan}</td>
                   </tr>
                 ))
               )}
             </tbody>
-          </Table>{" "}
+          </Table>
         </div>
       </div>
 
       <Container fluid className="download-btn-container">
         <div>
-          <Button>Muat Turun TF01</Button>{" "}
+          <Button>Muat Turun TF01 - Cawangan</Button>
         </div>
       </Container>
     </>
   );
 }
 
-export default SearchResultTF01;
+export default SearchResultReport2;

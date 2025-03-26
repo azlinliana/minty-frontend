@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "../../../assets/styles/styles_laporan.css";
-import ResultTF01 from "./SearchResult";
+import ResultTf01ByCawangan from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
 import { useLokasiStore } from "../../../store/options-store";
 import axiosCustom from "../../../axios";
 
-function SearchTf01() {
+function SearchReport2() {
   // __________________________________ Frontend __________________________________
-  const [isSearchResultTf01Visible, setIsSearchResultTf01Visible] =
-    useState(false);
+  // Controls the visibility of reports
+  const [
+    isSearchResultTf01CawanganVisible,
+    setIsSearchResultTf01CawanganVisible,
+  ] = useState(false);
 
   // Form validation
   const {
@@ -23,37 +26,29 @@ function SearchTf01() {
   // ___________________________________ Backend __________________________________
   const [selectedWilayah, setSelectedWilayah] = useState("");
   const [selectedCawangan, setSelectedCawangan] = useState("");
-  const [selectedPusat, setSelectedPusat] = useState("");
 
-  // Display wilayah, cawangan & pusat options
-  const {
-    wilayahOptions,
-    displayWilayahs,
-    cawanganOptions,
-    displayCawangans,
-    pusatOptions,
-    displayPusats,
-  } = useLokasiStore();
+  // Display wilayah & cawangan options
+  const { wilayahOptions, displayWilayahs, cawanganOptions, displayCawangans } =
+    useLokasiStore();
 
   useEffect(() => {
     displayWilayahs();
     displayCawangans();
-    displayPusats();
-  }, [displayWilayahs, displayCawangans, displayPusats]);
+  }, [displayWilayahs, displayCawangans]);
 
-  // Search jadual TF01
-  const [resultTF01, setResultTF01] = useState([]);
+  // Search jadual TF01 by cawangan
+  const [resultTf01ByCawangan, setResultTF01ByCawangan] = useState([]);
 
-  const searchJadualTF01 = async (jadualTF01Input) => {
+  const searchJadualTF01ByCawangan = async (jadualTF01ByCawanganInput) => {
     try {
       const response = await axiosCustom.post(
-        `/laporan/carian-jadual-tf01`,
-        jadualTF01Input
+        `/laporan/carian-jadual-tf01-mengikut-cawangan`,
+        jadualTF01ByCawanganInput
       );
 
       if (response.status === 200) {
-        setResultTF01(response.data);
-        setIsSearchResultTf01Visible(true);
+        setResultTF01ByCawangan(response.data);
+        setIsSearchResultTf01CawanganVisible(true);
       } else {
         ErrorAlert(response);
       }
@@ -65,13 +60,15 @@ function SearchTf01() {
   return (
     <>
       <div className="page-title">
-        <h1>Jadual TF01</h1>
-        
+        <h1>Jadual TF01 Mengikut Cawangan</h1>
+
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link">
             Senarai Laporan
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Jadual TF01</Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Jadual TF01 Mengikut Cawangan
+          </Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -84,7 +81,7 @@ function SearchTf01() {
           <Container fluid className="jadual-search-bar">
             <Form onReset={reset}>
               <Row>
-                <Col xs={12} md={4}>
+                <Col xs={12} md={6}>
                   <div>
                     <Form.Group>
                       <Form.Label className="form-label">Wilayah</Form.Label>
@@ -123,7 +120,7 @@ function SearchTf01() {
                   </div>
                 </Col>
 
-                <Col xs={12} md={4}>
+                <Col xs={12} md={6}>
                   <div>
                     <Form.Group>
                       <Form.Label className="form-label">Cawangan</Form.Label>
@@ -148,7 +145,6 @@ function SearchTf01() {
                               selectedWilayah &&
                               item.wilayahId === selectedWilayah
                           )
-                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
                           .sort((a, b) =>
                             a.namaCawangan.localeCompare(b.namaCawangan)
                           )
@@ -162,51 +158,10 @@ function SearchTf01() {
                           ))}
                       </Form.Control>
 
-                      {errors.kodCawangan?.type === "required" && (
+                      {errors.cawanganId?.type === "required" && (
                         <small className="text-danger">
                           Cawangan diperlukan.
                         </small>
-                      )}
-                    </Form.Group>
-                  </div>
-                </Col>
-
-                <Col xs={12} md={4}>
-                  <div>
-                    <Form.Group>
-                      <Form.Label className="form-label">Pusat</Form.Label>
-
-                      <Form.Control
-                        as="select"
-                        className="form-select"
-                        {...register("kodPusat", { required: true })}
-                        onChange={(e) => {
-                          setSelectedPusat(e.target.value);
-                        }}
-                        aria-invalid={errors.kodPusat ? "true" : "false"}
-                        defaultValue=""
-                      >
-                        <option value="" disabled>
-                          --Pilih Pusat--
-                        </option>
-                        {pusatOptions
-                          // Filter options based on the selected cawangan
-                          .filter(
-                            (item) =>
-                              selectedCawangan &&
-                              item.kodCawangan === selectedCawangan
-                          )
-                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
-                          .sort((a, b) => a.namaPusat.localeCompare(b.namPusat))
-                          .map((pusat) => (
-                            <option key={pusat.id} value={pusat.kodPusat}>
-                              {pusat.namaPusat}
-                            </option>
-                          ))}
-                      </Form.Control>
-
-                      {errors.kodPusat?.type === "required" && (
-                        <small className="text-danger">Pusat diperlukan.</small>
                       )}
                     </Form.Group>
                   </div>
@@ -217,16 +172,20 @@ function SearchTf01() {
             <div className="laporan-jadual-carian-btn-container">
               <Button
                 className="laporan-jadual-carian-btn"
-                onClick={handleSubmit(searchJadualTF01)}
+                onClick={handleSubmit(searchJadualTF01ByCawangan)}
               >
                 Cari
               </Button>{" "}
             </div>
           </Container>
 
-          {isSearchResultTf01Visible && (
+          {isSearchResultTf01CawanganVisible && (
             <div className="laporan-search-result-container">
-              <ResultTF01 resultTF01={resultTF01} />
+              <ResultTf01ByCawangan
+                resultTf01ByCawangan={resultTf01ByCawangan}
+                selectedWilayah={selectedWilayah}
+                selectedCawangan={selectedCawangan}
+              />
             </div>
           )}
 
@@ -239,4 +198,4 @@ function SearchTf01() {
   );
 }
 
-export default SearchTf01;
+export default SearchReport2;
