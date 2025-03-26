@@ -12,15 +12,15 @@ function SearchCustomerProfile() {
   // __________________________________ Frontend __________________________________
   // Modal
   const [
-    isModalCarianLaporanProfilSahabat,
-    setIsModalCarianLaporanProfilSahabat,
+    isModalSearchDetailedCustomerProfile,
+    setIsModalSearchDetailedCustomerProfile,
   ] = useState(false);
 
   const openModalCarianLaporanProfilSahabat = () =>
-    setIsModalCarianLaporanProfilSahabat(true);
+    setIsModalSearchDetailedCustomerProfile(true);
 
   const closeModalCarianLaporanProfilSahabat = () => {
-    setIsModalCarianLaporanProfilSahabat(false);
+    setIsModalSearchDetailedCustomerProfile(false);
     reset(); // Reset previous form input
   };
 
@@ -62,7 +62,7 @@ function SearchCustomerProfile() {
         Search
       </Button>{" "}
       <Modal
-        show={isModalCarianLaporanProfilSahabat}
+        show={isModalSearchDetailedCustomerProfile}
         onHide={closeModalCarianLaporanProfilSahabat}
         backdrop="static"
         keyboard={false}
