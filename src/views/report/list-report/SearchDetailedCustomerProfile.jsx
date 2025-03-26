@@ -11,16 +11,17 @@ function SearchDetailedCustomerProfile() {
 
   // __________________________________ Frontend __________________________________
   // Modal
+  // Modal
   const [
-    isModalCarianLaporanProfilSahabatTerperinci,
-    setIsModalCarianLaporanProfilSahabatTerperinci,
+    IsModalSearchDetailedCustomerProfile,
+    setIsModalSearchDetailedCustomerProfile,
   ] = useState(false);
 
-  const openModalCarianLaporanProfilSahabatTerperinci = () =>
-    setIsModalCarianLaporanProfilSahabatTerperinci(true);
+  const openModalSearchDetailedCustomerProfile = () =>
+    setIsModalSearchDetailedCustomerProfile(true);
 
-  const closeModalCarianLaporanProfilSahabatTerperinci = () => {
-    setIsModalCarianLaporanProfilSahabatTerperinci(false);
+  const closeModalSearchDetailedCustomerProfile = () => {
+    setIsModalSearchDetailedCustomerProfile(false);
     reset(); // Reset previous form input
   };
 
@@ -57,49 +58,49 @@ function SearchDetailedCustomerProfile() {
     <>
       <Button
         className="laporan-index-pg-btn"
-        onClick={openModalCarianLaporanProfilSahabatTerperinci}
+        onClick={openModalSearchDetailedCustomerProfile}
       >
         Search
       </Button>{" "}
       
       <Modal
-        show={isModalCarianLaporanProfilSahabatTerperinci}
-        onHide={closeModalCarianLaporanProfilSahabatTerperinci}
+        show={IsModalSearchDetailedCustomerProfile}
+        onHide={closeModalSearchDetailedCustomerProfile}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Carian Laporan Profil Sahabat Terperinci</Modal.Title>
+          <Modal.Title>Search Detailed Customer Profile</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
-            <Form.Group controlId="noKadPengenalanSahabat" className="mb-3">
+            <Form.Group controlId="customerIc" className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="Masukkan no. kad pengenalan sahabat"
-                {...register("noKadPengenalanSahabat", {
-                  required: "No. kad pengenalan sahabat diperlukan.",
+                placeholder="Insert customer's IC"
+                {...register("customerIc", {
+                  required: "Customer IC is required.",
                   pattern: {
                     value: /^\d{12}$/,
                     message:
-                      "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                      "Customer IC must contain 12 digits",
                   },
                 })}
-                aria-invalid={errors.noKadPengenalanSahabat ? "true" : "false"}
+                aria-invalid={errors.customerIc ? "true" : "false"}
               />
 
               {/* Validate required field */}
-              {errors.noKadPengenalanSahabat?.type === "required" && (
+              {errors.customerIc?.type === "required" && (
                 <small className="text-danger">
-                  No. kad pengenalan sahabat diperlukan.
+                  Customer ic is required.
                 </small>
               )}
 
               {/* Validate pattern field */}
-              {errors.noKadPengenalanSahabat?.type === "pattern" && (
+              {errors.customerIc?.type === "pattern" && (
                 <small className="text-danger">
-                  {errors.noKadPengenalanSahabat.message}
+                  {errors.customerIc.message}
                 </small>
               )}
             </Form.Group>
@@ -108,12 +109,12 @@ function SearchDetailedCustomerProfile() {
           <Modal.Footer>
             <Button
               className="batal-btn"
-              onClick={closeModalCarianLaporanProfilSahabatTerperinci}
+              onClick={closeModalSearchDetailedCustomerProfile}
             >
-              Batal
+              Cancel
             </Button>
             <Button onClick={handleSubmit(handleSearchDetailedCustomerProfile)}>
-              Cari
+              Search
             </Button>
           </Modal.Footer>
         </Form>
