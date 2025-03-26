@@ -59,7 +59,7 @@ function SearchDetailedCustomerProfile() {
         className="laporan-index-pg-btn"
         onClick={openModalCarianLaporanProfilSahabatTerperinci}
       >
-        Cari
+        Search
       </Button>{" "}
       
       <Modal

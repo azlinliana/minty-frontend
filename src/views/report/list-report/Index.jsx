@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../assets/styles/styles_laporan.css";
-import SearchProfilSahabat from "./SearchProfilSahabat";
-import SearchProfilSahabatTerperinci from "./SearchProfilSahabatTerperinci";
+import SearchCustomerProfile from "./SearchCustomerProfile";
+import SearchDetailedCustomerProfile from "./SearchDetailedCustomerProfile";
 import { Table, Button } from "react-bootstrap";
 
 function IndexReport() {
@@ -10,55 +10,54 @@ function IndexReport() {
   // Link pages
   const navigate = useNavigate();
 
-  const clickJadualTF01 = () => navigate("/search-tf01");
-  const clickJadualTF01Cawangan = () => navigate("/search-tf01-cawangan");
-  const clickJadualTF02 = () => navigate("/search-tf02");
+  const clickReport1 = () => navigate("/search-report-1");
+  const clickReport2 = () => navigate("/search-report-2");
 
   return (
     <>
       <div className="page-title">
-        <h1>Senarai Laporan</h1>
+        <h1>Report List</h1>
       </div>
 
       <div className="laporan-table-container">
         <Table responsive>
           <thead>
             <tr>
-              <th className="laporan-table-index">Bil.</th>
-              <th>Keterangan</th>
-              <th className="laporan-table-cta">Tindakan</th>
+              <th className="laporan-table-index">No.</th>
+              <th>Explanation</th>
+              <th className="laporan-table-cta">Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {/* Laporan Profil Sahabat */}
+            {/* Customer Profile Report */}
             <tr>
               <td className="laporan-table-index">1</td>
-              <td>Laporan Profail Sahabat</td>
+              <td>Search Customer Profile</td>
               <td>
-                <SearchProfilSahabat />
+                <SearchCustomerProfile />
               </td>
             </tr>
 
-            {/* Laporan Profil Sahabat Terperinci */}
+            {/* Detailed Customer Profile Report */}
             <tr>
               <td className="laporan-table-index">2</td>
-              <td>Laporan Profail Sahabat Terperinci</td>
+              <td>Search Detailed Customer Profile</td>
               <td>
-                <SearchProfilSahabatTerperinci />
+                <SearchDetailedCustomerProfile />
               </td>
             </tr>
 
             {/* Jadual TF01 */}
             <tr>
               <td className="laporan-table-index">3</td>
-              <td>Jadual TF01</td>
+              <td>Report 1</td>
               <td>
                 <Button
                   className="laporan-index-pg-btn"
-                  onClick={clickJadualTF01}
+                  onClick={clickReport1}
                 >
-                  Lihat
+                  View
                 </Button>{" "}
               </td>
             </tr>
@@ -66,27 +65,13 @@ function IndexReport() {
             {/* Jadual TF01 Mengikut Cawangan */}
             <tr>
               <td className="laporan-table-index">4</td>
-              <td>Jadual TF01 Mengikut Cawangan</td>
+              <td>Report 2</td>
               <td>
                 <Button
                   className="laporan-index-pg-btn"
-                  onClick={clickJadualTF01Cawangan}
+                  onClick={clickReport2}
                 >
-                  Lihat
-                </Button>{" "}
-              </td>
-            </tr>
-
-            {/* Jadual TF02 */}
-            <tr>
-              <td className="laporan-table-index">5</td>
-              <td>Jadual TF02</td>
-              <td>
-                <Button
-                  className="laporan-index-pg-btn"
-                  onClick={clickJadualTF02}
-                >
-                  Lihat
+                  View
                 </Button>{" "}
               </td>
             </tr>

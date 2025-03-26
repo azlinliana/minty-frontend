@@ -10,12 +10,10 @@ import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Track
 import IndexReport from "./views/report/list-report/Index";
 import ShowProfilSahabat from "./views/report/profil-sahabat/show-result/Show";
 import ShowProfilSahabatTerperinci from "./views/report/profil-sahabat-terperinci/show-result/Show";
-import SearchTf01 from "./views/report/jadual-tf01/Search";
-import ResultTf01 from "./views/report/jadual-tf01/SearchResult";
-import SearchTf01ByCawangan from "./views/report/jadual-tf01-cawangan/Search";
-import ResultTf01ByCawangan from "./views/report/jadual-tf01-cawangan/SearchResult";
-import SearchTf02 from "./views/report/jadual-tf02/Search";
-import ResultTf02 from "./views/report/jadual-tf02/SearchResult";
+import SearchReport1 from "./views/report/report-1/Search";
+import SearchResultReport1 from "./views/report/report-1/SearchResult";
+import SearchReport2 from "./views/report/report-2/Search";
+import SearchResultReport2 from "./views/report/report-2/SearchResult";
 import SearchProfilSahabat from "./views/report/profil-sahabat/Search";
 import SearchProfilSahabatTerperinci from "./views/report/profil-sahabat-terperinci/Search";
 import IndexSettings from "./views/settings/Index";
@@ -67,7 +65,8 @@ function App() {
               element={<SearchProfilSahabat />}
             />
             <Route path="profil-sahabat" element={<ShowProfilSahabat />} />
-
+            ResultTf01ByCawangan
+            ResultTf01ByCawangan
             <Route
               path="pembiayaan-sahabat-terperinci"
               element={<SearchProfilSahabatTerperinci />}
@@ -76,18 +75,8 @@ function App() {
               path="profil-sahabat-terperinci"
               element={<ShowProfilSahabatTerperinci />}
             />
-            <Route path="search-tf01" element={<SearchTf01 />} />
-            <Route path="result-tf01" element={<ResultTf01 />} />
-            <Route
-              path="search-tf01-cawangan"
-              element={<SearchTf01ByCawangan />}
-            />
-            <Route
-              path="result-tf01-cawangan"
-              element={<ResultTf01ByCawangan />}
-            />
-            <Route path="search-tf02" element={<SearchTf02 />} />
-            <Route path="result-tf02" element={<ResultTf02 />} />
+            <Route path="search-report-1" element={<SearchReport1 />} />
+            <Route path="search-report-2" element={<SearchReport2 />} />
 
             {/* Selenggara */}
             <Route path="settings" element={<IndexSettings />} />
