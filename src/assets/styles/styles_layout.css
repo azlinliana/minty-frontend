@@ -145,22 +145,32 @@
   background-color: var(--primary-color);
 }
 
-.sidebar a {
-  color: var(--grayscale-black);
+.sidebar-items {
+  min-height: 2rem;
+  border-bottom: var(--primary-color);
+  background-color: var(--primary-color);
 }
-  
-.sidebar a:hover {
-  text-decoration: underline;
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
-  
+
+.dropdown-toggle-icon {
+  display: flex;
+  color: var(--grayscale-white);
+}
+ 
 .sidebar-icon {
-  margin-left: 2px;
   margin-right: 5px;
+  color: var(--grayscale-white);
 }
   
 .sidebar-title {
-  font-size: 14px;
   text-decoration: none;
+  color: var(--grayscale-white);
 }
   
 /* *********************** */
@@ -168,11 +178,32 @@
 /* ********************** */
 
 .sidebar.open {
-  width: 250px;
+  width: 350px;
+}
+
+.sidebar.open .sidebar-link {
+  padding: 10px;
+}
+
+.sidebar.open .sidebar-link:hover {
+  border-radius: 10px;
+  background-color: var(--quaternary-color);
 }
   
 .sidebar.shrink {
-  width: 50px;
+  width: 70px;
+}
+
+.sidebar.shrink .sidebar-icon {
+  font-size: 20px;
+}
+
+.sidebar.shrink .sidebar-items {
+  padding-left: 12px;
+}
+
+.sidebar.shrink .sidebar-link {
+  margin-top: 10px;
 }
 
 .sidebar-toggle-button {
@@ -200,6 +231,14 @@
   
 .sidebar-user-profile {
   text-align: center;
+  color: var(--grayscale-white);
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+}
+
+.sidebar-user-profile img {
+  width: 150px;
 }
   
 .sidebar-user-icon {
@@ -213,13 +252,38 @@
   
 .sidebar-user-profile h6 {
   font-size: 0.85em;
-  color: lightslategray;
   padding: 0 10px 2px 5px;
+}
+
+.sidebar-sub-item {
+  margin-left: 16px;
+  margin-right:17px;
+  border-color: var(--quaternary-color);
+  background-color: var(--quaternary-color);
+}
+
+.sidebar-sub-item:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--grayscale-offwhite);
+}
+
+.sidebar-sub-item:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.sidebar-sub-item:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
   
 @media (max-width: 767px) {
   .sidebar-user-icon {
     font-size: 50px;
+  }
+
+  .sidebar.shrink .sidebar-items {
+    padding-left: 16px;
   }
 }
   

@@ -3,25 +3,25 @@ import { BsPersonHeart, BsTools, BsPersonFillGear } from "react-icons/bs";
 
 const SidebarMenu = [
   {
-    title: "Dashboard & Reports",
+    title: "Dashboard",
     path: "/dashboard",
     icon: <FaHome />,
     roles: [1, 2, 3],
   },
   {
-    title: "Customer",
+    title: "Family",
     path: "/carian-sahabat",
     icon: <FaUsers />,
-    subRoutes: [
-      {
-        title: "Customer",
-        path: "/hasil-carian-sahabat",
-      },
-      {
-        title: "Customer",
-        path: "/tracking-inflow-outflow",
-      },
-    ],
+    // subRoutes: [
+    //   {
+    //     title: "Customer",
+    //     path: "/hasil-carian-sahabat",
+    //   },
+    //   {
+    //     title: "Customer",
+    //     path: "/tracking-inflow-outflow",
+    //   },
+    // ],
     roles: [1, 2, 3],
   },
   {
@@ -85,16 +85,16 @@ const SidebarMenu = [
     roles: [2, 3],
   },
   {
-    title: "User",
+    title: "Expenses",
     path: "/user-settings",
     icon: <BsPersonFillGear />,
     subRoutes: [
       {
-        title: "User",
+        title: "Categories",
         path: "/admin-list",
       },
       {
-        title: "User",
+        title: "Tracking",
         path: "/super-admin-list",
       },
     ],
