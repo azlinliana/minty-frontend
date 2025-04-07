@@ -13,7 +13,7 @@ function ErrorAlert(message) {
       // Error from the API response not as expected or an unknown client-side error
       icon: "error",
       title: "Ralat",
-      text: "Tindak balas API tidak seperti yang diharapkan",
+      text: "Unexpected API response",
     });
   }
 }
