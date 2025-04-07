@@ -20,7 +20,7 @@ function SearchResultReport2({
       <div className="laporan-search-result-container">
         <div>
           <h3>
-            Hasil Carian: Wilayah - {selectedWilayah.namaWilayah} , Cawangan -{" "}
+            Search Result: Region - {selectedWilayah.namaWilayah} , Branch -{" "}
             {selectedCawangan.namaCawangan}
           </h3>
         </div>

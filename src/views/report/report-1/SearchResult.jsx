@@ -17,7 +17,7 @@ function SearchResultReport1({ resultTF01 }) {
   return (
     <>
       <div className="laporan-search-result-container">
-        <h3>Hasil Carian: Wilayah - , Cawangan - , Pusat -</h3>
+        <h3>Search Result: Region - , Branch - , Centre -</h3>
 
         <div>
           <Table responsive striped bordered>
