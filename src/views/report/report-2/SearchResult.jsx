@@ -29,77 +29,101 @@ function SearchResultReport2({
           <Table responsive striped bordered>
             <thead>
               <tr>
-                <th>Bil.</th>
-                <th>Nama Cawangan</th>
-                <th>Nama Blok</th>
-                <th>Nama Pusat</th>
-                <th>No. KP Sahabat</th>
-                <th>Nama Sahabat/Sampel</th>
-                <th>Dimensi</th>
-                <th>Kegiatan</th>
-                <th>Sub Kegiatan</th>
-                <th>Pembiayaan + Caj (RM)</th>
-                <th>Pendapatan dari AIM (A1) (RM)</th>
-                <th>Pendapatan dari Jumlah Masuk (Inflow) (RM)</th>
-                <th>Pendapatan dari Jumlah Keluar (Outflow) (RM)</th>
-                <th>Pulangan Per RM (RM)</th>
-                <th>Bil. Kali Pinjam</th>
-                <th>Pengguna Modal</th>
-                <th>Bil. Minggu Tracking</th>
-                <th>Tarikh Akhir Tracking</th>
+                <th>No.</th>
+                <th>Branch Name</th>
+                <th>Block Name</th>
+                <th>Centre Name</th>
+                <th>Customer IC</th>
+                <th>Customer Name</th>
+                <th>Loan</th>
+                <th>Activity</th>
+                <th>Sub Activity</th>
+                <th>Financing + Charge (RM)</th>
+                <th>Capital Income (RM)</th>
+                <th>Inflow Income (Inflow) (RM)</th>
+                <th>Outflow Income (RM)</th>
+                <th>Return Per RM (RM)</th>
+                <th>No. of Times Borrowed</th>
+                <th>Fund</th>
+                <th>Week Tracking</th>
+                <th>Last Date Tracking</th>
               </tr>
             </thead>
 
             <tbody>
-              {resultTf01ByCawangan.length === 0 ? (
+              {/* {resultTf01ByCawangan.length === 0 ? ( */}
                 <tr>
                   <td colSpan={21}>
-                    <center>Tiada maklumat.</center>
+                    <center>No data.</center>
                   </td>
                 </tr>
-              ) : (
-                resultTf01ByCawangan.map((resultTf01ByCawanganData, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{resultTf01ByCawanganData.namaCawangan}</td>
-                    <td></td>
-                    <td>{resultTf01ByCawanganData.namaPusat}</td>
-                    <td>{resultTf01ByCawanganData.noKadPengenalanSahabat}</td>
-                    <td>{resultTf01ByCawanganData.namaSahabat}</td>
-                    <td>{resultTf01ByCawanganData.dimensi.join(", ")}</td>
-                    <td>{resultTf01ByCawanganData.kegiatan.join(", ")}</td>
-                    <td>{resultTf01ByCawanganData.subKegiatan.join(", ")}</td>
+              {/* ) : (
+                resultTf01ByCawangan.map((resultTf01ByCawanganData, index) => ( */}
+                  <tr 
+                    // key={index}
+                  >
+                    <td>
+                      {/* {index + 1} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.namaCawangan} */}
+                    </td>
                     <td></td>
                     <td>
-                      {formatMoney(
+                      {/* {resultTf01ByCawanganData.namaPusat} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.noKadPengenalanSahabat} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.namaSahabat} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.dimensi.join(", ")} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.kegiatan.join(", ")} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.subKegiatan.join(", ")} */}
+                    </td>
+                    <td></td>
+                    <td>
+                      {/* {formatMoney(
                         resultTf01ByCawanganData.pendapatanDaripadaAIM
-                      )}
+                      )} */}
                     </td>
                     <td>
-                      {formatMoney(
+                      {/* {formatMoney(
                         resultTf01ByCawanganData.pendapatanDaripadaJumlahMasuk
-                      )}
+                      )} */}
                     </td>
                     <td>
-                      {formatMoney(
+                      {/* {formatMoney(
                         resultTf01ByCawanganData.pendapatanDaripadaJumlahKeluar
-                      )}
+                      )} */}
                     </td>
                     <td>
-                      {formatMoney(resultTf01ByCawanganData.pulanganPerRM)}
+                      {/* {formatMoney(resultTf01ByCawanganData.pulanganPerRM)} */}
                     </td>
                     <td></td>
-                    <td>{resultTf01ByCawanganData.penggunaModal.join(", ")}</td>
-                    <td>{resultTf01ByCawanganData.bilanganMingguTracking}</td>
                     <td>
-                      {new Date(
-                        resultTf01ByCawanganData.tarikhAkhirTracking
-                      ).toLocaleDateString("en-GB")}
+                      {/* {resultTf01ByCawanganData.penggunaModal.join(", ")} */}
                     </td>
-                    <td>{resultTf01ByCawanganData.julatPulangan}</td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.bilanganMingguTracking} */}
+                    </td>
+                    <td>
+                      {/* {new Date(
+                        resultTf01ByCawanganData.tarikhAkhirTracking
+                      ).toLocaleDateString("en-GB")} */}
+                    </td>
+                    <td>
+                      {/* {resultTf01ByCawanganData.julatPulangan} */}
+                    </td>
                   </tr>
-                ))
-              )}
+                {/* ))
+              )} */}
             </tbody>
           </Table>
         </div>
@@ -107,7 +131,7 @@ function SearchResultReport2({
 
       <Container fluid className="download-btn-container">
         <div>
-          <Button>Muat Turun TF01 - Cawangan</Button>
+          <Button>Download Report 2</Button>
         </div>
       </Container>
     </>

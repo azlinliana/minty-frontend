@@ -60,21 +60,21 @@ function SearchReport2() {
   return (
     <>
       <div className="page-title">
-        <h1>Jadual TF01 Mengikut Cawangan</h1>
+        <h1>Report 2</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link">
-            Senarai Laporan
+            Report List
           </Breadcrumb.Item>
           <Breadcrumb.Item active>
-            Jadual TF01 Mengikut Cawangan
+            Report 2
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div>
         <div className="laporan-search-pg-header">
-          <h2>Senarai Sahabat Mengikut Cawangan, Blok, Pusat dan Pulangan</h2>
+          <h2>Customer List Based on Branch, Block, Centre & Profit</h2>
         </div>
 
         <div className="jadual-search-bar-section">
@@ -84,7 +84,7 @@ function SearchReport2() {
                 <Col xs={12} md={6}>
                   <div>
                     <Form.Group>
-                      <Form.Label className="form-label">Wilayah</Form.Label>
+                      <Form.Label className="form-label">Region</Form.Label>
 
                       <Form.Control
                         as="select"
@@ -97,7 +97,7 @@ function SearchReport2() {
                         defaultValue=""
                       >
                         <option value="" disabled>
-                          --Pilih Wilayah--
+                          --Choose Region--
                         </option>
                         {wilayahOptions
                           // Sort wilayah options alphabetically by namaWilayah
@@ -113,7 +113,7 @@ function SearchReport2() {
 
                       {errors.kodWilayah?.type === "required" && (
                         <small className="text-danger">
-                          Wilayah diperlukan.
+                          Region is required.
                         </small>
                       )}
                     </Form.Group>
@@ -123,7 +123,7 @@ function SearchReport2() {
                 <Col xs={12} md={6}>
                   <div>
                     <Form.Group>
-                      <Form.Label className="form-label">Cawangan</Form.Label>
+                      <Form.Label className="form-label">Branch</Form.Label>
 
                       <Form.Control
                         as="select"
@@ -136,7 +136,7 @@ function SearchReport2() {
                         defaultValue=""
                       >
                         <option value="" disabled>
-                          --Pilih Cawangan--
+                          --Choose Branch--
                         </option>
                         {cawanganOptions
                           // Filter options based on the selected wilayah
@@ -145,6 +145,7 @@ function SearchReport2() {
                               selectedWilayah &&
                               item.wilayahId === selectedWilayah
                           )
+                          // Sort the filtered cawanganOptions alphabetically by namaCawangan
                           .sort((a, b) =>
                             a.namaCawangan.localeCompare(b.namaCawangan)
                           )
@@ -158,9 +159,9 @@ function SearchReport2() {
                           ))}
                       </Form.Control>
 
-                      {errors.cawanganId?.type === "required" && (
+                      {errors.kodCawangan?.type === "required" && (
                         <small className="text-danger">
-                          Cawangan diperlukan.
+                          Branch is required.
                         </small>
                       )}
                     </Form.Group>
@@ -174,12 +175,12 @@ function SearchReport2() {
                 className="laporan-jadual-carian-btn"
                 onClick={handleSubmit(searchJadualTF01ByCawangan)}
               >
-                Cari
+                Search
               </Button>{" "}
             </div>
           </Container>
 
-          {isSearchResultTf01CawanganVisible && (
+          {/* {isSearchResultTf01CawanganVisible && ( */}
             <div className="laporan-search-result-container">
               <ResultTf01ByCawangan
                 resultTf01ByCawangan={resultTf01ByCawangan}
@@ -187,10 +188,10 @@ function SearchReport2() {
                 selectedCawangan={selectedCawangan}
               />
             </div>
-          )}
+          {/* )} */}
 
           <div className="kembali-btn-container">
-            <Button className="kembali-btn">Kembali</Button>{" "}
+            <Button className="kembali-btn">Back</Button>{" "}
           </div>
         </div>
       </div>
