@@ -1,5 +1,5 @@
-import { FaUsers, FaHome } from "react-icons/fa";
-import { BsPersonHeart, BsTools, BsPersonFillGear } from "react-icons/bs";
+import { FaUsers, FaHome, FaChartArea } from "react-icons/fa";
+import { BsTools, BsPersonFillGear } from "react-icons/bs";
 
 const SidebarMenu = [
   {
@@ -27,7 +27,7 @@ const SidebarMenu = [
   {
     title: "Report",
     path: "/report",
-    icon: <BsPersonHeart />,
+    icon: <FaChartArea />,
     subRoutes: [
       {
         title: "Report",
