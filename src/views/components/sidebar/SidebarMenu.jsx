@@ -26,38 +26,34 @@ const SidebarMenu = [
   },
   {
     title: "Report",
-    path: "/laporan",
+    path: "/report",
     icon: <BsPersonHeart />,
-    // subRoutes: [
-    //   {
-    //     title: "Laporan",
-    //     path: "/pembiayaan-sahabat",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/profil-sahabat",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/pembiayaan-sahabat-terperinci",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/profil-sahabat-terperinci",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/search-tf01",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/search-tf01-cawangan",
-    //   },
-    //   {
-    //     title: "Laporan",
-    //     path: "/search-tf02",
-    //   },
-    // ],
+    subRoutes: [
+      {
+        title: "Report",
+        path: "/customer-profile-list-financial",
+      },
+      {
+        title: "Report",
+        path: "/customer-profile-report",
+      },
+      {
+        title: "Report",
+        path: "/detailed-customer-profile-list-financial",
+      },
+      {
+        title: "Report",
+        path: "/detailed-customer-profile-report",
+      },
+      {
+        title: "Report",
+        path: "/report-1",
+      },
+      {
+        title: "Report",
+        path: "/report-2",
+      },
+    ],
     roles: [1, 2, 3],
   },
   {
