@@ -36,22 +36,23 @@ function SearchDetailedCustomerProfile() {
   // ___________________________________ Backend __________________________________
   // Search profil sahabat terperinci
   const handleSearchDetailedCustomerProfile = async (noKadPengenalanSahabatInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `laporan/search`,
-        noKadPengenalanSahabatInput
-      );
+    navigate("/detailed-customer-profile-list-financial");
+    // try {
+    //   const response = await axiosCustom.post(
+    //     `laporan/search`,
+    //     noKadPengenalanSahabatInput
+    //   );
 
-      if (response.status === 200) {
-        navigate("/pembiayaan-sahabat-terperinci", {
-          state: { resultSahabat: response.data },
-        });
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    //   if (response.status === 200) {
+    //     navigate("/pembiayaan-sahabat-terperinci", {
+    //       state: { resultSahabat: response.data },
+    //     });
+    //   } else {
+    //     ErrorAlert(response);
+    //   }
+    // } catch (error) {
+    //   ErrorAlert(error);
+    // }
   };
 
   return (

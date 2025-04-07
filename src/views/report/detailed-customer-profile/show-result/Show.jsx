@@ -11,7 +11,7 @@ import { Breadcrumb, Button } from "react-bootstrap";
 import { useProfilSahabatTerperinciStore } from "../../../../store/laporan/profil-sahabat-terperinci-store";
 import { useReactToPrint } from "react-to-print";
 
-function ShowCustomerDetailedProfile() {
+function ShowDetailedCustomerProfile() {
   // __________________________________ Frontend __________________________________
   // Back button
   const navigate = useNavigate();
@@ -21,16 +21,16 @@ function ShowCustomerDetailedProfile() {
 
   // Get pembiayaan sahabat
   const location = useLocation();
-  const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
+  // const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
 
   // ___________________________________ Backend __________________________________
   // Fetch profil sahabat terperinci
-  const { profilSahabatTerperinci, fetchProfilSahabatTerperinci } =
-    useProfilSahabatTerperinciStore();
+  // const { profilSahabatTerperinci, fetchProfilSahabatTerperinci } =
+  //   useProfilSahabatTerperinciStore();
 
-  useEffect(() => {
-    fetchProfilSahabatTerperinci(sahabatId, pembiayaanSahabatId);
-  }, [fetchProfilSahabatTerperinci, sahabatId, pembiayaanSahabatId]);
+  // useEffect(() => {
+  //   fetchProfilSahabatTerperinci(sahabatId, pembiayaanSahabatId);
+  // }, [fetchProfilSahabatTerperinci, sahabatId, pembiayaanSahabatId]);
 
   // Reference to the printable area
   const printRef = useRef();
@@ -43,80 +43,80 @@ function ShowCustomerDetailedProfile() {
   return (
     <>
       <div className="page-title">
-        <h1>Profail Sahabat Terperinci</h1>
+        <h1>Detailed Customer Profile</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Senarai Laporan
+            Report List
           </Breadcrumb.Item>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Carian Pembiayaan Sahabat Terperinci
+            Detailed Customer Profile List Financial
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Laporan Profail Sahabat Terperinci
-          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Detailed Customer Profile Report</Breadcrumb.Item>
         </Breadcrumb>
 
         <div className="laporan-profil-sahabat-details">
           <p>
-            <strong>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</strong>
+            <strong>Search Result: Customer IC</strong>
           </p>
         </div>
       </div>
 
       <div className="laporan-profil-sahabat-action-bts-container">
-        <Button onClick={handlePrint}>Cetak</Button>{" "}
+        <Button onClick={handlePrint}>Print</Button>{" "}
       </div>
 
       {/* Printable area start */}
       <div ref={printRef} className="printable">
         {/* Bahagian A: Maklumat Asas */}
-        <MaklumatAsas maklumatAsasData={profilSahabatTerperinci.maklumatAsas} />
+        <MaklumatAsas 
+          // maklumatAsasData={profilSahabatTerperinci.maklumatAsas} 
+        />
 
         {/* Bahagian B: Maklumat Kegiatan & Modal */}
         <MaklumatKegiatanModal
-          maklumatKegiatanModalData={
-            profilSahabatTerperinci.maklumatKegiatanModal
-          }
+          // maklumatKegiatanModalData={
+          //   profilSahabatTerperinci.maklumatKegiatanModal
+          // }
         />
 
         {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
         <PendapatanKumulatifKegiatan
-          maklumatPendapatanKumulatifKegiatanData={
-            profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
-          }
+          // maklumatPendapatanKumulatifKegiatanData={
+          //   profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
+          // }
         />
 
         {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
         <PendapatanKumulatifSumberPengusaha
-          pendapatanKumulatifSumberData={
-            profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
-          }
+          // pendapatanKumulatifSumberData={
+          //   profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
+          // }
         />
 
         {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
         <PerbelanjaanKumulatifSumberPengusaha
-          perbelanjaanKumulatifSumberData={
-            profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
-          }
+          // perbelanjaanKumulatifSumberData={
+          //   profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
+          // }
         />
 
         {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
         <PendapatanVSPerbelanjaanSumberPengusaha
-          pendapatanVSPerbelanjaanData={
-            profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
-          }
+          // pendapatanVSPerbelanjaanData={
+          //   profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
+          // }
         />
       </div>
       {/* Printable area end */}
 
       <div className="kembali-btn-container">
         <Button className="kembali-btn sc-kembali-btn-sahabat" onClick={goBack}>
-          Kembali
+          Back
         </Button>{" "}
       </div>
     </>
   );
 }
 
-export default ShowCustomerDetailedProfile;
+export default ShowDetailedCustomerProfile;

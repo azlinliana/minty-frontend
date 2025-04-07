@@ -17,29 +17,29 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
     <>
       <div className="laporan-table-container">
         <div className="laporan-table-header">
-          <h1>Bahagian B: Maklumat Kegiatan & Modal</h1>
+          <h1>Section B: Activity & Capital Information</h1>
         </div>
 
         <Table responsive striped bordered className="laporan-table-styling">
           <tbody>
             <tr>
               <th>1.</th>
-              <th>Tarikh Masuk AIM</th>
+              <th>Joined Date</th>
               <td>: </td>
             </tr>
             <tr>
               <th>2.</th>
-              <th>Bil. Minggu Tracking</th>
+              <th>Tracking Week</th>
               <td>: {maklumatKegiatanModalData?.bilMingguTracking || "-"}</td>
             </tr>
             <tr>
               <th>3.</th>
-              <th>Jumlah Pembiayaan Kumulatif (RM)</th>
+              <th>Total Cumulative Financing (RM)</th>
               <td>: </td>
             </tr>
             <tr>
               <th>4.</th>
-              <th>Jum Pembiayaan + Caj Terkini (RM)</th>
+              <th>Total Cumulative Financing + Charge (RM)</th>
               <td>
                 :{" "}
                 {formatMoney(
@@ -49,7 +49,7 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             </tr>
             <tr>
               <th>5.</th>
-              <th>Projek / Sub Kegiatan</th>
+              <th>Project / Sub Activity</th>
               <td>
                 :{" "}
                 {maklumatKegiatanModalData?.projekSubKegiatan?.kegiatan
@@ -64,7 +64,7 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             </tr>
             <tr>
               <th>6.</th>
-              <th>Pengguna Dana</th>
+              <th>Fund</th>
               <td>
                 :{" "}
                 {maklumatKegiatanModalData?.penggunaDana
@@ -83,7 +83,7 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             </tr>
             <tr>
               <th>7.</th>
-              <th>Pendapatan dari A1 (RM)</th>
+              <th>Capital Income (RM)</th>
               <td>
                 :{" "}
                 {formatMoney(maklumatKegiatanModalData?.pendapatanDariA1) ||
@@ -92,7 +92,7 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
             </tr>
             <tr>
               <th>8.</th>
-              <th>Pulangan Per RM</th>
+              <th>Return Per RM (RM)</th>
               <td>: {maklumatKegiatanModalData?.pulanganPerRM || "-"}</td>
             </tr>
             <tr>

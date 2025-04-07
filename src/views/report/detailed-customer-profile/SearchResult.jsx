@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
 
-function SearchResultPembiayaanTerperinciSahabat({
+function SearchResultDetailedCustomerFinancial({
   sahabatData,
   sahabatId,
   pembiayaanSahabatTerperincis,
@@ -14,22 +14,31 @@ function SearchResultPembiayaanTerperinciSahabat({
   // _____________________________ Frontend & Backend _____________________________
   // Navigate to profil sahabat terperinci along with sahabat and pembiayaan data
   const clickLihatPembiayaan = (pembiayaanSahabatId) => {
-    navigate("/profil-sahabat-terperinci", {
-      state: { sahabatData, sahabatId, pembiayaanSahabatId },
-    });
+    navigate("/detailed-customer-profile-report");
+
+    // navigate("/profil-sahabat-terperinci", {
+    //   state: { sahabatData, sahabatId, pembiayaanSahabatId },
+    // });
   };
 
   // ___________________________________ Backend __________________________________
   // Filter pembiayaanSahabats based on selectedSkimPembiayaan
-  const filteredPembiayaanSahabats = pembiayaanSahabatTerperincis.filter(
-    (pembiayaan) => pembiayaan.namaSkimPembiayaan === selectedSkimPembiayaan
-  );
+  // const filteredPembiayaanSahabats = pembiayaanSahabatTerperincis.filter(
+  //   (pembiayaan) => pembiayaan.namaSkimPembiayaan === selectedSkimPembiayaan
+  // );
   
   return (
     <>
       <div>
+        <div className="page-title">
+          <h1>Detailed Customer Profile List Financial</h1>
+        </div>
+
         <div>
-          <h3>Hasil Carian: Pembiayaan {selectedSkimPembiayaan}</h3>
+          <h3>
+            Search Result: Fund Name
+            {/* {selectedSkimPembiayaan} */}
+          </h3>
           <hr />
         </div>
 
@@ -37,49 +46,53 @@ function SearchResultPembiayaanTerperinciSahabat({
           <Table responsive striped bordered>
             <thead>
               <tr>
-                <th>Bil.</th>
+                <th>No.</th>
                 <th>Status</th>
-                <th>Jenis Pembiayaan</th>
-                <th>Tarikh Mula</th>
-                <th>Tarikh Tamat</th>
-                <th>Tindakan</th>
+                <th>Fund Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
               </tr>
             </thead>
-
+            
             <tbody>
-              {filteredPembiayaanSahabats.map(
-                (pembiayaanSahabatsData, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{pembiayaanSahabatsData.statusPembiayaan}</td>
-                    <td>{pembiayaanSahabatsData.namaSkimPembiayaan}</td>
+              {/* {filteredPembiayaanSahabats.map(
+                (pembiayaanSahabatsData, index) => ( */}
+                  <tr 
+                    // key={index}
+                  >
+                    <td>No.</td>
+                    <td>Financial Status</td>
+                    <td>Scheme Name</td>
                     <td>
-                      <time dateTime={pembiayaanSahabatsData.tarikhMula}>
+                      {/* <time dateTime={pembiayaanSahabatsData.tarikhMula}>
                         {new Date(
                           pembiayaanSahabatsData.tarikhMula
                         ).toLocaleDateString("en-GB")}
-                      </time>
+                      </time> */}
+                      Start Date
                     </td>
                     <td>
-                      <time dateTime={pembiayaanSahabatsData.tarikhTamat}>
+                      {/* <time dateTime={pembiayaanSahabatsData.tarikhTamat}>
                         {new Date(
                           pembiayaanSahabatsData.tarikhTamat
                         ).toLocaleDateString("en-GB")}
-                      </time>
+                      </time> */}
+                      End Date
                     </td>
                     <td>
                       <Button
                         className="view-skim-pembiayaan-sahabat-btn"
                         onClick={() =>
-                          clickLihatPembiayaan(pembiayaanSahabatsData.id)
+                          clickLihatPembiayaan()
                         }
                       >
-                        Lihat
+                        View
                       </Button>
                     </td>
                   </tr>
-                )
-              )}
+                {/* )
+              )} */}
             </tbody>
           </Table>
         </div>
@@ -88,4 +101,4 @@ function SearchResultPembiayaanTerperinciSahabat({
   );
 }
 
-export default SearchResultPembiayaanTerperinciSahabat;
+export default SearchResultDetailedCustomerFinancial;
