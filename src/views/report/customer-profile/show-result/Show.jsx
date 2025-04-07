@@ -21,15 +21,15 @@ function ShowCustomerProfile() {
   const goBack = () => navigate(-1);
 
   // Get pembiayaan sahabat
-  const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
+  // const { sahabatData, sahabatId, pembiayaanSahabatId } = location.state;
 
   // ___________________________________ Backend __________________________________
   // Fetch profil sahabat
   const { profilSahabat, fetchProfilSahabat } = useProfilSahabatStore();
 
-  useEffect(() => {
-    fetchProfilSahabat(sahabatId, pembiayaanSahabatId);
-  }, [fetchProfilSahabat, sahabatId, pembiayaanSahabatId]);
+  // useEffect(() => {
+  //   fetchProfilSahabat(sahabatId, pembiayaanSahabatId);
+  // }, [fetchProfilSahabat, sahabatId, pembiayaanSahabatId]);
 
   // ___________________________________ Export __________________________________
   // Click Eksport
@@ -177,33 +177,33 @@ function ShowCustomerProfile() {
   return (
     <>
       <div className="page-title">
-        <h1>Profail Sahabat</h1>
+        <h1>Customer Profile</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Senarai Laporan
+            Report List
           </Breadcrumb.Item>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Carian Pembiayaan Sahabat
+            Customer Profile List Financial
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Laporan Profail Sahabat</Breadcrumb.Item>
+          <Breadcrumb.Item active>Customer Profile Report</Breadcrumb.Item>
         </Breadcrumb>
 
         <div className="laporan-profil-sahabat-details">
           <p>
-            <strong>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</strong>
+            <strong>Search Result: Customer IC</strong>
           </p>
         </div>
       </div>
 
       <div className="laporan-profil-sahabat-action-bts-container">
-        <Button onClick={clickExportProfailSahabat}>Eksport</Button>{" "}
-        <Button onClick={handlePrintProfailSahabat}>Cetak</Button>{" "}
+        <Button onClick={clickExportProfailSahabat}>Export</Button>{" "}
+        <Button onClick={handlePrintProfailSahabat}>Print</Button>{" "}
       </div>
 
       {/* Printable area start */}
       <div ref={printRef} className="printable">
-        {/* Bahagian A: Maklumat Asas */}
+        {/* Bahagian A: Basic Information */}
         <MaklumatAsas maklumatAsasData={profilSahabat.maklumatAsas} />
 
         {/* Bahagian B: Maklumat Kegiatan Modal */}
@@ -229,7 +229,7 @@ function ShowCustomerProfile() {
 
       <div className="kembali-btn-container sc-kembali-btn-sahabat">
         <Button className="kembali-btn" onClick={goBack}>
-          Kembali
+          Back
         </Button>{" "}
       </div>
     </>

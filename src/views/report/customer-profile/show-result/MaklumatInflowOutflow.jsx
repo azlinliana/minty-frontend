@@ -3,13 +3,13 @@ import { Alert, Col, Row, Table } from "react-bootstrap";
 
 function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
   // ------------ BE --------------
-  if (!maklumatInflowOutflowSahabatData) {
-    return <p>No data available</p>; // Or any other fallback content
-  }
+  // if (!maklumatInflowOutflowSahabatData) {
+  //   return <p>No data available</p>; // Or any other fallback content
+  // }
 
   // Extract data from props
-  const { rekodMingguanInflowOutflow, rekodKumulatifInflowOutflow } =
-    maklumatInflowOutflowSahabatData;
+  // const { rekodMingguanInflowOutflow, rekodKumulatifInflowOutflow } =
+  //   maklumatInflowOutflowSahabatData;
 
   // Format money value
   const formatMoney = (value) => {
@@ -25,22 +25,22 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
     <>
       <div className="laporan-table-container">
         <div className="laporan-table-header">
-          <h1>Bahagian C: Maklumat Inflow/Outflow Sahabat</h1>
+          <h1>Section C: Customer Inflow/Outflow Information</h1>
         </div>
 
         <div className="tableBhgC">
           <Row>
-            {rekodMingguanInflowOutflow.data &&
-            Array.isArray(rekodMingguanInflowOutflow.data).length === 0 ? (
+            {/* {rekodMingguanInflowOutflow.data &&
+            Array.isArray(rekodMingguanInflowOutflow.data).length === 0 ? ( */}
               <Alert variant="secondary">
-                Tiada maklumat inflow/outflow untuk sahabat ini. Sila isi
-                maklumat tracking sahabat dahulu.
+                No inflow/outflow information is available for this customer. 
+                Please fill in the customer tracking information first.
               </Alert>
-            ) : (
-              <>
+            {/* ) : (
+              <> */}
                 {/* Left Section */}
                 <Col md={6}>
-                  <h2>Rekod Mingguan Inflow/Outflow Sahabat</h2>
+                  <h2>Weekly Inflow/Outflow Record</h2>
 
                   <Table
                     responsive
@@ -50,52 +50,54 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                   >
                     <thead>
                       <tr>
-                        <th>Minggu</th>
+                        <th>Week</th>
                         <th>Inflow (RM)</th>
                         <th>Outflow (RM)</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      {rekodMingguanInflowOutflow.data.map(
-                        (rekodMingguanInflowOutflowData, index) => (
-                          <tr key={index}>
+                      {/* {rekodMingguanInflowOutflow.data.map(
+                        (rekodMingguanInflowOutflowData, index) => ( */}
+                          <tr 
+                            // key={index}
+                          >
                             <td>
-                              {rekodMingguanInflowOutflowData.minggu || "-"}
+                              {/* {rekodMingguanInflowOutflowData.minggu || "-"} */}
                             </td>
                             <td>
-                              {formatMoney(
+                              {/* {formatMoney(
                                 rekodMingguanInflowOutflowData.inflow
-                              ) || "-"}
+                              ) || "-"} */}
                             </td>
                             <td>
-                              {formatMoney(
+                              {/* {formatMoney(
                                 rekodMingguanInflowOutflowData.outflow
-                              ) || "-"}
+                              ) || "-"} */}
                             </td>
                           </tr>
-                        )
-                      )}
+                        {/* )
+                      )} */}
                     </tbody>
 
                     <tfoot>
                       <tr>
-                        <td>Jumlah (RM)</td>
+                        <td>Total (RM)</td>
                         <td>
-                          {formatMoney(
+                          {/* {formatMoney(
                             rekodMingguanInflowOutflow.data.reduce(
                               (total, data) => total + data.inflow,
                               0
                             )
-                          ) || "-"}
+                          ) || "-"} */}
                         </td>
                         <td>
-                          {formatMoney(
+                          {/* {formatMoney(
                             rekodMingguanInflowOutflow.data.reduce(
                               (total, data) => total + data.outflow,
                               0
                             )
-                          ) || "-"}
+                          ) || "-"} */}
                         </td>
                       </tr>
                     </tfoot>
@@ -104,50 +106,50 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
 
                 {/* Right Section */}
                 <Col md={6}>
-                  <h2>Rekod Kumulatif Inflow/Outflow Sahabat</h2>
+                  <h2>Weekly Cumulative Inflow/Outflow Record</h2>
 
                   <Table striped bordered className="laporan-table-styling">
                     <thead>
                       <tr>
-                        <th>Bil. Minggu</th>
+                        <th>Week</th>
                         <th>Inflow (RM)</th>
                         <th>Outflow (RM)</th>
-                        <th>Bersih(RM)</th>
-                        <th>Pendapatan daripada A1 (RM)</th>
+                        <th>Net (RM)</th>
+                        <th>Income from Capital (RM)</th>
                       </tr>
                     </thead>
 
                     <tbody>
                       <tr>
                         <td>
-                          {rekodKumulatifInflowOutflow.jumlahBilanganMinggu ||
-                            "-"}
+                          {/* {rekodKumulatifInflowOutflow.jumlahBilanganMinggu ||
+                            "-"} */}
                         </td>
                         <td>
-                          {formatMoney(
+                          {/* {formatMoney(
                             rekodKumulatifInflowOutflow.kumulatifInflow
-                          ) || "-"}
+                          ) || "-"} */}
                         </td>
                         <td>
-                          {formatMoney(
+                          {/* {formatMoney(
                             rekodKumulatifInflowOutflow.kumulatifOutflow
-                          ) || "-"}
+                          ) || "-"} */}
                         </td>
                         <td>
-                          {formatMoney(rekodKumulatifInflowOutflow.bersih) ||
-                            "-"}
+                          {/* {formatMoney(rekodKumulatifInflowOutflow.bersih) ||
+                            "-"} */}
                         </td>
                         <td>
-                          {formatMoney(
+                          {/* {formatMoney(
                             rekodKumulatifInflowOutflow.pendapatanDaripadaA1
-                          ) || "-"}
+                          ) || "-"} */}
                         </td>
                       </tr>
                     </tbody>
                   </Table>
                 </Col>
-              </>
-            )}
+              {/* </>
+            )} */}
           </Row>
         </div>
       </div>

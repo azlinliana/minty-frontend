@@ -17,15 +17,15 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
     <>
       <div className="laporan-table-container">
         <div className="laporan-table-header">
-          <h1>Bahagian B: Maklumat Kegiatan Modal</h1>
+          <h1>Section B: Capital Activity Information</h1>
         </div>
 
         <Table responsive striped bordered className="laporan-table-styling">
           <thead>
             <tr>
-              <th>Modal Pembiayaan AIM (RM)</th>
-              <th>Pendapatan daripada Modal (RM)</th>
-              <th>Pulangan Per RM (RM)</th>
+              <th>Financing Capital (RM)</th>
+              <th>Income from Capital (RM)</th>
+              <th>Return Per RM (RM)</th>
             </tr>
           </thead>
 

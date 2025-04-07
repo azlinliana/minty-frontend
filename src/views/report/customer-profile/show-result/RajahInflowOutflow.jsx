@@ -47,7 +47,7 @@ function RajahInflowOutflow({ grafInflowOutflowSahabatData }) {
     <>
       <div className="laporan-table-container">
         <div className="laporan-table-header">
-          <h1>Bahagian D: Graf Maklumat Inflow/Outflow Sahabat</h1>
+          <h1>Section D: Inflow/Outflow Graph Information</h1>
         </div>
 
         <Dropdown onSelect={handleSelectChart}>

@@ -35,22 +35,23 @@ function SearchCustomerProfile() {
   // ___________________________________ Backend __________________________________
   // Search profil sahabat
   const handleSearchCustomerProfile = async (customerIcInput) => {
-    try {
-      const response = await axiosCustom.post(
-        `laporan/search`,
-        customerIcInput
-      );
+    navigate("/customer-profile-list-financial");
+    // try {
+    //   const response = await axiosCustom.post(
+    //     `laporan/search`,
+    //     customerIcInput
+    //   );
 
-      if (response.status === 200) {
-        navigate("/pembiayaan-sahabat", {
-          state: { resultSahabat: response.data },
-        });
-      } else {
-        ErrorAlert(response);
-      }
-    } catch (error) {
-      ErrorAlert(error);
-    }
+    //   if (response.status === 200) {
+    //     navigate("/pembiayaan-sahabat", {
+    //       state: { resultSahabat: response.data },
+    //     });
+    //   } else {
+    //     ErrorAlert(response);
+    //   }
+    // } catch (error) {
+    //   ErrorAlert(error);
+    // }
   };
 
   return (
@@ -91,7 +92,7 @@ function SearchCustomerProfile() {
               {/* Validate required field */}
               {errors.customerIc?.type === "required" && (
                 <small className="text-danger">
-                  Customer ic is required.
+                  Customer IC is required.
                 </small>
               )}
 

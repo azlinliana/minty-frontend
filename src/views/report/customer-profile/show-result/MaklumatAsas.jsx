@@ -17,69 +17,68 @@ function MaklumatAsas({ maklumatAsasData }) {
     <>
       <div className="laporan-table-container">
         <div className="laporan-table-header">
-          <h1>Bahagian A: Maklumat Asas</h1>
+          <h1>Section A: Basic Information</h1>
         </div>
 
         <Table responsive striped bordered className="laporan-table-styling">
           <tbody>
             <tr>
-              <th>Perkara</th>
+              <th>Item</th>
               <td>
                 : {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || "-"} -
-                JULAT SEDERHANA
               </td>
             </tr>
 
             <tr>
-              <th>No IC</th>
+              <th>IC</th>
               <td>
                 : {maklumatAsasData?.sahabat?.noKadPengenalanSahabat || "-"}
               </td>
             </tr>
 
             <tr>
-              <th>Nama Sahabat</th>
+              <th>Customer Name</th>
               <td>: {maklumatAsasData?.sahabat?.namaSahabat || "-"}</td>
             </tr>
 
             <tr>
-              <th>Nama Suami</th>
+              <th>Husband Name</th>
               <td>: {maklumatAsasData?.suamiSahabat || "-"}</td>
             </tr>
 
             <tr>
-              <th>Cawangan</th>
+              <th>Branch</th>
               <td>
                 : {maklumatAsasData?.sahabat?.cawangan?.namaCawangan || "-"}
               </td>
             </tr>
 
             <tr>
-              <th>Pusat</th>
+              <th>Centre</th>
               <td>: {maklumatAsasData?.sahabat?.pusat?.namaPusat || "-"}</td>
             </tr>
 
             <tr>
-              <th>Dimensi</th>
+              <th>Dimension</th>
               <td>
                 : {maklumatAsasData?.aktiviti?.dimensi?.kodDimensi || "-"}
               </td>
             </tr>
 
             <tr>
-              <th>Kumulatif PJM</th>
+              <th>Cumulative Loan</th>
               <td>: {formatMoney(maklumatAsasData?.kumulatifPJM) || "-"}</td>
             </tr>
 
             <tr>
-              <th>Pengurusan Dana</th>
+              <th>Fund</th>
               <td>
                 : {maklumatAsasData?.aktiviti?.pengurusDanaAktiviti || "-"}
               </td>
             </tr>
 
             <tr>
-              <th>Projek</th>
+              <th>Project</th>
               <td>
                 : {maklumatAsasData?.aktiviti?.kegiatan?.jenisKegiatan || "-"}{" "}
                 {" 》"}

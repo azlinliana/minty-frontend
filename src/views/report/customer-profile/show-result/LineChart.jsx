@@ -18,11 +18,11 @@ const LineChart = ({ selectedChart, data }) => {
 
     const chartEntries = data.data; // Access the data array from the data object
 
-    if (selectedChart === "Graf Inflow") {
+    if (selectedChart === "Inflow Graph") {
       chartData = createChartData(chartEntries, "Inflow", "rgba(60, 179, 113)");
-    } else if (selectedChart === "Graf Outflow") {
+    } else if (selectedChart === "Outflow Graph") {
       chartData = createChartData(chartEntries, "Outflow", "rgba(255, 0, 0)");
-    } else if (selectedChart === "Graf Inflow Outflow") {
+    } else if (selectedChart === "Inflow Outflow Graph") {
       chartData = {
         labels: chartEntries ? chartEntries.map((entry) => entry.minggu) : [],
         datasets: [
