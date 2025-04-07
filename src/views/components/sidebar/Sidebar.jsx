@@ -105,27 +105,8 @@ function Sidebar() {
                     <span className="sidebar-title">{item.title}</span>
                   )}
                 </Link>
-                {item.subRoutes && isSidebarOpen && (
-                  <span className="dropdown-toggle-icon">
-                    {openMenus[index] ? <FaAngleUp /> : <FaAngleDown />}
-                  </span>
-                )}
               </div>
             </ListGroup.Item>
-
-            {item.subRoutes && openMenus[index] && (
-              <ListGroup variant="flush" className="submenu">
-                {item.subRoutes.map((subItem, subIndex) => (
-                  <ListGroup.Item key={subIndex} className="sidebar-sub-item">
-                    <Link to={subItem.path}>
-                      {isSidebarOpen && (
-                        <span className="sidebar-title">{subItem.title}</span>
-                      )}
-                    </Link>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            )}
           </React.Fragment>
         ))}
       </ListGroup>
