@@ -10,18 +10,18 @@ const SidebarMenu = [
   },
   {
     title: "Customer",
-    path: "/carian-sahabat",
+    path: "/customer",
     icon: <FaUsers />,
-    subRoutes: [
-      {
-        title: "Customer",
-        path: "/hasil-carian-sahabat",
-      },
-      {
-        title: "Customer",
-        path: "/tracking-inflow-outflow",
-      },
-    ],
+    // subRoutes: [
+    //   {
+    //     title: "Customer",
+    //     path: "/hasil-carian-sahabat",
+    //   },
+    //   {
+    //     title: "Customer",
+    //     path: "/tracking-inflow-outflow",
+    //   },
+    // ],
     roles: [1, 2, 3],
   },
   {

@@ -15,8 +15,9 @@ function MainLayout() {
 
           <div className="content">
             <SecondNavbar />
-
-            <Outlet />
+            <div className="display">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>
