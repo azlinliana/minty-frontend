@@ -96,7 +96,7 @@ function CreateSuperAdmin({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateSuperAdmin}>
+            <Button className="cancel-btn" onClick={closeModalCreateSuperAdmin}>
               Cancel
             </Button>
 

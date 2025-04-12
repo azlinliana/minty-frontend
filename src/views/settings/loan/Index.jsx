@@ -46,7 +46,7 @@ function IndexLoan() {
       </div>
 
       <div className="selenggara-table-container">
-        <div className="tambah-baru-btn-container">
+        <div className="create-btn-container">
           <CreateLoan />
         </div>
 
@@ -98,8 +98,8 @@ function IndexLoan() {
           </tbody>
         </Table>
 
-        <div className="kembali-btn-container">
-          <Button className="kembali-btn" onClick={goBack}>
+        <div className="return-btn-container">
+          <Button className="return-btn" onClick={goBack}>
             Kembali
           </Button>{" "}
         </div>

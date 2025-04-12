@@ -130,7 +130,7 @@ function EditLoan({ loan }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditLoan}>
+            <Button className="cancel-btn" onClick={closeModalEditLoan}>
               Cancel
             </Button>
 

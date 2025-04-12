@@ -129,7 +129,7 @@ function EditAdmin({ admin }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalEditAdmin}>
+              <Button className="cancel-btn" onClick={closeModalEditAdmin}>
                 Cancel
               </Button>
 

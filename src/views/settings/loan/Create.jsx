@@ -85,7 +85,7 @@ function CreateLoan() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateLoan}>
+            <Button className="cancel-btn" onClick={closeModalCreateLoan}>
               Cancel
             </Button>
 

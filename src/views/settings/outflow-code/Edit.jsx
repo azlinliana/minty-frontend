@@ -135,7 +135,7 @@ function EditOutflowCode(
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditOutflowCode}>
+            <Button className="cancel-btn" onClick={closeModalEditOutflowCode}>
               Cancel
             </Button>
 

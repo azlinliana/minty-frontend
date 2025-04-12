@@ -132,7 +132,7 @@ function EditRelationship({ relationship }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditRelationship}>
+            <Button className="cancel-btn" onClick={closeModalEditRelationship}>
               Cancel
             </Button>
 

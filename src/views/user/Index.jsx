@@ -60,8 +60,8 @@ function IndexUser() {
         </Table>
       </div>
 
-      <div className="kembali-btn-container">
-        <Button className="kembali-btn" onClick={goBack}>
+      <div className="return-btn-container">
+        <Button className="return-btn" onClick={goBack}>
           Back
         </Button>{" "}
       </div>

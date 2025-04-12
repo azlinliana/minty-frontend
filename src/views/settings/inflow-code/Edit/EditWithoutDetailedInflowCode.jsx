@@ -147,7 +147,7 @@ function EditWithoutDetailedInflowCode(
 
             <Modal.Footer>
               <Button
-                className="batal-btn"
+                className="cancel-btn"
                 onClick={closeModalEditinflowCodeWithoutinflowCodeTerperinci}
               >
                 Cancel

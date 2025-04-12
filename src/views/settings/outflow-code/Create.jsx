@@ -87,7 +87,7 @@ function CreateOutflowCode() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateOutflowCode}>
+            <Button className="cancel-btn" onClick={closeModalCreateOutflowCode}>
               Cancel
             </Button>
 

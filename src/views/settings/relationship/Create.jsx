@@ -87,7 +87,7 @@ function CreateRelationship() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateRelationship}>
+            <Button className="cancel-btn" onClick={closeModalCreateRelationship}>
               Cancel
             </Button>
 

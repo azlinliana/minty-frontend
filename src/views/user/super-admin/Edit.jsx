@@ -131,7 +131,7 @@ function EditSuperAdmin({ superAdmin }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalEditSuperAdmin}>
+              <Button className="cancel-btn" onClick={closeModalEditSuperAdmin}>
                 Cancel
               </Button>
 

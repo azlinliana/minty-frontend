@@ -46,7 +46,7 @@ function IndexOutflowCode() {
       </div>
 
       <div className="selenggara-table-container">
-        <div className="tambah-baru-btn-container">
+        <div className="create-btn-container">
           <CreateOutflowCode />
         </div>
 
@@ -98,8 +98,8 @@ function IndexOutflowCode() {
           </tbody>
         </Table>
 
-        <div className="kembali-btn-container">
-          <Button className="kembali-btn" onClick={goBack}>
+        <div className="return-btn-container">
+          <Button className="return-btn" onClick={goBack}>
             Back
           </Button>{" "}
         </div>

@@ -195,7 +195,7 @@ function CreateInflowCode() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalCreateInflowCode}>
+              <Button className="cancel-btn" onClick={closeModalCreateInflowCode}>
                 Cancel
               </Button>
 
