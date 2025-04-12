@@ -7,7 +7,7 @@ import MainLayout from "./views/layouts/MainLayout";
 import SignIn from "./views/auth/SignIn";
 import Dashboard from "./views/Dashboard";
 import SignUp from "./views/auth/SignUp";
-
+import IndexCustomer from "./views/customer/Index";
 import SearchSahabat from "./views/sahabat/carian/SearchSahabat";
 import SearchResultSahabat from "./views/sahabat/carian/SearchResultSahabat";
 import TrackingInflowOutflow from "./views/sahabat/tracking-inflow-outflow/Tracking";
@@ -31,15 +31,7 @@ import IndexUser from "./views/user/Index";
 import IndexAdmin from "./views/user/admin/Index";
 import IndexSuperAdmin from "./views/user/super-admin/Index";
 
-import BadRequest from "./views/http_requests/BadRequest";
-import Unauthorized from "./views/http_requests/Unauthorized";
-import Forbidden from "./views/http_requests/Forbidden";
 import NotFound from "./views/http_requests/NotFound";
-import UnprocessableEntity from "./views/http_requests/UnprocessableEntity";
-import TooManyRequests from "./views/http_requests/TooManyRequests";
-import InternalServer from "./views/http_requests/InternalServer";
-import ServiceUnavailable from "./views/http_requests/ServiceUnavailable";
-import UnknownError from "./views/http_requests/UnknownError";
 
 function App() {
   return (
@@ -54,15 +46,15 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
 
             {/* Customer */}
-            <Route path="carian-sahabat" element={<SearchSahabat />} />
-            <Route
+            <Route path="customer" element={<IndexCustomer />} />
+            {/* <Route
               path="hasil-carian-sahabat"
               element={<SearchResultSahabat />}
             />
             <Route
               path="tracking-inflow-outflow"
               element={<TrackingInflowOutflow />}
-            />
+            /> */}
 
             {/* Report */}
             <Route path="report" element={<IndexReport />} />

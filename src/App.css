@@ -18,7 +18,7 @@
   --secondary-color: #2D664F;
   --tertiary-color: #102018;
   --quaternary-color: #75A589;
-  --primary-details-color: #CBFFE1;
+  --primary-details-color: #cbffe1;
   --grayscale-offwhite: #F5F5F5;
   --grayscale-white: #FFFFFF;
   --grayscale-black: #000000;
@@ -29,9 +29,23 @@ a {
   text-decoration: none;
 }
 
+.dropdown-item:active {
+  background-color: var(--quaternary-color);
+}
+
 /* ********************** */
 /* ****** BUTTONS ****** */
 /* ******************** */
+
+.btn {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn:hover {
+  background-color: var(--quaternary-color) !important; 
+  border-color:  var(--quaternary-color) !important;
+}
 
 .kembali-btn-container, .tambah-baru-btn-container {
   display: flex;
@@ -89,8 +103,7 @@ a {
 /* *********************** */
 
 .page-title {
-  margin-left: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 /* ********************************* */
@@ -139,7 +152,7 @@ a {
 
   .page-title,
   .breadcrumb-previous-link,
-  .laporan-profil-sahabat-details {
+  .report-profil-sahabat-details {
     margin-bottom: 1rem;
   }
 
@@ -147,7 +160,7 @@ a {
     font-size: 24pt; /* Adjust font size for print */
   }
 
-  .laporan-profil-sahabat-action-bts-container,
+  .report-profil-sahabat-action-bts-container,
   .kembali-btn-container {
     display: none; /* Hide buttons during print */
   }

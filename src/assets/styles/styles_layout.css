@@ -14,6 +14,16 @@
   overflow: hidden;
 }
 
+.display {
+  padding: 0 2rem;
+}
+
+@media (max-width: 767px) {
+  .display {
+    padding: 0 0.5rem;
+  }
+}
+
   
 /***************/
 /*** NAVBAR ***/
