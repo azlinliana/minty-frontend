@@ -94,7 +94,7 @@ function CreatePembiayaan() {
 
           <Modal.Footer>
             <Button
-              className="batal-btn"
+              className="cancel-btn"
               onClick={closeModalCreatePembiayaanSahabat}
             >
               Batal

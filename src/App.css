@@ -13,9 +13,9 @@
 /********* VARIABLES *******/
 /* *********************** */
 
-#root {
+:root {
   --primary-color: #235239;
-  --secondary-color: #2D664F;
+  --secondary-color: #4e5854;
   --tertiary-color: #102018;
   --quaternary-color: #75A589;
   --primary-details-color: #cbffe1;
@@ -23,6 +23,11 @@
   --grayscale-white: #FFFFFF;
   --grayscale-black: #000000;
   --grayscale-secondary-black: #2c2c2c;
+
+  --delete-btn: #9b3e36;
+  --delete-btn-hover: #C95B39;
+  --edit-btn: #5a7b8c;
+  --edit-btn-hover: #6A8EA0;
 }
 
 a {
@@ -43,27 +48,48 @@ a {
 }
 
 .btn:hover {
-  background-color: var(--quaternary-color) !important; 
-  border-color:  var(--quaternary-color) !important;
+  background-color: var(--quaternary-color); 
+  border-color:  var(--quaternary-color);
 }
 
-.kembali-btn-container, .tambah-baru-btn-container {
+.btn:focus {
+  background-color: var(--grayscale-offwhite) !important; 
+  border-color:  var(--grayscale-secondary-black) !important;
+  color: var(--grayscale-black) !important;
+}
+
+.return-btn-container, .create-btn-container {
   display: flex;
   justify-content: flex-end;
   margin: 10px 20px;
 }
 
-.kembali-btn {
-  border-color: var(--grayscale-var(--grayscale-white));
-  background-color: var(--grayscale-var(--grayscale-white));
+.return-btn {
+  border-color: var(--grayscale-secondary-black);
+  background-color:var(--grayscale-offwhite);
   color: var(--grayscale-black);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.batal-btn {
-  background-color: var(--lightgray);
+.return-btn:hover {
+  background-color: var(--grayscale-secondary-black);
+}
+
+.cancel-btn {
+  background-color: var(--grayscale-secondary-black);
+  border-color: var(--grayscale-secondary-black);
+  color: var(--grayscale-offwhite);
+}
+
+.cancel-btn:hover {
+  background-color: var(--grayscale-black);
   border-color: var(--grayscale-black);
-  color: var(--grayscale-black);
+  color: var(--grayscale-offwhite);
+}
+
+.cancel-btn:focus {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .download-btn-container {
@@ -77,19 +103,26 @@ a {
 .edit-btn {
   font-size: 0.75em;
   font-weight: 700;
-  border-color: var(--noticeyellow);
-  background-color: var(--noticeyellow);
+  background-color: var(--edit-btn);
+  border-color: var(--edit-btn);
   margin-bottom: 10px;
-  --bs-btn-hover-bg: #808080;
+}
+
+.edit-btn:hover {
+  background-color: var(--edit-btn-hover);
 }
 
 .delete-btn {
   font-size: 0.75em;
   font-weight: 700;
-  border-color: #FF0000;
-  background-color: #FF0000;
+  background-color: var(--delete-btn);
+  border-color: var(--delete-btn);
   margin-bottom: 10px;
-  --bs-btn-hover-bg: #000000;
+}
+
+.delete-btn:hover {
+  background-color: var(--delete-btn-hover);
+  border-color: var(--delete-btn-hover);
 }
 
 .show-btn {
@@ -130,8 +163,8 @@ a {
 }
 
 .btn-modal-danger {
-  background-color: #808080;
-  border-color: #808080;
+  background-color: var(--delete-btn);
+  border-color: var(--delete-btn);
 }
 
 /* ******************** */
@@ -161,7 +194,7 @@ a {
   }
 
   .report-profil-sahabat-action-bts-container,
-  .kembali-btn-container {
+  .return-btn-container {
     display: none; /* Hide buttons during print */
   }
 

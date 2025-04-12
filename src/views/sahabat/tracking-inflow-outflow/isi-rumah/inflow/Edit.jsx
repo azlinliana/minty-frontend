@@ -286,7 +286,7 @@ function EditTrackingInflowIsiRumah() {
 
           <Modal.Footer>
             <Button
-              className="batal-btn"
+              className="cancel-btn"
               onClick={closeModalEditInflowIsiRumah}
             >
               Batal

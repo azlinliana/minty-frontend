@@ -44,7 +44,7 @@ function SearchResultSahabat() {
         </div>
 
         <div className="hasil-carian-sahabat-content">
-          <div>
+          <div className="customer-details-container">
             <div className="hasil-carian-sahabat-title">
               <h2>Maklumat Sahabat</h2>
             </div>
@@ -174,8 +174,8 @@ function SearchResultSahabat() {
           />
         </div>
 
-        <div className="kembali-btn-container">
-          <Button className="kembali-btn" onClick={goBack}>
+        <div className="return-btn-container">
+          <Button className="return-btn" onClick={goBack}>
             Kembali
           </Button>{" "}
         </div>

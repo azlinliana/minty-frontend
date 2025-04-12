@@ -139,7 +139,7 @@ function CreateTrackingOutflowIsiRumah() {
 
             <Modal.Footer>
               <Button
-                className="batal-btn"
+                className="cancel-btn"
                 onClick={closeModalCreateTrackingOutflowIsiRumah}
               >
                 Batal

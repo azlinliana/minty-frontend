@@ -110,7 +110,7 @@ function CreateMinggu() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalCreateMingguPembiayaanSahabat}>
+            <Button className="cancel-btn" onClick={closeModalCreateMingguPembiayaanSahabat}>
               Batal
             </Button>
 

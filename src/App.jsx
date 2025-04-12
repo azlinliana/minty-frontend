@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import MainLayout from "./views/layouts/MainLayout";
 
@@ -47,14 +47,14 @@ function App() {
 
             {/* Customer */}
             <Route path="customer" element={<IndexCustomer />} />
-            {/* <Route
+            <Route
               path="hasil-carian-sahabat"
               element={<SearchResultSahabat />}
             />
             <Route
               path="tracking-inflow-outflow"
               element={<TrackingInflowOutflow />}
-            /> */}
+            />
 
             {/* Report */}
             <Route path="report" element={<IndexReport />} />

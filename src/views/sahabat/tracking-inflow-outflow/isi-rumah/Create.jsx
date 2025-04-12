@@ -140,7 +140,7 @@ function CreateTrackingIsiRumah() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalCreateIsiRumah}>
+              <Button className="cancel-btn" onClick={closeModalCreateIsiRumah}>
                 Batal
               </Button>
 

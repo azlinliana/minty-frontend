@@ -188,7 +188,7 @@ function EditTrackingIsiRumah() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalEditIsiRumah}>
+              <Button className="cancel-btn" onClick={closeModalEditIsiRumah}>
                 Batal
               </Button>
 

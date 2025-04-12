@@ -91,7 +91,7 @@ function IndexPembiayaan() {
         (pembiayaanSahabats.length > 0 &&
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
             "SELESAI") ? ( */}
-          <div className="tambah-baru-btn-container">
+          <div className="create-btn-container">
             {/* Create pembiayaan */}
             <CreatePembiayaan
               // sahabatId={sahabatId}

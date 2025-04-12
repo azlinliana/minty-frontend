@@ -312,7 +312,7 @@ function CreateAktiviti() {
 
           <Modal.Footer>
             <Button
-              className="batal-btn"
+              className="cancel-btn"
               onClick={closeModalCreateAktivitiSahabat}
             >
               Batal

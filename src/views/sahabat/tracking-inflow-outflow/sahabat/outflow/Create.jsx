@@ -135,7 +135,7 @@ function CreateTrackingOutflowSahabat() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button className="batal-btn" onClick={closeModalCreateTrackingOutflowSahabat}>
+              <Button className="cancel-btn" onClick={closeModalCreateTrackingOutflowSahabat}>
                 Batal
               </Button>
 

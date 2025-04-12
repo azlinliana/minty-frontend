@@ -89,10 +89,10 @@
 //         orientation="vertical"
 //         sx={{
 //           ".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
-//             color: "#13315C",
+//             color: "#235239",
 //           },
 //           "& .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {
-//             color: "#13315C",
+//             color: "#235239",
 //           },
 //           paddingLeft: 0,
 //           paddingRight: 0,
@@ -166,7 +166,7 @@
 //                       variant="contained"
 //                       onClick={handleNext}
 //                       // disabled={index === 0 && !aktivitiDataAvailable} // Disable the button if aktivitiData is not available
-//                       sx={{ mt: 1, mr: 1, backgroundColor: "#13315C" }}
+//                       sx={{ mt: 1, mr: 1, backgroundColor: "#235239" }}
 //                     >
 //                       {/* {index === steps.length - 1 ? "Tamat" : "Seterusnya"} */}
 //                     </Button>
@@ -174,7 +174,7 @@
 //                     <Button
 //                       // disabled={index === 0}
 //                       onClick={handleBack}
-//                       sx={{ mt: 1, mr: 1, color: "#aba7a7" }}
+//                       sx={{ mt: 1, mr: 1, color: "#2c2c2c" }}
 //                     >
 //                       Kembali
 //                     </Button>
@@ -218,11 +218,12 @@ import {
 import IndexAktiviti from "./aktiviti/Index";
 import IndexTrackingIsiRumah from "./isi-rumah/Index";
 import IndexTrackingSahabat from "./sahabat/Index";
+import { getHoverColor } from "chart.js/helpers";
 
 const steps = [
-  { label: "Langkah 1", content: <IndexAktiviti /> },
-  { label: "Langkah 2", content: <IndexTrackingSahabat /> },
-  { label: "Langkah 3", content: <IndexTrackingIsiRumah /> },
+  { label: "Step 1", content: <IndexAktiviti /> },
+  { label: "Step 2", content: <IndexTrackingSahabat /> },
+  { label: "Step 3", content: <IndexTrackingIsiRumah /> },
 ];
 
 const VerticalStepper = () => {
@@ -252,17 +253,18 @@ const VerticalStepper = () => {
                 <Button
                   variant="contained"
                   onClick={handleNext}
-                  sx={{ mr: 1, backgroundColor: "#13315C" }}
+                  sx={{ mr: 1, backgroundColor: "#75A589" }}
                   disabled={activeStep === steps.length - 1} // Disable if last step
                 >
-                  {activeStep === steps.length - 1 ? "Tamat" : "Seterusnya"}
+                  {activeStep === steps.length - 1 ? "Done" : "Next"}
                 </Button>
                 <Button
                   onClick={handleBack}
-                  sx={{ color: "#aba7a7" }}
+                  sx={{ color: "#2c2c2c", "&:hover": {
+                    backgroundColor: "#F5F5F5" }}}
                   disabled={activeStep === 0} // Disable if first step
                 >
-                  Kembali
+                  Back
                 </Button>
               </Box>
             </StepContent>

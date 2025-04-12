@@ -313,7 +313,7 @@ function EditTrackingInflowSahabat() {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button className="batal-btn" onClick={closeModalEditInflowSahabat}>
+            <Button className="cancel-btn" onClick={closeModalEditInflowSahabat}>
               Batal
             </Button>
 

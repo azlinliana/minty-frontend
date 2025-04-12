@@ -62,7 +62,7 @@ function IndexAktiviti() {
 
         <div className="sahabat-pembiayaan-table-container">
           {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-            <div className="tambah-baru-btn-container">
+            <div className="create-btn-container">
               <CreateAktiviti
                 // sahabatId={sahabatId}
                 // pembiayaanId={pembiayaanId}

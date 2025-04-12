@@ -28,7 +28,7 @@ function IndexTrackingInflowIsiRumah() {
     <>
       <div className="sahabat-pembiayaan-table-container">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-          <div className="tambah-baru-btn-container">
+          <div className="create-btn-container">
             <CreateTrackingInflowIsiRumah
               // isiRumahId={isiRumahId}
               // kodInflowOptions={kodInflowOptions}

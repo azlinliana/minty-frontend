@@ -186,7 +186,7 @@ function EditPembiayaan({}) {
 
             <Modal.Footer>
               <Button
-                className="batal-btn"
+                className="cancel-btn"
                 onClick={closeModalEditPembiayaanSahabat}
               >
                 Batal

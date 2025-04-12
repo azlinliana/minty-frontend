@@ -234,7 +234,7 @@ function CreateTrackingInflowSahabat() {
 
             <Modal.Footer>
               <Button
-                className="batal-btn"
+                className="cancel-btn"
                 onClick={closeModalCreateTrackingInflowSahabat}
               >
                 Batal

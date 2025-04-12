@@ -185,7 +185,7 @@ function EditTrackingOutflowSahabat() {
 
             <Modal.Footer>
               <Button
-                className="batal-btn"
+                className="cancel-btn"
                 onClick={closeModalEditOutflowSahabat}
               >
                 Batal
