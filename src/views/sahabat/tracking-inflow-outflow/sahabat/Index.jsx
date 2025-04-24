@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import IndexTrackingInflowSahabat from "../sahabat/inflow/Index";
 import IndexTrackingOutflowSahabat from "../sahabat/outflow/Index";
 import { Tab, Tabs } from "react-bootstrap";
-import "../../../../assets/styles/styles_sahabat.css";
+import "../../../../assets/styles/styles_customers.css";
 
-function IndexTrackingSahabat({ 
-  mingguId, 
+function IndexTrackingSahabat({
+  mingguId,
   pembiayaanSahabatsData,
   kodInflowOptions,
   displayKodInflows,
@@ -30,7 +30,7 @@ function IndexTrackingSahabat({
   //   displayKodOutflows();
   // }, [displayKodInflows, displayKodOutflows]);
   // ==============================================================================
-  
+
   return (
     <div>
       <h2>{activeTab.title} Customer Tracking Information</h2>

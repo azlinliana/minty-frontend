@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import axiosCustom from "../../../axios";
@@ -27,7 +27,6 @@ function SearchSahabat() {
     //     `sahabat/search`,
     //     noKadPengenalanSahabatInput
     //   );
-
     //   if (response.status === 200) {
     //     navigate("/hasil-carian-sahabat", {
     //       state: { resultSahabat: response.data },
@@ -59,8 +58,7 @@ function SearchSahabat() {
                     required: "Customer ID is required.",
                     pattern: {
                       value: /^\d{12}$/,
-                      message:
-                        "Customer ID requires 12 digits.",
+                      message: "Customer ID requires 12 digits.",
                     },
                   })}
                   aria-invalid={

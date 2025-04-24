@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 import CreatePembiayaan from "./Create";
 import EditPembiayaan from "./Edit";
 import IndexMinggu from "../minggu/Index";
@@ -10,7 +10,6 @@ import { usePembiayaanStore } from "../../../store/sahabat/pembiayaan-store";
 
 // function IndexPembiayaan({ sahabatData, sahabatId }) {
 function IndexPembiayaan() {
-
   // __________________________________ Frontend __________________________________
   // Collapsible pembiayaan card
   const [isCardCollapsed, setIsCardCollapsed] = useState({});
@@ -91,35 +90,34 @@ function IndexPembiayaan() {
         (pembiayaanSahabats.length > 0 &&
           pembiayaanSahabats[pembiayaanSahabats.length - 1].statusPembiayaan ===
             "SELESAI") ? ( */}
-          <div className="create-btn-container">
-            {/* Create pembiayaan */}
-            <CreatePembiayaan
-              // sahabatId={sahabatId}
-              // skimPembiayaanOptions={skimPembiayaanOptions}
-            />
-          </div>
+        <div className="create-btn-container">
+          {/* Create pembiayaan */}
+          <CreatePembiayaan
+          // sahabatId={sahabatId}
+          // skimPembiayaanOptions={skimPembiayaanOptions}
+          />
+        </div>
         {/* ) : null} */}
 
         {/* Display pembiayaan sahabat list */}
         {/* {pembiayaanSahabats.length === 0 ? ( */}
-          <Alert variant="secondary">
-            There's no information on this customer payment. Click "Add Customer Type of Payment" button to record the payment.
-          </Alert>
+        <Alert variant="secondary">
+          There's no information on this customer payment. Click "Add Customer
+          Type of Payment" button to record the payment.
+        </Alert>
         {/* ) : ( */}
-          {/* pembiayaanSahabats.map((pembiayaanSahabatsData, key) => ( */}
-            <div
-              className="card-pembiayaan-sahabat-container"
-              // key={pembiayaanSahabatsData.id}
-            >
-              {/* <Card key={key}> */}
-              <Card>
-                <Card.Header as="h5" className="card-pembiayaan-sahabat-header">
-                  <div className="card-pembiayaan-sahabat-content">
-                    <div className="card-type-payment-header">
-                      Type of Payment
-                    </div>
+        {/* pembiayaanSahabats.map((pembiayaanSahabatsData, key) => ( */}
+        <div
+          className="card-pembiayaan-sahabat-container"
+          // key={pembiayaanSahabatsData.id}
+        >
+          {/* <Card key={key}> */}
+          <Card>
+            <Card.Header as="h5" className="card-pembiayaan-sahabat-header">
+              <div className="card-pembiayaan-sahabat-content">
+                <div className="card-type-payment-header">Type of Payment</div>
 
-                    {/* <Badge
+                {/* <Badge
                       pill
                       bg={
                         pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
@@ -132,84 +130,84 @@ function IndexPembiayaan() {
                     >
                       Status Pembiayaan
                     </Badge> */}
-                  </div>
+              </div>
 
-                  <div>
-                    <DropdownButton
-                      align="end"
-                      title="Status"
-                      id="dropdown-menu-align-end"
-                    >
-                      <Dropdown.Item eventKey="1">
-                        {/* Edit pembiayaan */}
-                        <EditPembiayaan
-                          // sahabatId={sahabatId}
-                          // pembiayaanId={pembiayaanSahabatsData.id}
-                          // pembiayaanSahabat={pembiayaanSahabatsData}
-                          // skimPembiayaanOptions={skimPembiayaanOptions}
-                          // checkIndexMingguConditionEachPembiayaan={
-                          //   checkIndexMingguConditionEachPembiayaan
-                          // }
-                        />
-                      </Dropdown.Item>
+              <div>
+                <DropdownButton
+                  align="end"
+                  title="Status"
+                  id="dropdown-menu-align-end"
+                >
+                  <Dropdown.Item eventKey="1">
+                    {/* Edit pembiayaan */}
+                    <EditPembiayaan
+                    // sahabatId={sahabatId}
+                    // pembiayaanId={pembiayaanSahabatsData.id}
+                    // pembiayaanSahabat={pembiayaanSahabatsData}
+                    // skimPembiayaanOptions={skimPembiayaanOptions}
+                    // checkIndexMingguConditionEachPembiayaan={
+                    //   checkIndexMingguConditionEachPembiayaan
+                    // }
+                    />
+                  </Dropdown.Item>
 
-                      {/* Delete pembiayaan */}
-                      <Dropdown.Item
-                        eventKey="2"
-                        // onClick={() =>
-                        //   deletePembiayaanSahabat(pembiayaanSahabatsData.id)
-                        // }
-                      >
-                        Delete
-                      </Dropdown.Item>
-                    </DropdownButton>
+                  {/* Delete pembiayaan */}
+                  <Dropdown.Item
+                    eventKey="2"
+                    // onClick={() =>
+                    //   deletePembiayaanSahabat(pembiayaanSahabatsData.id)
+                    // }
+                  >
+                    Delete
+                  </Dropdown.Item>
+                </DropdownButton>
 
-                    <div
-                      // onClick={() =>
-                      //   toggleCardCollapse(pembiayaanSahabatsData.id)
-                      // }
-                      className="card-type-payment-arrow-position"
-                    >
-                      {/* {isCardCollapsed[pembiayaanSahabatsData.id] ? ( */}
-                        <span>
-                          <TfiArrowCircleDown size={40} />
-                        </span>
-                      {/* ) : ( */}
-                        <span>
-                          <TfiArrowCircleUp size={40} />
-                        </span>
-                      {/* )} */}
-                    </div>
-                  </div>
-                </Card.Header>
+                <div
+                  // onClick={() =>
+                  //   toggleCardCollapse(pembiayaanSahabatsData.id)
+                  // }
+                  className="card-type-payment-arrow-position"
+                >
+                  {/* {isCardCollapsed[pembiayaanSahabatsData.id] ? ( */}
+                  <span>
+                    <TfiArrowCircleDown size={40} />
+                  </span>
+                  {/* ) : ( */}
+                  <span>
+                    <TfiArrowCircleUp size={40} />
+                  </span>
+                  {/* )} */}
+                </div>
+              </div>
+            </Card.Header>
 
-                {/* {isCardCollapsed[pembiayaanSahabatsData.id] ? null : (
+            {/* {isCardCollapsed[pembiayaanSahabatsData.id] ? null : (
                   <> */}
-                    <Card.Body
-                      // className={`${
-                      //   pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
-                      //     ? "sc-type-payment-completed-indicator sc-completion-indicator"
-                      //     : ""
-                      // }`}
-                    >
-                      <Card.Title>List of Inflow/Outflow Tracking</Card.Title>
+            <Card.Body
+            // className={`${
+            //   pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
+            //     ? "sc-type-payment-completed-indicator sc-completion-indicator"
+            //     : ""
+            // }`}
+            >
+              <Card.Title>List of Inflow/Outflow Tracking</Card.Title>
 
-                      {/* List minggu */}
-                      <IndexMinggu
-                        // sahabatData={sahabatData}
-                        // sahabatId={sahabatId}
-                        // pembiayaanId={pembiayaanSahabatsData.id}
-                        // pembiayaanSahabatsData={pembiayaanSahabatsData}
-                        // handleCheckIndexMingguConditionEachPembiayaan={
-                        //   handleCheckIndexMingguConditionEachPembiayaan
-                        // }
-                      />
-                    </Card.Body>
-                  {/* </>
+              {/* List minggu */}
+              <IndexMinggu
+              // sahabatData={sahabatData}
+              // sahabatId={sahabatId}
+              // pembiayaanId={pembiayaanSahabatsData.id}
+              // pembiayaanSahabatsData={pembiayaanSahabatsData}
+              // handleCheckIndexMingguConditionEachPembiayaan={
+              //   handleCheckIndexMingguConditionEachPembiayaan
+              // }
+              />
+            </Card.Body>
+            {/* </>
                 )} */}
-              </Card>
-            </div>
-          {/* ))
+          </Card>
+        </div>
+        {/* ))
         )} */}
       </div>
     </>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 
 // function MaklumatSahabat({ sahabatData }) {
 function MaklumatSahabat() {
@@ -15,11 +15,7 @@ function MaklumatSahabat() {
               <Col xs={12}>
                 <Form.Group>
                   <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value="Customer Name"
-                    disabled
-                  />
+                  <Form.Control type="text" value="Customer Name" disabled />
                 </Form.Group>
               </Col>
             </Row>
@@ -28,21 +24,13 @@ function MaklumatSahabat() {
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>Customer ID</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value="Customer ID"
-                    disabled
-                  />
+                  <Form.Control type="text" value="Customer ID" disabled />
                 </Form.Group>
               </Col>
               <Col xs={6}>
                 <Form.Group>
                   <Form.Label>Customer Num.</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value="Customer Num."
-                    disabled
-                  />
+                  <Form.Control type="text" value="Customer Num." disabled />
                 </Form.Group>
               </Col>
             </Row>

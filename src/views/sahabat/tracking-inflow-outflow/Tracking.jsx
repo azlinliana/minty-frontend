@@ -4,7 +4,7 @@ import MaklumatSahabat from "./MaklumatSahabat.jsx";
 import MaklumatMinggu from "./MaklumatMinggu.jsx";
 import BorangTrackingMingguanSahabat from "./BorangTrackingMingguanSahabat.jsx";
 import { Button, Breadcrumb } from "react-bootstrap";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 
 function TrackingInflowOutflow() {
   // __________________________________ Frontend __________________________________
@@ -28,9 +28,9 @@ function TrackingInflowOutflow() {
     <div>
       <div className="page-title">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-          <h1>Edit Customer Tracking</h1>
+        <h1>Edit Customer Tracking</h1>
         {/* ) : ( */}
-          <h1>View Customer Tracking</h1>
+        <h1>View Customer Tracking</h1>
         {/* )} */}
 
         <Breadcrumb>
@@ -42,11 +42,9 @@ function TrackingInflowOutflow() {
             Customer Search Result
           </Breadcrumb.Item>
           {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-            <Breadcrumb.Item active>
-              Edit Customer Tracking
-            </Breadcrumb.Item>
+          <Breadcrumb.Item active>Edit Customer Tracking</Breadcrumb.Item>
           {/* ) : ( */}
-            <Breadcrumb.Item active>View Customer Tracking</Breadcrumb.Item>
+          <Breadcrumb.Item active>View Customer Tracking</Breadcrumb.Item>
           {/* )} */}
         </Breadcrumb>
       </div>
@@ -55,17 +53,17 @@ function TrackingInflowOutflow() {
       <MaklumatSahabat />
 
       <MaklumatMinggu
-        // sahabatId={sahabatId}
-        // pembiayaanId={pembiayaanId}
-        // mingguId={mingguId}
-        // pembiayaanSahabatsData={pembiayaanSahabatsData}
+      // sahabatId={sahabatId}
+      // pembiayaanId={pembiayaanId}
+      // mingguId={mingguId}
+      // pembiayaanSahabatsData={pembiayaanSahabatsData}
       />
 
       <BorangTrackingMingguanSahabat
-        // sahabatId={sahabatId}
-        // pembiayaanId={pembiayaanId}
-        // mingguId={mingguId}
-        // pembiayaanSahabatsData={pembiayaanSahabatsData}
+      // sahabatId={sahabatId}
+      // pembiayaanId={pembiayaanId}
+      // mingguId={mingguId}
+      // pembiayaanSahabatsData={pembiayaanSahabatsData}
       />
 
       <div className="return-btn-container">

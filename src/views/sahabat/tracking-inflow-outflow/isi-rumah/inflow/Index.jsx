@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../../../../assets/styles/styles_sahabat.css";
+import "../../../../../assets/styles/styles_customers.css";
 import CreateTrackingInflowIsiRumah from "./Create";
 import EditTrackingInflowIsiRumah from "./Edit";
 import { Button, Table } from "react-bootstrap";
@@ -28,12 +28,12 @@ function IndexTrackingInflowIsiRumah() {
     <>
       <div className="sahabat-pembiayaan-table-container">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-          <div className="create-btn-container">
-            <CreateTrackingInflowIsiRumah
-              // isiRumahId={isiRumahId}
-              // kodInflowOptions={kodInflowOptions}
-            />
-          </div>
+        <div className="create-btn-container">
+          <CreateTrackingInflowIsiRumah
+          // isiRumahId={isiRumahId}
+          // kodInflowOptions={kodInflowOptions}
+          />
+        </div>
         {/* ) : null} */}
 
         <Table bordered responsive>
@@ -47,91 +47,91 @@ function IndexTrackingInflowIsiRumah() {
               <th>Maklumat Terperinci</th>
               <th>Amaun (RM)</th>
               {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-                <th>Tindakan</th>
+              <th>Tindakan</th>
               {/* ) : null} */}
             </tr>
           </thead>
 
           <tbody>
             {/* {inflowIsiRumahs.length === 0 ? ( */}
+            <tr>
+              <td colSpan="8">
+                <center>
+                  Tiada maklumat tracking inflow isi rumah sahabat. Sila klik
+                  butang "Tambah" untuk merekodkan inflow isi rumah sahabat
+                  baharu.
+                </center>
+              </td>
+            </tr>
+            {/* ) : ( */}
+            {/* inflowIsiRumahs.map((inflowIsiRumahsData, index) => ( */}
+            {/* <React.Fragment key={index}> */}
+            <React.Fragment>
+              {/* {inflowIsiRumahsData.kodInflowTerperinci.length === 0 ? ( */}
+              {/* Render row for inflow isi rumah without kod inflow terperinci */}
               <tr>
-                <td colSpan="8">
-                  <center>
-                    Tiada maklumat tracking inflow isi rumah sahabat. Sila klik
-                    butang "Tambah" untuk merekodkan inflow isi rumah sahabat
-                    baharu.
-                  </center>
+                <td>Bil.</td>
+                <td>Kod Inflow</td>
+                <td>Keterangan Kod Inflow</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Amaun Inflow</td>
+                {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
+                <td>
+                  <EditTrackingInflowIsiRumah
+                  // isiRumahId={isiRumahId}
+                  // inflowIsiRumahId={inflowIsiRumahsData.id}
+                  // inflowIsiRumah={inflowIsiRumahsData}
+                  // kodInflowOptions={kodInflowOptions}
+                  />
+                  <Button
+                    className="delete-btn"
+                    // onClick={() =>
+                    //   deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
+                    // }
+                  >
+                    Padam
+                  </Button>{" "}
+                </td>
+                {/* ) : null} */}
+              </tr>
+              {/* ) : ( */}
+              {/* Render row for inflow sahabat with kod inflow terperinci */}
+              <tr>
+                <td
+                // rowSpan={
+                //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
+                // }
+                >
+                  {/* {index + 1} */}
+                </td>
+                <td
+                // rowSpan={
+                //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
+                // }
+                >
+                  Kod Inflow
+                </td>
+                <td
+                // rowSpan={
+                //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
+                // }
+                >
+                  Keterangan Kod Inflow
                 </td>
               </tr>
-            {/* ) : ( */}
-              {/* inflowIsiRumahs.map((inflowIsiRumahsData, index) => ( */}
-                {/* <React.Fragment key={index}> */}
-                <React.Fragment>
-                  {/* {inflowIsiRumahsData.kodInflowTerperinci.length === 0 ? ( */}
-                    {/* Render row for inflow isi rumah without kod inflow terperinci */}
-                    <tr>
-                      <td>Bil.</td>
-                      <td>Kod Inflow</td>
-                      <td>Keterangan Kod Inflow</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>Amaun Inflow</td>
-                      {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-                        <td>
-                          <EditTrackingInflowIsiRumah
-                            // isiRumahId={isiRumahId}
-                            // inflowIsiRumahId={inflowIsiRumahsData.id}
-                            // inflowIsiRumah={inflowIsiRumahsData}
-                            // kodInflowOptions={kodInflowOptions}
-                          />
-                          <Button
-                            className="delete-btn"
-                            // onClick={() =>
-                            //   deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
-                            // }
-                          >
-                            Padam
-                          </Button>{" "}
-                        </td>
-                      {/* ) : null} */}
-                    </tr>
-                  {/* ) : ( */}
-                    {/* Render row for inflow sahabat with kod inflow terperinci */}
-                    <tr>
-                      <td
-                        // rowSpan={
-                        //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
-                        // }
-                      >
-                        {/* {index + 1} */}
-                      </td>
-                      <td
-                        // rowSpan={
-                        //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
-                        // }
-                      >
-                        Kod Inflow
-                      </td>
-                      <td
-                        // rowSpan={
-                        //   inflowIsiRumahsData.kodInflowTerperinci.length + 1
-                        // }
-                      >
-                        Keterangan Kod Inflow
-                      </td>
-                    </tr>
-                  {/* )} */}
-                  {/* Displaying Kod Inflow Terperinci */}
-                  {/* {inflowIsiRumahsData.kodInflowTerperinci.map( */}
-                    {/* (kodInflowTerperincisData, subIndex) => ( */}
-                      {/* Render rows for kod inflow terperinci */}
-                      {/* <tr key={subIndex}> */}
-                      <tr>
-                        <td>Kod Inflow Terperinci</td>
-                        <td>Keterangan Kod Inflow Terperinci</td>
-                        <td>
-                          {/* {inflowIsiRumahsData.inflowIsiRumahTerperinci &&
+              {/* )} */}
+              {/* Displaying Kod Inflow Terperinci */}
+              {/* {inflowIsiRumahsData.kodInflowTerperinci.map( */}
+              {/* (kodInflowTerperincisData, subIndex) => ( */}
+              {/* Render rows for kod inflow terperinci */}
+              {/* <tr key={subIndex}> */}
+              <tr>
+                <td>Kod Inflow Terperinci</td>
+                <td>Keterangan Kod Inflow Terperinci</td>
+                <td>
+                  {/* {inflowIsiRumahsData.inflowIsiRumahTerperinci &&
                             inflowIsiRumahsData.inflowIsiRumahTerperinci
                               .length > 0 &&
                             inflowIsiRumahsData.inflowIsiRumahTerperinci
@@ -145,54 +145,52 @@ function IndexTrackingInflowIsiRumah() {
                                 return String(kodId) === String(terperinciId);
                               })
                               .map((inflowTerperinciData, innerIndex) => ( */}
-                                {/* <React.Fragment key={innerIndex}> */}
-                                <React.Fragment>
-                                  Keterangan Inflow Terperinci
-                                </React.Fragment>
-                              {/* ))} */}
-                        </td>
+                  {/* <React.Fragment key={innerIndex}> */}
+                  <React.Fragment>Keterangan Inflow Terperinci</React.Fragment>
+                  {/* ))} */}
+                </td>
 
-                        {/* Displaying Amaun and Tindakan for the first row only */}
-                        {/* {subIndex === 0 && ( */}
-                          <React.Fragment>
-                            <td
-                              // rowSpan={
-                              //   inflowIsiRumahsData.kodInflowTerperinci.length
-                              // }
-                            >
-                              Amaun Inflow
-                            </td>
+                {/* Displaying Amaun and Tindakan for the first row only */}
+                {/* {subIndex === 0 && ( */}
+                <React.Fragment>
+                  <td
+                  // rowSpan={
+                  //   inflowIsiRumahsData.kodInflowTerperinci.length
+                  // }
+                  >
+                    Amaun Inflow
+                  </td>
 
-                            {/* {pembiayaanSahabatsData.statusPembiayaan !==
+                  {/* {pembiayaanSahabatsData.statusPembiayaan !==
                             "SELESAI" ? ( */}
-                              <td
-                                // rowSpan={
-                                //   inflowIsiRumahsData.kodInflowTerperinci.length
-                                // }
-                              >
-                                <EditTrackingInflowIsiRumah
-                                  // isiRumahId={isiRumahId}
-                                  // inflowIsiRumahId={inflowIsiRumahsData.id}
-                                  // inflowIsiRumah={inflowIsiRumahsData}
-                                  // kodInflowOptions={kodInflowOptions}
-                                />
-                                <Button
-                                  className="delete-btn"
-                                  // onClick={() =>
-                                  //   deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
-                                  // }
-                                >
-                                  Padam
-                                </Button>{" "}
-                              </td>
-                            {/* ) : null} */}
-                          </React.Fragment>
-                        {/* )} */}
-                      </tr>
-                    {/* )
-                  )} */}
+                  <td
+                  // rowSpan={
+                  //   inflowIsiRumahsData.kodInflowTerperinci.length
+                  // }
+                  >
+                    <EditTrackingInflowIsiRumah
+                    // isiRumahId={isiRumahId}
+                    // inflowIsiRumahId={inflowIsiRumahsData.id}
+                    // inflowIsiRumah={inflowIsiRumahsData}
+                    // kodInflowOptions={kodInflowOptions}
+                    />
+                    <Button
+                      className="delete-btn"
+                      // onClick={() =>
+                      //   deleteInflowIsiRumah(isiRumahId, inflowIsiRumahsData.id)
+                      // }
+                    >
+                      Padam
+                    </Button>{" "}
+                  </td>
+                  {/* ) : null} */}
                 </React.Fragment>
-              {/* ))
+                {/* )} */}
+              </tr>
+              {/* )
+                  )} */}
+            </React.Fragment>
+            {/* ))
             )} */}
           </tbody>
         </Table>

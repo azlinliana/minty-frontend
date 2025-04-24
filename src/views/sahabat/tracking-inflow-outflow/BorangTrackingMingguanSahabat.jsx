@@ -1,6 +1,6 @@
 import React from "react";
 import Stepper from "./Stepper.jsx";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 import { useProjekAktivitiStore } from "../../../store/options-store.js";
 import { useSelenggaraStore } from "../../../store/options-store.js";
 

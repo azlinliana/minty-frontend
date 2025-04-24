@@ -13,7 +13,7 @@
 // import IndexAktiviti from "./aktiviti/Index";
 // import IndexTrackingIsiRumah from "./isi-rumah/Index";
 // import IndexTrackingSahabat from "./sahabat/Index";
-// import "../../../assets/styles/styles_sahabat.css";
+// import "../../../assets/styles/styles_customers.css";
 
 // const steps = [
 //   { label: "Langkah 1" },
@@ -260,8 +260,12 @@ const VerticalStepper = () => {
                 </Button>
                 <Button
                   onClick={handleBack}
-                  sx={{ color: "#2c2c2c", "&:hover": {
-                    backgroundColor: "#F5F5F5" }}}
+                  sx={{
+                    color: "#2c2c2c",
+                    "&:hover": {
+                      backgroundColor: "#F5F5F5",
+                    },
+                  }}
                   disabled={activeStep === 0} // Disable if first step
                 >
                   Back

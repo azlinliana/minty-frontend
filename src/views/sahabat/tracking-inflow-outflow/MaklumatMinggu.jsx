@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 import EditMinggu from "../minggu/Edit";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import { useMingguStore } from "../../../store/sahabat/minggu-store";
@@ -29,56 +29,56 @@ function MaklumatMinggu() {
 
       {/* {currentMingguPembiayaanSahabat && (
         <> */}
-          {/* Hide edit minggu button */}
-          {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-            <div className="card-edit-week-btn">
-              <EditMinggu
-                // sahabatId={sahabatId}
-                // pembiayaanId={pembiayaanId}
-                // mingguId={mingguId}
-                // currentMingguPembiayaanSahabat={currentMingguPembiayaanSahabat}
-              />
-            </div>
-          {/* ) : null} */}
+      {/* Hide edit minggu button */}
+      {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
+      <div className="card-edit-week-btn">
+        <EditMinggu
+        // sahabatId={sahabatId}
+        // pembiayaanId={pembiayaanId}
+        // mingguId={mingguId}
+        // currentMingguPembiayaanSahabat={currentMingguPembiayaanSahabat}
+        />
+      </div>
+      {/* ) : null} */}
 
-          <Card>
-            <Card.Body>
-              <Container fluid>
-                <Row>
-                  {/* Num. of Week */}
-                  <Col xs={6}>
-                    <Form.Group controlId="bilanganMinggu">
-                      <Form.Label className="card-track-week-simple">
-                      Num. of Week
-                      </Form.Label>
+      <Card>
+        <Card.Body>
+          <Container fluid>
+            <Row>
+              {/* Num. of Week */}
+              <Col xs={6}>
+                <Form.Group controlId="bilanganMinggu">
+                  <Form.Label className="card-track-week-simple">
+                    Num. of Week
+                  </Form.Label>
 
-                      <Form.Control
-                        type="number"
-                        defaultValue="Num. of Week"
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
+                  <Form.Control
+                    type="number"
+                    defaultValue="Num. of Week"
+                    disabled
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Tarikh borang minggu */}
-                  <Col xs={6}>
-                    <Form.Group controlId="tarikhBorangMinggu">
-                      <Form.Label className="card-track-week-simple">
-                        Date on Week Tracking Form
-                      </Form.Label>
+              {/* Tarikh borang minggu */}
+              <Col xs={6}>
+                <Form.Group controlId="tarikhBorangMinggu">
+                  <Form.Label className="card-track-week-simple">
+                    Date on Week Tracking Form
+                  </Form.Label>
 
-                      <Form.Control
-                        type="date"
-                        defaultValue="Date on Week Tracking Form"
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
-            </Card.Body>
-          </Card>
-        {/* </>
+                  <Form.Control
+                    type="date"
+                    defaultValue="Date on Week Tracking Form"
+                    disabled
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+        </Card.Body>
+      </Card>
+      {/* </>
       )} */}
     </div>
   );

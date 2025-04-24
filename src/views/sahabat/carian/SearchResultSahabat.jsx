@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../../assets/styles/styles_sahabat.css";
+import "../../../assets/styles/styles_customers.css";
 import IndexPembiayaan from "../pembiayaan/Index";
 import { Breadcrumb, Container, Row, Col, Form, Button } from "react-bootstrap";
 
@@ -56,11 +56,7 @@ function SearchResultSahabat() {
                   <Form.Group>
                     <Form.Label>Name</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Customer Name"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Customer Name" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -71,11 +67,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Customer ID</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Customer ID"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Customer ID" disabled />
                   </Form.Group>
                 </Col>
 
@@ -83,11 +75,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Customer Num.</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Customer Num."
-                      disabled
-                    />
+                    <Form.Control type="text" value="Customer Num." disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -98,11 +86,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>State</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="State"
-                      disabled
-                    />
+                    <Form.Control type="text" value="State" disabled />
                   </Form.Group>
                 </Col>
 
@@ -110,11 +94,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Branch</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Branch"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Branch" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -125,11 +105,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Block</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Block"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Block" disabled />
                   </Form.Group>
                 </Col>
 
@@ -137,11 +113,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Center</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Center"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Center" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -152,11 +124,7 @@ function SearchResultSahabat() {
                   <Form.Group className="customer-search-spacing">
                     <Form.Label>Group</Form.Label>
 
-                    <Form.Control
-                      type="text"
-                      value="Group"
-                      disabled
-                    />
+                    <Form.Control type="text" value="Group" disabled />
                   </Form.Group>
                 </Col>
               </Row>
@@ -169,8 +137,8 @@ function SearchResultSahabat() {
 
           {/* List pembiayaan */}
           <IndexPembiayaan
-            // sahabatData={sahabatData}
-            // sahabatId={sahabatId}
+          // sahabatData={sahabatData}
+          // sahabatId={sahabatId}
           />
         </div>
 
