@@ -28,25 +28,25 @@ function TrackingInflowOutflow() {
     <div>
       <div className="page-title">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-          <h1>Kemas Kini Tracking Sahabat</h1>
+          <h1>Edit Customer Tracking</h1>
         {/* ) : ( */}
-          <h1>Lihat Tracking Sahabat</h1>
+          <h1>View Customer Tracking</h1>
         {/* )} */}
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Carian Sahabat
+            Customer Search
           </Breadcrumb.Item>
 
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
-            Hasil Carian Sahabat
+            Customer Search Result
           </Breadcrumb.Item>
           {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
             <Breadcrumb.Item active>
-              Kemas Kini Tracking Sahabat
+              Edit Customer Tracking
             </Breadcrumb.Item>
           {/* ) : ( */}
-            <Breadcrumb.Item active>Lihat Tracking Sahabat</Breadcrumb.Item>
+            <Breadcrumb.Item active>View Customer Tracking</Breadcrumb.Item>
           {/* )} */}
         </Breadcrumb>
       </div>
@@ -70,7 +70,7 @@ function TrackingInflowOutflow() {
 
       <div className="return-btn-container">
         <Button className="return-btn" onClick={goBack}>
-          Kembali
+          Back
         </Button>{" "}
       </div>
     </div>

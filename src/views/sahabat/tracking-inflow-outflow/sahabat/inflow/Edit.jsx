@@ -190,14 +190,14 @@ function EditTrackingInflowSahabat() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Inflow Sahabat</Modal.Title>
+          <Modal.Title>Edit Customer Inflow</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
             {/* Kod inflow */}
             <Form.Group controlId="kodInflowId" className="mb-3">
-              <Form.Label className="form-label">Kod Inflow</Form.Label>
+              <Form.Label className="form-label">Inflow Code</Form.Label>
 
               <Form.Control
                 as="select"
@@ -209,7 +209,7 @@ function EditTrackingInflowSahabat() {
                 // aria-invalid={errors.kodInflowId ? "true" : "false"}
               >
                 <option value="" disabled>
-                  --Pilih Kod Inflow--
+                  --Select Inflow Code--
                 </option>
                 {/* {kodInflowOptions.map((kodInflow) => (
                   <option key={kodInflow.id} value={kodInflow.id}>
@@ -219,7 +219,7 @@ function EditTrackingInflowSahabat() {
               </Form.Control>
 
               {/* {errors.kodInflowId?.type === "required" && ( */}
-                <small className="text-danger">Kod inflow diperlukan.</small>
+                <small className="text-danger">Inflow Code is required.</small>
               {/* )} */}
             </Form.Group>
 
@@ -235,7 +235,7 @@ function EditTrackingInflowSahabat() {
                     <Form.Label
                       // className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
                     >
-                      Keterangan Kod Inflow Terperinci
+                      Detailed Inflow Code Explanation
                       {/* {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`} */}
                     </Form.Label>
 
@@ -256,15 +256,14 @@ function EditTrackingInflowSahabat() {
                       //     ? "true"
                       //     : "false"
                       // }
-                      placeholder="Keterangan inflow terperinci diperlukan"
+                      placeholder="Detailed Inflow Code Explanation is required."
                     />
 
                     {/* {errors[`keteranganInflowTerperinci_${terperinci.id}`]
                       ?.type === "required" && ( */}
                       <small className="text-danger">
-                        Keterangan terperinci 
+                        Detailed Inflow Code is required.
                         {/* {terperinci.kodInflowTerperinci}{" "} */}
-                        diperlukan.
                       </small>
                     {/* )} */}
                   </Form.Group>
@@ -274,7 +273,7 @@ function EditTrackingInflowSahabat() {
 
             {/* Amaun inflow */}
             <Form.Group controlId="amaunInflow" className="mb-3">
-              <Form.Label className="form-label">Amaun Inflow</Form.Label>
+              <Form.Label className="form-label">Total Inflow</Form.Label>
 
               <Form.Control
                 type="text"
@@ -297,16 +296,16 @@ function EditTrackingInflowSahabat() {
                 //   }
                 // }}                
                 // aria-invalid={errors.amaunInflow ? "true" : "false"}
-                placeholder="Masukkan amaun inflow"
+                placeholder="Enter Inflow Total"
               />
 
               {/* {errors.amaunInflow?.type === "required" && ( */}
-                <small className="text-danger">Amaun inflow diperlukan.</small>
+                <small className="text-danger">Inflow Total is required.</small>
               {/* )} */}
 
               {/* {errors.amaunInflow?.type === "isGreaterThanZero" && ( */}
                 <small className="text-danger">
-                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                  Inflow Total should be 0.01 (RM) or more.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -314,11 +313,11 @@ function EditTrackingInflowSahabat() {
 
           <Modal.Footer>
             <Button className="cancel-btn" onClick={closeModalEditInflowSahabat}>
-              Batal
+              Cancel
             </Button>
 
             <Button onClick={handleSubmit(handleCreateInflowSahabat)}>
-              Simpan
+              Save
             </Button>{" "}
           </Modal.Footer>
         </Form>

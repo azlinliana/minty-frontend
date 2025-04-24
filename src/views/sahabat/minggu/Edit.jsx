@@ -83,7 +83,7 @@ function EditMinggu({
     <>
       <div>
         <Button onClick={openModalEditMingguPembiayaanSahabat}>
-          Edit Minggu
+          Edit Week
         </Button>{" "}
         
         <Modal
@@ -93,25 +93,25 @@ function EditMinggu({
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Edit Minggu</Modal.Title>
+            <Modal.Title>Edit Week</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
               {/* Bilangan minggu */}
               <Form.Group controlId="bilanganMinggu" className="mb-3">
-                <Form.Label className="form-label">Bilangan Minggu</Form.Label>
+                <Form.Label className="form-label">Num. of Week</Form.Label>
 
                 <Form.Control
                   type="number"
                   // {...register("bilanganMinggu", { required: true })}
                   // aria-invalid={errors.bilanganMinggu ? "true" : "false"}
-                  placeholder="Masukkan minggu ke berapa"
+                  placeholder="Enter the num. of week"
                 />
 
                 {/* {errors.bilanganMinggu?.type === "required" && ( */}
                   <small className="text-danger">
-                    Bilangan minggu diperlukan.
+                    Num. of week is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -119,19 +119,19 @@ function EditMinggu({
               {/* Tarikh borang minggu */}
               <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
                 <Form.Label className="form-label">
-                  Tarikh Borang Minggu
+                  Date on Week Form
                 </Form.Label>
 
                 <Form.Control
                   type="date"
                   // {...register("tarikhBorangMinggu", { required: true })}
                   // aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
-                  placeholder="Masukkan tarikh borang minggu"
+                  placeholder="Enter date on week form"
                 />
 
                 {/* {errors.tarikhBorangMinggu?.type === "required" && ( */}
                   <small className="text-danger">
-                    Tarikh borang minggu diperlukan.
+                    Date on week form is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -142,11 +142,11 @@ function EditMinggu({
                 className="cancel-btn"
                 onClick={closeModalEditMingguPembiayaanSahabat}
               >
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleEditMingguPembiayaanSahabat)}>
-                Simpan
+                Save
               </Button>
             </Modal.Footer>
           </Form>

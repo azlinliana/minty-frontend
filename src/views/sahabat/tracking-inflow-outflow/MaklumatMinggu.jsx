@@ -24,14 +24,14 @@ function MaklumatMinggu() {
   // }, [showMingguPembiayaanSahabat, sahabatId, pembiayaanId, mingguId]);
 
   return (
-    <div className="card-tambah-minggu-sahabat-content">
+    <div className="card-funding-customer-content">
       <h2>Maklumat Minggu</h2>
 
       {/* {currentMingguPembiayaanSahabat && (
         <> */}
           {/* Hide edit minggu button */}
           {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-            <div className="card-edit-minggu-btn">
+            <div className="card-edit-week-btn">
               <EditMinggu
                 // sahabatId={sahabatId}
                 // pembiayaanId={pembiayaanId}
@@ -45,16 +45,16 @@ function MaklumatMinggu() {
             <Card.Body>
               <Container fluid>
                 <Row>
-                  {/* Bilangan minggu */}
+                  {/* Num. of Week */}
                   <Col xs={6}>
                     <Form.Group controlId="bilanganMinggu">
-                      <Form.Label className="card-track-minggu-simple">
-                        Bilangan Minggu
+                      <Form.Label className="card-track-week-simple">
+                      Num. of Week
                       </Form.Label>
 
                       <Form.Control
                         type="number"
-                        defaultValue="Bilangan Minggu"
+                        defaultValue="Num. of Week"
                         disabled
                       />
                     </Form.Group>
@@ -63,13 +63,13 @@ function MaklumatMinggu() {
                   {/* Tarikh borang minggu */}
                   <Col xs={6}>
                     <Form.Group controlId="tarikhBorangMinggu">
-                      <Form.Label className="card-track-minggu-simple">
-                        Tarikh Borang Minggu
+                      <Form.Label className="card-track-week-simple">
+                        Date on Week Tracking Form
                       </Form.Label>
 
                       <Form.Control
                         type="date"
-                        defaultValue="Tarikh Borang Minggu"
+                        defaultValue="Date on Week Tracking Form"
                         disabled
                       />
                     </Form.Group>

@@ -59,7 +59,7 @@ function CreateAktiviti() {
   return (
     <>
       <Button variant="primary" onClick={openModalCreateAktivitiSahabat}>
-        <FaPlus style={{ fontSize: "10px" }} /> Tambah
+        <FaPlus style={{ fontSize: "10px" }} /> Add
       </Button>{" "}
       
       <Modal
@@ -69,14 +69,14 @@ function CreateAktiviti() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Aktiviti Sahabat</Modal.Title>
+          <Modal.Title>Add Customer Activity</Modal.Title>
         </Modal.Header>
 
         <Form onReset={reset}>
           <Modal.Body>
-            {/* Aktiviti */}
+            {/* Activity */}
             <Form.Group controlId="kegiatanId" className="mb-3">
-              <Form.Label className="form-label">Aktiviti</Form.Label>
+              <Form.Label className="form-label">Activity</Form.Label>
 
               <Form.Control
                 as="select"
@@ -89,7 +89,7 @@ function CreateAktiviti() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  --Pilih Aktiviti--
+                  --Select Activity--
                 </option>
 
                 {/* {aktivitiOptions.map((aktiviti) => (
@@ -101,7 +101,7 @@ function CreateAktiviti() {
 
               {/* {errors.aktiviti?.type === "required" && ( */}
                 <small className="text-danger">
-                  Aktiviti diperlukan.
+                  Activity is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -109,7 +109,7 @@ function CreateAktiviti() {
             {/* Keterangan Kegiatan */}
             <Form.Group controlId="keteranganKegiatanId" className="mb-3">
               <Form.Label className="form-label">
-                Keterangan Kegiatan
+                Activity Explanation
               </Form.Label>
 
               <Form.Control
@@ -123,7 +123,7 @@ function CreateAktiviti() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  --Pilih Keterangan Kegiatan--
+                  --Select Activity Explanation--
                 </option>
 
                 {/* {keteranganAktivitiOptions
@@ -143,14 +143,14 @@ function CreateAktiviti() {
 
               {/* {errors.keteranganKegiatanId?.type === "required" && ( */}
                 <small className="text-danger">
-                  Keterangan kegiatan diperlukan.
+                  Activity Explanation is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
-            {/* Projek Aktiviti */}
+            {/* Activity Project */}
             <Form.Group controlId="projekKegiatanId" className="mb-3">
-              <Form.Label className="form-label">Projek Aktiviti</Form.Label>
+              <Form.Label className="form-label">Activity Project</Form.Label>
 
               <Form.Control
                 as="select"
@@ -163,7 +163,7 @@ function CreateAktiviti() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  --Pilih Projek Aktiviti--
+                  --Select Activity Project--
                 </option>
 
                 {/* {projekAktivitiOptions
@@ -181,14 +181,14 @@ function CreateAktiviti() {
 
               {/* {errors.projekKegiatanId?.type === "required" && ( */}
                 <small className="text-danger">
-                  Projek aktiviti diperlukan.
+                  Activity Project is required.
                 </small>
               {/* )} */}
             </Form.Group>
 
-            {/* Dimensi */}
+            {/* Dimension */}
             <Form.Group controlId="dimensiId" className="mb-3">
-              <Form.Label className="form-label">Dimensi</Form.Label>
+              <Form.Label className="form-label">Dimension</Form.Label>
 
               <Form.Control
                 as="select"
@@ -199,7 +199,7 @@ function CreateAktiviti() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  --Pilih Kod Dimensi--
+                  --Select Dimension Code--
                 </option>
                 {/* {dimensiOptions
                   .sort((a, b) => a.kodDimensi.localeCompare(b.kodDimensi))
@@ -211,13 +211,13 @@ function CreateAktiviti() {
               </Form.Control>
 
               {/* {errors.dimensiId?.type === "required" && ( */}
-                <small className="text-danger">Kod dimensi diperlukan.</small>
+                <small className="text-danger">Dimension code is required.</small>
               {/* )} */}
             </Form.Group>
 
-            {/* Pengurusan Dana */}
+            {/* Funding Management */}
             <Form.Group controlId="pengurusDanaAktiviti" className="mb-3">
-              <Form.Label className="form-label">Pengurusan Dana</Form.Label>
+              <Form.Label className="form-label">Funding Management</Form.Label>
 
               <Form.Control
                 as="select"
@@ -228,7 +228,7 @@ function CreateAktiviti() {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  --Pilih Pengurus Dana Sahabat--
+                  --Select Customer Funding Management--
                 </option>
                 {/* <option value="FM - FUND MANAGER">FM - FUND MANAGER</option>
                 <option value="PS - PARTNERSHIP">PS - PARTNERSHIP</option>
@@ -236,14 +236,14 @@ function CreateAktiviti() {
 
                 {errors.pengurusDanaAktiviti?.type === "required" && (
                   <small className="text-danger">
-                    Pengurusan dana diperlukan.
+                    Funding Management is required.
                   </small>
                 )}
               </Form.Control>
 
               {/* {errors.pengurusDanaAktiviti?.type === "required" && ( */}
                 <small className="text-danger">
-                  Pengurusan dana diperlukan.
+                Funding Management is required.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -251,21 +251,21 @@ function CreateAktiviti() {
             {/* Keterangan Lain Aktiviti */}
             <Form.Group controlId="keteranganLainAktiviti" className="mb-3">
               <Form.Label className="form-label">
-                Keterangan untuk Lain-Lain
+                Other Explanation
               </Form.Label>
 
               <Form.Control
                 type="text"
                 // {...register("keteranganLainAktiviti")}
                 // aria-invalid={errors.keteranganLainAktiviti ? "true" : "false"}
-                placeholder="Masukkan keterangan untuk lain-lain"
+                placeholder="Enter Other Explanation"
               />
             </Form.Group>
 
-            {/* Jumlah Pinjaman */}
+            {/* Loan */}
             <Form.Group controlId="jumlahPinjamanAktiviti" className="mb-3">
               <Form.Label className="form-label">
-                Jumlah Pinjaman (RM)
+                Total Loan (RM)
               </Form.Label>
 
               <Form.Control
@@ -292,19 +292,18 @@ function CreateAktiviti() {
                 //   }
                 // }}
                 // aria-invalid={errors.jumlahPinjamanAktiviti ? "true" : "false"}
-                placeholder="Masukkan jumlah pinjaman (RM)"
+                placeholder="Enter Total Loan (RM)"
               />
 
               {/* {errors.jumlahPinjamanAktiviti?.type === "required" && ( */}
                 <small className="text-danger">
-                  Jumlah pinjaman diperlukan.
+                  Total Loan is required.
                 </small>
               {/* )} */}
 
               {/* {errors.jumlahPinjamanAktiviti?.type === "isGreaterThanZero" && ( */}
                 <small className="text-danger">
-                  Jumlah pinjaman aktiviti haruslah sekurang-kurangnya 0.01 atau
-                  lebih.
+                  Total Loan should be at least 0.01 (RM) or more.
                 </small>
               {/* )} */}
             </Form.Group>
@@ -315,11 +314,11 @@ function CreateAktiviti() {
               className="cancel-btn"
               onClick={closeModalCreateAktivitiSahabat}
             >
-              Batal
+              Cancel
             </Button>
 
             <Button onClick={handleSubmit(handleCreateAktivitiSahabat)}>
-              Simpan
+              Save
             </Button>
           </Modal.Footer>
         </Form>

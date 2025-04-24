@@ -90,7 +90,7 @@ function CreateTrackingInflowSahabat() {
     <>
       <div>
         <Button onClick={openModalCreateTrackingInflowSahabat}>
-          <FaPlus style={{ fontSize: "10px" }} /> Tambah
+          <FaPlus style={{ fontSize: "10px" }} /> Add
         </Button>{" "}
 
         <Modal
@@ -100,14 +100,14 @@ function CreateTrackingInflowSahabat() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tambah Inflow Sahabat</Modal.Title>
+            <Modal.Title>Add Customer Inflow</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
-              {/* Kod inflow */}
+              {/* Inflow Code */}
               <Form.Group controlId="kodInflowId" className="mb-3">
-                <Form.Label className="form-label">Kod Inflow</Form.Label>
+                <Form.Label className="form-label">Inflow Code</Form.Label>
 
                 <Form.Control
                   as="select"
@@ -120,7 +120,7 @@ function CreateTrackingInflowSahabat() {
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    --Pilih Kod Inflow--
+                    --Select Inflow Code--
                   </option>
                   {/* {kodInflowOptions.map((kodInflow) => (
                     <option key={kodInflow.id} value={kodInflow.id}>
@@ -130,7 +130,7 @@ function CreateTrackingInflowSahabat() {
                 </Form.Control>
 
                 {/* {errors.kodInflowId?.type === "required" && ( */}
-                  <small className="text-danger">Kod inflow diperlukan.</small>
+                  <small className="text-danger">Inflow Code is required.</small>
                 {/* )} */}
               </Form.Group>
 
@@ -147,7 +147,7 @@ function CreateTrackingInflowSahabat() {
                         <Form.Label
                           // className={`kodInflowTerperinci_${terperinci.kodInflowTerperinci}`}
                         >
-                          Keterangan Kod Inflow Terperinci
+                          Detailed Inflow Code Explanation
                           {/* {`${terperinci.kodInflowTerperinci} - ${terperinci.keteranganKodInflowTerperinci}`} */}
                         </Form.Label>
 
@@ -170,15 +170,14 @@ function CreateTrackingInflowSahabat() {
                           //     ? "true"
                           //     : "false"
                           // }
-                          placeholder="Keterangan inflow terperinci diperlukan"
+                          placeholder="Detailed Inflow Code Explanation is required."
                         />
 
                         {/* {errors[`keteranganInflowTerperinci_${terperinci.id}`]
                           ?.type === "required" && ( */}
                           <small className="text-danger">
-                            Keterangan terperinci{" "}
+                            Detailed Inflow Code is required.{" "}
                             {/* {terperinci.kodInflowTerperinci}  */}
-                            diperlukan.
                           </small>
                         {/* )} */}
                       </Form.Group>
@@ -186,10 +185,10 @@ function CreateTrackingInflowSahabat() {
                   </React.Fragment>
                 {/* )} */}
 
-              {/* Amaun inflow */}
+              {/* Total inflow */}
               <Form.Group controlId="amaunInflow" className="mb-3">
                 <Form.Label className="form-label">
-                  Amaun Inflow (RM)
+                  Total Inflow (RM)
                 </Form.Label>
 
                 <Form.Control
@@ -215,18 +214,18 @@ function CreateTrackingInflowSahabat() {
                   //   }
                   // }}                    
                   // aria-invalid={errors.amaunInflow ? "true" : "false"}
-                  placeholder="Masukkan amaun inflow"
+                  placeholder="Enter Total Inflow"
                 />
 
                 {/* {errors.amaunInflow?.type === "required" && ( */}
                   <small className="text-danger">
-                    Amaun inflow diperlukan.
+                    Total Inflow is required.
                   </small>
                 {/* )} */}
 
               {/* {errors.amaunInflow?.type === "isGreaterThanZero" && ( */}
                 <small className="text-danger">
-                  Amaun inflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                  Total Inflow should be 0.01 (RM) or more.
                 </small>
               {/* )} */}
               </Form.Group>
@@ -237,11 +236,11 @@ function CreateTrackingInflowSahabat() {
                 className="cancel-btn"
                 onClick={closeModalCreateTrackingInflowSahabat}
               >
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleCreateInflowSahabat)}>
-                Simpan
+                Save
               </Button>
             </Modal.Footer>
           </Form>

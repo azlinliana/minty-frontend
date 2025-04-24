@@ -122,14 +122,14 @@ function EditPembiayaan({}) {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Edit Pembiayaan Sahabat</Modal.Title>
+            <Modal.Title>Edit Customer Type of Payment</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
               {/* Skim pembiayaan */}
               <Form.Group controlId="skimPembiayaanId" className="mb-3">
-                <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
+                <Form.Label className="form-label">Type of Payment</Form.Label>
 
                 <Form.Control
                   as="select"
@@ -138,7 +138,7 @@ function EditPembiayaan({}) {
                   // aria-invalid={errors.skimPembiayaanId ? "true" : "false"}
                 >
                   <option value="" disabled>
-                    --Pilih Skim Pembiayaan--
+                    --Select Type of Payment--
                   </option>
 
                   {/* {skimPembiayaanOptions.map((skimPembiayaan) => (
@@ -150,7 +150,7 @@ function EditPembiayaan({}) {
 
                 {/* {errors.skimPembiayaanId?.type === "required" && ( */}
                   <small className="text-danger">
-                    Skim pembiayaan diperlukan.
+                    Type of Payment is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -159,7 +159,7 @@ function EditPembiayaan({}) {
               {/* {hideStatusPembiayaan ? null : ( */}
                 <Form.Group controlId="statusPembiayaan" className="mb-3">
                   <Form.Label className="form-label">
-                    Status Pembiayaan
+                    Payment Status
                   </Form.Label>
 
                   <Form.Control
@@ -169,15 +169,15 @@ function EditPembiayaan({}) {
                     // aria-invalid={errors.statusPembiayaan ? "true" : "false"}
                   >
                     <option value="" disabled>
-                      --Pilih Status Pembiayaan--
+                      --Select Payment Status--
                     </option>
-                    <option value="AKTIF">AKTIF</option>
-                    <option value="SELESAI">SELESAI</option>
+                    <option value="AKTIF">ACTIVE</option>
+                    <option value="SELESAI">COMPLETED</option>
                   </Form.Control>
 
                   {/* {errors.statusPembiayaan?.type === "required" && ( */}
                     <small className="text-danger">
-                      Status pembiayaan diperlukan.
+                      Payment Status is required.
                     </small>
                   {/* )} */}
                 </Form.Group>
@@ -189,11 +189,11 @@ function EditPembiayaan({}) {
                 className="cancel-btn"
                 onClick={closeModalEditPembiayaanSahabat}
               >
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleEditPembiayaanSahabat)}>
-                Simpan
+                Save
               </Button>
             </Modal.Footer>
           </Form>

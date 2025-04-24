@@ -43,24 +43,24 @@ function SearchSahabat() {
   return (
     <>
       <div className="page-title">
-        <h1>Carian Sahabat</h1>
+        <h1>Search Customer</h1>
       </div>
 
-      <Container className="sahabat-search-container">
-        <Form className="sahabat-search-bar" onReset={reset}>
+      <Container className="customer-search-container">
+        <Form className="customer-search-bar" onReset={reset}>
           <Row>
-            {/* Carian no. kad pengenalan sahabat */}
+            {/* Search fo customer ID */}
             <Col xs={12} lg={10}>
               <Form.Group controlId="noKadPengenalanSahabat">
                 <Form.Control
                   type="text"
-                  placeholder="Masukkan no. kad pengenalan sahabat"
+                  placeholder="Enter customer ID"
                   {...register("noKadPengenalanSahabat", {
-                    required: "No. kad pengenalan sahabat diperlukan.",
+                    required: "Customer ID is required.",
                     pattern: {
                       value: /^\d{12}$/,
                       message:
-                        "No. kad pengenalan sahabat perlu mengandungi 12 digit.",
+                        "Customer ID requires 12 digits.",
                     },
                   })}
                   aria-invalid={
@@ -84,11 +84,11 @@ function SearchSahabat() {
               </Form.Group>
             </Col>
 
-            <Col xs={12} lg={2} className="sahabat-search-button">
+            <Col xs={12} lg={2} className="customer-search-button">
               <Form.Group>
                 <div>
                   <Button
-                    className="carian-sahabat-search-btn"
+                    className="customer-search-btn"
                     onClick={handleSubmit(handleSearchSahabat)}
                   >
                     Cari

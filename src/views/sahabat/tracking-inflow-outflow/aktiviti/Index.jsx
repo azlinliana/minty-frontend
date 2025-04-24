@@ -60,7 +60,7 @@ function IndexAktiviti() {
       <div>
         <h2>Maklumat Aktiviti Sahabat</h2>
 
-        <div className="sahabat-pembiayaan-table-container">
+        <div className="customer-payment-table-container">
           {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
             <div className="create-btn-container">
               <CreateAktiviti
@@ -84,16 +84,16 @@ function IndexAktiviti() {
           <Table responsive>
             <thead>
               <tr>
-                <th>Bil.</th>
-                <th>Aktiviti</th>
-                <th>Keterangan Aktiviti</th>
-                <th>Projek</th>
-                <th>Dimensi</th>
-                <th>Pengurus Dana</th>
-                <th>Keterangan Lain-lain</th>
-                <th>Jumlah Pinjaman (RM)</th>
+                <th>Num.</th>
+                <th>Activity</th>
+                <th>Activity Explanation</th>
+                <th>Project</th>
+                <th>Dimension</th>
+                <th>Customer Funding</th>
+                <th>Other Explanation</th>
+                <th>Total Loan (RM)</th>
                 {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-                  <th>Tindakan</th>
+                  <th>Action</th>
                 {/* ) : null} */}
               </tr>
             </thead>
@@ -103,8 +103,7 @@ function IndexAktiviti() {
                 <tr>
                   <td colSpan="9">
                     <center>
-                      Tiada maklumat aktiviti untuk sahabat ini. Sila klik
-                      butang "Tambah" untuk merekodkan aktiviti baharu.
+                      There is no information on customer's activity. Click "Add" button to record a new activity.
                     </center>
                   </td>
                 </tr>
@@ -112,14 +111,14 @@ function IndexAktiviti() {
                 {/* aktivitiSahabats.map((aktivitisData, key) => ( */}
                   {/* <tr key={key}> */}
                   <tr>
-                    <td>Bil.</td>
-                    <td>Jenis Kegiatan</td>
-                    <td>Jenis Keterangan Kegiatan</td>
-                    <td>Jenis Projek Kegiatan</td>
-                    <td>Kod Dimensi</td>
-                    <td>Pengurus Dana Aktiviti</td>
-                    <td>Keterangan Lain Aktiviti</td>
-                    <td>Jumlah Pinjaman Aktiviti</td>
+                    <td>Num.</td>
+                    <td>Activity</td>
+                    <td>Activity Explanation</td>
+                    <td>Type of Project Activity</td>
+                    <td>Dimension Code</td>
+                    <td>Customer Funding Activity</td>
+                    <td>Other Explanation for Activity</td>
+                    <td>Activity Total Loan</td>
                     {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                       <td>
                         <EditAktiviti
@@ -148,7 +147,7 @@ function IndexAktiviti() {
                           //   deleteAktivitiSahabat(aktivitisData.id)
                           // }
                         >
-                          Padam
+                          Delete
                         </Button>
                       </td>
                     {/* ) : null} */}

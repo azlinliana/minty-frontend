@@ -52,7 +52,7 @@ function CreateMinggu() {
     <>
       <div>
         <Button onClick={openModalCreateMingguPembiayaanSahabat}>
-          <FaPlus style={{ fontSize: "10px" }} /> Tambah Minggu
+          <FaPlus style={{ fontSize: "10px" }} /> Add Week
         </Button>{" "}
 
         <Modal
@@ -62,7 +62,7 @@ function CreateMinggu() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tambah Minggu</Modal.Title>
+            <Modal.Title>Add Week</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -70,19 +70,19 @@ function CreateMinggu() {
               {/* Bilangan minggu */}
               <Form.Group controlId="bilanganMinggu" className="mb-3">
                 <Form.Label className="form-label">
-                  Bilangan Minggu
+                  Num. of Week
                 </Form.Label>
 
                 <Form.Control
                   type="number"
                   // {...register("bilanganMinggu", { required: true })}
                   // aria-invalid={errors.bilanganMinggu ? "true" : "false"}
-                  placeholder="Masukkan minggu ke berapa"
+                  placeholder="Enter num. of week"
                 />
 
                 {/* {errors.bilanganMinggu?.type === "required" && ( */}
                   <small className="text-danger">
-                    Bilangan minggu diperlukan.
+                    Num. of week is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -90,19 +90,19 @@ function CreateMinggu() {
               {/* Tarikh borang minggu */}
               <Form.Group controlId="tarikhBorangMinggu" className="mb-3">
                 <Form.Label className="form-label">
-                  Tarikh Borang Minggu
+                  Date on Week Form
                 </Form.Label>
 
                 <Form.Control
                   type="date"
                   // {...register("tarikhBorangMinggu", { required: true })}
                   // aria-invalid={errors.tarikhBorangMinggu ? "true" : "false"}
-                  placeholder="Masukkan tarikh borang minggu"
+                  placeholder="Enter Date on Week Form"
                 />
 
                 {/* {errors.tarikhBorangMinggu?.type === "required" && ( */}
                   <small className="text-danger">
-                    Tarikh borang minggu diperlukan.
+                    Date on Week Form is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -111,11 +111,11 @@ function CreateMinggu() {
 
           <Modal.Footer>
             <Button className="cancel-btn" onClick={closeModalCreateMingguPembiayaanSahabat}>
-              Batal
+              Cancel
             </Button>
 
             <Button onClick={handleSubmit(handleCreateMingguPembiayaanSahabat)}>
-              Simpan
+              Save
             </Button>
           </Modal.Footer>
         </Modal>

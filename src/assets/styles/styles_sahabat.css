@@ -1,7 +1,7 @@
 /* **************************** */
-/* **** PAGE CARIAN SAHABAT ****/
+/* **** CUSTOMER SEARCH PAGE ****/
 /* ************************** */
-.sahabat-search-container {
+.customer-search-container {
     border-radius: 10px;
     background-color: var(--grayscale-white);
     border: 1px solid #dedede;
@@ -9,27 +9,27 @@
     width: 96%;
 }
 
-.sahabat-search-bar {
+.customer-search-bar {
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 10px;
 }
 
-.sahabat-search-button {
+.customer-search-button {
   padding-left: 0%;
   padding-right: 0%;
 }
 
-.carian-sahabat-search-btn {
+.customer-search-btn {
   width: 99%;
 }
 
 @media(max-width: 767px) {
-  .sahabat-search-bar {
+  .customer-search-bar {
     padding-right: 0;
   }
 
-  .carian-sahabat-search-btn {
+  .customer-search-btn {
     margin: 10px 10px 10px 12px;
     width:94.5%;
   }
@@ -37,15 +37,15 @@
 
 
 /* ********************************* */
-/*** PAGE HASIL CARIAN SAHABAT ******/
+/*** CUSTOMER SEARCH RESULT ******/
 /* ******************************* */
-.hasil-carian-sahabat-content {
+.customer-search-result-content {
   margin: 0 15px;
   padding: 15px;
   background-color: var(--grayscale-var(--grayscale-white));
 }
 
-.hasil-carian-sahabat-title {
+.customer-search-result-title {
   margin: 10px 10px;
 }
 
@@ -61,30 +61,30 @@
   margin: 30px auto;
 }
 
-.sahabat-carian-spacing {
+.customer-search-spacing {
   margin-top: 10px;
 }
 
-.sahabat-pembiayaan-table-container {
+.customer-payment-table-container {
   margin: auto 20px;
   font-size: 14px;
 }
 
-.sahabat-pembiayaan-table-container th {
+.customer-payment-table-container th {
   font-size: 1em;
   font-weight: 700;
 }
 
-.sahabat-track-minggu-entry {
+.customer-track-week-entry {
   text-decoration: underline;
   font-weight: bold;
 }
 
-.sahabat-pembiayaan-tab-container {
+.customer-payment-tab-container {
   background-color: var(--grayscale-var(--grayscale-white));
 }
 
-.sc-tracking-minggu-warning td {
+.sc-tracking-week-warning td {
   color: #FF0000;
 }
 
@@ -94,23 +94,23 @@
 /*********** CARD SECTION ************/
 /* ******************************** */
 
-.card-pembiayaan-sahabat-container {
+.card-funding-customer-container {
   position: relative;
   margin-bottom: 30px;
 }
 
-.card-pembiayaan-sahabat-header {
+.card-funding-customer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.card-pembiayaan-sahabat-content {
+.card-funding-customer-content {
   display: flex;
   align-items: center;
 }
 
-.card-skim-pembiayaan-header {
+.card-type-payment-header {
   margin-left: 10px;
   font-weight: 500;
 }
@@ -119,7 +119,7 @@
   margin-left: 5px;
 }
 
-.card-skim-pembiayaan-arrow-position {
+.card-type-payment-arrow-position {
   cursor: pointer;
   position: absolute;
   left: -2%;
@@ -127,27 +127,27 @@
   transform: translateY(-120%);
 }
 
-.card-skim-pembiayaan-arrow-position svg {
+.card-type-payment-arrow-position svg {
   box-shadow: 1px 2px #cfcece;
   border-radius: 100%;
   background-color: var(--primary-color);
   fill: var(--grayscale-var(--grayscale-white));
 }
 
-.sc-skim-pembiayaan-completed-indicator .sc-completion-indicator {
+.sc-type-payment-completed-indicator .sc-completion-indicator {
   color: var(--darkgray);
   font-weight: bold;
   opacity: 0.6;
 }
 
 @media (max-width: 768px) {
-  .card-skim-pembiayaan-arrow-position {
+  .card-type-payment-arrow-position {
     left: -5%;
   }
 }
 
 @media (min-width:1281px) {
-  .card-skim-pembiayaan-arrow-position {
+  .card-type-payment-arrow-position {
     left: -1.3%;
   }
 }
@@ -158,23 +158,23 @@
 /*********** CARD SECTION ************/
 /* ******************************** */
 
-.card-tambah-minggu-sahabat-content {
+.card-add-week-customer-content {
   margin: 0 15px;
   padding: 15px;
 }
 
-.card-tambah-minggu-sahabat-more-content  {
+.card-add-week-customer-more-content  {
   padding-bottom: 20px;
 }
 
-.card-edit-minggu-btn {
+.card-edit-week-btn {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 5px;
   font-size: 14px;
 }
 
-.card-track-minggu-simple {
+.card-track-week-simple {
   font-weight: 500;
 }
 

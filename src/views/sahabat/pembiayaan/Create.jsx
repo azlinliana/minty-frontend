@@ -46,7 +46,7 @@ function CreatePembiayaan() {
     <>
       <div>
         <Button onClick={openModalCreatePembiayaanSahabat}>
-          <FaPlus style={{ fontSize: "10px" }} /> Tambah Pembiayaan
+          <FaPlus style={{ fontSize: "10px" }} /> Add Payment
         </Button>{" "}
         
         <Modal
@@ -56,14 +56,14 @@ function CreatePembiayaan() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tambah Pembiayaan Sahabat</Modal.Title>
+            <Modal.Title>Add Customer Type of Payment</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
             <Form onReset={reset}>
               {/* Skim pembiayaan */}
               <Form.Group controlId="skimPembiayaanId" className="mb-3">
-                <Form.Label className="form-label">Skim Pembiayaan</Form.Label>
+                <Form.Label className="form-label">Type of Payment</Form.Label>
 
                 <Form.Control
                   as="select"
@@ -74,7 +74,7 @@ function CreatePembiayaan() {
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    --Pilih Skim Pembiayaan--
+                    --Select Type of Payment--
                   </option>
                   {/* {skimPembiayaanOptions.map((skimPembiayaan) => (
                     <option key={skimPembiayaan.id} value={skimPembiayaan.id}>
@@ -85,7 +85,7 @@ function CreatePembiayaan() {
 
                 {/* {errors.skimPembiayaanId?.type === "required" && ( */}
                   <small className="text-danger">
-                    Skim pembiayaan diperlukan.
+                    Type of Payment is required.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -97,11 +97,11 @@ function CreatePembiayaan() {
               className="cancel-btn"
               onClick={closeModalCreatePembiayaanSahabat}
             >
-              Batal
+              Cancel
             </Button>
 
             <Button onClick={handleSubmit(handleCreatePembiayaanSahabat)}>
-              Simpan
+              Save
             </Button>
           </Modal.Footer>
         </Modal>

@@ -30,7 +30,7 @@ function IndexTrackingInflowSahabat({
 
   return (
     <>
-      <div className="sahabat-pembiayaan-table-container">
+      <div className="customer-payment-table-container">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
           <div className="add-btn-placement">
             <CreateTrackingInflowSahabat
@@ -43,15 +43,15 @@ function IndexTrackingInflowSahabat({
         <Table bordered responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
-              <th>Kod Inflow</th>
-              <th>Keterangan Kod Inflow</th>
-              <th>Kod Inflow Terperinci</th>
-              <th>Keterangan Kod Inflow Terperinci</th>
-              <th>Maklumat Terperinci</th>
-              <th>Amaun (RM)</th>
+              <th>Num.</th>
+              <th>Inflow Code</th>
+              <th>Inflow Code Explanation</th>
+              <th>Detailed Inflow Code</th>
+              <th>Detailed Inflow Code Explanation</th>
+              <th>Detailed Information</th>
+              <th>Total (RM)</th>
               {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-                <th>Tindakan</th>
+                <th>Actions</th>
               {/* ) : null} */}
             </tr>
           </thead>
@@ -61,8 +61,7 @@ function IndexTrackingInflowSahabat({
               <tr>
                 <td colSpan="8">
                   <center>
-                    Tiada maklumat tracking inflow sahabat. Sila klik butang
-                    "Tambah" untuk merekodkan inflow sahabat baharu.
+                    There is no customer inflow tracking information. Click "Add" button to add a new record.
                   </center>
                 </td>
               </tr>
@@ -73,13 +72,13 @@ function IndexTrackingInflowSahabat({
                   {/* {inflowSahabatsData.kodInflowTerperinci.length === 0 ? ( */}
                     {/* // Render row for inflow sahabat without kod inflow terperinci */}
                     <tr>
-                      <td>Bil.</td>
-                      <td>Kod Inflow</td>
-                      <td>Keterangan Kod Inflow</td>
+                      <td>Num.</td>
+                      <td>Inflow Code</td>
+                      <td>Inflow Code Explanation</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>Amaun Inflow</td>
+                      <td>Total Inflow</td>
                       {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                         <td>
                           <EditTrackingInflowSahabat
@@ -94,7 +93,7 @@ function IndexTrackingInflowSahabat({
                             //   deleteInflowSahabat(inflowSahabatsData.id)
                             // }
                           >
-                            Padam
+                            Delete
                           </Button>{" "}
                         </td>
                       {/* ) : null} */}
@@ -114,14 +113,14 @@ function IndexTrackingInflowSahabat({
                         //   inflowSahabatsData.kodInflowTerperinci.length + 1
                         // }
                       >
-                        Kod Inflow
+                        Inflow Code
                       </td>
                       <td
                         // rowSpan={
                         //   inflowSahabatsData.kodInflowTerperinci.length + 1
                         // }
                       >
-                        KeteranganKodInflow
+                        Inflow Code Explanation
                       </td>
                     </tr>
                   {/* )} */}
@@ -131,8 +130,8 @@ function IndexTrackingInflowSahabat({
                       {/* // Render rows for kod inflow terperinci */}
                       {/* <tr key={subIndex}> */}
                       <tr>
-                        <td>Kod Inflow Terperinci</td>
-                        <td>Keterangan Kod Inflow Terperinci</td>
+                        <td>Detailed Inflow Code</td>
+                        <td>Detailed Inflow Code Explanation</td>
                         <td>
                           {/* {inflowSahabatsData.inflowSahabatTerperinci &&
                             inflowSahabatsData.inflowSahabatTerperinci.length >
@@ -149,7 +148,7 @@ function IndexTrackingInflowSahabat({
                               })
                               .map((inflowTerperinciData, innerIndex) => ( */}
                                 {/* <React.Fragment key={innerIndex}> */}
-                                <React.Fragment>KeteranganInflowTerperinci</React.Fragment>
+                                <React.Fragment>Detailed Inflow Code Explanation</React.Fragment>
                               {/* ))} */}
                         </td>
 
@@ -161,7 +160,7 @@ function IndexTrackingInflowSahabat({
                               //   inflowSahabatsData.kodInflowTerperinci.length
                               // }
                             >
-                              Amaun Inflow
+                              Total Inflow
                             </td>
 
                             {/* {pembiayaanSahabatsData.statusPembiayaan !==
@@ -183,7 +182,7 @@ function IndexTrackingInflowSahabat({
                                   //   deleteInflowSahabat(inflowSahabatsData.id)
                                   // }
                                 >
-                                  Padam
+                                  Delete
                                 </Button>{" "}
                               </td>
                             {/* ) : null} */}

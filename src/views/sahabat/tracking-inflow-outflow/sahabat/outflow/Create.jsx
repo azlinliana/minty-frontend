@@ -47,7 +47,7 @@ function CreateTrackingOutflowSahabat() {
     <>
       <div>
         <Button onClick={openModalCreateTrackingOutflowSahabat}>
-          <FaPlus style={{ fontSize: "10px" }} /> Tambah
+          <FaPlus style={{ fontSize: "10px" }} /> Add
         </Button>{" "}
 
         <Modal
@@ -57,14 +57,14 @@ function CreateTrackingOutflowSahabat() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tambah Outflow Sahabat</Modal.Title>
+            <Modal.Title>Add Customer Outflow</Modal.Title>
           </Modal.Header>
 
           <Form onReset={reset}>
             <Modal.Body>
               {/* Kod outflow */}
               <Form.Group controlId="kodOutflowId" className="mb-3">
-                <Form.Label className="form-label">Kod Outflow</Form.Label>
+                <Form.Label className="form-label">Outflow Code</Form.Label>
 
                 <Form.Control
                   as="select"
@@ -74,7 +74,7 @@ function CreateTrackingOutflowSahabat() {
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    --Pilih Kod Outflow--
+                    --Select Outflow Code--
                   </option>
                   {/* {kodOutflowOptions.map((kodOutflow) => (
                     <option key={kodOutflow.id} value={kodOutflow.id}>
@@ -84,14 +84,14 @@ function CreateTrackingOutflowSahabat() {
                 </Form.Control>
 
                 {/* {errors.kodOutflowId?.type === "required" && ( */}
-                  <small className="text-danger">Kod outflow diperlukan.</small>
+                  <small className="text-danger">Outflow Code is required.</small>
                 {/* )} */}
               </Form.Group>
               
               {/* Amaun outflow */}
               <Form.Group controlId="amaunOutflow" className="mb-3">
                 <Form.Label className="form-label">
-                  Amaun Outflow (RM)
+                  Total Outflow (RM)
                 </Form.Label>
 
                 <Form.Control
@@ -117,18 +117,18 @@ function CreateTrackingOutflowSahabat() {
                   //   }
                   // }}                  
                   // aria-invalid={errors.amaunOutflow ? "true" : "false"}
-                  placeholder="Masukkan amaun outflow"
+                  placeholder="Enter Total Outflow"
                 />
 
                 {/* {errors.amaunOutflow?.type === "required" && ( */}
                   <small className="text-danger">
-                    Amaun outflow diperlukan.
+                    Total Outflow is required.
                   </small>
                 {/* )} */}
 
                 {/* {errors.amaunOutflow?.type === "isGreaterThanZero" && ( */}
                   <small className="text-danger">
-                    Amaun outflow haruslah sekurang-kurangnya 0.01 atau lebih.
+                    Total Outflow should be 0.01 or more.
                   </small>
                 {/* )} */}
               </Form.Group>
@@ -136,11 +136,11 @@ function CreateTrackingOutflowSahabat() {
 
             <Modal.Footer>
               <Button className="cancel-btn" onClick={closeModalCreateTrackingOutflowSahabat}>
-                Batal
+                Cancel
               </Button>
 
               <Button onClick={handleSubmit(handleCreateOutflowSahabat)}>
-                Simpan
+                Save
               </Button>
             </Modal.Footer>
           </Form>

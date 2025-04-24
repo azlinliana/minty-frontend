@@ -274,9 +274,9 @@ const VerticalStepper = () => {
 
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>Maklumat tracking minggu ini telah selesai diisi.</Typography>
+          <Typography>This week's tracking has been filled.</Typography>
           <Button onClick={handleReset} sx={{ mt: 1 }}>
-            Isi Semula
+            Refill this week's tracking.
           </Button>
         </Paper>
       )}

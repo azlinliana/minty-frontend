@@ -33,20 +33,20 @@ function IndexTrackingSahabat({
   
   return (
     <div>
-      <h2>Maklumat Tracking {activeTab.title} Sahabat</h2>
+      <h2>{activeTab.title} Customer Tracking Information</h2>
 
       <Tabs
-        id="tracking-inflow-outflow-sahabat"
+        id="tracking-inflow-outflow-customer"
         className="mb-3"
         activeKey={activeTab.key}
         onSelect={(key) =>
           handleTabInflowOutflowSahabatChange(
             key,
-            key === "tracking-inflow-sahabat" ? "Inflow" : "Outflow"
+            key === "tracking-inflow-customer" ? "Inflow" : "Outflow"
           )
         }
       >
-        <Tab eventKey="tracking-inflow-sahabat" title="Inflow">
+        <Tab eventKey="tracking-inflow-customer" title="Inflow">
           <IndexTrackingInflowSahabat
             mingguId={mingguId}
             pembiayaanSahabatsData={pembiayaanSahabatsData}
@@ -54,7 +54,7 @@ function IndexTrackingSahabat({
           />
         </Tab>
 
-        <Tab eventKey="tracking-outflow-sahabat" title="Outflow">
+        <Tab eventKey="tracking-outflow-customer" title="Outflow">
           <IndexTrackingOutflowSahabat
             mingguId={mingguId}
             pembiayaanSahabatsData={pembiayaanSahabatsData}

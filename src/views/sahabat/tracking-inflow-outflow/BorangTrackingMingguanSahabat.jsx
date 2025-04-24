@@ -53,9 +53,9 @@ function BorangTrackingMingguanSahabat({
   // ==============================================================================
 
   return (
-    <div className="card-tambah-minggu-sahabat-content">
+    <div className="card-funding-customer-content">
       <div>
-        <h2>Borang Tracking Mingguan Sahabat</h2>
+        <h2>Customer Week Tracking Form</h2>
 
         <Stepper
           sahabatId={sahabatId}

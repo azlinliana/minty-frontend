@@ -24,8 +24,8 @@ function IndexPembiayaan() {
 
   // ___________________________________ Backend __________________________________
   const dummyPembiayaanSahabats = [
-    { id: 1, statusPembiayaan: "AKTIF" },
-    { id: 2, statusPembiayaan: "SELESAI" },
+    { id: 1, statusPembiayaan: "ACTIVE" },
+    { id: 2, statusPembiayaan: "COMPLETED" },
   ];
   // ============================== Dropdown Options ==============================
   // Display skim pembiayaan options
@@ -103,8 +103,7 @@ function IndexPembiayaan() {
         {/* Display pembiayaan sahabat list */}
         {/* {pembiayaanSahabats.length === 0 ? ( */}
           <Alert variant="secondary">
-            Tiada maklumat pembiayaan untuk sahabat ini. Sila klik butang
-            "Tambah Pembiayaan" untuk merekodkan pembiayaan baharu.
+            There's no information on this customer payment. Click "Add Customer Type of Payment" button to record the payment.
           </Alert>
         {/* ) : ( */}
           {/* pembiayaanSahabats.map((pembiayaanSahabatsData, key) => ( */}
@@ -116,8 +115,8 @@ function IndexPembiayaan() {
               <Card>
                 <Card.Header as="h5" className="card-pembiayaan-sahabat-header">
                   <div className="card-pembiayaan-sahabat-content">
-                    <div className="card-skim-pembiayaan-header">
-                      Nama Skim Pembiayaan
+                    <div className="card-type-payment-header">
+                      Type of Payment
                     </div>
 
                     {/* <Badge
@@ -161,7 +160,7 @@ function IndexPembiayaan() {
                         //   deletePembiayaanSahabat(pembiayaanSahabatsData.id)
                         // }
                       >
-                        Padam
+                        Delete
                       </Dropdown.Item>
                     </DropdownButton>
 
@@ -169,7 +168,7 @@ function IndexPembiayaan() {
                       // onClick={() =>
                       //   toggleCardCollapse(pembiayaanSahabatsData.id)
                       // }
-                      className="card-skim-pembiayaan-arrow-position"
+                      className="card-type-payment-arrow-position"
                     >
                       {/* {isCardCollapsed[pembiayaanSahabatsData.id] ? ( */}
                         <span>
@@ -189,11 +188,11 @@ function IndexPembiayaan() {
                     <Card.Body
                       // className={`${
                       //   pembiayaanSahabatsData.statusPembiayaan === "SELESAI"
-                      //     ? "sc-skim-pembiayaan-completed-indicator sc-completion-indicator"
+                      //     ? "sc-type-payment-completed-indicator sc-completion-indicator"
                       //     : ""
                       // }`}
                     >
-                      <Card.Title>Senarai Tracking Inflow/Outflow</Card.Title>
+                      <Card.Title>List of Inflow/Outflow Tracking</Card.Title>
 
                       {/* List minggu */}
                       <IndexMinggu

@@ -127,7 +127,7 @@ function IndexMinggu() {
 
   return (
     <>
-      <div className="sahabat-pembiayaan-table-container">
+      <div className="customer-payment-table-container">
         {/* Hide tambah minggu button */}
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" && ( */}
           <div className="create-btn-container">
@@ -144,8 +144,8 @@ function IndexMinggu() {
             minggu.totalOutflow === "Tiada maklumat"
         ) && ( */}
           <Alert variant="danger">
-            Sila tambah maklumat untuk minggu{" "}
-            <span className="sahabat-track-minggu-entry">
+            Add the week's information{" "}
+            <span className="customer-track-week-entry">
               {/* {mingguPembiayaanSahabats
                 .filter(
                   (minggu) =>
@@ -156,18 +156,18 @@ function IndexMinggu() {
                 .sort((a, b) => a - b)
                 .join(", ")} */}
             </span>
-            . Klik butang "Kemas Kini" bagi minggu berkenaan.
+            . Click "Edit" button for the week.
           </Alert>
         {/* )} */}
 
         <Table responsive>
           <thead>
             <tr>
-              <th>Minggu</th>
-              <th>Jumlah Inflow (RM)</th>
-              <th>Jumlah Outflow (RM)</th>
-              <th>Tarikh Tracking</th>
-              <th>Tindakan</th>
+              <th>Week</th>
+              <th>Total Inflow (RM)</th>
+              <th>Total Outflow (RM)</th>
+              <th>Tracking Date</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -176,8 +176,7 @@ function IndexMinggu() {
               <tr>
                 <td colSpan="5">
                   <center>
-                    Tiada maklumat minggu tracking. Sila klik butang "Tambah
-                    Minggu" untuk merekodkan minggu baharu.
+                    No information on the week tracking. Click "Add Week" button to record a new week.
                   </center>
                 </td>
               </tr>
@@ -194,7 +193,7 @@ function IndexMinggu() {
                     // }
                   >
                     <td className="sc-completion-indicator">
-                      Bilangan Minggu
+                      Num. of Week
                     </td>
                     <td className="sc-completion-indicator">
                       Total Inflow
@@ -206,7 +205,7 @@ function IndexMinggu() {
                       {/* {new Date(
                         mingguPembiayaanSahabatsData.tarikhBorangMinggu
                       ).toLocaleDateString("en-GB")} */}
-                        Tarikh Borang Minggu
+                        Date on Week Form
                     </td>
                     <td>
                       {/* Conditionally render buttons based on pembiayaan status */}
@@ -232,20 +231,20 @@ function IndexMinggu() {
                               )
                             }
                           >
-                            Padam
+                            Delete
                           </Button>{" "}
                         {/* </>
                       ) : ( */}
                         {/* Render Lihat button when pembiayaan status is SELESAI */}
                         <Button
-                          className="show-btn sc-show-btn-completed-pembiayaan"
+                          className="show-btn sc-show-btn-completed-payment"
                           onClick={() =>
                             clickLihatMinggu(
                               // mingguPembiayaanSahabatsData.id
                             )
                           }
                         >
-                          Lihat
+                          View
                         </Button>
                       {/* )} */}
                     </td>

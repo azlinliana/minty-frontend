@@ -39,12 +39,12 @@ function IndexTrackingOutflowSahabat() {
         <Table responsive>
           <thead>
             <tr>
-              <th>Bil.</th>
-              <th>Kod Outflow</th>
-              <th>Keterangan Kod Outflow</th>
-              <th>Amaun (RM)</th>
+              <th>Num.</th>
+              <th>Outflow Code</th>
+              <th>Outflow Code Explanation</th>
+              <th>Total Outflow (RM)</th>
               {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-                <th>Tindakan</th>
+                <th>Actions</th>
               {/* ) : null} */}
             </tr>
           </thead>
@@ -53,8 +53,7 @@ function IndexTrackingOutflowSahabat() {
               <tr>
                 <td colSpan="5">
                   <center>
-                    Tiada maklumat tracking outflow sahabat. Sila klik butang
-                    "Tambah" untuk merekodkan outflow sahabat baharu.
+                    There is no information on customer outflow tracking. Click "Add" button to create a new record.
                   </center>
                 </td>
               </tr>
@@ -62,10 +61,10 @@ function IndexTrackingOutflowSahabat() {
               {/* outflowSahabats.map((outflowSahabatsData, key) => ( */}
                 {/* <tr key={key}> */}
                 <tr>
-                  <td>Bil</td>
-                  <td>Kod Outflow</td>
-                  <td>Keterangan Kod Outflow</td>
-                  <td>Amaun Outflow</td>
+                  <td>Num.</td>
+                  <td>Outflow Code</td>
+                  <td>Outflow Code Explanation</td>
+                  <td>Outflow Total</td>
                   {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
                     <td>
                       <EditTrackingOutflowSahabat
@@ -80,7 +79,7 @@ function IndexTrackingOutflowSahabat() {
                         //   deleteOutflowSahabat(outflowSahabatsData.id)
                         // }
                       >
-                        Padam
+                        Delete
                       </Button>{" "}
                     </td>
                   {/* ) : null} */}

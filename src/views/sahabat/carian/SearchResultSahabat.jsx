@@ -22,17 +22,17 @@ function SearchResultSahabat() {
   return (
     <>
       <div className="page-title">
-        <h1>Hasil Carian Sahabat</h1>
+        <h1>Customer Search Result</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item
             className="breadcrumb-previous-link"
             href="/carian-sahabat"
           >
-            Carian Sahabat
+            Customer Search
           </Breadcrumb.Item>
 
-          <Breadcrumb.Item active>Hasil Carian Sahabat</Breadcrumb.Item>
+          <Breadcrumb.Item active>Customer Search Result</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -40,13 +40,13 @@ function SearchResultSahabat() {
       <div>
         <div className="search-result-id">
           {/* <p>Hasil Carian: {sahabatData.noKadPengenalanSahabat}</p> */}
-          <p>Hasil Carian: No Kad Pengenalan Sahabat</p>
+          <p>Search Result: Customer ID</p>
         </div>
 
-        <div className="hasil-carian-sahabat-content">
+        <div className="customer-search-result-content">
           <div className="customer-details-container">
-            <div className="hasil-carian-sahabat-title">
-              <h2>Maklumat Sahabat</h2>
+            <div className="customer-search-result-title">
+              <h2>Customer Details</h2>
             </div>
 
             <Container fluid>
@@ -54,11 +54,11 @@ function SearchResultSahabat() {
               <Row>
                 <Col xs={12}>
                   <Form.Group>
-                    <Form.Label>Nama</Form.Label>
+                    <Form.Label>Name</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Sahabat"
+                      value="Customer Name"
                       disabled
                     />
                   </Form.Group>
@@ -68,24 +68,24 @@ function SearchResultSahabat() {
               {/* No. kad pengenalan sahabat */}
               <Row>
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>No. Kad Pengenalan</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Customer ID</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="No Kad Pengenalan Sahabat"
+                      value="Customer ID"
                       disabled
                     />
                   </Form.Group>
                 </Col>
 
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>No. Sahabat</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Customer Num.</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="No Sahabat"
+                      value="Customer Num."
                       disabled
                     />
                   </Form.Group>
@@ -95,24 +95,24 @@ function SearchResultSahabat() {
               {/* Wilayah sahabat */}
               <Row>
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>Wilayah</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>State</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Wilayah"
+                      value="State"
                       disabled
                     />
                   </Form.Group>
                 </Col>
 
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>Cawangan</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Branch</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Cawangan"
+                      value="Branch"
                       disabled
                     />
                   </Form.Group>
@@ -122,24 +122,24 @@ function SearchResultSahabat() {
               {/* Blok sahabat */}
               <Row>
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>Blok</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Block</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Blok"
+                      value="Block"
                       disabled
                     />
                   </Form.Group>
                 </Col>
 
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>Pusat</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Center</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Pusat"
+                      value="Center"
                       disabled
                     />
                   </Form.Group>
@@ -149,12 +149,12 @@ function SearchResultSahabat() {
               {/* Kumpulan sahabat */}
               <Row>
                 <Col xs={6}>
-                  <Form.Group className="sahabat-carian-spacing">
-                    <Form.Label>Kumpulan</Form.Label>
+                  <Form.Group className="customer-search-spacing">
+                    <Form.Label>Group</Form.Label>
 
                     <Form.Control
                       type="text"
-                      value="Nama Kumpulan"
+                      value="Group"
                       disabled
                     />
                   </Form.Group>
@@ -176,7 +176,7 @@ function SearchResultSahabat() {
 
         <div className="return-btn-container">
           <Button className="return-btn" onClick={goBack}>
-            Kembali
+            Back
           </Button>{" "}
         </div>
       </div>
