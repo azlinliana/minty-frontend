@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import "../../assets/styles/styles_customer.css";
+import "../../assets/styles/styles_customers.css";
 
 export default function SearchCustomer() {
   return (
@@ -49,7 +49,12 @@ export default function SearchCustomer() {
             </Col>
 
             <Col xs={12} lg={2} className="searchbar-btn-container">
-              <Button className="searchbar-btn"><span><FaSearch /></span> Search</Button>
+              <Button className="searchbar-btn">
+                <span>
+                  <FaSearch />
+                </span>{" "}
+                Search
+              </Button>
             </Col>
           </Row>
         </Form>
