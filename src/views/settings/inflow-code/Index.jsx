@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_selenggara.css";
+import "../../../assets/styles/styles_settings.css";
 import CreateInflowCode from "./Create";
 import EditWithoutDetailedInflowCode from "./Edit/EditWithoutDetailedInflowCode";
 import EditWithDetailedInflowCode from "./Edit/EditWithDetailedInflowCode";
@@ -53,7 +53,7 @@ function IndexInflowCode() {
           </Breadcrumb>
         </div>
 
-        <div className="selenggara-table-container">
+        <div className="settings-table-container">
           <div className="create-btn-container">
             <CreateInflowCode />
           </div>

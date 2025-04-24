@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/styles/styles_selenggara.css";
+import "../../assets/styles/styles_settings.css";
 import { Table, Button } from "react-bootstrap";
 
 function IndexSettings() {
@@ -20,13 +20,13 @@ function IndexSettings() {
           <h1>Settings List</h1>
         </div>
 
-        <div className="selenggara-table-container">
+        <div className="settings-table-container">
           <Table responsive>
             <thead>
               <tr>
-                <th className="selenggara-table-index">No.</th>
+                <th className="settings-table-index">No.</th>
                 <th>Items</th>
-                <th className="selenggara-table-action-btn-container">
+                <th className="settings-table-action-btn-container">
                   Action
                 </th>
               </tr>
@@ -34,11 +34,11 @@ function IndexSettings() {
 
             <tbody>
               <tr>
-                <td className="selenggara-table-index">1</td>
+                <td className="settings-table-index">1</td>
                 <td>Inflow Code</td>
                 <td>
                   <Button
-                    className="selenggara-table-action-btn"
+                    className="settings-table-action-btn"
                     onClick={clickViewInflowCode}
                   >
                     View
@@ -47,11 +47,11 @@ function IndexSettings() {
               </tr>
 
               <tr>
-                <td className="selenggara-table-index">2</td>
+                <td className="settings-table-index">2</td>
                 <td>Outflow Code</td>
                 <td>
                   <Button
-                    className="selenggara-table-action-btn"
+                    className="settings-table-action-btn"
                     onClick={clickViewOutflowCode}
                   >
                     View
@@ -60,11 +60,11 @@ function IndexSettings() {
               </tr>
 
               <tr>
-                <td className="selenggara-table-index">3</td>
+                <td className="settings-table-index">3</td>
                 <td>Loan</td>
                 <td>
                   <Button
-                    className="selenggara-table-action-btn"
+                    className="settings-table-action-btn"
                     onClick={clickViewLoan}
                   >
                     View
@@ -73,11 +73,11 @@ function IndexSettings() {
               </tr>
 
               <tr>
-                <td className="selenggara-table-index">4</td>
+                <td className="settings-table-index">4</td>
                 <td>Relationship</td>
                 <td>
                   <Button
-                    className="selenggara-table-action-btn"
+                    className="settings-table-action-btn"
                     onClick={clickViewRelationship}
                   >
                     View

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_selenggara.css";
+import "../../../assets/styles/styles_settings.css";
 import CreateLoan from "./Create";
 import EditLoan from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
@@ -45,7 +45,7 @@ function IndexLoan() {
         </Breadcrumb>
       </div>
 
-      <div className="selenggara-table-container">
+      <div className="settings-table-container">
         <div className="create-btn-container">
           <CreateLoan />
         </div>
@@ -100,7 +100,7 @@ function IndexLoan() {
 
         <div className="return-btn-container">
           <Button className="return-btn" onClick={goBack}>
-            Kembali
+            Back
           </Button>{" "}
         </div>
       </div>

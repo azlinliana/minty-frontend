@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_selenggara.css";
+import "../../../assets/styles/styles_settings.css";
 import CreateOutflowCode from "./Create";
 import EditOutflowCode from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
@@ -45,7 +45,7 @@ function IndexOutflowCode() {
         </Breadcrumb>
       </div>
 
-      <div className="selenggara-table-container">
+      <div className="settings-table-container">
         <div className="create-btn-container">
           <CreateOutflowCode />
         </div>

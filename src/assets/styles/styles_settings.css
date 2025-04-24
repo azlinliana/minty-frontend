@@ -1,0 +1,51 @@
+.page-title {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* Index settings */
+
+.settings-table-container {
+    margin: auto 20px;
+    font-size: 14px;
+}
+
+.settings-table-container th {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.settings-table-index {
+    width: 5%;
+    text-align: center;
+}
+
+.settings-table-action-btn-container {
+    width: 15%;
+    text-align: center;
+}
+
+.settings-table-action-btn {
+    width: 100%;
+}
+
+/* settings pages */
+
+.add-btn-placement {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-btn-placement {
+    margin-bottom: 5px;
+}
+
+/* Breadcrumb */
+.previousLink a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.active {
+    font-weight: 700;
+}

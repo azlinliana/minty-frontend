@@ -32,7 +32,7 @@ function IndexTrackingInflowSahabat({
     <>
       <div className="sahabat-pembiayaan-table-container">
         {/* {pembiayaanSahabatsData.statusPembiayaan !== "SELESAI" ? ( */}
-          <div className="tambahBtnPlacement">
+          <div className="add-btn-placement">
             <CreateTrackingInflowSahabat
               // mingguId={mingguId}
               // kodInflowOptions={kodInflowOptions}
