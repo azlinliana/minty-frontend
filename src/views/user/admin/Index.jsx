@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_pengguna.css";
+import "../../../assets/styles/styles_users.css";
 import SearchAdmin from "./Search";
 import EditAdmin from "./Edit";
 import { Breadcrumb, Button, Table } from "react-bootstrap";
@@ -43,13 +43,13 @@ function IndexAdmin() {
       </div>
 
       <div>
-        <div className="pengguna-search-pg-header">
+        <div className="user-search-pg-header">
           <h2>Search & Add Admin</h2>
 
           <SearchAdmin />
         </div>
 
-        <div className="pengguna-search-result-container">
+        <div className="user-search-result-container">
           <h2>Admin List</h2>
 
           <div>

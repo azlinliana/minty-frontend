@@ -2,22 +2,22 @@
 /* ****** PENGGUNA INDEX PAGE ****** */
 /* ******************************** */
 
-.pengguna-table-container {
+.user-table-container {
   margin: auto 20px;
   font-size: 14px;
 }
 
-.pengguna-table-index {
+.user-table-index {
   width: 5%;
   text-align: center;
 }
 
-.pengguna-table-cta {
+.user-table-cta {
   width: 15%;
   text-align: center;
 }
 
-.pengguna-index-pg-btn {
+.user-index-pg-btn {
   width: 100%;
 }
 
@@ -26,21 +26,21 @@
 /* ****** SEARCH COMPONENT ****** */
 /* ****************************** */
 
-.pengguna-search-pg-header {
+.user-search-pg-header {
   margin-left: 20px;
 }
 
-.pengguna-search-pg-header h2 {
+.user-search-pg-header h2 {
   font-weight: 600;
   font: 16px;
 }
 
-.pengguna-search-bar-container {
+.user-search-bar-container {
   border-radius: 10px;
   padding-left: 0;
 }
 
-.pengguna-search-bar {
+.user-search-bar {
   margin: 20px 0;
   background-color: var(--grayscale-white);
   border: 1px solid #dedede;
@@ -48,24 +48,24 @@
   padding: 15px 20px 10px 10px;
 }
 
-.pengguna-carian-search-btn {
+.user-search-btn {
   width: 100%;
 }
 
-.pengguna-carian-input-field {
+.user-search-input-field {
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-.pengguna-search-result-container {
-  background-color: var(--grayscale-var(--grayscale-white));
+.user-search-result-container {
+  background-color: var(--white);
   padding: 10px;
   margin-left: 20px;
   margin-right: 10px;
 }
 
 @media(max-width: 767px) {
-  .pengguna-carian-search-btn {
+  .user-search-btn {
     margin: 10px auto 10px 12px;
     width: 95%;
   }

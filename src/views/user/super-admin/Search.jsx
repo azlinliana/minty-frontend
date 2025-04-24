@@ -36,23 +36,23 @@ function SearchSuperAdmin() {
 
   return (
     <>
-      <Container fluid className="pengguna-search-bar-container">
+      <Container fluid className="user-search-bar-container">
         <Form
-          className="pengguna-search-bar"
+          className="user-search-bar"
           onSubmit={handleSubmit(handleSearchUser)}
           onReset={reset}
         >
           <Row>
-            <Form.Group controlId="idKakitangan" className="col-md-10">
+            <Form.Group controlId="staffId" className="col-md-10">
               <Form.Control
-                className="pengguna-carian-input-field"
+                className="user-search-input-field"
                 type="text"
-                // {...register("idKakitangan", { required: true })}
-                // aria-invalid={errors.idKakitangan ? "true" : "false"}
+                // {...register("staffId", { required: true })}
+                // aria-invalid={errors.staffId ? "true" : "false"}
                 placeholder="Insert staff id"
               />
 
-              {/* {errors.idKakitangan?.type === "required" && ( */}
+              {/* {errors.staffId?.type === "required" && ( */}
                 <small className="text-danger">
                   Staff id is required.
                 </small>

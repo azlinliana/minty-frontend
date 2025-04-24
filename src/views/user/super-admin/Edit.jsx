@@ -24,10 +24,10 @@ function EditSuperAdmin({ superAdmin }) {
   // ___________________________________ Backend __________________________________
   // Set default values when the kemas kini super admin modal is opened
   // useEffect(() => {
-  //   setValue("idKakitangan", superAdmin.user.idKakitangan);
-  //   setValue("namaKakitangan", superAdmin.user.namaKakitangan);
-  //   setValue("lokasiKakitangan", superAdmin.user.lokasiKakitangan);
-  //   setValue("jawatanKakitangan", superAdmin.user.jawatanKakitangan);
+  //   setValue("staffId", superAdmin.user.idKakitangan);
+  //   setValue("staffName", superAdmin.user.staffName);
+  //   setValue("staffLocation", superAdmin.user.staffLocation);
+  //   setValue("staffPosition", superAdmin.user.staffPosition);
   //   setValue("statusSuperAdmin", superAdmin.statusSuperAdmin);
   // }, [superAdmin, setValue]);
 
@@ -60,46 +60,46 @@ function EditSuperAdmin({ superAdmin }) {
 
           <Form onReset={reset}>
             <Modal.Body>
-              <Form.Group controlId="idKakitangan" className="mb-3">
+              <Form.Group controlId="staffId" className="mb-3">
                 <Form.Label className="form-label">Staff Id</Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("idKakitangan", { required: true })}
+                  // {...register("staffId", { required: true })}
                   readOnly
                 />
               </Form.Group>
 
-              <Form.Group controlId="namaKakitangan" className="mb-3">
+              <Form.Group controlId="staffName" className="mb-3">
                 <Form.Label className="form-label">Staff Name</Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("namaKakitangan", { required: true })}
+                  // {...register("staffName", { required: true })}
                   readOnly
                 />
               </Form.Group>
 
-              <Form.Group controlId="lokasiKakitangan" className="mb-3">
+              <Form.Group controlId="staffLocation" className="mb-3">
                 <Form.Label className="form-label">
                   Staff Location
                 </Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("lokasiKakitangan", { required: true })}
+                  // {...register("staffLocation", { required: true })}
                   readOnly
                 />
               </Form.Group>
 
-              <Form.Group controlId="jawatanKakitangan" className="mb-3">
+              <Form.Group controlId="staffPosition" className="mb-3">
                 <Form.Label className="form-label">
                   Staff Position
                 </Form.Label>
 
                 <Form.Control
                   type="text"
-                  // {...register("jawatanKakitangan", { required: true })}
+                  // {...register("staffPosition", { required: true })}
                   readOnly
                 />
               </Form.Group>
