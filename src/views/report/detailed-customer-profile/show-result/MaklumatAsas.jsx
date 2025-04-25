@@ -4,12 +4,12 @@ import Table from "react-bootstrap/Table";
 function MaklumatAsas({ maklumatAsasData }) {
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>Section A: Basic Information</h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <tbody>
             <tr>
               <th>1.</th>

@@ -1,5 +1,5 @@
 import { Button, Table, Container } from "react-bootstrap";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 
 function SearchResultReport2({
   resultTf01ByCawangan,
@@ -17,7 +17,7 @@ function SearchResultReport2({
   };
   return (
     <>
-      <div className="laporan-search-result-container">
+      <div className="report-search-result-container">
         <div>
           <h3>
             Search Result: Region - {selectedWilayah.namaWilayah} , Branch -{" "}

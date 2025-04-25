@@ -60,24 +60,24 @@ function PendapatanVSPerbelanjaanSumberPengusaha({
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
-          <h1>Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan</h1>
+      <div className="report-table-container">
+        <div className="report-table-header">
+          <h1>Section F: Cumulative Details (Income vs Expenses)</h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <thead>
             <tr>
               {allKeys.map((key) => (
                 <th key={key}>{key !== "Kod" ? `${key} (RM)` : key}</th>
               ))}
-              <th>Jumlah (RM)</th>
+              <th>Total (RM)</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td>PENDAPATAN</td>
+              <td>INCOME</td>
               <td>{renderCell(formatMoney(sahabatPendapatan))}</td>
               {/* Loop through isiRumah for Pendapatan */}
               {isiRumahKeys.map((key) => (
@@ -88,7 +88,7 @@ function PendapatanVSPerbelanjaanSumberPengusaha({
               <td>{renderCell(formatMoney(totalPendapatan))}</td>
             </tr>
             <tr>
-              <td>PERBELANJAAN</td>
+              <td>EXPENSES</td>
               <td>{renderCell(formatMoney(sahabatPerbelanjaan))}</td>
               {/* Loop through isiRumah for Perbelanjaan */}
               {isiRumahKeys.map((key) => (
@@ -99,7 +99,7 @@ function PendapatanVSPerbelanjaanSumberPengusaha({
               <td>{renderCell(formatMoney(totalPerbelanjaan))}</td>
             </tr>
             <tr>
-              <td>BAKI (RM)</td>
+              <td>BALANCE (RM)</td>
               <td>{renderCell(formatMoney(bakiSahabat))}</td>
               {/* Loop through bakiIsiRumah for each isi rumah */}
               {isiRumahKeys.map((key) => (

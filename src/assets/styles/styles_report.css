@@ -33,40 +33,40 @@
 /* ************** PROFIL SAHABAT ************ */
 /* ****************************************** */
 
-.report-maklumat-sahabat-details-container {
+.report-customer-details-container {
     margin: 0 20px;
 }
 
-.report-maklumat-sahabat-details {
+.report-customer-details {
     background-color: var(--grayscale-var(--grayscale-white));
     padding: 10px 20px 20px 20px;
 }
 
-.report-carian-skim-pembiayaan-sahabat-container {
+.report-search-payment-type-container {
     margin: 30px 15px;
     padding: 15px 15px 30px 15px;
     background-color: var(--grayscale-var(--grayscale-white));
 }
 
-.report-carian-skim-pembiayaan-sahabat-container h3 {
+.report-search-payment-type-container h3 {
     margin: 10px 12px;
 }
 
-.report-carian-skim-pembiayaan-sahabat-btn {
+.report-search-payment-type-btn {
   width: 100%;
 }
 
-.report-hasil-carian-skim-pembiayaan-container {
+.report-search-result-payment-type-container {
   margin: 30px 15px;
   padding: 20px;
   background-color: var(--grayscale-var(--grayscale-white));
 }
 
-.sc-kembali-btn-sahabat {
+.sc-cancel-btn-sahabat {
     margin-right: 14px;
 }
 
-.view-skim-pembiayaan-sahabat-btn {
+.view-customer-payment-type-btn {
   font-size: 0.75em;
   font-weight: 700;
   border-color: #FFAE42;
@@ -74,7 +74,7 @@
   margin-bottom: 10px;
 }
 
-.report-profil-sahabat-details {
+.report-customer-profile-details {
     background-color: var(--grayscale-white);
     border: 1px solid var(--grayscale-white);
     border-radius: 5px;
@@ -83,15 +83,15 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.report-profil-sahabat-details p {
+.report-customer-profile-details p {
     margin: 5px 5px;
 }
 
-.sc-report-profil-sahabat-terperinci-spacing {
+.sc-report-detailed-customer-profile-spacing {
     margin-top: 10px;
 }
 
-.report-profil-sahabat-action-bts-container {
+.report-customer-profile-action-bts-container {
   display: flex;
   align-items: center; 
   gap: 10px;
@@ -123,7 +123,7 @@
   margin: 5px auto; 
 }
 
-.report-profil-sahabat-chart-dropdown {
+.report-customer-profile-chart-dropdown {
   float: right;
   margin-bottom: 10px;
 }
@@ -132,7 +132,7 @@
   border: 1px solid #000;
 }
 
-.report-profil-sahabat-bhgn-c-styling {
+.report-customer-profile-section-c-styling {
   width: 200px;
   height: 400px;
   background-color: var(--grayscale-white);
@@ -140,7 +140,7 @@
   margin-bottom: 20px;
 }
 
-.sc-report-penerangan-kod {
+.sc-report-code-details {
   padding-top: 5px;
   padding-bottom: 5px;
   border: 1px solid #000;
@@ -148,7 +148,7 @@
   background-color: var(--grayscale-white);
 }
 
-.sc-report-penerangan-kod p {
+.sc-report-code-details p {
   margin-left: 10px;
   margin-bottom: 0;
   font-weight: bold;
@@ -167,11 +167,11 @@
     font: 16px;
 }
 
-.jadual-search-bar-section {
+.table-search-bar-section {
     margin: 0 20px;
 }
 
-.jadual-search-bar {
+.table-search-bar {
     margin: 20px auto;
     width: 100%;
     background-color: var(--grayscale-white);
@@ -180,7 +180,7 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.report-jadual-carian-btn-container {
+.report-table-carian-btn-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
@@ -192,27 +192,27 @@
 }
 
 @media (max-width: 767px) {
-    .jadual-search-bar-section {
+    .table-search-bar-section {
       width: 90%;
       margin: 0 auto;
     }
   
-    .report-carian-skim-pembiayaan-sahabat-btn {
+    .report-search-payment-type-btn {
       margin-top: 10px;
       width: 100%;
     }
   
-    .report-profil-sahabat-chart-dropdown {
+    .report-customer-profile-chart-dropdown {
       width: 100%;
     }
   
-    .report-jadual-carian-btn {
+    .report-table-carian-btn {
       width: 100%;
     }
   }
   
   @media (min-width: 768px) {
-    .report-jadual-carian-btn {
+    .report-table-carian-btn {
       width: 120px;
     }
   }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 import SearchResultPembiayaanSahabat from "./SearchResult";
 import {
   Breadcrumb,
@@ -58,29 +58,29 @@ function SearchCustomerProfile() {
   return (
     <>
       <div className="page-title">
-        <h1>Carian Pembiayaan Sahabat</h1>
+        <h1>Search Customer Payment</h1>
 
         <Breadcrumb>
           <Breadcrumb.Item className="breadcrumb-previous-link">
-            Senarai Laporan
+            List of Reports
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Carian Pembiayaan Sahabat</Breadcrumb.Item>
+          <Breadcrumb.Item active>Search Customer Payment</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <React.Fragment key={sahabatData.noSahabat}>
         {/* Sahabat information */}
         <div>
-          <div className="laporan-search-pg-header">
-            <h2>Maklumat Sahabat</h2>
+          <div className="report-search-pg-header">
+            <h2>Customer Details</h2>
           </div>
 
-          <div className="laporan-maklumat-sahabat-details-container">
-            <Container fluid className="laporan-maklumat-sahabat-details">
+          <div className="report-customer-details-container">
+            <Container fluid className="report-customer-details">
               <Row>
                 <Col xs={12}>
                   <Form.Group controlId="namaSahabat">
-                    <Form.Label className="form-label">Nama</Form.Label>
+                    <Form.Label className="form-label">Name</Form.Label>
 
                     <Form.Control
                       type="text"
@@ -92,11 +92,11 @@ function SearchCustomerProfile() {
                 </Col>
               </Row>
 
-              <Row className="sc-laporan-profil-sahabat-terperinci-spacing">
+              <Row className="sc-report-detailed-customer-profile-spacing">
                 <Col xs={6}>
                   <Form.Group controlId="noKadPengenalanSahabat">
                     <Form.Label className="form-label">
-                      No. Kad Pengenalan
+                      Customer ID
                     </Form.Label>
 
                     <Form.Control
@@ -109,7 +109,7 @@ function SearchCustomerProfile() {
 
                 <Col xs={6}>
                   <Form.Group controlId="noSahabat">
-                    <Form.Label className="form-label">No. Sahabat</Form.Label>
+                    <Form.Label className="form-label">Customer Num.</Form.Label>
 
                     <Form.Control
                       type="text"
@@ -124,16 +124,15 @@ function SearchCustomerProfile() {
         </div>
 
         {/* Pembiayaan sahabat */}
-        <div className="laporan-carian-skim-pembiayaan-sahabat-container">
+        <div className="report-search-customer-payment-container">
           <div>
-            <h3>Pilih Skim Pembiayaan</h3>
+            <h3>Select Payment Scheme</h3>
           </div>
 
           <Container fluid>
             {pembiayaanSahabats.length === 0 ? (
               <Alert variant="secondary">
-                Tiada maklumat pembiayaan untuk sahabat ini. Sila isi maklumat
-                tracking sahabat dahulu.
+                There's no information on this customer's payment. Please fill in the details required first.
               </Alert>
             ) : (
               <Row>
@@ -161,7 +160,7 @@ function SearchCustomerProfile() {
                         defaultValue=""
                       >
                         <option value="" disabled>
-                          --Pilih Skim Pembiayaan--
+                          --Select Payment Scheme--
                         </option>
                         {[
                           ...new Set(
@@ -190,9 +189,9 @@ function SearchCustomerProfile() {
                       onClick={handleSubmit(
                         handleSearchResultPembiayaanVisibility
                       )}
-                      className="laporan-carian-skim-pembiayaan-sahabat-btn"
+                      className="report-search-customer-payment-btn"
                     >
-                      Cari
+                      Find
                     </Button>
                   </Col>
                 </Form>
@@ -202,7 +201,7 @@ function SearchCustomerProfile() {
         </div>
 
         {isSearchResultVisible && (
-          <div className="laporan-hasil-carian-skim-pembiayaan-container">
+          <div className="report-search-result-payment-container">
             <SearchResultPembiayaanSahabat
               sahabatData={sahabatData}
               sahabatId={sahabatId}
@@ -213,9 +212,9 @@ function SearchCustomerProfile() {
         )}
       </React.Fragment>
 
-      <div className="sc-kembali-btn-sahabat kembali-btn-container">
-        <Button className="kembali-btn" onClick={goBack}>
-          Kembali
+      <div className="sc-return-btn-customer return-btn-container">
+        <Button className="return-btn" onClick={goBack}>
+          Back
         </Button>{" "}
       </div>
     </>

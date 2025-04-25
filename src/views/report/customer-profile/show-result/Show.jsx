@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../../../assets/styles/styles_laporan.css";
+import "../../../../assets/styles/styles_report.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import MaklumatInflowOutflow from "./MaklumatInflowOutflow";
@@ -38,30 +38,30 @@ function ShowCustomerProfile() {
 
     let exportData = [
       {
-        Perkara: "ROTIF - JULAT SEDERHANA",
-        "No Kad Pengenalan":
+        Topic: "ROTIF - JULAT SEDERHANA",
+        "ID":
           profilSahabat.maklumatAsas.sahabat.noKadPengenalanSahabat,
         "Nama Sahabat": profilSahabat.maklumatAsas.sahabat.namaSahabat,
         "Nama Suami": profilSahabat.maklumatAsas.suamiSahabat,
-        Cawangan: profilSahabat.maklumatAsas.sahabat.cawangan.namaCawangan,
-        Dimensi: profilSahabat.maklumatAsas.aktiviti.dimensi.kodDimensi,
-        "Kumulatif PJM": profilSahabat.maklumatAsas.kumulatifPJM,
-        "Pengurusan Dana":
+        Branch: profilSahabat.maklumatAsas.sahabat.cawangan.namaCawangan,
+        Dimension: profilSahabat.maklumatAsas.aktiviti.dimensi.kodDimensi,
+        "PJM Cummulative": profilSahabat.maklumatAsas.kumulatifPJM,
+        "Fund Management":
           profilSahabat.maklumatAsas.aktiviti.dimensi.kodDimensi,
         Projek: profilSahabat.maklumatAsas.aktiviti.kegiatan.jenisKegiatan,
         "Loan Cycle": profilSahabat.maklumatAsas.loanCycle,
-        "Modal Pembiayaan AIM (RM)":
+        "Payment Modal(RM)":
           profilSahabat.maklumatKegiatanModal.modalPembiayaanAIM,
-        "Pendapatan daripada Modal (RM)":
+        "Income from Modal (RM)":
           profilSahabat.maklumatKegiatanModal.pendapatanDaripadaModal,
-        "Pulangan Per RM (RM)":
+        "Profit Per RM (RM)":
           profilSahabat.maklumatKegiatanModal.pulanganPerRM,
         Minggu: "", // Leave blank if not applicable
         "Inflow (RM)": "",
         "Outflow (RM)": "",
-        "Bil. Minggu": "",
-        "Bersih (RM)": "",
-        "Pendapatan daripada A1 (RM)": "",
+        "Week Num.": "",
+        "Net (RM)": "",
+        "Income from A1 (RM)": "",
       },
     ];
 
@@ -69,42 +69,42 @@ function ShowCustomerProfile() {
       (record) => {
         exportData.push({
           Perkara: "", // Leave blank if not applicable
-          "No Kad Pengenalan": "",
-          "Nama Sahabat": "",
+          "ID": "",
+          "Customer Name": "",
           "Nama Suami": "",
-          Cawangan: "",
-          Dimensi: "",
-          "Kumulatif PJM": "",
-          "Pengurusan Dana": "",
-          Projek: "",
+          Branch: "",
+          Dimension: "",
+          "PJM Cummulative": "",
+          "Fund Management": "",
+          Project: "",
           "Loan Cycle": "",
-          "Modal Pembiayaan AIM (RM)": "",
-          "Pendapatan daripada Modal (RM)": "",
-          "Pulangan Per RM (RM)": "",
+          "Payment Modal (RM)": "",
+          "Income from Modal (RM)": "",
+          "Profit Per RM (RM)": "",
           Minggu: record.minggu,
           "Inflow (RM)": record.inflow,
           "Outflow (RM)": record.outflow,
-          "Bil. Minggu": "",
-          "Bersih (RM)": "",
-          "Pendapatan daripada A1 (RM)": "",
+          "Week Num.": "",
+          "Net (RM)": "",
+          "Income from A1 (RM)": "",
         });
       }
     );
 
     exportData.push({
       Perkara: "", // Leave blank if not applicable
-      "No Kad Pengenalan": "",
-      "Nama Sahabat": "",
+      "ID": "",
+      "Customer Name": "",
       "Nama Suami": "",
-      Cawangan: "",
-      Dimensi: "",
-      "Kumulatif PJM": "",
-      "Pengurusan Dana": "",
-      Projek: "",
+      Branch: "",
+      Dimension: "",
+      "PJM Cummulative": "",
+      "Fund Management": "",
+      Project: "",
       "Loan Cycle": "",
-      "Modal Pembiayaan AIM (RM)": "",
-      "Pendapatan daripada Modal (RM)": "",
-      "Pulangan Per RM (RM)": "",
+      "Payment Modal (RM)": "",
+      "Income from Modal (RM)": "",
+      "Profit Per RM (RM)": "",
       Minggu: "",
       "Inflow (RM)":
         profilSahabat.maklumatInflowOutflowSahabat.rekodKumulatifInflowOutflow
@@ -112,13 +112,13 @@ function ShowCustomerProfile() {
       "Outflow (RM)":
         profilSahabat.maklumatInflowOutflowSahabat.rekodKumulatifInflowOutflow
           .kumaltifOutflow,
-      "Bil. Minggu":
+      "Week Num.":
         profilSahabat.maklumatInflowOutflowSahabat.rekodKumulatifInflowOutflow
           .jumlahBilanganMinggu,
-      "Bersih (RM)":
+      "Net (RM)":
         profilSahabat.maklumatInflowOutflowSahabat.rekodKumulatifInflowOutflow
           .bersih,
-      "Pendapatan daripada A1 (RM)":
+      "Income from A1 (RM)":
         profilSahabat.maklumatInflowOutflowSahabat.rekodKumulatifInflowOutflow
           .pendapatanDaripadaA1,
     });
@@ -134,9 +134,9 @@ function ShowCustomerProfile() {
       return;
     }
 
-    const fileName = `Profil Sahabat_${apiData[0]["No Kad Pengenalan"]}`;
+    const fileName = `Customer Profile_${apiData[0]["ID"]}`;
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Profil Sahabat");
+    const worksheet = workbook.addWorksheet("Customer Profile");
 
     // Define columns for the worksheet based on the keys of the first object in apiData
     worksheet.columns = Object.keys(apiData[0]).map((key) => ({
@@ -189,14 +189,14 @@ function ShowCustomerProfile() {
           <Breadcrumb.Item active>Customer Profile Report</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="laporan-profil-sahabat-details">
+        <div className="report-customer-details-details">
           <p>
             <strong>Search Result: Customer IC</strong>
           </p>
         </div>
       </div>
 
-      <div className="laporan-profil-sahabat-action-bts-container">
+      <div className="report-customer-details-action-bts-container">
         <Button onClick={clickExportProfailSahabat}>Export</Button>{" "}
         <Button onClick={handlePrintProfailSahabat}>Print</Button>{" "}
       </div>
@@ -227,8 +227,8 @@ function ShowCustomerProfile() {
       </div>
       {/* Printable area end */}
 
-      <div className="kembali-btn-container sc-kembali-btn-sahabat">
-        <Button className="kembali-btn" onClick={goBack}>
+      <div className="return-btn-container sc-return-btn-sahabat-customer">
+        <Button className="return-btn" onClick={goBack}>
           Back
         </Button>{" "}
       </div>

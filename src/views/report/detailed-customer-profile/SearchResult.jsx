@@ -82,7 +82,7 @@ function SearchResultDetailedCustomerFinancial({
                     </td>
                     <td>
                       <Button
-                        className="view-skim-pembiayaan-sahabat-btn"
+                        className="view-customer-payment-type-btn"
                         onClick={() =>
                           clickLihatPembiayaan()
                         }

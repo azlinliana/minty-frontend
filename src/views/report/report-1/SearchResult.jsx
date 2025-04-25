@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 
 
 function SearchResultReport1({ resultTF01 }) {
@@ -16,7 +16,7 @@ function SearchResultReport1({ resultTF01 }) {
 
   return (
     <>
-      <div className="laporan-search-result-container">
+      <div className="report-search-result-container">
         <h3>Search Result: Region - , Branch - , Centre -</h3>
 
         <div>

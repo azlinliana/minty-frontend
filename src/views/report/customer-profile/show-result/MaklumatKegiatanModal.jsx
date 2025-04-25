@@ -15,12 +15,12 @@ function MaklumatKegiatanModal({ maklumatKegiatanModalData }) {
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>Section B: Capital Activity Information</h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <thead>
             <tr>
               <th>Financing Capital (RM)</th>

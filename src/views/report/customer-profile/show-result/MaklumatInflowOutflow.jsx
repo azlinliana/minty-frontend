@@ -23,8 +23,8 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>Section C: Customer Inflow/Outflow Information</h1>
         </div>
 
@@ -46,7 +46,7 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                     responsive
                     striped
                     bordered
-                    className="laporan-table-styling"
+                    className="report-table-styling"
                   >
                     <thead>
                       <tr>
@@ -108,7 +108,7 @@ function MaklumatInflowOutflow({ maklumatInflowOutflowSahabatData }) {
                 <Col md={6}>
                   <h2>Weekly Cumulative Inflow/Outflow Record</h2>
 
-                  <Table striped bordered className="laporan-table-styling">
+                  <Table striped bordered className="report-table-styling">
                     <thead>
                       <tr>
                         <th>Week</th>

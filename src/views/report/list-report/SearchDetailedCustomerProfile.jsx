@@ -58,7 +58,7 @@ function SearchDetailedCustomerProfile() {
   return (
     <>
       <Button
-        className="laporan-index-pg-btn"
+        className="report-index-pg-btn"
         onClick={openModalSearchDetailedCustomerProfile}
       >
         Search
@@ -109,7 +109,7 @@ function SearchDetailedCustomerProfile() {
 
           <Modal.Footer>
             <Button
-              className="batal-btn"
+              className="cancel-btn"
               onClick={closeModalSearchDetailedCustomerProfile}
             >
               Cancel

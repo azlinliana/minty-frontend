@@ -67,21 +67,20 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>
-            Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan
-            Pengusaha
+            Section D: Cumulative Details According to Source and Entreprenuer
           </h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <thead>
             <tr>
               {allKeys.map((key) => (
                 <th key={key}>{key !== "Sumber" ? `${key} (RM)` : key}</th>
               ))}
-              <th>Jumlah (RM)</th>
+              <th>Total (RM)</th>
             </tr>
           </thead>
 
@@ -120,7 +119,7 @@ function PendapatanKumulatifSumberPengusaha({ pendapatanKumulatifSumberData }) {
             ))}
 
             <tr>
-              <td>Jumlah (RM)</td>
+              <td>Total (RM)</td>
               <td>
                 {formatMoney(
                   sahabat && sahabat.totalInflowSahabat !== undefined

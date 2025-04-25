@@ -59,7 +59,9 @@ const LineChart = ({ selectedChart, data }) => {
   const createDataset = (chartEntries, label, borderColor) => {
     return {
       label: label,
-      data: chartEntries ? chartEntries.map((entry) => entry[label.toLowerCase()]) : [],
+      data: chartEntries
+        ? chartEntries.map((entry) => entry[label.toLowerCase()])
+        : [],
       borderColor: borderColor,
       borderWidth: 2,
       fill: false,
@@ -67,7 +69,10 @@ const LineChart = ({ selectedChart, data }) => {
   };
 
   return (
-    <canvas ref={chartRef} className="laporan-profil-sahabat-bhgn-c-styling" />
+    <canvas
+      ref={chartRef}
+      className="laporan-customer-profile-section-c-styling"
+    />
   );
 };
 

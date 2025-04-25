@@ -17,12 +17,12 @@ function PendapatanKumulatifKegiatan({
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>Section C: Cumulative Income & Activity</h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <thead>
             <tr>
               <th>No.</th>
@@ -97,7 +97,7 @@ function PendapatanKumulatifKegiatan({
           </tbody>
         </Table>
 
-        <div className="sc-laporan-penerangan-kod">
+        <div className="sc-report-code-details">
           <p>**Only applicable to certain code</p>
         </div>
       </div>

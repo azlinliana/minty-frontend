@@ -14,9 +14,9 @@ function RajahInflowOutflow({ grafInflowOutflowSahabatData }) {
   };
 
   const dropdownItems = [
-    { value: "Graf Inflow", label: "Inflow" },
-    { value: "Graf Outflow", label: "Outflow" },
-    { value: "Graf Inflow Outflow", label: "Inflow/Outflow" },
+    { value: "Inflow Graph", label: "Inflow" },
+    { value: "Outflow Graph", label: "Outflow" },
+    { value: "Inflow Outflow Graph", label: "Inflow/Outflow" },
   ];
 
   // ------------ BE --------------
@@ -45,19 +45,19 @@ function RajahInflowOutflow({ grafInflowOutflowSahabatData }) {
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>Section D: Inflow/Outflow Graph Information</h1>
         </div>
 
         <Dropdown onSelect={handleSelectChart}>
           <Dropdown.Toggle
-            className="laporan-profil-sahabat-chart-dropdown"
+            className="report-customer-profile-chart-dropdown"
             id="dropdown-basic-button"
           >
             {selectedChart
               ? `Selected: ${selectedChart}`
-              : "Pilih Inflow/Outflow Sahabat"}
+              : "Select Customer Inflow/Outflow"}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>

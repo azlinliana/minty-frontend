@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../../../../assets/styles/styles_laporan.css";
+import "../../../../assets/styles/styles_report.css";
 import MaklumatAsas from "./MaklumatAsas";
 import MaklumatKegiatanModal from "./MaklumatKegiatanModal";
 import PendapatanKumulatifKegiatan from "./PendapatanKumulatifKegiatan";
@@ -52,66 +52,71 @@ function ShowDetailedCustomerProfile() {
           <Breadcrumb.Item className="breadcrumb-previous-link" href="#">
             Detailed Customer Profile List Financial
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>Detailed Customer Profile Report</Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Detailed Customer Profile Report
+          </Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className="laporan-profil-sahabat-details">
+        <div className="report-customer-profile-details">
           <p>
             <strong>Search Result: Customer IC</strong>
           </p>
         </div>
       </div>
 
-      <div className="laporan-profil-sahabat-action-bts-container">
+      <div className="report-customer-profile-action-bts-container">
         <Button onClick={handlePrint}>Print</Button>{" "}
       </div>
 
       {/* Printable area start */}
       <div ref={printRef} className="printable">
         {/* Bahagian A: Maklumat Asas */}
-        <MaklumatAsas 
-          // maklumatAsasData={profilSahabatTerperinci.maklumatAsas} 
+        <MaklumatAsas
+        // maklumatAsasData={profilSahabatTerperinci.maklumatAsas}
         />
 
         {/* Bahagian B: Maklumat Kegiatan & Modal */}
         <MaklumatKegiatanModal
-          // maklumatKegiatanModalData={
-          //   profilSahabatTerperinci.maklumatKegiatanModal
-          // }
+        // maklumatKegiatanModalData={
+        //   profilSahabatTerperinci.maklumatKegiatanModal
+        // }
         />
 
         {/* Bahagian C: Maklumat Pendapatan (Kumulatif) dan Kegiatan */}
         <PendapatanKumulatifKegiatan
-          // maklumatPendapatanKumulatifKegiatanData={
-          //   profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
-          // }
+        // maklumatPendapatanKumulatifKegiatanData={
+        //   profilSahabatTerperinci.maklumatPendapatanKumulatifKegiatan
+        // }
         />
 
         {/* Bahagian D: Maklumat Pendapatan (Kumulatif) Mengikut Sumber dan Pengusaha */}
         <PendapatanKumulatifSumberPengusaha
-          // pendapatanKumulatifSumberData={
-          //   profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
-          // }
+        // pendapatanKumulatifSumberData={
+        //   profilSahabatTerperinci.maklumatPendapatanKumulatifMengikutSumberPengusaha
+        // }
         />
 
         {/* Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan Pengusaha */}
         <PerbelanjaanKumulatifSumberPengusaha
-          // perbelanjaanKumulatifSumberData={
-          //   profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
-          // }
+        // perbelanjaanKumulatifSumberData={
+        //   profilSahabatTerperinci.maklumatPerbelanjaanKumulatifMengikutSumberPengusaha
+        // }
         />
 
         {/* Bahagian F: Maklumat Kumulatif Pendapatan vs Perbelanjaan */}
         <PendapatanVSPerbelanjaanSumberPengusaha
-          // pendapatanVSPerbelanjaanData={
-          //   profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
-          // }
+        // pendapatanVSPerbelanjaanData={
+        //   profilSahabatTerperinci.maklumatKumulatifPendapatanVSPerbelanjaan
+        // }
         />
       </div>
       {/* Printable area end */}
 
-      <div className="kembali-btn-container">
-        <Button className="kembali-btn sc-kembali-btn-sahabat" onClick={goBack}>
+      <div className="return-btn-container">
+        <Button
+          className="return-btn sc-return-btn-sahabat-customer"
+          onClick={goBack}
+        >
           Back
         </Button>{" "}
       </div>

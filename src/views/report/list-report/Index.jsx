@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 import SearchCustomerProfile from "./SearchCustomerProfile";
 import SearchDetailedCustomerProfile from "./SearchDetailedCustomerProfile";
 import { Table, Button } from "react-bootstrap";
@@ -19,20 +19,20 @@ function IndexReport() {
         <h1>Report List</h1>
       </div>
 
-      <div className="laporan-table-container">
+      <div className="report-table-container">
         <Table responsive>
           <thead>
             <tr>
-              <th className="laporan-table-index">No.</th>
+              <th className="report-table-index">No.</th>
               <th>Explanation</th>
-              <th className="laporan-table-cta">Action</th>
+              <th className="report-table-cta">Action</th>
             </tr>
           </thead>
 
           <tbody>
             {/* Customer Profile Report */}
             <tr>
-              <td className="laporan-table-index">1</td>
+              <td className="report-table-index">1</td>
               <td>Search Customer Profile</td>
               <td>
                 <SearchCustomerProfile />
@@ -41,7 +41,7 @@ function IndexReport() {
 
             {/* Detailed Customer Profile Report */}
             <tr>
-              <td className="laporan-table-index">2</td>
+              <td className="report-table-index">2</td>
               <td>Search Detailed Customer Profile</td>
               <td>
                 <SearchDetailedCustomerProfile />
@@ -50,11 +50,11 @@ function IndexReport() {
 
             {/* Jadual TF01 */}
             <tr>
-              <td className="laporan-table-index">3</td>
+              <td className="report-table-index">3</td>
               <td>Report 1</td>
               <td>
                 <Button
-                  className="laporan-index-pg-btn"
+                  className="report-index-pg-btn"
                   onClick={clickReport1}
                 >
                   View
@@ -64,11 +64,11 @@ function IndexReport() {
 
             {/* Jadual TF01 Mengikut Cawangan */}
             <tr>
-              <td className="laporan-table-index">4</td>
+              <td className="report-table-index">4</td>
               <td>Report 2</td>
               <td>
                 <Button
-                  className="laporan-index-pg-btn"
+                  className="report-index-pg-btn"
                   onClick={clickReport2}
                 >
                   View

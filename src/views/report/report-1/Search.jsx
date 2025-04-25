@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 import ResultReport1 from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";

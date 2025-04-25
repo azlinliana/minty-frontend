@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 import ResultTf01ByCawangan from "./SearchResult";
 import ErrorAlert from "../../components/sweet-alert/ErrorAlert";
 import { Container, Breadcrumb, Row, Col, Form, Button } from "react-bootstrap";
@@ -36,10 +36,10 @@ function SearchReport2() {
     displayCawangans();
   }, [displayWilayahs, displayCawangans]);
 
-  // Search jadual TF01 by cawangan
+  // Search table TF01 by cawangan
   const [resultTf01ByCawangan, setResultTF01ByCawangan] = useState([]);
 
-  const searchJadualTF01ByCawangan = async (jadualTF01ByCawanganInput) => {
+  const searchJadualTF01ByCawangan = async (tableTF01ByCawanganInput) => {
     try {
       const response = await axiosCustom.post(
         `/laporan/carian-jadual-tf01-mengikut-cawangan`,
@@ -66,19 +66,17 @@ function SearchReport2() {
           <Breadcrumb.Item className="breadcrumb-previous-link">
             Report List
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Report 2
-          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Report 2</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
       <div>
-        <div className="laporan-search-pg-header">
+        <div className="report-search-pg-header">
           <h2>Customer List Based on Branch, Block, Centre & Profit</h2>
         </div>
 
-        <div className="jadual-search-bar-section">
-          <Container fluid className="jadual-search-bar">
+        <div className="table-search-bar-section">
+          <Container fluid className="table-search-bar">
             <Form onReset={reset}>
               <Row>
                 <Col xs={12} md={6}>
@@ -170,9 +168,9 @@ function SearchReport2() {
               </Row>
             </Form>
 
-            <div className="laporan-jadual-carian-btn-container">
+            <div className="report-table-carian-btn-container">
               <Button
-                className="laporan-jadual-carian-btn"
+                className="report-table-carian-btn"
                 onClick={handleSubmit(searchJadualTF01ByCawangan)}
               >
                 Search
@@ -181,17 +179,17 @@ function SearchReport2() {
           </Container>
 
           {/* {isSearchResultTf01CawanganVisible && ( */}
-            <div className="laporan-search-result-container">
-              <ResultTf01ByCawangan
-                resultTf01ByCawangan={resultTf01ByCawangan}
-                selectedWilayah={selectedWilayah}
-                selectedCawangan={selectedCawangan}
-              />
-            </div>
+          <div className="report-search-result-container">
+            <ResultTf01ByCawangan
+              resultTf01ByCawangan={resultTf01ByCawangan}
+              selectedWilayah={selectedWilayah}
+              selectedCawangan={selectedCawangan}
+            />
+          </div>
           {/* )} */}
 
-          <div className="kembali-btn-container">
-            <Button className="kembali-btn">Back</Button>{" "}
+          <div className="return-btn-container">
+            <Button className="return-btn">Back</Button>{" "}
           </div>
         </div>
       </div>

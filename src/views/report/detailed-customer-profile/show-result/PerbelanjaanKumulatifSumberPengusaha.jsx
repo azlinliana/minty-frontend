@@ -68,15 +68,15 @@ function PerbelanjaanKumulatifSumberPengusaha({
 
   return (
     <>
-      <div className="laporan-table-container">
-        <div className="laporan-table-header">
+      <div className="report-table-container">
+        <div className="report-table-header">
           <h1>
             Bahagian E: Maklumat Perbelanjaan (Kumulatif) Mengikut Sumber dan
             Pengusaha
           </h1>
         </div>
 
-        <Table responsive striped bordered className="laporan-table-styling">
+        <Table responsive striped bordered className="report-table-styling">
           <thead>
             <tr>
               {allKeys.map((key) => (

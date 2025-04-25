@@ -57,7 +57,7 @@ function SearchCustomerProfile() {
   return (
     <>
       <Button
-        className="laporan-index-pg-btn"
+        className="report-index-pg-btn"
         onClick={openModalCarianLaporanProfilSahabat}
       >
         Search
@@ -107,7 +107,7 @@ function SearchCustomerProfile() {
 
           <Modal.Footer>
             <Button
-              className="batal-btn"
+              className="cancel-btn"
               onClick={closeModalCarianLaporanProfilSahabat}
             >
               Cancel

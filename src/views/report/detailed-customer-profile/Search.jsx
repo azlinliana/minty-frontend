@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "../../../assets/styles/styles_laporan.css";
+import "../../../assets/styles/styles_report.css";
 import SearchResultPembiayaanTerperinciSahabat from "./SearchResult";
 import {
   Breadcrumb,
@@ -74,12 +74,12 @@ function SearchCustomerDetailedProfile() {
       <React.Fragment key={sahabatData.noSahabat}>
         {/* Sahabat information */}
         <div>
-          <div className="laporan-search-pg-header">
+          <div className="report-search-pg-header">
             <h2>Maklumat Sahabat</h2>
           </div>
 
-          <div className="laporan-maklumat-sahabat-details-container">
-            <Container fluid className="laporan-maklumat-sahabat-details">
+          <div className="report-customer-details-container">
+            <Container fluid className="report-customer-details">
               <Row>
                 <Col xs={12}>
                   <Form.Group controlId="namaSahabat">
@@ -95,7 +95,7 @@ function SearchCustomerDetailedProfile() {
                 </Col>
               </Row>
 
-              <Row className="sc-laporan-profil-sahabat-terperinci-spacing">
+              <Row className="sc-report-profil-sahabat-terperinci-spacing">
                 <Col xs={6}>
                   <Form.Group controlId="noKadPengenalanSahabat">
                     <Form.Label className="form-label">
@@ -127,7 +127,7 @@ function SearchCustomerDetailedProfile() {
         </div>
 
         {/* Pembiayaan sahabat */}
-        <div className="laporan-carian-skim-pembiayaan-sahabat-container">
+        <div className="report-search-payment-type-container">
           <div>
             <h3>Pilih Skim Pembiayaan</h3>
           </div>
@@ -193,7 +193,7 @@ function SearchCustomerDetailedProfile() {
                       onClick={handleSubmit(
                         handleSearchResultPembiayaanVisibility
                       )}
-                      className="laporan-carian-skim-pembiayaan-sahabat-btn"
+                      className="report-search-payment-type-btn"
                     >
                       Cari
                     </Button>
@@ -205,7 +205,7 @@ function SearchCustomerDetailedProfile() {
         </div>
 
         {isSearchResultVisible && (
-          <div className="laporan-hasil-carian-skim-pembiayaan-container">
+          <div className="report-search-result-payment-type-container">
             <SearchResultPembiayaanTerperinciSahabat
               sahabatData={sahabatData}
               sahabatId={sahabatId}
