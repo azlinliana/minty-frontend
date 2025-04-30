@@ -12,7 +12,6 @@ Minty is a web-based application designed to help users efficiently manage their
   - [Installation](#installation)
   - [Backend Repository](#backend-repository)
   - [Contact](#contact)
-  - [Acknowledgements](#acknowledgements)
 
 ## About the Project
 
@@ -74,9 +73,6 @@ The backend for this project can be found here: [Minty Backend Repository](https
 For any inquiries or contributions, feel free to reach out:
 
 - **Nur Azlin Liana Mohd Adlan** - [LinkedIn](https://github.com/azlinliana) - azlinliana.adlan@gmail.com
-- - **Nur Aina Balqis Mohamad Rosidek** - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
+- **Nur Aina Balqis Mohamad Rosidek** - [LinkedIn](www.linkedin.com/in/nabbysidek) - nabby.sidek@gmail.com
 
-## Acknowledgements
-
-Lorem ipsum.
 
